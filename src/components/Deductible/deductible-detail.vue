@@ -11,19 +11,19 @@
           </div>
         </div>
       </div>
-<!--      <div class="header-end">-->
-<!--        <button v-if="isApproved"-->
-<!--                class="button"-->
-<!--                :disabled="isApproved">-->
-<!--            <i class="fas fa-check-circle"></i>-->
-<!--            Approved-->
-<!--          </button>-->
-<!--          <button-->
-<!--              v-else-->
-<!--              @click="approveDeductible"-->
-<!--              class="button pending">Approve All-->
-<!--          </button>-->
-<!--      </div>-->
+<!--  <div class="header-end">-->
+<!--   <button v-if="isApproved"-->
+<!--        class="button"-->
+<!--          :disabled="isApproved">-->
+<!--    <i class="fas fa-check-circle"></i>-->
+<!--     Approved-->
+<!--   </button>-->
+<!-- <button-->
+<!--   v-else-->
+<!--   @click="approveDeductible"-->
+<!--    class="button pending">Approve All-->
+<!--   </button>-->
+<!--</div>-->
     </div>
     <div class="box slide-up">
       <table class="table is-fullwidth" id="my-table">

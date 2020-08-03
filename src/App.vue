@@ -30,8 +30,6 @@ export default {
   computed: {
     ...mapGetters(['isAuth'])
   },
-
-
   methods: {
     ...mapMutations(['SET_TOKEN']),
     ...mapActions(['getMyCompany'])

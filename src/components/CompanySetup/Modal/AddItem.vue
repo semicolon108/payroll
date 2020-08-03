@@ -37,19 +37,20 @@
           </div>
         </div>
       </div>
+<!--      <div class="field">-->
+<!--        <label for="" class="label">SSO</label>-->
+<!--        <div class="control switch" >-->
+<!--          {{ form.isBeforeSso }}jkkj-->
+<!--          <div class="item"  v-for="(i, idx) in sso" :key="idx"-->
+<!--               :class="{'is-active': form.isBeforeSso === i.key}"-->
+<!--               @click="form.isBeforeSso = i.key">-->
+<!--            <span>{{ i.name }}</span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
       <div class="field">
         <label for="" class="label">Item Group</label>
-        <div class="control">
-<!--          <input type="text" class="input" placeholder="Item, Item">-->
-        </div>
           <div>
-
-<!--            <label-->
-<!--                :for="i._id" @click="itemSelect(i._id)"-->
-<!--                v-for="i in earnDeductGroups"-->
-<!--                :key="i._id">{{  i.name  }}-->
-<!--              <input  type="checkbox" name="" :id="i._id">-->
-<!--            </label>-->
             <div class="items">
               <div class="item"
                    :for="i._id"
@@ -71,6 +72,7 @@
 <script>
 import {addEarnDeduct, updateEarnDeduct} from "@/apis/earn-deduct-api";
 import {getEarnDeductGroups} from "@/apis/earn-deduct-group-api";
+import {mapGetters} from 'vuex'
 
 export default {
   data: () => ({
@@ -87,10 +89,21 @@ export default {
     taxs: [
       { key: true, name: 'Before TAX' },
       { key: false, name: 'After TAX' }
+    ],
+    sso: [
+      { key: true, name: 'Before SSO' },
+      { key: false, name: 'After SSO' }
     ]
   }),
-  created() {
-    this.getData()
+  computed: {
+    ...mapGetters(['getCompany'])
+  },
+   async created() {
+     await this.getData()
+
+     // this.form.isBeforeSso = true
+
+
   },
   methods: {
     CloseModal() {

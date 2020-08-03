@@ -41,6 +41,9 @@ export const GET_COMPANY = gql`
                 noticePeriodDay
             }
             isHiringExpat
+            private {
+                sso
+            }
         }
     }
 
@@ -88,6 +91,9 @@ export const UPDATE_COMPANY = gql`
                 email
             }
             isHiringExpat
+            private {
+                sso
+            }
         }
     }
 

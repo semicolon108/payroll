@@ -52,23 +52,6 @@
               </div>
             </td>
           </tr>
-          <!--                    <tr>-->
-          <!--                        <td class="check">-->
-          <!--                            <input type="checkbox" name="" id="check2">-->
-          <!--                            <label for="check2" @click="itemSelect('2')">Top up</label>-->
-          <!--                        </td>-->
-          <!--                        <td>Earning</td>-->
-          <!--                        <td>Ungroup</td>-->
-          <!--                        <td>After TAX</td>-->
-          <!--                        <td>-->
-          <!--                            <div class="icon-group">-->
-          <!--                                <span>-->
-          <!--                                    <span @click="ModalClick = 'EditItem'"><i class="fas fa-pen"></i></span>-->
-          <!--                                    <span @click="ModalClick = 'DeleteItem'"><i class="fas fa-trash"></i></span> -->
-          <!--                                </span>-->
-          <!--                            </div>-->
-          <!--                        </td>-->
-          <!--                    </tr>-->
           </tbody>
         </table>
       </div>
