@@ -50,6 +50,7 @@ export const GET_COMPANY = gql`
 `
 
 
+
 export const UPDATE_COMPANY = gql`
 
     mutation (
