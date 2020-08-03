@@ -220,7 +220,7 @@ export default {
         startDate: null,
         endDate: null,
         daysOfNotify: null
-      },
+      }
     },
     isEditMode: false,
 
@@ -232,8 +232,7 @@ export default {
     },
 
     companyCurrency: [],
-
-    employee: {},
+    employee: {}
 
   }),
   computed: {

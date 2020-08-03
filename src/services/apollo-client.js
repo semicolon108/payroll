@@ -4,22 +4,30 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import Vue from 'vue'
 import VueApollo from 'vue-apollo'
 import { setContext } from 'apollo-link-context'
-import {baseURL} from "@/config/variables";
-
+import {baseURL, logoutURL} from "@/config/variables";
+import { onError } from "apollo-link-error"
+import store from '../store'
 
 Vue.use(VueApollo)
 
 const authLink = setContext(async (_, { headers }) => {
-    // get the authentication token from local storage if it exists
-    const token = localStorage.getItem('accessToken')
-
-    // Return the headers to the context so httpLink can read them
+    const token = store.getters.getToken
     return {
         headers: {
             ...headers,
-            Authorization: token || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjI4ZDkzMGYxNGRmZDA4ZjE0ZjA0NjgiLCJpYXQiOjE1OTY1MTI2MzEsImV4cCI6MTYwNDI4ODYzMX0.FsnTiLi3psUcElTZbfjQA2rb0-oyblOLy9K9PDEvNdc'
+            Authorization: token || null
         }
     }
+})
+
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors)
+        graphQLErrors.forEach((err) => {
+            if(err.extensions.code === 'UNAUTHENTICATED') {
+               window.location.href = logoutURL
+            }
+        })
+    if (networkError) console.log(`[Network error]: ${networkError}`)
 })
 
 const defaultOptions = {
@@ -41,12 +49,17 @@ const httpLink = createHttpLink({
     uri: `${baseURL}/graphql`
 })
 
+
+
+const link = errorLink.concat(authLink.concat(httpLink))
+
+
 // Cache implementation
 const cache = new InMemoryCache()
 
 // Create the apollo client
 const apolloClientz = new ApolloClient({
-    link: authLink.concat(httpLink),
+    link,
     cache,
     defaultOptions
 })

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="content-container">
+    <div v-if="$store.getters.getToken" class="content-container">
       <sidebar />
       <div class="main-content">
         <navigation />
@@ -9,14 +9,6 @@
         </div>
       </div>
     </div>
-<!--    <Lottie-->
-<!--        v-if="$store.getters.isLoading"-->
-<!--    :type="$store.getters.type"-->
-<!--    />-->
-<!--    <LoadingScreen v-if="$store.getters.isLoading" />-->
-<!--    <Loader/>-->
-
-
     <DefaultLoading/>
   </div>
 </template>
