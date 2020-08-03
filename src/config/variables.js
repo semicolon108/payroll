@@ -1,5 +1,5 @@
 
 
-const isProd = process.env.NODE_ENV === 'production' ? true : false
+const isProd = process.env.NODE_ENV === 'production' && true
 
-export const baseURL = isProd ? 'https://payroll.laofix.com' : 'http://localhost:4000'
+export const baseURL = isProd ? 'https://payroll.sabai.la' : 'http://localhost:4000'
