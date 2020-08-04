@@ -9,10 +9,13 @@
         </div>
       </div>
     </div>
+    <Lottie />
+
     <LoadingScreen v-if="$store.getters.isLoading" />
   </div>
 </template>
 <script>
+import Lottie from "@coms/Loading/lottie-modal";
 import sidebar from "@coms/sidebar";
 import navigation from "@coms/navbar";
 import {mapMutations, mapGetters, mapActions} from 'vuex'
@@ -21,6 +24,7 @@ import {mapMutations, mapGetters, mapActions} from 'vuex'
 
 export default {
   components:{
+    Lottie,
     sidebar,
     navigation
   },

@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="form-header">
-      <h3>Employee Information</h3>
-      <p>Please enter the employee personal information below. The information entered in previous steps is saved and
+      <h3>Hiring Detail</h3>
+      <p>Please enter the hiring detail below. The information entered in previous steps is saved and
         you can always come back to complete this screen from the employees page.</p>
     </div>
     <ValidationObserver v-slot="{ handleSubmit }">
@@ -144,7 +144,7 @@
         </div>
 
         <hr>
-
+        <h3 class="form-title">Work Permit Notification</h3>
         <div class="columns" v-if="employee.isExpat">
           <div class="column">
             <div class="field">
@@ -176,6 +176,7 @@
             </div>
           </div>
         </div>
+        <hr>
         <button type="button" @click="handleSubmit(addOrUpdateHirringDetail)" class="button save-btn">Save and Continue
         </button>
       </div>

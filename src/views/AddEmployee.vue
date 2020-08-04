@@ -6,6 +6,21 @@
               'Edit Employee' :
               'Add Employee'
         }}</h3>
+
+        <div class="header-end">
+          <button class="button is-grey">Close</button>
+
+          <!-- isOnFinish -->
+          <button class="button">Finish</button>
+
+          <!-- isAddMode -->
+          <button class="button">Save and continue</button>
+
+          <!-- isEditMode -->
+          <button class="button">Save</button>
+
+          
+        </div>
     </div>
     <div class="steps" v-if="$route.params.id">
       <router-link
@@ -20,7 +35,7 @@
       </router-link>
       <router-link :to="{name:'hiring_detail', params: { id: $route.params.id }}" class="step">2. Hiring Detail
       </router-link>
-      <router-link :to="{name:'earning'}" class="step">3. Allowance</router-link>
+      <router-link :to="{name:'earning'}" class="step">3. Earning / Deduction</router-link>
       <router-link :to="{name:'document'}" class="step">4. Document</router-link>
     </div><!-- Step -->
     <div class="box">

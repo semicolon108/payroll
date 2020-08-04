@@ -3,7 +3,7 @@
         v-slot="{ handleSubmit }" class="form">
       <div class="form-header">
         <div>
-          <h3>Allowance</h3>
+          <h3>Earning / Deduction</h3>
           <button
               v-if="!customAllowances.length"
               @click="addCustomAllo"
@@ -51,8 +51,8 @@
         v-if="customAllowances.length"
         class="box">
       <div class="form-header">
-        <h3>Custom Allowance</h3>
-        <p>These allowances will ...</p>
+        <h3>Custom Earning / Deduction</h3>
+        <p>These Earning / Deduction will ...</p>
       </div>
 
       <!-- Custom allowance group -->
@@ -137,12 +137,14 @@
             </div>
           </div>
         </div> <!-- Columns -->
+        
         <button
             @click="addCustomAllo"
             type="button" class="button add-btn">Add
         </button>
       </div>
     </div>
+    <hr>
     <button @click="handleSubmit(addOrUpdateAllowance)" type="button" class="button save-btn">Save and Continue</button>
     </ValidationObserver>
 </template>
@@ -331,29 +333,6 @@ export default {
   margin-bottom: 0;
   color: $font-color;
   border: 1px solid $sub-color;
-}
-
-.button {
-  border-radius: 0;
-  border: none;
-  background-color: $sub-color;
-  color: #fff;
-
-  &.save-btn {
-    background-color: $primary-color;
-    color: #fff;
-    margin-top: 30px;
-
-    &:hover {
-      box-shadow: none;
-      outline: none;
-    }
-
-    &:focus {
-      box-shadow: none;
-      outline: none;
-    }
-  }
 }
 
 
