@@ -13,15 +13,15 @@
           </ValidationProvider>
         </div>
       </div>
-      <div class="field">
-        <label class="label">Work Hours / Day</label>
-        <div class="control">
-          <ValidationProvider rules="required" v-slot="{ errors }">
-            <input v-model="workingDay" type="text" class="input">
-            <p class="has-text-danger">{{ errors[0] }}</p>
-          </ValidationProvider>
-        </div>
-      </div>
+<!--      <div class="field">-->
+<!--        <label class="label">Work Hours / Day</label>-->
+<!--        <div class="control">-->
+<!--          <ValidationProvider rules="required" v-slot="{ errors }">-->
+<!--            <input v-model="workingDay" type="text" class="input">-->
+<!--            <p class="has-text-danger">{{ errors[0] }}</p>-->
+<!--          </ValidationProvider>-->
+<!--        </div>-->
+<!--      </div>-->
 
 
     

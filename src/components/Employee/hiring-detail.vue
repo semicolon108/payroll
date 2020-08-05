@@ -148,7 +148,7 @@
         </div>
 
         <hr>
-        
+
         <div class="columns" v-show="form.isExpat">
           <div class="column">
             <div class="field">

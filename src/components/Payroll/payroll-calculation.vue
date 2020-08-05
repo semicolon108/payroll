@@ -18,7 +18,9 @@
       <div class="box control">
         <div class="box-control-header">
           <div class="exchange_rate">
-            <ValidationObserver v-slot="{ handleSubmit }" tag="div" style="display: flex">
+            <ValidationObserver
+                v-if="isMulti"
+                v-slot="{ handleSubmit }" tag="div" style="display: flex">
                   <span class="select">
                     <select v-model="currencyIdx">
                       <option v-for="(i, idx) in compCurrencies" :value="idx" :key="i._id">{{
@@ -68,7 +70,8 @@
             <button
                 v-if="!payrollEmps.isCalculated"
                 @click="calcPayroll"
-                class="button is-primary">Calculate
+                class="button is-primary">
+              Calculate
             </button>
             <button
                 v-else
@@ -178,7 +181,6 @@
         pdf-format="a4"
         pdf-orientation="landscape"
         pdf-content-width="100%"
-
         ref="html2Pdf"
     >
       <section slot="pdf-content">
