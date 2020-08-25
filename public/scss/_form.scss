@@ -1,0 +1,88 @@
+.form-header{
+    margin-bottom: 30px;
+    font-size: 16px;
+    h3{
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+    p{
+        line-height: 1.5;
+    }
+}
+
+.form{
+    color: $font-color;
+    hr{
+        background-color: $border-color;
+        height: 1px;
+    }
+    .form-title{
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+    label{
+        color: $font-color;
+        font-weight: normal;
+        &:not(:last-child){
+            margin-bottom: 5px;
+        }
+    }
+    input{
+        @include input;
+    }
+    .control{
+        // Select
+        .select{
+            width: 100%;
+            select{
+                width: 100%;
+            }
+        }
+        // switch gender
+        &.option{
+            display: flex;
+            box-sizing: border-box;
+            text-align: center;
+            label{
+                width: 50%;
+                background-color: $placeholder-color;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                padding: 8px;
+                text-align: center;
+            }
+            input{
+                display: none;
+                &:checked + label{
+                    background-color: $sub-color;
+                    color: #fff;
+                }
+            }
+        }
+        &.date{
+            display: flex;
+            input{
+                &:not(:first-child){
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+    .save-btn{
+        background-color: $primary-color;
+        color: #fff;
+        border-radius: 0;
+        border: none;
+        &:hover{
+            box-shadow: none;
+            outline: none;
+        }
+        &:focus{
+            box-shadow: none;
+            outline: none;
+        }
+    }
+} // form

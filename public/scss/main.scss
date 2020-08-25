@@ -1,0 +1,98 @@
+$font: 'Roboto', 'BoonBaan', sans-serif;
+$radius: 0;
+
+//Global
+@import "./color";
+
+// Mixin
+@import "./mixin";
+
+
+@import "./screen";
+@import "./font";
+@import "./table";
+@import "./form";
+@import "./transition";
+
+body, html{
+    height: 100%;
+    font-family: $font;
+    // background-color: #f4f4fd;
+    background-color: #fff;
+}
+
+.line{
+    background-color: $border-color;
+    height: 1px;
+    margin-top: 0;
+}
+
+.box{
+    border-radius: $radius;
+    border: 1px solid $border-color;
+    box-shadow: none;
+    box-shadow: unset;
+}
+.page-header{
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    .header-start{
+        .header-title{
+            display: flex;
+            align-items: center;
+        }
+    }
+    .header-end{
+        margin-left: auto;
+        text-align: right;
+    }
+    &.bottom{
+        align-items: flex-end;
+        color: $font-color;
+    }
+    .page-title{
+        color: $font-color;
+        font-size: 20px;
+        font-weight: 700;
+        padding-bottom: calc(.375em - 1px);
+        padding-top: calc(.375em - 1px);
+    }
+    .sm-title{
+        color: $font-grey-color;
+
+    }
+    .xl-title{
+        font-size: 22px;
+        margin: 0;
+        padding: 0;
+        font-weight: normal;
+    }
+    .xxl-title{
+        font-size: 28px;
+        margin: 0;
+        padding: 0;
+        font-weight: 700;
+    }
+    
+    span{
+        cursor: pointer;
+    }
+    .button{
+        margin-left: 10px;
+        background-color: $primary-color;
+        border: none;
+        color: #fff;
+        border-radius: $radius;
+        font-size: 14px;
+        &:focus{
+            color: #fff;
+            border: none;
+            outline: none;
+        }
+        &:hover{
+            color: #fff;
+            border: none;
+        }
+    }
+}

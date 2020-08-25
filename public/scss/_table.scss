@@ -1,0 +1,123 @@
+#my-table{
+  background-color: transparent;
+  border-collapse: collapse; 
+  border-spacing: 0 10px;
+  color: $font-color;
+  margin-bottom: 0;
+  td{
+    background-color: #fff;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  thead{
+    th{
+      padding: 0 10px;
+      color: $font-grey-color;
+      border: none;
+      font-weight: normal;
+      font-size: 14px;
+      &:first-child{
+        padding-left: 0;
+      }
+      &:last-child{
+        padding-right: 0;
+      }
+      &.is-right{
+        text-align: right;
+      }
+      &.is-xxs{
+        width: 3%;
+      }
+      &.is-xs{
+          width: 10%;
+      }
+      &.is-sm{
+        width: 15%;
+      }
+      &.is-md{
+        width: 30%;
+      }
+    }
+  }
+  tbody{
+    tr{
+      // box-shadow: 0 0 0 1px $border-color;
+      border-radius: $radius;
+      border-color: $border-color;
+      td{
+        padding: 15px 10px;
+        vertical-align: middle;
+        .deduct{
+          color: $alert-color;
+        }
+        &.is-right{
+          text-align: right;
+        }
+        &:first-child{
+          padding-left: 0;
+        }
+        &:last-child{
+          padding-right: 0;
+        }
+        .photo{
+          background-image: url('https://www.cobdoglaps.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg');
+          width: 40px;
+          height: 40px;
+          background-position: center;
+          background-size: cover;
+          border-radius: 100%;
+          border: 1px solid $border-color;
+        }
+        .button-group{
+          
+          .button{
+            border: 1px solid $border-color;
+            border-radius: $radius;
+            background-color: $light-grey-color;
+          }
+        }
+        .status{
+            color: $font-color;
+            i{
+              margin-right: 5px;
+              color: $font-color;
+            }
+          &.approved{
+            color: $primary-color;
+            i{
+              margin-right: 5px;
+              color: $primary-color;
+            }
+          }
+         
+        }
+        .icons{
+          display: flex;
+          float: right;
+          cursor: pointer;
+          .icon{
+            display: flex;
+            padding: 10px;
+            color: $font-grey-color;
+            &:first-child{
+              margin-right: 5px;
+            }
+            &.alert{
+              color: $grey-color;
+            }
+            i{
+              font-size: 14px;
+              padding: 5px;
+              transition: all 0.2s cubic-bezier(.10, .10, .25, .90);
+              -webkit-transition: all 0.2s cubic-bezier(.10, .10, .25, .90);
+              -moz-transition: all 0.2s cubic-bezier(.10, .10, .25, .90);
+              &:hover{
+                transform: scale(1.2);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

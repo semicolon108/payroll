@@ -1,0 +1,549 @@
+<template>
+  <div>
+    <div class="form-header">
+      <h3>Personal Information</h3>
+      <p>Need help or have questions about adding employees? Call us at (856) 21 254709.</p>
+    </div>
+
+    <form action="" class="form">
+      <div class="columns is-multiline">
+        <div class="column is-12">
+          <div class="field">
+            <!-- <label for="" class="label">Photo</label> -->
+            <div class="control upload">
+              <div v-if="isEditMode && !file" class="photo"
+                   :style="{ 'background-image': 'url(' +  image.src + ')' }"
+              ></div>
+              <div v-else class="photo"
+                   :style="{ 'background-image': 'url(' +  profileImage + ')' }"
+              ></div>
+
+              <input ref="FileInput"
+                     @change="onFileChange"
+                     type="file" class="input">
+              <div class="upload-label">
+                <div>
+                  <h3>Employee Photo</h3>
+                  <p v-if="isEditMode">file size: {{ image.size | readSize }}</p>
+                  <p v-else>
+                    {{
+                      file ? file.name : 'Support file .jpg .gif .png | maximum size 5mb'
+                    }}</p>
+                  <p v-if="file">{{ file.size | readSize }}</p>
+                </div>
+                <div class="button" @click="chooseFile">Add Photo</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column is-4">
+          <div class="field">
+            <label for="" class="label">First Name</label>
+            <div class="control">
+              <input v-model="form.firstName" type="text" class="input" required>
+            </div>
+          </div>
+        </div>
+        <div class="column is-4">
+          <div class="field">
+            <label for="" class="label">Last Name</label>
+            <div class="control">
+              <input v-model="form.lastName" type="text" class="input" required>
+            </div>
+          </div>
+        </div>
+        <div class="column is-4">
+          <div class="field">
+            <label class="label">Gender</label>
+            <div class="control option">
+              <div v-for="i in genders" :key="i._id" style="width: 100%; cursor: pointer"
+                   @click="form.genderId = i._id"
+                   :style="form.genderId === i._id && 'background-color: grey; color: white'"
+              >
+                {{ i.name }}
+              </div>
+              <!--              <input type="radio" name="gender" id="female">-->
+              <!--              <label class="radio" for="female">Female</label>-->
+            </div>
+          </div>
+        </div>
+        <div class="column is-4">
+          <div  class="field">
+            <label for="" class="label">Date of Birth</label>
+            <DatePicker v-model="form.dateOfBirth" :defaultValue="defaultValue.dateOfBirth" class="control date"/>
+            {{ form.dateOfBirth }}
+            <!--            <div class="control date">-->
+            <!--              <input type="text" class="input" placeholder="DD" required>-->
+            <!--              <input type="text" class="input" placeholder="MM" required>-->
+            <!--              <input type="text" class="input" placeholder="YY" required>-->
+            <!--            </div>-->
+          </div>
+        </div>
+        <div class="column is-4">
+          <div class="field">
+            <label for="" class="label">Marital Status</label>
+            <select v-model="form.maritalStatusId" class="control select" style="width: 100%">
+              <option v-for="i in maritalStatuses" :value="i._id" :key="i._id" type="text" class="input" required>
+                {{ i.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="column is-4">
+          <div class="field">
+            <label for="" class="label">Nationality</label>
+            <select v-model="form.nationalityId" class="control select" style="width: 100%">
+              <option v-for="i in nationalities" :value="i._id" :key="i._id" type="text" class="input" required>
+                {{ i.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="column is-4">
+          <div class="field">
+            <label for="" class="label">Contact Number</label>
+            <div class="control">
+              <input v-model="form.contactName" type="text" class="input" required>
+            </div>
+          </div>
+        </div>
+        <div class="column is-4">
+          <div class="field">
+            <label for="" class="label">ID card / Passport No.</label>
+            <div class="control">
+              <input v-model="form.idCardOrPassport" type="text" class="input" required>
+            </div>
+          </div>
+        </div>
+        <div class="column is-4">
+          <div class="field">
+            <label for="" class="label">Email</label>
+            <div class="control">
+              <input v-model="form.email" type="text" class="input" required>
+            </div>
+          </div>
+        </div>
+        <div class="column is-4">
+          <div class="field">
+            <label for="" class="label">Social security ID</label>
+            <div class="control toggle">
+              <input v-model="form.ssoId" type="text" class="input" required>
+              <div class="sso-toggle">
+                <input v-model="form.isSso" type="checkbox" id="sso" checked>
+                <label for="sso">Use</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <h3 class="form-title">Emergency Contact</h3>
+      <div class="columns is-multiline">
+        <div class="column is-4">
+          <div class="field">
+            <label for="" class="label">Full Name</label>
+            <div class="control">
+              <input v-model="form.emergencyContact.fullName" type="text" class="input" required>
+            </div>
+          </div>
+        </div>
+        <div class="column is-4">
+          <div class="field">
+            <label for="" class="label">Relationship</label>
+            <select v-model="form.emergencyContact.relationshipId" class="control select" style="width: 100%;">
+              <option v-for="i in relationships" :value="i._id" :key="i._id" type="text" class="input" required>
+                {{ i.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="column is-4">
+          <div class="field">
+            <label for="" class="label">Contact Number</label>
+            <div class="control">
+              <input v-model="form.emergencyContact.contactNumber" type="text" class="input" required>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="form-title">Bank Account</div>
+      <div class="columns is-multiline">
+        <div class="column is-4">
+          <div class="field">
+            <label for="" class="label">Bank Name</label>
+            <div class="control">
+              <input v-model="form.bankAccount.bankName" type="text" class="input" required>
+            </div>
+          </div>
+        </div>
+        <div class="column is-4">
+          <div class="field">
+            <label for="" class="label">Account Name</label>
+            <div class="control">
+              <input v-model="form.bankAccount.accountName" type="text" class="input" required>
+            </div>
+          </div>
+        </div>
+        <div class="column is-4">
+          <div class="field">
+            <label for="" class="label">Account Number</label>
+            <div class="control">
+              <input v-model="form.bankAccount.accountNumber" type="text" class="input" required>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button v-if="isEditMode" @click=" updateEmployee" type="button" class="button save-btn">Update</button>
+      <button v-else @click=" addEmployee" type="button" class="button save-btn">Save and Continue</button>
+    </form>
+  </div>
+</template>
+
+<script>
+import {readableBytes} from "@/utils/read-file";
+import {GET_REUSES} from "@/graphql/Reuse";
+import DatePicker from "@/utils/DatePicker";
+import {ADD_EMPLOYEE, GET_EMPLOYEE, UPDATE_EMPLOYEE} from "@/graphql/Employee";
+
+export default {
+  components: {
+    DatePicker
+  },
+  data: () => ({
+    form: {
+      genderId: '',
+      maritalStatusId: '',
+      nationalityId: '',
+      relationshipId: '',
+
+      firstName: '',
+      lastName: '',
+      dateOfBirth: '',
+      contactName: '',
+      idCardOrPassport: '',
+      email: '',
+      ssoId: '',
+      isSso: false,
+      emergencyContact: {
+        fullName: '',
+        relationshipId: '',
+        contactNumber: ''
+      },
+      bankAccount: {
+        bankName: '',
+        accountName: '',
+        accountNumber: ''
+      }
+    },
+    file: null,
+    genders: [],
+    maritalStatuses: [],
+    nationalities: [],
+    relationships: [],
+    isEditMode: false,
+    image: {},
+
+    defaultValue: {
+      dateOfBirth: ''
+    }
+  }),
+  computed: {
+    profileImage() {
+      if (!this.file) return 'https://www.cobdoglaps.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg'
+      return this.$baseUrl + this.file.name
+    }
+  },
+  filters: {
+    readSize(num) {
+      return readableBytes(num)
+    }
+  },
+  async created() {
+    await this.reuseGet('Gender', 'genders', 'genderId')
+    await this.reuseGet('MaritalStatus', 'maritalStatuses', 'maritalStatusId')
+    await this.reuseGet('Nationality', 'nationalities', 'nationalityId')
+    await this.reuseGet('Relationship', 'relationships', 'emergencyContact', 'relationshipId')
+    if (this.$route.params.id) {
+      this.isEditMode = true
+      const data = await this.getEmployee(this.$route.params.id)
+      this.image = data.image ? data.image : {}
+      this.form = {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        dateOfBirth: data.dateOfBirth,
+        contactName: data.contactName,
+        idCardOrPassport: data.idCardOrPassport,
+        email: data.email,
+        ssoId: data.ssoId,
+        isSso: data.isSso,
+        emergencyContact: {
+          fullName: data.emergencyContact.fullName,
+          contactNumber: data.emergencyContact.contactNumber,
+          relationshipId: data.emergencyContact.relationshipId._id
+        },
+        bankAccount: {
+          bankName: data.bankAccount.bankName,
+          accountName: data.bankAccount.accountName,
+          accountNumber: data.bankAccount.accountNumber
+        },
+        genderId: data.genderId._id,
+        maritalStatusId: data.maritalStatusId._id,
+        nationalityId: data.nationalityId._id
+      }
+      this.defaultValue.dateOfBirth = this.form.dateOfBirth
+    } else {
+      this.form = {...this.form, ...{
+          genderId: this.form.genderId,
+          maritalStatusId: this.form.maritalStatusId,
+          nationalityId: this.form.nationalityId,
+
+          // firstName: "Phongvilai 55",
+          // lastName: "NOYPHA",
+          // dateOfBirth: null,
+          // contactName: "Bounlath",
+          // idCardOrPassport: "2343434343643346",
+          // email: "toto@gmail.com",
+          // ssoId: "P000822",
+          // isSso: true,
+          // emergencyContact: {
+          //   fullName: "Phongvilai Toto",
+          //   relationshipId: this.form.emergencyContact.relationshipId,
+          //   contactNumber: "23443"
+          // },
+          // bankAccount: {
+          //   bankName: "BCEL",
+          //   accountName: "Phongvilai toto",
+          //   accountNumber: "00990983282930"
+          // }
+        }
+      }
+    }
+  },
+  methods: {
+    async uploadImage(file) {
+      try {
+        const formData = new FormData()
+        formData.append('imageFile', file)
+        const res = await this.$axios.post('upload-image', formData)
+        this.file =  res.data.file
+      } catch (err) {
+        throw new Error(err)
+      }
+    },
+    async reuseGet(type, arr, selected, nestedSelected) {
+      try {
+        const res = await this.$apollo.query({
+          query: GET_REUSES,
+          variables: {
+            type
+          }
+        })
+        this[arr] = res.data.getReuses
+        if (nestedSelected) {
+          this.form[selected][nestedSelected] = this[arr][0]._id
+        } else this.form[selected] = this[arr][0]._id
+      } catch (err) {
+        throw new Error(err)
+      }
+    },
+    async addEmployee() {
+      try {
+        const res = await this.$apollo.mutate({
+          mutation: ADD_EMPLOYEE,
+          variables: {
+            firstName: this.form.firstName,
+            lastName: this.form.lastName,
+            dateOfBirth: this.form.dateOfBirth,
+            contactName: this.form.contactName,
+            idCardOrPassport: this.form.idCardOrPassport,
+            email: this.form.email,
+            ssoId: this.form.ssoId,
+            isSso: this.form.isSso,
+            emergencyContact: {
+              fullName: this.form.emergencyContact.fullName,
+              contactNumber: this.form.emergencyContact.contactNumber,
+              relationshipId: this.form.emergencyContact.relationshipId
+            },
+            bankAccount: {
+              bankName: this.form.bankAccount.bankName,
+              accountName: this.form.bankAccount.accountName,
+              accountNumber: this.form.bankAccount.accountNumber
+            },
+            genderId: this.form.genderId,
+            maritalStatusId: this.form.maritalStatusId,
+            nationalityId: this.form.nationalityId,
+            image: this.file ? this.file : undefined
+          }
+        })
+        await this.$router.push({ name: 'hiring_detail', params: { id: res.data.addEmployee._id } })
+      } catch (err) {
+        throw new Error(err)
+      }
+    },
+    async updateEmployee() {
+      try {
+        const res = await this.$apollo.mutate({
+          mutation: UPDATE_EMPLOYEE,
+          variables: {
+            employeeId: this.$route.params.id,
+            firstName: this.form.firstName,
+            lastName: this.form.lastName,
+            dateOfBirth: this.form.dateOfBirth,
+            contactName: this.form.contactName,
+            idCardOrPassport: this.form.idCardOrPassport,
+            email: this.form.email,
+            ssoId: this.form.ssoId,
+            isSso: this.form.isSso,
+            emergencyContact: {
+              fullName: this.form.emergencyContact.fullName,
+              contactNumber: this.form.emergencyContact.contactNumber,
+              relationshipId: this.form.emergencyContact.relationshipId
+            },
+            bankAccount: {
+              bankName: this.form.bankAccount.bankName,
+              accountName: this.form.bankAccount.accountName,
+              accountNumber: this.form.bankAccount.accountNumber
+            },
+            genderId: this.form.genderId,
+            maritalStatusId: this.form.maritalStatusId,
+            nationalityId: this.form.nationalityId,
+            image: this.file ? this.file : undefined
+          }
+        })
+        await this.$router.push({ name: 'hiring_detail', params: { id: res.data.updateEmployee._id } })
+      } catch (err) {
+        throw new Error(err)
+      }
+    },
+    async getEmployee(employeeId) {
+      try {
+        const res = await this.$apollo.query({
+          query: GET_EMPLOYEE,
+          variables: {
+            employeeId
+          }
+        })
+        return res.data.getEmployee
+      } catch (err) {
+        throw new Error(err)
+      }
+    },
+    chooseFile() {
+      this.$refs.FileInput.click()
+    },
+    async onFileChange($event) {
+      const file = $event.target.files[0];
+      const extension = file.name.split('.').pop();
+      if (extension === 'png' || extension === 'jpg' || extension === 'jpeg') {
+        await this.uploadImage(file)
+      } else {
+        alert('Not Image')
+      }
+    },
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.upload {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  .photo {
+    border: 1px solid $border-color;
+    min-width: 150px;
+    min-height: 150px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .upload-label {
+    margin-left: 10px;
+
+    h3 {
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+  }
+
+  .input {
+    display: none;
+  }
+
+  .button {
+    border: 1px solid $sub-color;
+    background-color: $sub-color;
+    color: #ffff;
+    border-radius: $radius;
+
+    &:focus {
+      box-shadow: unset;
+      box-shadow: none;
+    }
+  }
+}
+
+.toggle {
+  display: flex;
+}
+
+.sso-toggle {
+  margin-left: 10px;
+  display: flex;
+
+  label {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    &::before {
+      margin-right: 5px;
+      cursor: pointer;
+      content: '';
+      display: block;
+      width: 20px;
+      height: 20px;
+      border: 1px solid $border-color;
+      background-color: $placeholder-color;
+    }
+  }
+
+  input {
+    display: none;
+    cursor: pointer;
+    position: relative;
+
+    &:checked ~ label::after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 17px;
+      background: white;
+      width: 2px;
+      height: 2px;
+      box-shadow: 2px 0 0 white,
+      4px 0 0 white,
+      4px -2px 0 white,
+      4px -4px 0 white,
+      4px -6px 0 white,
+      4px -8px 0 white;
+      transform: rotate(45deg);
+    }
+
+    &:checked ~ label::before {
+      background-color: $primary-color;
+    }
+  }
+}
+</style>
