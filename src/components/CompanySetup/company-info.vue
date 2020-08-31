@@ -7,7 +7,7 @@
     <div class="field">
       <label for="" class="label">Company name</label>
       <div class="control">
-        <input v-model="company.name" type="text" class="input">
+        <input type="text" class="input">
       </div>
     </div>
     <div class="field">
@@ -29,7 +29,7 @@
             <div class="field">
                 <label for="" class="label">Contact name</label>
                 <div class="control">
-                    <input v-model="company.name" type="text" class="input" disabled>
+                    <input type="text" class="input" disabled>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
             <div class="field">
                 <label for="" class="label">Contact Email</label>
                 <div class="control">
-                    <input v-model="company.name" type="text" class="input" disabled>
+                    <input type="text" class="input" disabled>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
             <div class="field">
                 <label for="" class="label">Contact Number</label>
                 <div class="control">
-                    <input v-model="company.name" type="text" class="input" disabled>
+                    <input type="text" class="input" disabled>
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
             <div class="field">
                 <label for="" class="label">From Name</label>
                 <div class="control">
-                    <input v-model="company.name" type="text" class="input" disabled>
+                    <input type="text" class="input" disabled>
                 </div>
             </div>
         </div>
@@ -65,7 +65,7 @@
             <div class="field">
                 <label for="" class="label">Company Email</label>
                 <div class="control">
-                    <input v-model="company.name" type="text" class="input" disabled>
+                    <input type="text" class="input" disabled>
                 </div>
             </div>
         </div>
@@ -77,7 +77,7 @@
             <div class="field">
                 <label for="" class="label">Bank name</label>
                 <div class="control">
-                    <input v-model="company.name" type="text" class="input" disabled>
+                    <input type="text" class="input" disabled>
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@
             <div class="field">
                 <label for="" class="label">Bank account number</label>
                 <div class="control">
-                    <input v-model="company.name" type="text" class="input" disabled>
+                    <input type="text" class="input" disabled>
                 </div>
             </div>
         </div>
@@ -95,27 +95,13 @@
 </template>
 
 <script>
-import {GET_COMPANY} from "@/graphql/Company";
 
 export default {
   data: () => ({
-    company: {}
+
   }),
-  methods: {
-    async getCompany() {
-      try {
-        const res = await this.$apollo.query({
-          query: GET_COMPANY
-        })
-        this.company = res.data.getCompany
-      } catch (err) {
-        throw new Error(err)
-      }
-    }
-  },
-  created() {
-    this.getCompany()
-  }
+
+
 }
 </script>
 
