@@ -49,7 +49,7 @@
             <div class="field">
               <label class="label">Name</label>
               <div class="contro">
-                <input v-model="i.amount" type="text" class="input" placeholder="Enter default amount">
+                <input v-model="i.name" type="text" class="input" placeholder="Enter default amount">
               </div>
             </div>
           </div>
@@ -68,8 +68,7 @@
                   <div class="select">
                     <select>
                       <option>Select Type</option>
-                      <option>Earning</option>
-                      <option>Deduction</option>
+                      <option v-for="(i, idx) in types" :key="idx" :value="i">{{ i }}</option>
                     </select>
                   </div>
                 </div>
@@ -81,9 +80,9 @@
                 <div class="control">
                   <div class="select">
                     <select>
-                      <option>Select TAX</option>
-                      <option>Before TAX</option>
-                      <option>After TAX</option>
+                      <option :value="null">Select TAX</option>
+                      <option :value="true">Before TAX</option>
+                      <option :value="false">After TAX</option>
                     </select>
                   </div>
                 </div>
@@ -117,7 +116,10 @@ export default {
     allowances: [],
     fakes: [],
     customAlloId: '',
-    customAllowances: []
+    customAllowances: [],
+
+    types: ['Earning', 'Deduction'],
+
   }),
   async created() {
     await this.getEarnDeductGroups()
