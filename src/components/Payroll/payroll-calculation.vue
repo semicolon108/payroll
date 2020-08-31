@@ -15,7 +15,6 @@
           <h3 class="xl-title">300.0000.000</h3>
         </div>
       </div>
-
       <div class="box control">
         <div class="box-control-header">
           <div class="exchange_rate">
@@ -63,7 +62,7 @@
             <input v-model="searchText" type="text" class="input" placeholder="Search employee">
           </div>
           <div class="option-group">
-            <button class="button"><i class="fas fa-file-pdf"></i> Export PDF</button>
+            <button @click="generateReport" class="button"><i class="fas fa-file-pdf"></i> Export PDF</button>
           </div>
         </div>
         <table class="table is-fullwidth" id="my-table">
@@ -124,6 +123,75 @@
       </div>
     </div>
     <component :is="ModalClick" @CloseModal="ModalClick=''"></component>
+
+    <vue-html2pdf
+        :show-layout="false"
+        :enable-download="true"
+        :preview-modal="false"
+        :paginate-elements-by-height="800"
+        filename="Gen"
+        :pdf-quality="2"
+        :manual-pagination="false"
+        pdf-format="a4"
+        pdf-orientation="landscape"
+        pdf-content-width="100%"
+
+        ref="html2Pdf"
+    >
+      <section slot="pdf-content">
+        <!-- PDF Content Here -->
+
+        <div class="box" style="padding: 2rem; border: 0">
+          <table class="table is-fullwidth" id="my-table">
+            <thead>
+            <tr>
+              <th>Employee</th>
+              <th class="is-right is-xs">Work Day</th>
+              <th class="is-right">Basic Salary</th>
+              <th class="is-right">Earning (LAK)</th>
+              <th class="is-right">Deduction (LAK)</th>
+              <th class="is-right">SSO (LAK)</th>
+              <th class="is-right">TAX (LAK)</th>
+              <th class="is-right">Net Salary (LAK)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(i, idx) in filterItems" :key="idx">
+              <td>{{ i.fullName }}</td>
+              <td class="is-right">
+                <div class="workday">
+                  <div v-if="!i.isEditMode" class="edit">
+<!--                    <span @click="i.isEditMode = true"><i class="fas fa-pen"></i></span>-->
+                    <span>{{ i.workingDay }}</span>
+                  </div>
+                  <div class="workdday-input" v-if="i.isEditMode">
+                    <span @click="addOrUpdateActualWorkingDay(i.employeeId)" class="save">Save</span>
+                    <input
+                        :ref="`input${i.employeeId}`"
+                        :value="i.workingDay"
+                        class="input"
+                        type="text"
+                        style="width: 30px"
+                    >
+                    <span @click="i.isEditMode = false">&times;</span>
+                  </div>
+                </div>
+              </td>
+              <td class="is-right">{{ i.basicSalary | currency }}</td>
+              <td class="is-right">{{ i.earningAmount | currency }}</td>
+              <td class="is-right">{{ i.deductionAmount | currency }}</td>
+              <td class="is-right">{{ i.sso | currency }}</td>
+              <td class="is-right">{{ i.tax | currency }}</td>
+              <td class="is-right">{{ i.netSalary | currency }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+      </section>
+    </vue-html2pdf>
+
   </div>
 </template>
 
@@ -137,10 +205,12 @@
 import document from './Modal/document'
 import {calcPayroll, getPayrollByEmps} from "@/apis/payroll-api";
 import {addOrUpdateActualWorkingDay} from "@/apis/actual-working-day-api";
+import VueHtml2pdf from 'vue-html2pdf'
 
 export default {
   components: {
-    document
+    document,
+    VueHtml2pdf
   },
   filters: {
     currency(number) {
@@ -169,6 +239,9 @@ export default {
     }
   },
   methods: {
+    generateReport () {
+      this.$refs.html2Pdf.generatePdf()
+    },
     async getPayrollByEmps() {
       this.items = await getPayrollByEmps(this.$route.params.id)
       this.items = this.items.map(i => {
