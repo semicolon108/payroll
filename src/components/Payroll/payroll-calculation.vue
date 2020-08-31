@@ -46,18 +46,18 @@
             <button
                 @click="chooseTab = 'All'"
                 class="button"
-                :class="{'is-active': chooseTab === 'All'}"
+                :class="{'active': chooseTab === 'All'}"
             >All Employee
             </button>
             <button
                 @click="chooseTab = 'Local'"
                 class="button"
-                :class="{'is-active': chooseTab === 'Local'}"
+                :class="{'active': chooseTab === 'Local'}"
             >Local Employee</button>
             <button
                 @click="chooseTab = 'Expat'"
-                class="button active"
-                :class="{'is-active': chooseTab === 'Expat'}"
+                class="button"
+                :class="{'active': chooseTab === 'Expat'}"
             >Expat Employee</button>
             <input v-model="searchText" type="text" class="input" placeholder="Search employee">
           </div>
@@ -194,13 +194,6 @@
 
   </div>
 </template>
-
-<style lang="scss" scoped>
-.is-active {
-  text-decoration: underline;
-}
-</style>
-
 <script>
 import document from './Modal/document'
 import {calcPayroll, getPayrollByEmps} from "@/apis/payroll-api";
@@ -393,28 +386,23 @@ export default {
 .box-header {
   margin-bottom: 30px;
   display: flex;
-
   .button-group {
     display: flex;
-
     button {
       border-radius: $radius;
       margin-right: 10px;
-
       &:focus {
         box-shadow: none;
       }
-
       i {
         margin-right: 5px;
       }
-
       &.active {
         background-color: $primary-color;
         color: #fff;
+        border: 1px solid $primary-color;
       }
     }
-
     input {
       display: inline-block;
       border-radius: 0;
