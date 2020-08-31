@@ -1,29 +1,51 @@
 <template>
   <div>
-    <div class="form-header">
-      <h3>Allowance</h3>
-      <p>Please choose at least one earning group below</p>
-      <ul class="allowance-list">
-        <li v-for="i in earnDeductGroups" :key="i._id" class="allowance-list-item">
-          <p @click="changeGroup(i._id)"
-             :class="{'is-active': groupSelected === i._id}"
-          >{{ i.name }}</p>
-        </li>
-      </ul>
-    </div>
-    <div class="form">
-      <div class="columns is-multiline">
-        <div v-for="(i) in allowances" :key="i._id" class="column is-6">
-          <div class="field">
-            <label class="label">
-              {{ i.earnDeductId.name }}
-<!--              ({{ i.earnDeductId.groups.map(i => i.name).join(', ') }})-->
-            </label>
-            <input v-model="i.amount" type="text" class="input" placeholder="Enter default amount">
+    <div>
+      <div class="form-header">
+        <h3>Allowance</h3>
+        <p>Please choose at least one earning group below</p>
+        <ul class="allowance-list">
+          <li v-for="i in earnDeductGroups" :key="i._id" class="allowance-list-item">
+            <p @click="changeGroup(i._id)"
+               :class="{'is-active': groupSelected === i._id}"
+            >{{ i.name }}</p>
+          </li>
+        </ul>
+      </div>
+      <div class="form">
+        <div class="columns is-multiline">
+          <div v-for="(i) in allowances" :key="i._id" class="column is-6">
+            <div class="field">
+              <label class="label">
+                {{ i.earnDeductId.name }}
+                <!--              ({{ i.earnDeductId.groups.map(i => i.name).join(', ') }})-->
+              </label>
+              <input v-model="i.amount" type="text" class="input" placeholder="Enter default amount">
+            </div>
           </div>
         </div>
+        <button @click="addOrUpdateAllowance" type="button" class="button save-btn">Save and Continue</button>
       </div>
-      <button @click="addOrUpdateAllowance" type="button" class="button save-btn">Save and Continue</button>
+    </div>
+    <hr style="margin: 2rem 0 2rem">
+    <div>
+      <div class="form-header">
+        <h3>Custom Allowance</h3>
+      </div>
+      <div class="form">
+        <div class="columns is-multiline">
+          <div v-for="(i) in customAllowances" :key="i._id" class="column is-6">
+            <div class="field">
+              <label class="label">
+                {{ i.name }}
+                <!--              ({{ i.earnDeductId.groups.map(i => i.name).join(', ') }})-->
+              </label>
+              <input v-model="i.amount" type="text" class="input" placeholder="Enter default amount">
+            </div>
+          </div>
+        </div>
+        <button type="button" class="button save-btn">Save and Continue</button>
+      </div>
     </div>
   </div>
 </template>
@@ -31,25 +53,29 @@
 <script>
 import {getEarnDeductGroups} from "@/apis/earn-deduct-group-api";
 import {addOrUpdateAllowance, getAllowance} from "@/apis/allowance-api";
+import {getCustomAllowance} from "@/apis/custom-allowance-api";
 
 export default {
   data: () => ({
     earnDeductGroups: [],
     groupSelected: '',
     allowances: [],
-    fakes: []
+    fakes: [],
+    customAlloId: '',
+    customAllowances: []
   }),
   async created() {
     await this.getEarnDeductGroups()
     await this.getAllowance()
+    await this.getCustomAllowance()
   },
-  computed: {
-    getCurrentGroup() {
-      const me = this.earnDeductGroups.find(i => i._id === this.groupSelected)
-      if (me) return me.earnDeductIds
-      return []
-    }
-  },
+  // computed: {
+  //   getCurrentGroup() {
+  //     const me = this.earnDeductGroups.find(i => i._id === this.groupSelected)
+  //     if (me) return me.earnDeductIds
+  //     return []
+  //   }
+  // },
   methods: {
     async getEarnDeductGroups() {
       this.earnDeductGroups = await getEarnDeductGroups()
@@ -67,12 +93,17 @@ export default {
         employeeId: this.$route.params.id,
         allowances,
       }
-     await addOrUpdateAllowance(form)
+      await addOrUpdateAllowance(form)
     },
     async getAllowance() {
       const data = await getAllowance(this.$route.params.id)
       this.changeGroup(data.earnDeductGroupId._id)
       this.allowances = data.allowances
+    },
+    async getCustomAllowance() {
+      const data = await getCustomAllowance(this.$route.params.id)
+      this.customAlloId = data._id
+      this.customAllowances = data.customAllowances
     },
     changeGroup(id) {
       this.groupSelected = id

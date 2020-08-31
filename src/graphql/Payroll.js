@@ -21,17 +21,23 @@ export const GET_PAYROLL_BY_EMPS = gql`
         getPayrollByEmps(monthlyPaymentId: $monthlyPaymentId) {
             _id
             monthlyPaymentId
+            employeeId
             employeeCode
             fullName
             earningAmount
             deductionAmount
             calcAmount
-            salary
+            basicSalary
+            netSalary
             tax
             sso
+            workingDay
+            isExpat
         }
     }
-    
+
+
+
 `
 
 export const CALC_PAYROLL = gql`
@@ -44,14 +50,18 @@ export const CALC_PAYROLL = gql`
         ) {
             _id
             monthlyPaymentId
+            employeeId
             employeeCode
             fullName
             earningAmount
             deductionAmount
             calcAmount
-            salary
+            basicSalary
+            netSalary
             tax
             sso
+            workingDay
+            isExpat
         }
     }
 
