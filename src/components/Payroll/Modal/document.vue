@@ -11,29 +11,31 @@
 
       <div class="upload-box">
         <div class="upload">
-          <button class="button upload-btn">Select File</button>
+          <button @click="$refs.fileInput.click()" class="button upload-btn">Select File</button>
           <span>Support .PDF .Docx .Excel .JPG .PNG. .GIF <br> Maximum file size 5mb</span>
           <input type="file" style="display: none">
         </div>
         <!-- hidden -->
-        <input type="file" class="input is-hidden" ref="uploadFile">
+        <input
+            @change="chooseFile"
+            type="file" class="input is-hidden" ref="fileInput">
       </div>
 
       <div class="files">
-            <h3>Uploaded File</h3>
-            <div class="file" v-for="(i , index) in 3" :key="index">
-                <p>document-name.pdf</p>
-                <div class="option">
-                    <div class="alert slide-left" v-if="deleteFile">
-                        <span @click="deleteFile = !deleteFile">Cancel</span>
-                        <p class="confirm">Confirm</p>
-                    </div>
-                    <span v-if="!deleteFile" class="close slide-left" @click="deleteFile = true">
-                        <i class="fas fa-times"></i>
-                    </span>
-                </div>
+        <h3>Uploaded File</h3>
+        <div class="file" v-for="(i , index) in items" :key="index">
+          <a download :href="i.fileId.src">{{ i.name }}</a>
+          <div class="option">
+            <div class="alert slide-left" v-if="i.isDeleteMode">
+              <span @click="i.isDeleteMode = !i.isDeleteMode">Cancel</span>
+              <p @click="deleteMonthlyDoc(i._id)" class="confirm">Confirm</p>
             </div>
+            <span v-if="!i.isDeleteMode" class="close slide-left" @click="i.isDeleteMode = true">
+                  <i class="fas fa-times"></i>
+              </span>
+          </div>
         </div>
+      </div>
 
       <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
     </div>
@@ -42,15 +44,59 @@
 
 <script>
 
+import {addMonthlyDocument, deleteMonthlyDocument, getMonthlyDocuments} from "@/apis/monthly-document-api";
+
 export default {
-    data: () => ({
-        deleteFile: false,
-    }),
-    methods:{
-        CloseModal(){
-            this.$emit('CloseModal')
-        },
+  data: () => ({
+    deleteFile: false,
+    items: []
+  }),
+  created() {
+    this.getMonthlyDocs()
+  },
+  methods: {
+    CloseModal() {
+      this.$emit('CloseModal')
     },
+    async getMonthlyDocs() {
+      this.items = await getMonthlyDocuments(this.$route.params.id)
+      this.items = this.items.map(i => {
+        return {
+          ...i,
+          isDeleteMode: false
+        }
+      })
+    },
+    async chooseFile($event) {
+      const file = $event.target.files[0]
+      const formData = new FormData()
+      formData.append('file', file)
+      const res = await this.$axios.post('upload-document', formData)
+      this.$refs.fileInput.value = null
+      const fileInput = res.data.file
+      await this.addMonthlyDoc(file.name, fileInput)
+    },
+    async addMonthlyDoc(name, fileInput) {
+      const form = {
+        monthlyPaymentId: this.$route.params.id,
+        name,
+        fileInput
+      }
+      const data = await addMonthlyDocument(form)
+      this.items.push(data)
+      this.items = this.items.map(i => {
+        return {
+          ...i,
+          isDeleteMode: false
+        }
+      })
+    },
+    async deleteMonthlyDoc(id) {
+      await deleteMonthlyDocument(id)
+      const curIdx = this.items.findIndex(i=>i._id === id)
+      this.items.splice(curIdx, 1)
+    }
+  }
 }
 </script>
 
@@ -145,56 +191,64 @@ export default {
     }
   }
 
-  .files{
-    h3{
-        font-size: 16px;
-        color: $font-color;
-        margin-bottom: 10px;
-        font-weight: 700;
+  .files {
+    h3 {
+      font-size: 16px;
+      color: $font-color;
+      margin-bottom: 10px;
+      font-weight: 700;
     }
-    .file{
-        cursor: pointer;
-        color: $font-color;
+
+    .file {
+      cursor: pointer;
+      color: $font-color;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 5px 0;
+
+      &:hover {
+        font-weight: bold;
+        color: $primary-color;
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 5px;
+      }
+
+      .option {
+        margin-left: auto;
         display: flex;
         align-items: center;
-        position: relative;
-        padding: 5px 0;
-        &:hover{
-            font-weight: bold;
-            color: $primary-color;
+
+        .close {
+          margin-left: auto;
+          cursor: pointer;
         }
-        &:not(:last-child){
-            margin-bottom: 5px;
+
+        .alert {
+          display: flex;
+          position: absolute;
+          align-items: center;
+          right: 0;
+          z-index: 0;
+
+          span {
+            cursor: pointer;
+          }
+
+          .confirm {
+            margin-left: 10px;
+            padding: 4px 8px;
+            background-color: $alert-color;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+          }
         }
-        .option{
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            .close{
-                margin-left: auto;
-                cursor: pointer;
-            }
-            .alert{
-                display: flex;
-                position: absolute;
-                align-items: center;
-                right: 0;
-                z-index: 0;
-                span{
-                    cursor: pointer;
-                }
-                .confirm{
-                    margin-left: 10px;
-                    padding: 4px 8px;
-                    background-color: $alert-color;
-                    color: #fff;
-                    font-size: 14px;
-                    cursor: pointer;
-                }
-            } 
-        }
+      }
     }
-}
+  }
 
   .save-file {
     border-radius: 0;
