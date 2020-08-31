@@ -1,7 +1,10 @@
 <template>
     <div>
         <div class="form-header">
-            <h3>Personal Document <button class="button is-primary" @click="modalClick = true">Add</button></h3>
+            <div>
+                <h3>Personal Document</h3>
+                <button class="button is-primary" @click="modalClick = true">Add</button>
+            </div>
             <p>Need help or have questions about uploading document? Call us at (856) 21 254709.</p>
         </div>
         <table class="table is-fullwidth" id="my-table">
@@ -34,7 +37,7 @@
 </template>
 
 <script>
-import addDocument from "@coms/Employee/add-document";
+import addDocument from "@coms/Employee/Modal/add-document";
 import {deleteDocument, getDocuments} from "@/apis/document-api";
 import moment from 'moment'
 
@@ -76,13 +79,23 @@ import moment from 'moment'
 </script>
 
 <style lang="scss" scoped>
-.is-primary{
-    background-color: $sub-color;
-    margin-left: 10px;
-    border-radius: 0;
-    &:hover{
-        background-color: $sub-color;
-        //color: $color;
+.form-header{
+    div{
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        h3{
+            margin-bottom: 0;
+        }
+        button.is-primary{
+            background-color: $sub-color;
+            margin-left: 10px;
+            border-radius: 0;
+            &:hover{
+                background-color: $sub-color;
+                //color: $color;
+            }
+        }
     }
 }
 

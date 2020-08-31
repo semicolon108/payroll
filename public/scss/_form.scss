@@ -38,6 +38,8 @@
             width: 100%;
             select{
                 width: 100%;
+                border-radius: $radius;
+                background-color: $placeholder-color;
             }
         }
         // switch gender

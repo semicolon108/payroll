@@ -2,7 +2,10 @@
   <div>
     <div>
       <div class="form-header">
-        <h3>Allowance</h3>
+        <div>
+          <h3>Allowance</h3>
+          <button class="button">Add custom item</button>
+        </div>
         <p>Please choose at least one earning group below</p>
         <ul class="allowance-list">
           <li v-for="i in earnDeductGroups" :key="i._id" class="allowance-list-item">
@@ -12,6 +15,8 @@
           </li>
         </ul>
       </div>
+
+      <!-- Allowance group -->
       <div class="form">
         <div class="columns is-multiline">
           <div v-for="(i) in allowances" :key="i._id" class="column is-6">
@@ -24,29 +29,79 @@
             </div>
           </div>
         </div>
-        <button @click="addOrUpdateAllowance" type="button" class="button save-btn">Save and Continue</button>
       </div>
+
     </div>
-    <hr style="margin: 2rem 0 2rem">
-    <div>
+
+
+    <div class="box">
       <div class="form-header">
         <h3>Custom Allowance</h3>
+        <p>These allowances will ...</p>
       </div>
+
+      <!-- Custom allowance group -->
       <div class="form">
-        <div class="columns is-multiline">
-          <div v-for="(i) in customAllowances" :key="i._id" class="column is-6">
+        <div  class="columns is-multiline"
+              v-for="(i) in customAllowances"
+              :key="i._id">
+          <div class="column is-2 custom">
             <div class="field">
-              <label class="label">
-                {{ i.name }}
-                <!--              ({{ i.earnDeductId.groups.map(i => i.name).join(', ') }})-->
-              </label>
-              <input v-model="i.amount" type="text" class="input" placeholder="Enter default amount">
+              <label class="label">Name</label>
+              <div class="contro">
+                <input v-model="i.amount" type="text" class="input" placeholder="Enter default amount">
+              </div>
             </div>
           </div>
-        </div>
-        <button type="button" class="button save-btn">Save and Continue</button>
+          <div class="column is-3 custom">
+              <div class="field">
+                <label class="label">Amount</label>
+                <div class="contro">
+                  <input v-model="i.amount" type="text" class="input" placeholder="Enter default amount">
+                </div>
+              </div>
+          </div>
+          <div class="column is-3 custom">
+              <div class="field">
+                <label class="label">Type</label>
+                <div class="control">
+                  <div class="select">
+                    <select>
+                      <option>Select Type</option>
+                      <option>Earning</option>
+                      <option>Deduction</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="column is-3 custom">
+              <div class="field">
+                <label class="label">TAX Calculation</label>
+                <div class="control">
+                  <div class="select">
+                    <select>
+                      <option>Select TAX</option>
+                      <option>Before TAX</option>
+                      <option>After TAX</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="column is-1">
+            <div class="field">
+                <label class="label">Option</label>
+                <div class="control has-icon">
+                  <i class="fas fa-trash"></i>
+                </div>
+              </div>
+          </div>
+        </div> <!-- Columns -->
+        <button type="button" class="button add-btn">Add</button>
       </div>
     </div>
+    <button @click="addOrUpdateAllowance" type="button" class="button save-btn">Save and Continue</button>
   </div>
 </template>
 
@@ -124,7 +179,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.form-header{
+  div{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    h3{
+      margin: 0;
+    }
+    button{
+      margin-left: 10px;
+      border-radius: 0;
+      border: none;
+      background-color: $sub-color;
+      color: #fff;
+    }
+  }
+}
 .allowance-list {
   display: flex;
   margin-top: 20px;
@@ -143,5 +214,42 @@ export default {
     }
   }
 }
+
+.control.has-icon{
+  display: flex;
+  align-items: center;
+  i{
+    padding: 10px;
+    cursor: pointer;
+    &:hover{
+      color: $alert-color;
+    }
+  }
+}
+
+.box{
+  margin-top: 30px;
+  color: $font-color;
+  border: 1px solid $sub-color;
+}
+.button{
+  border-radius: 0;
+  border: none;
+  background-color: $sub-color;
+  color: #fff;
+  &.save-btn{
+    background-color: $primary-color;
+    color: #fff;
+    &:hover{
+        box-shadow: none;
+        outline: none;
+    }
+    &:focus{
+        box-shadow: none;
+        outline: none;
+    }
+  }
+}
+
 
 </style>
