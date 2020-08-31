@@ -111,14 +111,39 @@ const routes = [
         component: () => import(/* webpackChunkName: "company_info" */ '@coms/CompanySetup/company-info.vue')
       },
       {
-        path: 'company-policy',
-        name: 'company_policy',
-        component: () => import(/* webpackChunkName: "company_policy" */ '@coms/CompanySetup/company-policy.vue')
+        path: 'company-workday',
+        name: 'company_workday',
+        component: () => import(/* webpackChunkName: "company_workday" */ '@coms/CompanySetup/company-workday.vue')
       },
       {
         path: 'company-deductible',
         name: 'company_deductible',
         component: () => import(/* webpackChunkName: "company_deductible" */ '@coms/CompanySetup/company-deductible.vue')
+      },
+      {
+        path: 'company-tax',
+        name: 'company_tax',
+        component: () => import(/* webpackChunkName: "company_tax" */ '@coms/CompanySetup/company-tax.vue')
+      },
+      {
+        path: 'company-sso',
+        name: 'company_sso',
+        component: () => import(/* webpackChunkName: "company_sso" */ '@coms/CompanySetup/company-sso.vue')
+      },
+      {
+        path: 'company-expat',
+        name: 'company_expat',
+        component: () => import(/* webpackChunkName: "company_expat" */ '@coms/CompanySetup/company-expat.vue')
+      },
+      {
+        path: 'company-currency',
+        name: 'company_currency',
+        component: () => import(/* webpackChunkName: "company_currency" */ '@coms/CompanySetup/company-currency.vue')
+      },
+      {
+        path: 'company-payroll-rule',
+        name: 'company_payroll-rule',
+        component: () => import(/* webpackChunkName: "company_payroll-rule" */ '@coms/CompanySetup/company-payroll-rule.vue')
       },
     ]
   }
