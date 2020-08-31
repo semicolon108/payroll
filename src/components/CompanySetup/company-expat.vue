@@ -21,7 +21,7 @@
             <div class="field">
                 <label for="" class="label">Email to get notification</label>
                 <div class="control">
-                    <input v-model="company.name" type="text" class="input" disabled>
+                    <input type="text" class="input" disabled>
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
             <div class="field">
                 <label for="" class="label">The notice period (Day)</label>
                 <div class="control">
-                    <input v-model="company.name" type="text" class="input" disabled>
+                    <input type="text" class="input" disabled>
                 </div>
             </div>
         </div>
@@ -41,27 +41,11 @@
 </template>
 
 <script>
-import {GET_COMPANY} from "@/graphql/Company";
 
 export default {
   data: () => ({
-    company: {}
+
   }),
-  methods: {
-    async getCompany() {
-      try {
-        const res = await this.$apollo.query({
-          query: GET_COMPANY
-        })
-        this.company = res.data.getCompany
-      } catch (err) {
-        throw new Error(err)
-      }
-    }
-  },
-  created() {
-    this.getCompany()
-  }
 }
 </script>
 

@@ -7,7 +7,7 @@
     <div class="field">
       <label for="" class="label">Work Day</label>
       <div class="control">
-        <input v-model="company.name" type="text" class="input">
+        <input type="text" class="input">
       </div>
     </div>
 
@@ -16,27 +16,11 @@
 </template>
 
 <script>
-import {GET_COMPANY} from "@/graphql/Company";
 
 export default {
   data: () => ({
-    company: {}
+    
   }),
-  methods: {
-    async getCompany() {
-      try {
-        const res = await this.$apollo.query({
-          query: GET_COMPANY
-        })
-        this.company = res.data.getCompany
-      } catch (err) {
-        throw new Error(err)
-      }
-    }
-  },
-  created() {
-    this.getCompany()
-  }
 }
 </script>
 

@@ -19,28 +19,13 @@
 </template>
 
 <script>
-import {GET_COMPANY} from "@/graphql/Company";
 
 export default {
   data: () => ({
-    company: {}
+
   }),
-  methods: {
-    async getCompany() {
-      try {
-        const res = await this.$apollo.query({
-          query: GET_COMPANY
-        })
-        this.company = res.data.getCompany
-      } catch (err) {
-        throw new Error(err)
-      }
-    }
-  },
-  created() {
-    this.getCompany()
-  }
 }
+
 </script>
 
 <style lang="scss" scoped>
