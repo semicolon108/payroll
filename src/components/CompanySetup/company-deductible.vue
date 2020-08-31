@@ -21,8 +21,8 @@
             <span>{{ i.name }}</span>
             <span class="count">{{ i.earnDeductsCount }}</span>
             <span @click="editGroup(i)">
-                                  <i class="fas fa-cog"></i>
-                              </span>
+                        <i class="fas fa-cog"></i>
+                    </span>
           </div>
 
         </div>
