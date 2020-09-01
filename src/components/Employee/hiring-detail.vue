@@ -36,7 +36,7 @@
           <div class="field">
             <label for="" class="label">Work Day</label>
             <div class="control">
-              <input v-model="form.workDay" type="text" class="input" required>
+              <input v-model="form.workingDay" type="text" class="input" required>
             </div>
           </div>
         </div>
@@ -143,7 +143,7 @@ export default {
       probationEndDate: null,
       positionId: '',
       provinceId: '',
-      workDay: null,
+      workingDay: null,
       salary: null,
       contactTypeId: '',
       contactNumber: '',
@@ -193,7 +193,7 @@ export default {
     },
     async addOrUpdateHirringDetail() {
       this.form.employeeId = this.$route.params.id
-      this.form.workDay = parseInt(this.form.workDay, 10)
+      this.form.workingDay = parseInt(this.form.workingDay, 10)
       this.form.salary = parseInt(this.form.salary, 10)
       await addOrUpdateHirringDetail(this.form)
       await this.$router.push({name: 'earning', params: {id: this.$route.params.id}})

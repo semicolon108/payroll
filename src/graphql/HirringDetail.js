@@ -23,7 +23,7 @@ export const GET_HIRRING_DETAIL = gql`
                 _id
                 name
             }
-            workDay
+            workingDay
             salary
             contactTypeId {
                 _id
@@ -46,7 +46,7 @@ export const ADD_OR_UPDATE_HIRRING_DETAIL = gql`
         $dateOfJoining: Date!
         $probationEndDate: Date!
         $positionId: ID!
-        $workDay: Int!
+        $workingDay: Int!
         $salary: Int!
         $contactTypeId: ID!
         $contactNumber: String!
@@ -60,7 +60,7 @@ export const ADD_OR_UPDATE_HIRRING_DETAIL = gql`
                 dateOfJoining: $dateOfJoining
                 probationEndDate: $probationEndDate
                 positionId: $positionId
-                workDay: $workDay
+                workingDay: $workingDay
                 salary: $salary
                 contactTypeId: $contactTypeId
                 contactNumber: $contactNumber
@@ -87,7 +87,7 @@ export const ADD_OR_UPDATE_HIRRING_DETAIL = gql`
                 _id
                 name
             }
-            workDay
+            workingDay
             salary
             contactNumber
             startDate
