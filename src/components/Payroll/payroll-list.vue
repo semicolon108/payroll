@@ -9,26 +9,32 @@
             <div class="summary-items">
                 <div class="summary-item">
                     <span>Payment date</span>
-                    <h3>25/03/2080</h3>
+                    <h3>{{ currentItem.paymentDate | moment }}</h3>
                 </div>
                 <div class="summary-item">
                     <span>Total Employees</span>
-                    <h3>200</h3>
+                    <h3>{{currentItem.employeeCount }}</h3>
                 </div>
                 <div class="summary-item">
                     <span>Total SSO</span>
-                    <h3>200,000,000</h3>
+                    <h3>{{ currentItem.totalSso | currency }}</h3>
                 </div>
                 <div class="summary-item">
                     <span>Total TAX</span>
-                    <h3>200,000,000</h3>
+                    <h3>{{ currentItem.totalTax | currency }}</h3>
                 </div>
                 <div class="summary-item">
                     <span>Total Net Salary</span>
-                    <h3>25/03/2080</h3>
+                    <h3>{{ currentItem.totalSalary | currency }}</h3>
                 </div>
             </div>
-            <div class="summary-option" @click="alert = 'checkDeductible'">
+          <div
+              v-if="currentItem.isApproved"
+              @click="$router.push({ name: 'payrollCalculation', params: { id: currentItem.monthlyPaymentId } })"
+              class="summary-option">
+            <span>Calculate</span>
+          </div>
+            <div v-else class="summary-option" @click="alert = 'checkDeductible'">
                 <span>Calculate</span>
             </div>
         </div>
@@ -40,25 +46,31 @@
         <tr>
           <th>Payment date</th>
           <th class="is-right">No. of employee</th>
-          <th class="is-right">Total TAX</th>
           <th class="is-right">Total SSO</th>
+          <th class="is-right">Total TAX</th>
           <th class="is-right">Total Salary</th>
           <th class="is-sm is-right">Option</th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="i in items" :key="i._id">
+        <tr v-for="i in exceptCurrent" :key="i._id">
           <td>{{ i.paymentDate | moment }}</td>
           <td class="is-right">{{ i.employeeCount }}</td>
-          <td class="is-right">{{ i.totalTax | currency }}</td>
           <td class="is-right">{{ i.totalSso | currency }}</td>
+          <td class="is-right">{{ i.totalTax | currency }}</td>
           <td class="is-right">{{ i.totalSalary | currency }}</td>
           <td class="is-right">
-            <div class="option is-primary">
+            <div v-if="i.isApproved" class="option is-primary">
               <router-link :to="{ name: 'payrollCalculation', params: { id: i.monthlyPaymentId } }">
                 <i class="fas fa-calculator"></i>
                 <span>Calculate</span>
               </router-link>
+            </div>
+            <div v-else class="option is-primary">
+              <a @click="alert = 'checkDeductible'">
+                <i class="fas fa-calculator"></i>
+                <span>Calculate</span>
+              </a>
             </div>
           </td>
         </tr>
@@ -84,6 +96,14 @@ export default {
     },
     currency(number) {
       return new Intl.NumberFormat().format(number) + ' LAK'
+    }
+  },
+  computed: {
+    currentItem() {
+      return this.items[0]
+    },
+    exceptCurrent() {
+      return this.items.filter((i, idx) => idx !== 0)
     }
   },
   data: () => ({

@@ -5,6 +5,7 @@ export const GET_PAYROLL_BY_MONTHS = gql`
     {
         getPayrollByMonths {
             monthlyPaymentId
+            isApproved
             paymentDate
             totalSalary
             totalTax
@@ -12,6 +13,7 @@ export const GET_PAYROLL_BY_MONTHS = gql`
             employeeCount
         }
     }
+
 
 `
 

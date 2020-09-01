@@ -4,7 +4,10 @@
       <div class="form-header">
         <div>
           <h3>Allowance</h3>
-          <button class="button">Add custom item</button>
+          <button
+              v-if="!customAllowances.length"
+              @click="addCustomAllo"
+              class="button">Add custom item</button>
         </div>
         <p>Please choose at least one earning group below</p>
         <ul class="allowance-list">
@@ -33,8 +36,9 @@
 
     </div>
 
-
-    <div class="box">
+    <div
+        v-if="customAllowances.length"
+        class="box">
       <div class="form-header">
         <h3>Custom Allowance</h3>
         <p>These allowances will ...</p>
@@ -43,7 +47,7 @@
       <!-- Custom allowance group -->
       <div class="form">
         <div  class="columns is-multiline"
-              v-for="(i) in customAllowances"
+              v-for="(i, idx) in customAllowances"
               :key="i._id">
           <div class="column is-2 custom">
             <div class="field">
@@ -66,8 +70,7 @@
                 <label class="label">Type</label>
                 <div class="control">
                   <div class="select">
-                    <select>
-                      <option>Select Type</option>
+                    <select v-model="i.type">
                       <option v-for="(i, idx) in types" :key="idx" :value="i">{{ i }}</option>
                     </select>
                   </div>
@@ -79,8 +82,7 @@
                 <label class="label">TAX Calculation</label>
                 <div class="control">
                   <div class="select">
-                    <select>
-                      <option :value="null">Select TAX</option>
+                    <select v-model="i.isBeforeTax">
                       <option :value="true">Before TAX</option>
                       <option :value="false">After TAX</option>
                     </select>
@@ -91,13 +93,17 @@
           <div class="column is-1">
             <div class="field">
                 <label class="label">Option</label>
-                <div class="control has-icon">
+                <div
+                    @click="spliceCustomAllo(idx)"
+                    class="control has-icon">
                   <i class="fas fa-trash"></i>
                 </div>
               </div>
           </div>
         </div> <!-- Columns -->
-        <button type="button" class="button add-btn">Add</button>
+        <button
+            @click="addCustomAllo"
+            type="button" class="button add-btn">Add</button>
       </div>
     </div>
     <button @click="addOrUpdateAllowance" type="button" class="button save-btn">Save and Continue</button>
@@ -175,6 +181,18 @@ export default {
           amount: 0,
         }
       })
+    },
+    addCustomAllo() {
+      const obj = {
+        name: '',
+        amount: null,
+        type: 'Earning',
+        isBeforeTax: true
+      }
+      this.customAllowances.push(obj)
+    },
+    spliceCustomAllo(idx) {
+      this.customAllowances.splice(idx, 1)
     }
   },
 }
@@ -229,8 +247,9 @@ export default {
   }
 }
 
-.box{
+.box {
   margin-top: 30px;
+  margin-bottom: 0;
   color: $font-color;
   border: 1px solid $sub-color;
 }
@@ -242,6 +261,7 @@ export default {
   &.save-btn{
     background-color: $primary-color;
     color: #fff;
+    margin-top: 30px;
     &:hover{
         box-shadow: none;
         outline: none;
