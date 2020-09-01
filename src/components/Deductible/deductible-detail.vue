@@ -4,7 +4,7 @@
       <div class="header-start">
         <span @click="$router.back()" class="back">Back</span>
         <div class="header-title">
-          <h3 class="xxl-title">August, 25-2020</h3>
+          <h3 class="xxl-title">{{ date | momentV2 }}</h3>
           <div class="button-group">
             <button class="button" @click="ModalClick = 'Add'">Add</button>
             <button class="button" @click="ModalClick = 'Upload'">Upload</button>
@@ -98,7 +98,7 @@
       </table>
     </div>
     <component :is="ModalClick" @CloseModal="ModalClick=''"
-               @DataBack="dataBack"
+               @DataBack="getMonthlyPaymentEmployees"
     ></component>
   </div>
 </template>
@@ -108,6 +108,7 @@ import Edit from '@coms/Deductible/Modal/edit.vue'
 import Add from '@coms/Deductible/Modal/add.vue'
 import Upload from '@coms/Deductible/Modal/upload.vue'
 import {approveDeductible, getMonthlyPaymentEmployees} from "@/apis/monthly-payment-employee";
+import moment from "moment";
 export default {
   components: {
     Edit,
@@ -119,20 +120,34 @@ export default {
     selectYear: false,
     ModalClick: '',
     Approved: true,
-    items: []
+    items: [],
+    date: null
   }),
+  filters: {
+    momentV2(date) {
+      return moment(date).format('LL')
+    }
+  },
   created() {
     this.getMonthlyPaymentEmployees()
   },
   methods: {
     async getMonthlyPaymentEmployees() {
-      this.items = await getMonthlyPaymentEmployees(this.$route.params.id)
+      try {
+        const { employees, date } = await getMonthlyPaymentEmployees(this.$route.params.id)
+        this.items = employees
+        this.date = date
+      } catch (err) {
+        throw new Error(err)
+      }
     },
     async approveDeductible() {
-      this.items = await approveDeductible(this.$route.params.id)
-    },
-    dataBack(items) {
-      this.items = items
+      try {
+        await approveDeductible(this.$route.params.id)
+        await this.getMonthlyPaymentEmployees()
+      } catch (err) {
+        throw new Error(err)
+      }
     }
   }
 }

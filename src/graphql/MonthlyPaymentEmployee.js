@@ -6,22 +6,24 @@ export const GET_MONTHLY_PAYMENT_EMPLOYEES = gql`
         $monthlyPaymentId: ID!
     ) {
         getMonthlyPaymentEmployees (monthlyPaymentId: $monthlyPaymentId) {
-            employee {
-                _id
-                employeeCode
-                fullName
+            date
+            employees {
+                employee {
+                    _id
+                    employeeCode
+                    fullName
+                }
+                earnDeduct {
+                    _id
+                    type
+                    name
+                    amount
+                    subAmount
+                    isAmount
+                    chooseAmount
+                }
+                isApproved
             }
-            earnDeduct {
-                _id
-                type
-                name
-                amount
-                subAmount
-                isAmount
-                chooseAmount
-            }
-            isApproved
-
         }
     }
 
@@ -54,53 +56,27 @@ export const UPLOAD_DEDUCTIBLE = gql`
 
 export const ADD_DEDUCTIBLE = gql`
 
-    mutation ($items: [DeductibleInput!]!, $monthlyPaymentId: ID!) {
-        addDeductible(info: {items: $items, monthlyPaymentId: $monthlyPaymentId}) {
-            employee {
-                _id
-                employeeCode
-                fullName
-            }
-            earnDeduct {
-                _id
-                type
-                name
-                amount
-                subAmount
-                isAmount
-                chooseAmount
-            }
-        }
+    mutation (
+        $items: [DeductibleInput!]!
+        $monthlyPaymentId: ID!) {
+        addDeductible(info: {
+            items: $items
+            monthlyPaymentId: $monthlyPaymentId
+        })
     }
+
 
 
 `
 
 export const APPROVED_DEDUCTIBLE = gql`
 
-        mutation (
-          $monthlyPaymentId: ID!
-        ) {
-          approveDeductible (
+    mutation (
+        $monthlyPaymentId: ID!
+    ) {
+        approveDeductible (
             monthlyPaymentId: $monthlyPaymentId
-          ) {
-            employee {
-              _id
-              employeeCode
-              fullName
-            }
-            earnDeduct {
-              _id
-              type
-              name
-              amount
-              subAmount
-              isAmount
-              chooseAmount
-            }
-            isApproved
-            
-          }
-        }
+        )
+    }
 
 `

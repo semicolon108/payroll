@@ -9,7 +9,11 @@
           <p>Please approve the earning / deduction list before continue the payroll</p>
         </div>
       </div>
-      <button class="button">Check</button>
+      <button class="button"
+
+              @click="$router.push({name:'deductable_detail', params: { id: monthlyPaymentId }})"
+      >Check
+      </button>
 
       <button class="modal-close is-large" @click="CloseAlert" aria-label="close"></button>
     </div>
@@ -19,14 +23,15 @@
 <script>
 
 export default {
+  props: ['monthlyPaymentId'],
   data: () => ({
-        alert: false,
-    }),
-    methods:{
-        CloseAlert(){
-            this.$emit('CloseAlert')
-        },
+    alert: false,
+  }),
+  methods: {
+    CloseAlert() {
+      this.$emit('CloseAlert')
     },
+  },
 }
 </script>
 
@@ -37,31 +42,33 @@ export default {
   padding: 40px;
   color: $font-color;
 
-    .header {
-        i {
-        font-size: 30px;
-        margin-bottom: 20px;
-        color: $sub-color;
-        }
-
-        h3 {
-        font-size: 24px;
-        font-weight: 700;
-        color: $font-color;
-        }
-
-        p {
-        color: $font-color;
-        }
+  .header {
+    i {
+      font-size: 30px;
+      margin-bottom: 20px;
+      color: $sub-color;
     }
-    .button {
-        margin-top: 10px;
-        border-radius: $radius;
-        border: none;
-        background-color: $sub-color;
-        color: #fff;
+
+    h3 {
+      font-size: 24px;
+      font-weight: 700;
+      color: $font-color;
     }
+
+    p {
+      color: $font-color;
+    }
+  }
+
+  .button {
+    margin-top: 10px;
+    border-radius: $radius;
+    border: none;
+    background-color: $sub-color;
+    color: #fff;
+  }
 }
+
 .modal-close {
   position: absolute;
   top: 20px;

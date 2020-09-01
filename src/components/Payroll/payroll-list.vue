@@ -34,7 +34,9 @@
               class="summary-option">
             <span>Calculate</span>
           </div>
-            <div v-else class="summary-option" @click="alert = 'checkDeductible'">
+            <div v-else class="summary-option"
+                 @click="alert = 'checkDeductible'; monthlyPaymentId = currentItem.monthlyPaymentId "
+            >
                 <span>Calculate</span>
             </div>
         </div>
@@ -67,7 +69,7 @@
               </router-link>
             </div>
             <div v-else class="option is-primary">
-              <a @click="alert = 'checkDeductible'">
+              <a @click="alert = 'checkDeductible'; monthlyPaymentId = i.monthlyPaymentId ">
                 <i class="fas fa-calculator"></i>
                 <span>Calculate</span>
               </a>
@@ -77,7 +79,7 @@
         </tbody>
       </table>
     </div>
-    <component :is="alert" @CloseAlert="alert=''"></component>
+    <component :is="alert" @CloseAlert="alert=''" :monthlyPaymentId="monthlyPaymentId"></component>
   </div>
 </template>
 
