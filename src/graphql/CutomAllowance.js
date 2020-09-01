@@ -24,21 +24,24 @@ export const ADD_OR_UPDATE_CUSTOM_ALLOWANCE = gql`
 
     mutation(
         $employeeId: ID!
-        $type: String!
-        $name: String!
-        $isBeforeTax: Boolean!
-        $amount: Int!
+        $items: [CustomAlloItemsInput!]!
     ) {
         addOrUpdateCustomAllowance(
             info: {
                 employeeId: $employeeId
-                type: $type
-                name: $name
-                isBeforeTax: $isBeforeTax
-                amount: $amount
+                items: $items
             }
-        )
+        ) {
+            _id
+            customAllowances {
+                type
+                name
+                isBeforeTax
+                amount
+            }
+        }
     }
+
 
 
 `

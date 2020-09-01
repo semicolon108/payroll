@@ -113,7 +113,7 @@
 <script>
 import {getEarnDeductGroups} from "@/apis/earn-deduct-group-api";
 import {addOrUpdateAllowance, getAllowance} from "@/apis/allowance-api";
-import {getCustomAllowance} from "@/apis/custom-allowance-api";
+import { getCustomAllowance, addOrUpdateCustomAllowance} from "@/apis/custom-allowance-api";
 
 export default {
   data: () => ({
@@ -157,6 +157,9 @@ export default {
         allowances,
       }
       await addOrUpdateAllowance(form)
+      await this.addOrUpdateCustomAllowance()
+      alert('Saved')
+
     },
     async getAllowance() {
       const data = await getAllowance(this.$route.params.id)
@@ -166,7 +169,29 @@ export default {
     async getCustomAllowance() {
       const data = await getCustomAllowance(this.$route.params.id)
       this.customAlloId = data._id
-      this.customAllowances = data.customAllowances
+      this.customAllowances = data.customAllowances.map(i => {
+        return {
+          type: i.type,
+          name: i.name,
+          isBeforeTax: i.isBeforeTax,
+          amount: parseInt(i.amount, 10)
+        }
+      })
+    },
+    async addOrUpdateCustomAllowance() {
+      const form = {
+        employeeId: this.$route.params.id,
+        items: this.customAllowances ? this.customAllowances.map(i => {
+          return {
+            type: i.type,
+            name: i.name,
+            isBeforeTax: i.isBeforeTax,
+            amount: parseInt(i.amount, 10)
+          }
+        }) : []
+      }
+      const data = await addOrUpdateCustomAllowance(form)
+      console.log(data)
     },
     changeGroup(id) {
       this.groupSelected = id
