@@ -7,51 +7,134 @@
     <div class="field">
       <label for="" class="label">Does your company use multiple currency?</label>
       <div class="control switch">
-          <input type="radio" name="expat" id="expat-no" checked>  
+          <input @click="isMulti = false" type="radio" name="expat" id="expat-no" :checked="!isMulti">
           <label for="expat-no">No</label>
 
-          <input type="radio" name="expat" id="expat-yes">
+          <input @click="isMulti = true"  type="radio" name="expat" id="expat-yes" :checked="isMulti">
           <label for="expat-yes">Yes</label>
       </div>
     </div>
 
-    <h3 class="title">Setup exchange rate</h3>
-
-    <div class="currency">
-        <div class="field has-addons">
-            <p class="control">
+    <div v-if="isMulti">
+      <h3 class="title">Setup exchange rate</h3>
+      <div  class="currency">
+        <div class="field has-addons"
+             v-for="(i, idx) in compCurrencies"
+             :key="i._id"
+        >
+          <p class="control">
                 <span class="select">
-                    <select>
-                        <option>$ | USD</option>
-                        <option>¥ | JPY</option>
-                        <option>€ | EUR</option>
-                        <option>¥ /元 | CNY</option>
-                        <option>฿ | THB</option>
+                    <select v-model="i.currencyId._id">
+                        <option v-for="i in filterCurrencies(i.currencyId._id)" :key="i._id" :value="i._id">{{ i.name }}</option>
                     </select>
                 </span>
-            </p>
-            <p class="control">
-                <input class="input" type="text" placeholder="Exchange rate">
-            </p>
+          </p>
+          <p class="control">
+            <input v-model="i.amount" class="input" type="text" placeholder="Exchange rate">
+          </p>
+          <i  @click="spliceCurrency(idx)"
+              class="far fa-times-circle splice-icon"></i>
         </div>
-        <button class="button">Add Currency</button>
+        <button
+            v-if="!isLimit"
+            @click="pushCurrency" class="button">Add Currency</button>
+      </div>
     </div>
-
-
-    <button class="button">Save</button>
+    <button @click="addOrUpdateCompanyCurrency" class="button">Save</button>
   </div>
 </template>
 
 <script>
 
+import {
+   addOrUpdateCompanyCurrency,
+  getCompanyCurrencies} from "@/apis/company-currency-api";
+import {getCurrencies} from "@/apis/currency-api";
+
 export default {
   data: () => ({
+    compCurrencies: [],
+    currencies: [],
 
+    isMulti: true,
+
+    isLimit: false
   }),
+  computed: {
+    filterCurrencies() {
+      return (curId) => {
+        console.log(curId)
+        const mapIds =  this.compCurrencies.map(i => i.currencyId._id)
+        const me = this.currencies.filter(i => !mapIds.includes(i._id) || i._id === curId)
+        return me
+      }
+    }
+  },
+  watch: {
+    compCurrencies(items) {
+      if(items.length === this.currencies.length) this.isLimit = true
+      else this.isLimit = false
+    }
+  },
+  methods: {
+   async getCompanyCurrencies() {
+      const data = await getCompanyCurrencies()
+      this.isMulti = data.isMulti
+      this.compCurrencies = data.currencies
+    },
+    async getCurrencies() {
+      this.currencies = await getCurrencies()
+      this.form.currencyId = this.currencies[0]._id
+    },
+    async addOrUpdateCompanyCurrency() {
+     const items = this.compCurrencies.map(i => {
+       return {
+         currencyId: i.currencyId._id,
+         amount: parseInt(i.amount, 10)
+       }
+     })
+      const form = {
+        isMulti: this.isMulti,
+        items
+      }
+      await addOrUpdateCompanyCurrency(form)
+      alert('Updated')
+    },
+    pushCurrency() {
+      const exceptCur = this.chooseCurrency()
+      if(!exceptCur) {
+        alert('Hiii')
+        return
+      }
+       this.compCurrencies.push({
+         currencyId: {
+           _id: this.chooseCurrency()
+         },
+         amount: null
+       })
+    },
+    spliceCurrency(idx) {
+     this.compCurrencies.splice(idx, 1)
+    },
+    chooseCurrency() {
+      const comCurrency = this.compCurrencies.map(i => i.currencyId._id)
+      const exceptCur = this.currencies.filter(i => !comCurrency.includes(i._id))
+      if(!exceptCur) return false
+      return exceptCur[0]._id
+    }
+  },
+  created() {
+    this.getCurrencies()
+    this.getCompanyCurrencies()
+  }
 }
 </script>
 
 <style lang="scss" scoped>
+.splice-icon {
+  font-size: 1.5rem; margin: auto 5px auto; color: red; cursor: pointer
+}
+
 .box-header{
   color: $font-color;
   margin-bottom: 20px;

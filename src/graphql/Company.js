@@ -5,7 +5,29 @@ export const GET_COMPANY = gql`
     {
         getCompany {
             _id
-            name
+            isApprovedBeforeCalc
+            isSsoPaidByCompany
+            isTaxPaidByCompany
+            workingDay
+            basicInfo {
+                name
+                address
+            }
+            contactPerson {
+                name
+                email
+                mobile
+            }
+            financialInfo {
+                accountNumber
+            }
+            payrollRule {
+                authorityName
+                authorityEmail
+                payrollManagerName
+                payrollManagerEmail
+            }
+
         }
     }
 

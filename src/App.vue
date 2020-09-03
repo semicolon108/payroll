@@ -14,7 +14,7 @@
 <script>
 import sidebar from "@coms/sidebar";
 import navigation from "@coms/navbar";
-import {mapMutations, mapGetters} from 'vuex'
+import {mapMutations, mapGetters, mapActions} from 'vuex'
 
 
 export default {
@@ -26,7 +26,8 @@ export default {
     ...mapGetters(['isAuth'])
   },
   methods: {
-    ...mapMutations(['SET_TOKEN'])
+    ...mapMutations(['SET_TOKEN']),
+    ...mapActions(['getMyCompany'])
   },
   created() {
     if(this.$route.query.accessToken) {
@@ -35,6 +36,7 @@ export default {
     } else if(!this.isAuth) {
      // window.location.href = 'http://localhost:3000'
     }
+    this.getMyCompany()
   }
 }
 </script>

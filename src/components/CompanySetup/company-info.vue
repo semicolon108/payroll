@@ -7,19 +7,19 @@
     <div class="field">
       <label for="" class="label">Company name</label>
       <div class="control">
-        <input type="text" class="input">
+        <input v-model="form.basicInfo.name" type="text" class="input">
       </div>
     </div>
     <div class="field">
       <label for="" class="label">Company industry</label>
       <div class="control">
-        <input type="text" class="input">
+        <input  type="text" class="input">
       </div>
     </div>
     <div class="field">
       <label for="" class="label">Company Address</label>
       <div class="control">
-        <textarea class="textarea"></textarea>
+        <textarea v-model="form.basicInfo.address" class="textarea"></textarea>
       </div>
     </div>
 
@@ -29,7 +29,7 @@
             <div class="field">
                 <label for="" class="label">Contact name</label>
                 <div class="control">
-                    <input type="text" class="input" disabled>
+                    <input v-model="form.contactPerson.name" type="text" class="input" disabled>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
             <div class="field">
                 <label for="" class="label">Contact Email</label>
                 <div class="control">
-                    <input type="text" class="input" disabled>
+                    <input v-model="form.contactPerson.email"  type="text" class="input" disabled>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
             <div class="field">
                 <label for="" class="label">Contact Number</label>
                 <div class="control">
-                    <input type="text" class="input" disabled>
+                    <input v-model="form.contactPerson.mobile"  type="text" class="input" disabled>
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@
             <div class="field">
                 <label for="" class="label">Bank account number</label>
                 <div class="control">
-                    <input type="text" class="input" disabled>
+                    <input v-model="form.financialInfo.accountNumber" type="text" class="input" disabled>
                 </div>
             </div>
         </div>
@@ -95,13 +95,31 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 
 export default {
+  computed: {
+    ...mapGetters(['getCompany'])
+  },
   data: () => ({
-
+    form: {}
   }),
-
-
+  created() {
+    this.form  = {
+      basicInfo: {
+        name: this.getCompany.basicInfo.name,
+        address: this.getCompany.basicInfo.address
+      },
+      contactPerson: {
+        name: this.getCompany.contactPerson.name,
+        email: this.getCompany.contactPerson.email,
+        mobile: this.getCompany.contactPerson.mobile
+      },
+      financialInfo: {
+        accountNumber: this.getCompany.financialInfo.accountNumber
+      }
+    }
+  }
 }
 </script>
 
