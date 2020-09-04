@@ -7,20 +7,35 @@
     <div class="field">
       <label for="" class="label">Work Day</label>
       <div class="control">
-        <input type="text" class="input">
+        <input v-model="workingDay" type="text" class="input">
       </div>
     </div>
 
-    <button class="button">Save</button>
+    <button @click="updateCompanyInfo" class="button">Save</button>
   </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
+import {mapActions} from 'vuex'
 
 export default {
   data: () => ({
-    
+    workingDay: null
   }),
+  computed: {
+    ...mapGetters(['getCompany'])
+  },
+  methods: {
+    ...mapActions(['updateCompany']),
+    async updateCompanyInfo() {
+      await this.updateCompany({ workingDay: parseInt(this.workingDay, 10) })
+      alert('Updated')
+    }
+  },
+  created() {
+    this.workingDay = this.getCompany.workingDay
+  }
 }
 </script>
 

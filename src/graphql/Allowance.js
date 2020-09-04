@@ -1,7 +1,6 @@
 import gql from "graphql-tag"
 
-export const GET_ALLOWANCE = gql`
-
+export const GET_ALLOWANCE = gql`    
     query(
         $employeeId: ID!
     ) {
@@ -26,7 +25,6 @@ export const GET_ALLOWANCE = gql`
             }
         }
     }
-    
 `
 
 export const ADD_OR_UPDATE_ALLOWANCE = gql`

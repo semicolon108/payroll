@@ -7,25 +7,37 @@
     <div class="field">
       <label for="" class="label">TAX</label>
         <div class="control switch">
-            <input type="radio" name="tax" id="employeetax" checked>  
+            <input @click="isTaxPaidByCompany = false" type="radio" name="tax" id="employeetax"  :checked="!isTaxPaidByCompany">
             <label for="employeetax">Employee pay</label>
 
-            <input type="radio" name="tax" id="employertax">
+            <input @click="isTaxPaidByCompany = true" type="radio" name="tax" id="employertax" :checked="isTaxPaidByCompany">
             <label for="employertax">Employer pay</label>
         </div>
     </div>
-    <button class="button">Save</button>
+    <button @click="updateCompanyInfo" class="button">Save</button>
   </div>
 </template>
 
 <script>
-
+import {mapActions, mapGetters} from 'vuex'
 export default {
   data: () => ({
-
+    isTaxPaidByCompany: false
   }),
+  computed: {
+    ...mapGetters(['getCompany'])
+  },
+  methods: {
+    ...mapActions(['updateCompany']),
+    async updateCompanyInfo() {
+      await this.updateCompany({ isTaxPaidByCompany: this.isTaxPaidByCompany })
+      alert('Updated')
+    }
+  },
+  created() {
+    this.isTaxPaidByCompany = this.getCompany.isTaxPaidByCompany
+  }
 }
-
 </script>
 
 <style lang="scss" scoped>

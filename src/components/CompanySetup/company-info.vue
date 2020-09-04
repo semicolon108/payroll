@@ -22,7 +22,6 @@
         <textarea v-model="form.basicInfo.address" class="textarea"></textarea>
       </div>
     </div>
-
     <h3 class="title">Contact Person</h3>
     <div class="columns">
         <div class="column">
@@ -70,7 +69,6 @@
             </div>
         </div>
     </div>
-
     <h3 class="title">Financial Information</h3>
     <div class="columns">
         <div class="column">
@@ -95,15 +93,28 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
+import {updateCompany} from "@/apis/company-api";
 
 export default {
   computed: {
     ...mapGetters(['getCompany'])
   },
   data: () => ({
-    form: {}
+    form: {
+      basicInfo: {
+        name: '',
+        address: ''
+      }
+    }
   }),
+  methods: {
+    ...mapActions(['updateCompany']),
+    async updateCompanyInfo() {
+      await updateCompany(this.form)
+      alert('Updated')
+    }
+  },
   created() {
     this.form  = {
       basicInfo: {

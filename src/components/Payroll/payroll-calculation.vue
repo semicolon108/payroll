@@ -256,7 +256,6 @@ export default {
       }
       await addOrUpdateActualWorkingDay(form)
       await this.getPayrollByEmps()
-
     }
   },
   created() {

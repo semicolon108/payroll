@@ -7,23 +7,36 @@
     <div class="field">
       <label for="" class="label">SSO</label>
       <div class="control switch">
-          <input type="radio" name="sso" id="employee" checked>  
+          <input @click="isSsoPaidByCompany = false" type="radio" name="sso" id="employee" :checked="!isSsoPaidByCompany">
           <label for="employee">Employee pay 5.5%</label>
 
-          <input type="radio" name="sso" id="employer">
-          <label for="employer">Employer pay 11.5%</label>
+          <input @click="isSsoPaidByCompany = true"  type="radio" name="sso" id="employer" :checked="isSsoPaidByCompany">
+          <label for="employer">Company pay 11.5%</label>
       </div>
     </div>
-    <button class="button">Save</button>
+    <button @click="updateCompanyInfo" class="button">Save</button>
   </div>
 </template>
 
 <script>
-
+import {mapGetters, mapActions} from 'vuex'
 export default {
   data: () => ({
-    
+    isSsoPaidByCompany: false
   }),
+  computed: {
+    ...mapGetters(['getCompany'])
+  },
+  methods: {
+    ...mapActions(['updateCompany']),
+    async updateCompanyInfo() {
+      await this.updateCompany({ isSsoPaidByCompany: this.isSsoPaidByCompany })
+      alert('Updated')
+    }
+  },
+  created() {
+    this.isSsoPaidByCompany = this.getCompany.isSsoPaidByCompany
+  }
 }
 </script>
 

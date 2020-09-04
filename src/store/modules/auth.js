@@ -1,4 +1,4 @@
-import {getCompany} from "@/apis/company-api";
+import {getCompany, updateCompany} from "@/apis/company-api";
 
 
 const state = {
@@ -30,9 +30,13 @@ const mutations = {
 }
 
 
-const actions  = {
+const actions  =  {
     async getMyCompany({ commit }) {
         const company = await getCompany()
+        commit('SET_COMPANY', company)
+    },
+    async updateCompany({ commit }, form) {
+        const company = await updateCompany(form)
         commit('SET_COMPANY', company)
     }
 }
