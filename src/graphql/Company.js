@@ -27,7 +27,10 @@ export const GET_COMPANY = gql`
                 payrollManagerName
                 payrollManagerEmail
             }
-
+            mailer {
+                name
+                email
+            }
         }
     }
 
@@ -64,6 +67,10 @@ export const UPDATE_COMPANY = gql`
                 authorityEmail
                 payrollManagerName
                 payrollManagerEmail
+            }
+            mailer {
+                name
+                email
             }
         }
     }

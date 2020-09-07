@@ -24,77 +24,76 @@
     </div>
     <h3 class="title">Contact Person</h3>
     <div class="columns">
-        <div class="column">
-            <div class="field">
-                <label for="" class="label">Contact name</label>
-                <div class="control">
-                    <input v-model="form.contactPerson.name" type="text" class="input" disabled>
-                </div>
-            </div>
+      <div class="column">
+        <div class="field">
+          <label for="" class="label">Contact name</label>
+          <div class="control">
+            <input v-model="form.contactPerson.name" type="text" class="input" disabled>
+          </div>
         </div>
-        <div class="column">
-            <div class="field">
-                <label for="" class="label">Contact Email</label>
-                <div class="control">
-                    <input v-model="form.contactPerson.email"  type="text" class="input" disabled>
-                </div>
-            </div>
+      </div>
+      <div class="column">
+        <div class="field">
+          <label for="" class="label">Contact Email</label>
+          <div class="control">
+            <input v-model="form.contactPerson.email"  type="text" class="input" disabled>
+          </div>
         </div>
-        <div class="column">
-            <div class="field">
-                <label for="" class="label">Contact Number</label>
-                <div class="control">
-                    <input v-model="form.contactPerson.mobile"  type="text" class="input" disabled>
-                </div>
-            </div>
+      </div>
+      <div class="column">
+        <div class="field">
+          <label for="" class="label">Contact Number</label>
+          <div class="control">
+            <input v-model="form.contactPerson.mobile"  type="text" class="input" disabled>
+          </div>
         </div>
+      </div>
     </div>
 
     <h3 class="title">Company Email</h3>
     <div class="columns">
-        <div class="column">
-            <div class="field">
-                <label for="" class="label">From Name</label>
-                <div class="control">
-                    <input type="text" class="input" disabled>
-                </div>
-            </div>
+      <div class="column">
+        <div class="field">
+          <label for="" class="label">From Name</label>
+          <div class="control">
+            <input v-model="form.mailer.name" type="text" class="input">
+          </div>
         </div>
-        <div class="column">
-            <div class="field">
-                <label for="" class="label">Company Email</label>
-                <div class="control">
-                    <input type="text" class="input" disabled>
-                </div>
-            </div>
+      </div>
+      <div class="column">
+        <div class="field">
+          <label for="" class="label">Company Email</label>
+          <div class="control">
+            <input v-model="form.mailer.email" type="text" class="input">
+          </div>
         </div>
+      </div>
     </div>
     <h3 class="title">Financial Information</h3>
     <div class="columns">
-        <div class="column">
-            <div class="field">
-                <label for="" class="label">Bank name</label>
-                <div class="control">
-                    <input type="text" class="input" disabled>
-                </div>
-            </div>
+      <div class="column">
+        <div class="field">
+          <label for="" class="label">Bank name</label>
+          <div class="control">
+            <input type="text" class="input" disabled>
+          </div>
         </div>
-        <div class="column">
-            <div class="field">
-                <label for="" class="label">Bank account number</label>
-                <div class="control">
-                    <input v-model="form.financialInfo.accountNumber" type="text" class="input" disabled>
-                </div>
-            </div>
+      </div>
+      <div class="column">
+        <div class="field">
+          <label for="" class="label">Bank account number</label>
+          <div class="control">
+            <input v-model="form.financialInfo.accountNumber" type="text" class="input" disabled>
+          </div>
         </div>
+      </div>
     </div>
-    <button class="button">Save</button>
+    <button @click="updateCompanyInfo" class="button">Save</button>
   </div>
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex'
-import {updateCompany} from "@/apis/company-api";
+import {mapGetters, mapMutations, mapActions} from 'vuex'
 
 export default {
   computed: {
@@ -109,9 +108,10 @@ export default {
     }
   }),
   methods: {
+    ...mapMutations(['SET_COMPANY']),
     ...mapActions(['updateCompany']),
     async updateCompanyInfo() {
-      await updateCompany(this.form)
+      await this.updateCompany(this.form)
       alert('Updated')
     }
   },
@@ -128,6 +128,10 @@ export default {
       },
       financialInfo: {
         accountNumber: this.getCompany.financialInfo.accountNumber
+      },
+      mailer: {
+        name: this.getCompany.mailer.name,
+        email: this.getCompany.mailer.email
       }
     }
   }
