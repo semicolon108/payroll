@@ -49,7 +49,8 @@
 import {
    addOrUpdateCompanyCurrency,
   getCompanyCurrencies} from "@/apis/company-currency-api";
-import {getCurrencies} from "@/apis/currency-api";
+import {getReuse} from "@/apis/reuse-api";
+
 
 export default {
   data: () => ({
@@ -83,7 +84,7 @@ export default {
       this.compCurrencies = data.currencies
     },
     async getCurrencies() {
-      this.currencies = await getCurrencies()
+      this.currencies = await getReuse('Currency')
       this.form.currencyId = this.currencies[0]._id
     },
     async addOrUpdateCompanyCurrency() {

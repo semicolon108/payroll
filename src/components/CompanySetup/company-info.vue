@@ -13,7 +13,9 @@
     <div class="field">
       <label for="" class="label">Company industry</label>
       <div class="control">
-        <input  type="text" class="input">
+        <select class="input">
+          <option :value="i._id" v-for="i in industries" :key="i._i">{{i.name}}</option>
+        </select>
       </div>
     </div>
     <div class="field">
@@ -75,7 +77,9 @@
         <div class="field">
           <label for="" class="label">Bank name</label>
           <div class="control">
-            <input type="text" class="input" disabled>
+            <select class="input">
+              <option :value="i._Id" v-for="i in banks" :key="i._i">{{i.name}}</option>
+            </select>
           </div>
         </div>
       </div>
@@ -94,12 +98,15 @@
 
 <script>
 import {mapGetters, mapMutations, mapActions} from 'vuex'
+import {getReuse} from "@/apis/reuse-api";
 
 export default {
   computed: {
     ...mapGetters(['getCompany'])
   },
   data: () => ({
+    industries: [],
+    banks: [],
     form: {
       basicInfo: {
         name: '',
@@ -113,9 +120,17 @@ export default {
     async updateCompanyInfo() {
       await this.updateCompany(this.form)
       alert('Updated')
+    },
+    async getIndustries() {
+      this.industries = await getReuse('Industry')
+    },
+    async getBanks() {
+      this.banks = await getReuse('Bank')
     }
   },
   created() {
+    this.getIndustries()
+    this.getBanks()
     this.form  = {
       basicInfo: {
         name: this.getCompany.basicInfo.name,
@@ -139,6 +154,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+select {
+  cursor: pointer;
+}
+
 .box-header{
   color: $font-color;
   margin-bottom: 20px;
