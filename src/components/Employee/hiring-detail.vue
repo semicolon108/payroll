@@ -52,14 +52,22 @@
                   </option>
                 </select>
               </div>
-              <!--                            <input type="text" class="input" required>-->
             </div>
           </div>
         </div>
         <div class="column is-4">
-          <div class="field">
-            <label for="" class="label">Salary</label>
-            <div class="control">
+          <label for="" class="label">Salary</label>
+          <div class="field has-addons">
+            <p class="control">
+              <span class="select">
+                <select>
+                  <option>$</option>
+                  <option>£</option>
+                  <option>€</option>
+                </select>
+              </span>
+            </p>
+            <div class="control is-expanded">
               <input v-model="form.salary" type="text" class="input" required>
             </div>
           </div>
@@ -82,8 +90,9 @@
 
       <hr>
 
-      <h3 class="form-title">Contract Detail</h3>
 
+      <!-- Contract detail -->
+      <h3 class="form-title">Contract Detail</h3>
       <div class="columns is-multiline">
         <div class="column is-4">
           <div class="field">
