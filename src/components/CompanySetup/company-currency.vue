@@ -21,7 +21,7 @@
         <div class="field has-addons"
              v-for="(i, idx) in compCurrencies"
              :key="i._id"
-        >
+            >
           <p class="control">
                 <span class="select">
                     <select v-model="i.currencyId._id">
@@ -33,7 +33,7 @@
             <input v-model="i.amount" class="input" type="text" placeholder="Exchange rate">
           </p>
           <i  @click="spliceCurrency(idx)"
-              class="far fa-times-circle splice-icon"></i>
+              class="fas fa-trash splice-icon"></i>
         </div>
         <button
             v-if="!isLimit"
@@ -133,7 +133,8 @@ export default {
 
 <style lang="scss" scoped>
 .splice-icon {
-  font-size: 1.5rem; margin: auto 5px auto; color: red; cursor: pointer
+  color: $alert-color;
+  cursor: pointer
 }
 
 .box-header{
@@ -191,6 +192,12 @@ label{
 .currency{
     margin-bottom: 20px;
     width: 50%;
+    .has-addons{
+      align-items: center;
+      i{
+        margin-left: 10px;
+      }
+    }
     .control{
         &:last-child{
             width: 100%;

@@ -131,11 +131,6 @@ const routes = [
         component: () => import(/* webpackChunkName: "company_sso" */ '@coms/CompanySetup/company-sso.vue')
       },
       {
-        path: 'company-expat',
-        name: 'company_expat',
-        component: () => import(/* webpackChunkName: "company_expat" */ '@coms/CompanySetup/company-expat.vue')
-      },
-      {
         path: 'company-currency',
         name: 'company_currency',
         component: () => import(/* webpackChunkName: "company_currency" */ '@coms/CompanySetup/company-currency.vue')
@@ -144,6 +139,11 @@ const routes = [
         path: 'company-payroll-rule',
         name: 'company_payroll-rule',
         component: () => import(/* webpackChunkName: "company_payroll-rule" */ '@coms/CompanySetup/company-payroll-rule.vue')
+      },
+      {
+        path: 'company-expat',
+        name: 'company_expat',
+        component: () => import(/* webpackChunkName: "company_expat" */ '@coms/CompanySetup/company-expat.vue')
       },
     ]
   }

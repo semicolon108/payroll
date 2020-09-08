@@ -12,9 +12,9 @@
                 <router-link class="navigation-item" :to="{name:'company_deductible'}">Earning / Deduction</router-link>
                 <router-link class="navigation-item" :to="{name:'company_sso'}">SSO</router-link>
                 <router-link class="navigation-item" :to="{name:'company_tax'}">TAX</router-link>
-                <router-link class="navigation-item" :to="{name:'company_expat'}">Expat Manager</router-link>
                 <router-link class="navigation-item" :to="{name:'company_currency'}">Currency</router-link>
                 <router-link class="navigation-item" :to="{name:'company_payroll-rule'}">Payroll Rule</router-link>
+                 <router-link class="navigation-item" :to="{name:'company_expat'}">Expat Manager</router-link>
             </div>
         </div>
         <div class="column">

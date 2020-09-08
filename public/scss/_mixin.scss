@@ -5,6 +5,21 @@
     background-color: $input-color;
     &:valid{
         background-color: $border-color;
+        border-color: $primary-color;
+    }
+    &:focus{
+        border-color: $sub-color;
+    }
+}
+
+@mixin select {
+    border-radius: 0;
+    box-shadow: none;
+    border: 1px solid $border-color;
+    background-color: $input-color;
+    &:valid{
+        background-color: $border-color;
+        border-color: $primary-color;
     }
     &:focus{
         border-color: $sub-color;

@@ -56,14 +56,12 @@
           <div class="field">
             <label class="label">Gender</label>
             <div class="control option">
-              <div v-for="i in genders" :key="i._id" style="width: 100%; cursor: pointer"
+              <label v-for="i in genders" :key="i._id"
                    @click="form.genderId = i._id"
                    :style="form.genderId === i._id && 'background-color: grey; color: white'"
               >
                 {{ i.name }}
-              </div>
-              <!--              <input type="radio" name="gender" id="female">-->
-              <!--              <label class="radio" for="female">Female</label>-->
+              </label>
             </div>
           </div>
         </div>
@@ -72,31 +70,30 @@
             <label for="" class="label">Date of Birth</label>
             <DatePicker v-model="form.dateOfBirth" :defaultValue="defaultValue.dateOfBirth" class="control date"/>
             {{ form.dateOfBirth }}
-            <!--            <div class="control date">-->
-            <!--              <input type="text" class="input" placeholder="DD" required>-->
-            <!--              <input type="text" class="input" placeholder="MM" required>-->
-            <!--              <input type="text" class="input" placeholder="YY" required>-->
-            <!--            </div>-->
           </div>
         </div>
         <div class="column is-4">
           <div class="field">
             <label for="" class="label">Marital Status</label>
-            <select v-model="form.maritalStatusId" class="control select" style="width: 100%">
-              <option v-for="i in maritalStatuses" :value="i._id" :key="i._id" type="text" class="input" required>
-                {{ i.name }}
-              </option>
-            </select>
+            <div class="select">
+              <select v-model="form.maritalStatusId" class="control select" style="width: 100%">
+                <option v-for="i in maritalStatuses" :value="i._id" :key="i._id" type="text" class="input" required>
+                  {{ i.name }}
+                </option>
+              </select>
+            </div>
           </div>
         </div>
         <div class="column is-4">
           <div class="field">
             <label for="" class="label">Nationality</label>
-            <select v-model="form.nationalityId" class="control select" style="width: 100%">
-              <option v-for="i in nationalities" :value="i._id" :key="i._id" type="text" class="input" required>
-                {{ i.name }}
-              </option>
-            </select>
+            <div class="select">
+              <select v-model="form.nationalityId" class="control select" style="width: 100%">
+                <option v-for="i in nationalities" :value="i._id" :key="i._id" type="text" class="input" required>
+                  {{ i.name }}
+                </option>
+              </select>
+            </div>
           </div>
         </div>
         <div class="column is-4">
@@ -152,11 +149,13 @@
         <div class="column is-4">
           <div class="field">
             <label for="" class="label">Relationship</label>
-            <select v-model="form.emergencyContact.relationshipId" class="control select" style="width: 100%;">
-              <option v-for="i in relationships" :value="i._id" :key="i._id" type="text" class="input" required>
-                {{ i.name }}
-              </option>
-            </select>
+            <div class="select">
+              <select v-model="form.emergencyContact.relationshipId" class="control select" style="width: 100%;">
+                <option v-for="i in relationships" :value="i._id" :key="i._id" type="text" class="input" required>
+                  {{ i.name }}
+                </option>
+              </select>
+            </div>
           </div>
         </div>
         <div class="column is-4">

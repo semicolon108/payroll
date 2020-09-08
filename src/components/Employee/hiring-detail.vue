@@ -23,12 +23,13 @@
           <div class="field">
             <label for="" class="label">Position</label>
             <div class="control">
-              <select v-model="form.positionId" class="select">
-                <option v-for="i in positions" :key="i._id" :value="i._id">
-                  {{ i.name }}
-                </option>
-              </select>
-              <!--                            <input type="text" class="input" required>-->
+              <div class="select">
+                <select v-model="form.positionId">
+                  <option v-for="i in positions" :key="i._id" :value="i._id">
+                    {{ i.name }}
+                  </option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
@@ -44,11 +45,13 @@
           <div class="field">
             <label for="" class="label">Working Location</label>
             <div class="control">
-              <select v-model="form.provinceId" class="select">
-                <option v-for="i in provinces" :key="i._id" :value="i._id">
-                  {{ i.name }}
-                </option>
-              </select>
+              <div class="select">
+                <select v-model="form.provinceId" class="select">
+                  <option v-for="i in provinces" :key="i._id" :value="i._id">
+                    {{ i.name }}
+                  </option>
+                </select>
+              </div>
               <!--                            <input type="text" class="input" required>-->
             </div>
           </div>
@@ -65,29 +68,13 @@
           <div class="field">
             <label for="" class="label">Contract Type</label>
             <div class="control">
-              <select v-model="form.contactTypeId" class="select" name="" id="">
-                <option v-for="i in contactTypes" :key="i._id" :value="i._id">
-                  {{ i.name }}
-                </option>
-              </select>
-              <!--                            <div class="select-container">-->
-              <!--                                &lt;!&ndash; Select Label &ndash;&gt;-->
-              <!--                                &lt;!&ndash; <input type="text" class="input"> &ndash;&gt;-->
-              <!--                                -->
-              <!--                                <div class="select-label"-->
-              <!--                                    :class="{'active' : SelectActive}"-->
-              <!--                                    @click="select()">-->
-              <!--                                    <span>Select Contract type</span>-->
-              <!--                                    <span><i class="fas fa-caret-down"></i></span>-->
-              <!--                                </div>-->
-              <!--                                -->
-              <!--                                <div class="select-list-box" :class="{'active' : SelectActive}">-->
-              <!--                                    &lt;!&ndash; Select list &ndash;&gt;-->
-              <!--                                    <div class="select-list">-->
-              <!--                                        <div class="select-item" v-for="(n,idx) in 4" :key="idx">Contract type 1</div>-->
-              <!--                                    </div>-->
-              <!--                                </div>-->
-              <!--                            </div>-->
+              <div class="select">
+                <select v-model="form.contactTypeId" class="select" name="" id="">
+                  <option v-for="i in contactTypes" :key="i._id" :value="i._id">
+                    {{ i.name }}
+                  </option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
@@ -119,6 +106,44 @@
           </div>
         </div>
       </div>
+
+      <hr>
+
+      <div class="form-title-wraper">
+        <h3 class="form-title">Work Permit</h3>
+        <div class="control switch-btn">
+          <input type="checkbox" id="expat">
+          <label for="expat"></label>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column">
+          <div class="field">
+            <label class="label">Start Date</label>
+            <div class="control">
+              <input type="text" class="input">
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="field">
+            <label class="label">End Date</label>
+            <div class="control">
+              <input type="text" class="input">
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="field">
+            <label class="label">Days of notify</label>
+            <div class="control">
+              <input type="text" class="input">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <button type="button" @click="addOrUpdateHirringDetail" class="button save-btn">Save and Continue</button>
     </form>
   </div>
@@ -209,57 +234,46 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.select-container {
-  position: relative;
-
-  .select-list-box {
-    box-sizing: border-box;
-    box-shadow: 0 0 10px 0 rgba(149, 149, 149, 0.5);
-    display: none;
-    border: 1px solid $border-color;
-    background-color: #fff;
-    z-index: 1;
-    position: absolute;
-    padding: 20px;
-    width: 100%;
-    margin-top: 5px;
-
-    &.active {
-      display: block;
-    }
-
-    .select-list {
-      .select-item {
-        padding: 8px 0;
-        cursor: pointer;
-        transition: all ease-in-out .1s;
-
-        &:hover {
-          color: $primary-color;
-        }
+.form-title-wraper{
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  .form-title{
+    margin: 0;
+  }
+  .switch-btn{
+    margin-left: 10px;
+    display: flex;
+    width: 80px;
+    position: relative;
+    input{
+      display: none;
+      &:checked ~ label{
+        background-color: $primary-color;
+      }
+      &:checked ~ label::after{
+        left: auto;
+        right: 3px;
       }
     }
-  }
-
-  .select-label {
-    // color: $primary-color;
-    position: relative;
-    cursor: pointer;
-    border: 1px solid $border-color;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-left: 10px;
-
-    i {
-      margin-right: 10px;
-      transition: .2s ease;
-    }
-
-    &.active i {
-      transition: .2s ease;
-      transform: rotate(180deg);
+    label{
+      transition: all 0.1s ease 0.1s;
+      background-color: $grey-color;
+      border-radius: 40px;
+      position: relative;
+      width: 45px;
+      height: 26px;
+       &::after{
+        transition: all 0.1s ease 0.1s;
+        content: '';
+        position: absolute;
+        left: 3px;
+        top: 3px;
+        width: 20px;
+        height: 20px;
+        background-color: $light-grey-color;
+        border-radius: 50%;
+      }
     }
   }
 }
