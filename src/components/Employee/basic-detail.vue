@@ -38,6 +38,14 @@
         </div>
         <div class="column is-4">
           <div class="field">
+            <label for="" class="label">Employee ID</label>
+            <div class="control">
+              <input type="text" class="input" required>
+            </div>
+          </div>
+        </div>
+        <div class="column is-4">
+          <div class="field">
             <label for="" class="label">First Name</label>
             <div class="control">
               <input v-model="form.firstName" type="text" class="input" required>

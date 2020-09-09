@@ -45,7 +45,6 @@
             <i @click="spliceCurrency(idx)"
                class="fas fa-trash splice-icon"></i>
           </div>
-
         </Draggable>
         <button
             v-if="!isLimit"
