@@ -9,29 +9,26 @@ export const GET_HIRRING_DETAIL = gql`
             employeeId: $employeeId
         ) {
             _id
-            employeeId {
-                _id
-                firstName
-            }
-            provinceId {
-                _id
-                name
-            }
+            isExpat
+            employeeId
+            provinceId
             dateOfJoining
             probationEndDate
-            positionId {
-                _id
-                name
-            }
+            positionId
             workingDay
+            currencyId
             salary
-            contactTypeId {
-                _id
-                name
+            contactDetail {
+                contactTypeId
+                mobile
+                startDate
+                endDate
             }
-            contactNumber
-            startDate
-            endDate
+            workPermit {
+                startDate
+                endDate
+                daysOfNotify
+            }
         }
     }
 
@@ -41,57 +38,55 @@ export const GET_HIRRING_DETAIL = gql`
 export const ADD_OR_UPDATE_HIRRING_DETAIL = gql`
 
     mutation (
+        $isExpat: Boolean!
         $employeeId: ID!
         $provinceId: ID!
         $dateOfJoining: Date!
         $probationEndDate: Date!
         $positionId: ID!
         $workingDay: Int!
+        $currencyId: ID!
         $salary: Int!
-        $contactTypeId: ID!
-        $contactNumber: String!
-        $startDate: Date!
-        $endDate: Date!
+        $contactDetail: ContactDetailInput!
+        $workPermit: WorkPermitInput!
     ) {
         addOrUpdateHirringDetail(
             info: {
+                isExpat: $isExpat
                 employeeId: $employeeId
+
                 provinceId: $provinceId
                 dateOfJoining: $dateOfJoining
                 probationEndDate: $probationEndDate
                 positionId: $positionId
                 workingDay: $workingDay
+                currencyId: $currencyId
                 salary: $salary
-                contactTypeId: $contactTypeId
-                contactNumber: $contactNumber
-                startDate: $startDate
-                endDate: $endDate
+                contactDetail: $contactDetail
+                workPermit: $workPermit
             }
         ) {
             _id
-            employeeId {
-                _id
-                firstName
-            }
-            provinceId {
-                _id
-                name
-            }
+            isExpat
+            employeeId
+            provinceId
             dateOfJoining
             probationEndDate
-            positionId {
-                _id
-                name
-            }
-            contactTypeId {
-                _id
-                name
-            }
+            positionId
             workingDay
+            currencyId
             salary
-            contactNumber
-            startDate
-            endDate
+            contactDetail {
+                contactTypeId
+                mobile
+                startDate
+                endDate
+            }
+            workPermit {
+                startDate
+                endDate
+                daysOfNotify
+            }
         }
     }
 

@@ -75,7 +75,7 @@
             <label for="" class="label">Contract Type</label>
             <div class="control">
               <div class="select">
-                <select v-model="form.contactTypeId" class="select" name="" id="">
+                <select v-model="form.contactDetail.contactTypeId" class="select" name="" id="">
                   <option v-for="i in contactTypes" :key="i._id" :value="i._id">
                     {{ i.name }}
                   </option>
@@ -96,20 +96,20 @@
           <div class="field">
             <label for="" class="label">Contract Number</label>
             <div class="control">
-              <input v-model="form.contactNumber" type="text" class="input" required>
+              <input v-model="form.contactDetail.mobile" type="text" class="input" required>
             </div>
           </div>
         </div>
         <div class="column is-4">
           <div class="field">
             <label for="" class="label">Effective Date / Start Date</label>
-            <DatePicker v-model="form.startDate"  :defaultValue="defaultValue.startDate" />
+            <DatePicker v-model="form.contactDetail.startDate"  :defaultValue="defaultValue.contactDetail.startDate" />
           </div>
         </div>
         <div class="column is-4">
           <div  class="field">
             <label for="" class="label">Until Date / End Date</label>
-            <DatePicker v-model="form.endDate"  :defaultValue="defaultValue.endDate" />
+            <DatePicker v-model="form.contactDetail.endDate"  :defaultValue="defaultValue.contactDetail.endDate" />
           </div>
         </div>
       </div>
@@ -123,24 +123,24 @@
           <label for="expat"></label>
         </div>
       </div>
-      <div class="columns" v-if="form.isExpat">
+      <div class="columns" v-show="form.isExpat">
         <div class="column">
           <div class="field">
             <label class="label">Start Date</label>
-            <DatePicker v-model="form.endDate"  :defaultValue="defaultValue.endDate" />
+            <DatePicker v-model="form.workPermit.startDate"  :defaultValue="defaultValue.workPermit.startDate" />
           </div>
         </div>
         <div class="column">
           <div class="field">
             <label class="label">End Date</label>
-            <DatePicker v-model="form.endDate"  :defaultValue="defaultValue.endDate" />
+            <DatePicker v-model="form.workPermit.endDate"  :defaultValue="defaultValue.workPermit.startDate" />
           </div>
         </div>
         <div class="column">
           <div class="field">
             <label class="label">Days of notify</label>
             <div class="control">
-              <input type="text" class="input">
+              <input v-model="form.workPermit.daysOfNotify" type="text" class="input">
             </div>
           </div>
         </div>
@@ -176,19 +176,17 @@ export default {
       provinceId: '',
       workingDay: null,
       salary: null,
-      contactTypeId: '',
-      contactNumber: '',
-      startDate: null,
-      endDate: null,
-      isExpat: false
+      isExpat: true,
+      contactDetail: {},
+      workPermit: {},
     },
     isEditMode: false,
 
     defaultValue: {
       dateOfJoining: null,
       probationEndDate: null,
-      startDate: null,
-      endDate: null
+      workPermit: {},
+      contactDetail: {}
     },
 
   }),
@@ -204,23 +202,29 @@ export default {
       if (data) {
         this.isEditMode = true
         this.form = {
-          ...data, ...{
-            positionId: data.positionId._id,
-            provinceId: data.provinceId._id,
-            contactTypeId: data.contactTypeId._id
+          ...data,
+          contactDetail: {
+            contactTypeId: data.contactDetail.contactTypeId,
+            mobile: data.contactDetail.mobile,
+            startDate: data.contactDetail.startDate,
+            endDate: data.contactDetail.endDate
+          },
+          workPermit: {
+            startDate: data.workPermit.startDate,
+            endDate: data.workPermit.endDate,
+            daysOfNotify: data.workPermit.daysOfNotify
           }
         }
         this.defaultValue = {
           dateOfJoining: data.dateOfJoining,
           probationEndDate: data.probationEndDate,
-          startDate: data.startDate,
-          endDate: data.endDate
+          contactDetail: data.contactDetail,
+          workPermit: data.workPermit,
         }
       } else {
         this.form = {
           positionId: this.positions[0]._id,
           provinceId: this.provinces[0]._id,
-          contactTypeId: this.contactTypes[0]._id,
         }
       }
     },
@@ -228,6 +232,7 @@ export default {
       this.form.employeeId = this.$route.params.id
       this.form.workingDay = parseInt(this.form.workingDay, 10)
       this.form.salary = parseInt(this.form.salary, 10)
+      this.form.workPermit.daysOfNotify = parseInt(this.form.workPermit.daysOfNotify, 10)
       await addOrUpdateHirringDetail(this.form)
       await this.$router.push({name: 'earning', params: {id: this.$route.params.id}})
     },
