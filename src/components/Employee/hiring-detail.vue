@@ -60,8 +60,10 @@
           <div class="field has-addons">
             <p class="control">
               <span class="select">
-                <select>
-                  <option v-for="i in currencies" :key="i._id">{{ i.name }}</option>
+                <select v-model="form.currencyId">
+                  <option v-for="i in currencies"
+                          :value="i._id"
+                          :key="i._id">{{ i.name }}</option>
                 </select>
               </span>
             </p>
@@ -177,8 +179,17 @@ export default {
       workingDay: null,
       salary: null,
       isExpat: true,
-      contactDetail: {},
-      workPermit: {},
+      contactDetail: {
+        contactTypeId: null,
+        mobile: null,
+        startDate: null,
+        endDate: null
+      },
+      workPermit: {
+        startDate: null,
+        endDate: null,
+        daysOfNotify: null
+      },
     },
     isEditMode: false,
 
@@ -223,8 +234,13 @@ export default {
         }
       } else {
         this.form = {
+          ...this.form,
           positionId: this.positions[0]._id,
           provinceId: this.provinces[0]._id,
+          currencyId: this.currencies[0]._id,
+          contactDetail: {
+            contactTypeId: this.contactTypes[0]._id
+          }
         }
       }
     },

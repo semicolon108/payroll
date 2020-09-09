@@ -290,6 +290,7 @@ export default {
         items
       }
       await addOrUpdateCompanyCurrency(form)
+      this.getPayrollByEmps()
       alert('Updated')
     },
   },
