@@ -18,9 +18,19 @@
       <div class="box control">
         <div class="box-control-header">
           <div class="exchange_rate">
-            <span>Exchange Rate (LAK)</span>
-            <input type="text" class="input" value="9100">
-            <button class="button">Update</button>
+<!--            <span>Exchange Rate (LAK)</span>-->
+
+                <div style="display: flex">
+                  <span class="select">
+                    <select v-model="currencyIdx">
+                      <option v-for="(i, idx) in compCurrencies" :value="idx" :key="i._id">{{ i.currencyId.name }}</option>
+                    </select>
+                  </span>
+                    <input v-model="compCurrencies[currencyIdx].amount" type="text" class="input" required>
+                  <button @click="updateCompanyCurrency" class="button">Update</button>
+                </div>
+
+
           </div>
           <div class="button-group">
             <button class="button" @click="ModalClick = 'document'">Document</button>
@@ -199,6 +209,7 @@ import document from './Modal/document'
 import {calcPayroll, getPayrollByEmps} from "@/apis/payroll-api";
 import {addOrUpdateActualWorkingDay} from "@/apis/actual-working-day-api";
 import VueHtml2pdf from 'vue-html2pdf'
+import {addOrUpdateCompanyCurrency, getCompanyCurrencies} from "@/apis/company-currency-api";
 
 export default {
   components: {
@@ -215,7 +226,11 @@ export default {
     ModalClick: '',
     editWorkday: false,
     chooseTab: 'All',// All , Local, Expat,
-    searchText: ''
+    searchText: '',
+
+    isMulti: true,
+    compCurrencies: [],
+    currencyIdx: ''
   }),
   computed: {
     filterItems() {
@@ -234,6 +249,12 @@ export default {
   methods: {
     generateReport () {
       this.$refs.html2Pdf.generatePdf()
+    },
+    async getCompanyCurrencies() {
+      const data = await getCompanyCurrencies()
+      this.isMulti = data.isMulti
+      this.compCurrencies = data.currencies
+      this.currencyIdx = 0
     },
     async getPayrollByEmps() {
       this.items = await getPayrollByEmps(this.$route.params.id)
@@ -256,9 +277,24 @@ export default {
       }
       await addOrUpdateActualWorkingDay(form)
       await this.getPayrollByEmps()
-    }
+    },
+    async updateCompanyCurrency() {
+      const items = this.compCurrencies.map(i => {
+        return {
+          currencyId: i.currencyId._id,
+          amount: parseInt(i.amount, 10)
+        }
+      })
+      const form = {
+        isMulti: this.isMulti,
+        items
+      }
+      await addOrUpdateCompanyCurrency(form)
+      alert('Updated')
+    },
   },
   created() {
+    this.getCompanyCurrencies()
     this.getPayrollByEmps()
   }
 }
@@ -346,7 +382,7 @@ export default {
       }
 
       input {
-        margin-left: 20px;
+        margin-left: -2px;
         @include input;
         border: 1px solid $sub-color;
       }

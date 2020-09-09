@@ -61,9 +61,7 @@
             <p class="control">
               <span class="select">
                 <select>
-                  <option>$</option>
-                  <option>£</option>
-                  <option>€</option>
+                  <option v-for="i in currencies" :key="i._id">{{ i.name }}</option>
                 </select>
               </span>
             </p>
@@ -121,25 +119,21 @@
       <div class="form-title-wraper">
         <h3 class="form-title">Work Permit</h3>
         <div class="control switch-btn">
-          <input type="checkbox" id="expat">
+          <input v-model="form.isExpat" type="checkbox" id="expat">
           <label for="expat"></label>
         </div>
       </div>
-      <div class="columns">
+      <div class="columns" v-if="form.isExpat">
         <div class="column">
           <div class="field">
             <label class="label">Start Date</label>
-            <div class="control">
-              <input type="text" class="input">
-            </div>
+            <DatePicker v-model="form.endDate"  :defaultValue="defaultValue.endDate" />
           </div>
         </div>
         <div class="column">
           <div class="field">
             <label class="label">End Date</label>
-            <div class="control">
-              <input type="text" class="input">
-            </div>
+            <DatePicker v-model="form.endDate"  :defaultValue="defaultValue.endDate" />
           </div>
         </div>
         <div class="column">
@@ -174,6 +168,7 @@ export default {
     positions: [],
     provinces: [],
     contactTypes: [],
+    currencies: [],
     form: {
       dateOfJoining: null,
       probationEndDate: null,
@@ -184,7 +179,8 @@ export default {
       contactTypeId: '',
       contactNumber: '',
       startDate: null,
-      endDate: null
+      endDate: null,
+      isExpat: false
     },
     isEditMode: false,
 
@@ -193,7 +189,8 @@ export default {
       probationEndDate: null,
       startDate: null,
       endDate: null
-    }
+    },
+
   }),
   methods: {
     select() {
@@ -233,9 +230,14 @@ export default {
       this.form.salary = parseInt(this.form.salary, 10)
       await addOrUpdateHirringDetail(this.form)
       await this.$router.push({name: 'earning', params: {id: this.$route.params.id}})
+    },
+    async getCurrencies() {
+       this.currencies = await getReuse('Currency')
+
     }
   },
   created() {
+    this.getCurrencies()
     this.getData()
     window.scrollTo(0, 0)
   }
@@ -246,7 +248,7 @@ export default {
 .form-title-wraper{
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   .form-title{
     margin: 0;
   }
