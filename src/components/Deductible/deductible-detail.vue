@@ -18,19 +18,19 @@
         <tr>
           <th class="is-xs">
             <span>Employee ID</span>
-            <input type="text" class="input" placeholder="Search ID">
+            <input v-model="searchItem.emId" type="text" class="input" placeholder="Search ID">
           </th>
           <th>
             <span>Full Name</span>
-            <input type="text" class="input" placeholder="Search employee">
+            <input v-model="searchItem.emName" type="text" class="input" placeholder="Search employee">
           </th>
           <th>
             <span>Item Name</span>
-            <input type="text" class="input" placeholder="Search item name">
+            <input v-model="searchItem.itemName" type="text" class="input" placeholder="Search item name">
           </th>
           <th class="is-sm">
             <span>Item Category</span>
-            <input type="text" class="input" placeholder="Item category">
+            <input v-model="searchItem.itemType" type="text" class="input" placeholder="Item category">
           </th>
           <th class="is-sm is-right">Amount</th>
           <th class="is-right">
@@ -48,18 +48,19 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(i, index) in items" :key="index">
-          <td>{{ i.employee.employeeCode }}</td>
-          <td>{{ i.employee.fullName }}</td>
-          <td>{{ i.earnDeduct.name }}</td>
+        <tr v-for="(i, idx) in newItems" :key="idx">
+          <td  :style="isCustomAllo(i.earnDeduct._id) ? 'color: red': null">{{ i.employee.employeeCode }}</td>
+          <td :style="isCustomAllo(i.earnDeduct._id) ? 'color: red': null">{{ i.employee.fullName }}</td>
+          <td :style="isCustomAllo(i.earnDeduct._id) ? 'color: red': null">{{ i.earnDeduct.name }}</td>
           <td>
             <span>{{ i.earnDeduct.type }}</span>
           </td>
           <td class="is-right">
             <span
-                :class="[{ 'is-earning': i.earnDeduct.type === 'Earning' }, { 'is-deduction': i.earnDeduct.type === 'Deduction' } ]">{{
-                i.earnDeduct.chooseAmount
-              }}</span>
+                :class="[
+                    { 'is-earning': i.earnDeduct.type === 'Earning' },
+                    { 'is-deduction': i.earnDeduct.type === 'Deduction' }
+                  ]">{{ i.earnDeduct.chooseAmount }}</span>
           </td>
           <td class="is-right">
             <span v-if="i.isApproved" class="approved"><i class="fas fa-check-circle"></i></span>
@@ -73,6 +74,8 @@
             </div>
           </td>
         </tr>
+
+
         <!--                    <tr v-for="(n, index) in 7" :key="index">-->
         <!--                        <td>E129S</td>-->
         <!--                        <td>Anousone Luangkhot</td>-->
@@ -121,11 +124,34 @@ export default {
     ModalClick: '',
     Approved: true,
     items: [],
-    date: null
+    date: null,
+
+    searchItem: {
+      emId: '',
+      emName: '',
+      itemName: '',
+      itemType: ''
+    }
   }),
   filters: {
     momentV2(date) {
       return moment(date).format('LL')
+    }
+  },
+  computed: {
+    isCustomAllo() {
+      return (id,) => {
+        if(!id) return true
+        return false
+      }
+    },
+    newItems() {
+      return this.items.filter(i => {
+        return i.employee.employeeCode.toLowerCase().includes(this.searchItem.emId.toLowerCase()) &&
+               i.employee.fullName.toLowerCase().includes(this.searchItem.emName.toLowerCase()) &&
+               i.earnDeduct.name.toLowerCase().includes(this.searchItem.itemName.toLowerCase()) &&
+               i.earnDeduct.type.toLowerCase().includes(this.searchItem.itemType.toLowerCase())
+      })
     }
   },
   created() {

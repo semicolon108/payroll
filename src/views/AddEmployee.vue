@@ -7,7 +7,7 @@
               'Add Employee'
         }}</h3>
     </div>
-    <div class="steps">
+    <div class="steps" v-if="$route.params.id">
       <router-link
           v-if="$route.params.id"
           :to="{name:'edit_basic_detail', params: { id: $route.params.id }}" class="step done"
