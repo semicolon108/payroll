@@ -14,19 +14,19 @@
                         <h3>30</h3>
                     </div>
                     <div class="summary-item">
-                        <span>150%</span>
+                        <span>150% / Hours</span>
                         <h3>3,000,000</h3>
                     </div>
                     <div class="summary-item">
-                        <span>200%</span>
+                        <span>200% / Hours</span>
                         <h3>3,000,000</h3>
                     </div>
                     <div class="summary-item">
-                        <span>250%</span>
+                        <span>250% / Hours</span>
                         <h3>3,000,000</h3>
                     </div>
                     <div class="summary-item">
-                        <span>300%</span>
+                        <span>300% / Hours</span>
                         <h3>3,000,000</h3>
                     </div>
                     <div class="summary-item">
