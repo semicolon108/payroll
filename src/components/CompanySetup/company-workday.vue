@@ -4,12 +4,21 @@
       <h3 class="box-title">Company Work Day</h3>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, sunt quo illum in repellendus alias corporis error facere nostrum quae aliquid illo blanditiis nihil consectetur expedita, amet officia optio eveniet?</p>
     </div>
+
     <div class="field">
-      <label for="" class="label">Work Day</label>
+      <label for="" class="label">Work Day / Month</label>
       <div class="control">
         <input v-model="workingDay" type="text" class="input">
       </div>
     </div>
+    <div class="field">
+      <label class="label">Work Hours / Day</label>
+      <div class="control">
+        <input v-model="workingDay" type="text" class="input">
+      </div>
+    </div>
+
+    
 
     <button @click="updateCompanyInfo" class="button">Save</button>
   </div>
@@ -55,7 +64,10 @@ export default {
   @include input;
 }
 label{
-  font-weight: normal;
+  font-weight: 700;
+  p{
+    font-weight: normal;
+  }
 }
 .button{
   border-radius: 0;

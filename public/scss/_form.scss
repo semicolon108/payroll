@@ -11,6 +11,18 @@
     }
 }
 
+
+.field{
+    label.label{
+        color: $font-color;
+        font-weight: normal;
+        &:not(:last-child){
+            margin-bottom: 5px;
+        }
+    }
+}
+
+
 .form{
     color: $font-color;
     hr{
@@ -37,14 +49,14 @@
         //mixin.scss
         @include input;
     }
-    .control{
-        label{
-            color: $font-color;
-            font-weight: normal;
-            &:not(:last-child){
-                margin-bottom: 5px;
-            }
+    label.label{
+        color: $font-color;
+        font-weight: 700;
+        &:not(:last-child){
+            margin-bottom: 5px;
         }
+    }
+    .control{
         input{
             //mixin.scss
             @include input;

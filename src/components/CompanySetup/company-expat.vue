@@ -69,9 +69,7 @@ export default {
 .input, .textarea{
   @include input;
 }
-label{
-  font-weight: normal;
-}
+
 .button{
   border-radius: 0;
   background-color: $primary-color;

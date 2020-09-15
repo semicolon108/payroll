@@ -9,6 +9,7 @@
             <div class="navigation-tab">
                 <router-link class="navigation-item" :to="{name:'company_info'}">Company Information</router-link>
                 <router-link class="navigation-item" :to="{name:'company_workday'}">Work Day</router-link>
+                <router-link class="navigation-item" :to="{name:'company_overtime'}">Overtime</router-link>
                 <router-link class="navigation-item" :to="{name:'company_deductible'}">Earning / Deduction</router-link>
                 <router-link class="navigation-item" :to="{name:'company_sso'}">SSO</router-link>
                 <router-link class="navigation-item" :to="{name:'company_tax'}">TAX</router-link>

@@ -5,7 +5,7 @@
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore facere quidem magnam, voluptatum non ipsam libero consequatur modi. Fuga unde voluptatibus vitae laborum eveniet excepturi tempora, maiores dignissimos consequatur nam.</p>
     </div>
     <div class="field">
-      <label for="" class="label">TAX</label>
+      <label for="" class="label">How TAX is paid?</label>
         <div class="control switch">
             <input @click="isTaxPaidByCompany = false" type="radio" name="tax" id="employeetax"  :checked="!isTaxPaidByCompany">
             <label for="employeetax">Employee pay</label>
@@ -56,9 +56,6 @@ export default {
 }
 .input, .textarea{
   @include input;
-}
-label{
-  font-weight: normal;
 }
 .button{
   border-radius: 0;

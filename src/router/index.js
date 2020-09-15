@@ -25,8 +25,23 @@ const routes = [
     component: () => import(/* webpackChunkName: "Employee" */ '../views/Employee.vue')
   },
   {
+    path: '/overtime-calculation',
+    component: () => import(/* webpackChunkName: "overtime_calculation" */ '../views/OTCalculation.vue'),
+    children:[
+      {
+        path: '',
+        name: 'overtime_calculation',
+        component: () => import(/* webpackChunkName: "overtime_calculation" */ '../components/Overtime/overtime-list.vue')
+      },
+      {
+        path: '/overtime-detail',
+        name: 'overtime_detail',
+        component: () => import(/* webpackChunkName: "overtime_detail" */ '../components/Overtime/overtime-detail.vue')
+      },
+    ]
+  },
+  {
     path: '/deductable',
-    name: 'deductable',
     component: () => import(/* webpackChunkName: "deductable" */ '../views/Deductable.vue'),
     children:[
       {
@@ -80,7 +95,6 @@ const routes = [
   },
   {
     path: '/payroll',
-    name: 'payroll',
     component: () => import(/* webpackChunkName: "payroll" */ '../views/Payroll.vue'),
     children:[
       {
@@ -114,6 +128,11 @@ const routes = [
         path: 'company-workday',
         name: 'company_workday',
         component: () => import(/* webpackChunkName: "company_workday" */ '@coms/CompanySetup/company-workday.vue')
+      },
+      {
+        path: 'company-overtime',
+        name: 'company_overtime',
+        component: () => import(/* webpackChunkName: "company_overtime" */ '@coms/CompanySetup/company-overtime.vue')
       },
       {
         path: 'company-deductible',

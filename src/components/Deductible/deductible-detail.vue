@@ -1,8 +1,8 @@
 <template>
   <div>
+    <span @click="$router.back()" class="back">Back</span>
     <div class="page-header">
       <div class="header-start">
-        <span @click="$router.back()" class="back">Back</span>
         <div class="header-title">
           <h3 class="xxl-title">{{ date | momentV2 }}</h3>
           <div class="button-group">
@@ -10,6 +10,17 @@
             <button class="button" @click="ModalClick = 'Upload'">Upload</button>
           </div>
         </div>
+      </div>
+      <div class="header-end">
+        <button v-if="items[0].isApproved" class="button"
+            :disabled="items[0].isApproved">
+            <i class="fas fa-check-circle"></i>
+            Approved
+          </button>
+          <button v-else
+                  @click="approveDeductible"
+                  class="button pending">Approve All
+          </button>
       </div>
     </div>
     <div class="box slide-up">
@@ -34,15 +45,7 @@
           </th>
           <th class="is-sm is-right">Amount</th>
           <th class="is-right">
-            <span>Action</span>
-            <button v-if="items[0].isApproved" class="button"
-              :disabled="items[0].isApproved">
-              <i class="fas fa-check-circle"></i>
-              Approved
-            </button>
-            <button v-else
-                    @click="approveDeductible"
-                    class="button pending">Approve All</button>
+            <span>Status</span>
           </th>
           <th class="is-xxs is-right">Option</th>
         </tr>

@@ -8,10 +8,6 @@
         <div class="summary-container">
             <div class="summary-items">
                 <div class="summary-item">
-                    <span>Payment date</span>
-                    <h3>{{ currentItem.paymentDate | moment }}</h3>
-                </div>
-                <div class="summary-item">
                     <span>Total Employees</span>
                     <h3>{{currentItem.employeeCount }}</h3>
                 </div>
@@ -41,8 +37,9 @@
             </div>
         </div>
     </div>
-    <div class="box is-primary">
-      <h3 class="box-title">Current Payroll</h3>
+
+    <div class="box">
+      <h3 class="box-title">Previous Payroll</h3>
       <table class="table is-fullwidth" id="my-table">
         <thead>
         <tr>
@@ -64,8 +61,8 @@
           <td class="is-right">
             <div v-if="i.isApproved" class="option is-primary">
               <router-link :to="{ name: 'payrollCalculation', params: { id: i.monthlyPaymentId } }">
-                <i class="fas fa-calculator"></i>
-                <span>Calculate</span>
+                <i class="fas fa-expand"></i>
+                <span>Check</span>
               </router-link>
             </div>
             <div v-else class="option is-primary">
@@ -197,17 +194,6 @@ export default {
 
   span {
     margin-left: 5px;
-  }
-}
-
-.box.is-primary {
-  background-color: rgba($primary-color, .1);
-  border: 1px solid $primary-color;
-}
-
-#my-table {
-  td {
-    background-color: transparent;
   }
 }
 </style>
