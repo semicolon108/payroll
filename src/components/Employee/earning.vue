@@ -190,8 +190,7 @@ export default {
           }
         }) : []
       }
-      const data = await addOrUpdateCustomAllowance(form)
-      console.log(data)
+      await addOrUpdateCustomAllowance(form)
     },
     changeGroup(id) {
       this.groupSelected = id
