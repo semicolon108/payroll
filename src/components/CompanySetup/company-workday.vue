@@ -1,27 +1,33 @@
 <template>
-  <div class="box slide-up">
+  <ValidationObserver v-slot="{ handleSubmit }" class="box slide-up">
     <div class="box-header">
       <h3 class="box-title">Company Work Day</h3>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, sunt quo illum in repellendus alias corporis error facere nostrum quae aliquid illo blanditiis nihil consectetur expedita, amet officia optio eveniet?</p>
     </div>
+      <div class="field">
+        <label for="" class="label">Work Day / Month</label>
+        <div class="control">
+          <ValidationProvider rules="required" v-slot="{ errors }">
+            <input v-model="workingDay" type="text" class="input">
+            <p class="has-text-danger">{{ errors[0] }}</p>
+          </ValidationProvider>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Work Hours / Day</label>
+        <div class="control">
+          <ValidationProvider rules="required" v-slot="{ errors }">
+            <input v-model="workingDay" type="text" class="input">
+            <p class="has-text-danger">{{ errors[0] }}</p>
+          </ValidationProvider>
+        </div>
+      </div>
 
-    <div class="field">
-      <label for="" class="label">Work Day / Month</label>
-      <div class="control">
-        <input v-model="workingDay" type="text" class="input">
-      </div>
-    </div>
-    <div class="field">
-      <label class="label">Work Hours / Day</label>
-      <div class="control">
-        <input v-model="workingDay" type="text" class="input">
-      </div>
-    </div>
 
     
 
-    <button @click="updateCompanyInfo" class="button">Save</button>
-  </div>
+    <button @click="handleSubmit(updateCompanyInfo)" class="button">Save</button>
+    </ValidationObserver>
 </template>
 
 <script>

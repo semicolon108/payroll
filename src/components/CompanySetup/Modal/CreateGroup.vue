@@ -1,7 +1,7 @@
 <template>
 <div class="modal is-active">
-  <div class="modal-background" @click="CloseModal()"></div>
-  <div class="modal-content box slide-down">
+  <div class="modal-background" @click="CloseModal"></div>
+  <ValidationObserver v-slot="{ handleSubmit }" tag="div" class="modal-content box slide-down">
     <div class="header">
         <i class="far fa-object-group"></i>
         <div>
@@ -11,12 +11,15 @@
     <div class="field">
         <label for="" class="label">Group Name</label>
         <div class="control">
+          <ValidationProvider rules="required" v-slot="{ errors }">
             <input v-model="form.name" type="text" class="input">
+            <p class="has-text-danger">{{ errors[0] }}</p>
+          </ValidationProvider>
         </div>
     </div>
-    <button @click="addEarnDeductGroup" class="button save-file">Save</button>
-    <button class="modal-close is-large" @click="CloseModal()" aria-label="close"></button>
-  </div>
+    <button @click="handleSubmit(addEarnDeductGroup)" class="button save-file">Save</button>
+    <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
+  </ValidationObserver>
 </div>
 </template>
 

@@ -1,27 +1,38 @@
 <template>
-  <div class="box slide-up">
+  <ValidationObserver v-slot="{ handleSubmit }" tag="div" class="box slide-up">
     <div class="box-header">
       <h3 class="box-title">Basic information</h3>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique aspernatur repudiandae ab officia inventore at impedit ipsa! Exercitationem, placeat, ducimus possimus molestiae ratione rerum, explicabo beatae ipsum maiores odio dolor!</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique aspernatur repudiandae ab officia inventore
+        at impedit ipsa! Exercitationem, placeat, ducimus possimus molestiae ratione rerum, explicabo beatae ipsum
+        maiores odio dolor!</p>
     </div>
     <div class="field">
       <label for="" class="label">Company name</label>
       <div class="control">
-        <input v-model="form.basicInfo.name" type="text" class="input">
+        <ValidationProvider rules="required" v-slot="{ errors }">
+          <input v-model="form.basicInfo.name" type="text" class="input">
+          <p class="has-text-danger">{{ errors[0] }}</p>
+        </ValidationProvider>
       </div>
     </div>
     <div class="field">
       <label for="" class="label">Company industry</label>
       <div class="control">
-        <select class="input">
-          <option :value="i._id" v-for="i in industries" :key="i._i">{{i.name}}</option>
-        </select>
+        <ValidationProvider rules="required" v-slot="{ errors }">
+          <select class="input">
+            <option :value="i._id" v-for="i in industries" :key="i._i">{{ i.name }}</option>
+          </select>
+          <p class="has-text-danger">{{ errors[0] }}</p>
+        </ValidationProvider>
       </div>
     </div>
     <div class="field">
       <label for="" class="label">Company Address</label>
       <div class="control">
-        <textarea v-model="form.basicInfo.address" class="textarea"></textarea>
+        <ValidationProvider rules="required" v-slot="{ errors }">
+          <textarea v-model="form.basicInfo.address" class="textarea"></textarea>
+          <p class="has-text-danger">{{ errors[0] }}</p>
+        </ValidationProvider>
       </div>
     </div>
     <h3 class="title">Contact Person</h3>
@@ -30,7 +41,10 @@
         <div class="field">
           <label for="" class="label">Contact name</label>
           <div class="control">
-            <input v-model="form.contactPerson.name" type="text" class="input" disabled>
+            <ValidationProvider rules="required" v-slot="{ errors }">
+              <input v-model="form.contactPerson.name" type="text" class="input">
+              <p class="has-text-danger">{{ errors[0] }}</p>
+            </ValidationProvider>
           </div>
         </div>
       </div>
@@ -38,7 +52,10 @@
         <div class="field">
           <label for="" class="label">Contact Email</label>
           <div class="control">
-            <input v-model="form.contactPerson.email"  type="text" class="input" disabled>
+            <ValidationProvider rules="required" v-slot="{ errors }">
+              <input v-model="form.contactPerson.email" type="text" class="input">
+              <p class="has-text-danger">{{ errors[0] }}</p>
+            </ValidationProvider>
           </div>
         </div>
       </div>
@@ -46,7 +63,10 @@
         <div class="field">
           <label for="" class="label">Contact Number</label>
           <div class="control">
-            <input v-model="form.contactPerson.mobile"  type="text" class="input" disabled>
+            <ValidationProvider rules="required" v-slot="{ errors }">
+              <input v-model="form.contactPerson.mobile" type="text" class="input">
+              <p class="has-text-danger">{{ errors[0] }}</p>
+            </ValidationProvider>
           </div>
         </div>
       </div>
@@ -58,7 +78,10 @@
         <div class="field">
           <label for="" class="label">From Name</label>
           <div class="control">
-            <input v-model="form.mailer.name" type="text" class="input">
+            <ValidationProvider rules="required" v-slot="{ errors }">
+              <input v-model="form.mailer.name" type="text" class="input">
+              <p class="has-text-danger">{{ errors[0] }}</p>
+            </ValidationProvider>
           </div>
         </div>
       </div>
@@ -66,7 +89,10 @@
         <div class="field">
           <label for="" class="label">Company Email</label>
           <div class="control">
-            <input v-model="form.mailer.email" type="text" class="input">
+            <ValidationProvider rules="required" v-slot="{ errors }">
+              <input v-model="form.mailer.email" type="text" class="input">
+              <p class="has-text-danger">{{ errors[0] }}</p>
+            </ValidationProvider>
           </div>
         </div>
       </div>
@@ -77,9 +103,12 @@
         <div class="field">
           <label for="" class="label">Bank name</label>
           <div class="control">
+            <ValidationProvider rules="required" v-slot="{ errors }">
             <select class="input">
-              <option :value="i._Id" v-for="i in banks" :key="i._i">{{i.name}}</option>
+              <option :value="i._Id" v-for="i in banks" :key="i._i">{{ i.name }}</option>
             </select>
+              <p class="has-text-danger">{{ errors[0] }}</p>
+            </ValidationProvider>
           </div>
         </div>
       </div>
@@ -87,13 +116,16 @@
         <div class="field">
           <label for="" class="label">Bank account number</label>
           <div class="control">
-            <input v-model="form.financialInfo.accountNumber" type="text" class="input" disabled>
+            <ValidationProvider rules="required" v-slot="{ errors }">
+            <input v-model="form.financialInfo.accountNumber" type="text" class="input">
+              <p class="has-text-danger">{{ errors[0] }}</p>
+            </ValidationProvider>
           </div>
         </div>
       </div>
     </div>
-    <button @click="updateCompanyInfo" class="button">Save</button>
-  </div>
+    <button @click="handleSubmit(updateCompanyInfo)" class="button">Save</button>
+  </ValidationObserver>
 </template>
 
 <script>
@@ -131,7 +163,7 @@ export default {
   created() {
     this.getIndustries()
     this.getBanks()
-    this.form  = {
+    this.form = {
       basicInfo: {
         name: this.getCompany.basicInfo.name,
         address: this.getCompany.basicInfo.address
@@ -158,27 +190,31 @@ select {
   cursor: pointer;
 }
 
-.box-header{
+.box-header {
   color: $font-color;
   margin-bottom: 20px;
-  .box-title{
+
+  .box-title {
     font-size: 18px;
     font-weight: 700;
     color: $font-color;
     margin-bottom: 5px;;
   }
 }
-.title{
-    font-size: 18px;
-    font-weight: 700;
-    color: $font-color;
-    margin-bottom: 15px;
-    margin-top: 30px;
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  color: $font-color;
+  margin-bottom: 15px;
+  margin-top: 30px;
 }
-.input, .textarea{
+
+.input, .textarea {
   @include input;
 }
-.button{
+
+.button {
   border-radius: 0;
   background-color: $primary-color;
   border-color: $primary-color;

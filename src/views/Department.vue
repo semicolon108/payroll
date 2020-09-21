@@ -46,7 +46,6 @@
 import AddDepartment from '@coms/Department/Modal/add-department.vue';
 import {DELETE_DEPARTMENT, GET_DEPARTMENTS} from "@/graphql/Department";
 
-
 export default {
   components: {
     AddDepartment
@@ -68,6 +67,7 @@ export default {
         throw new Error(err)
       }
     },
+
     async deleteDepartment(departmentId) {
       try {
         const res = await this.$apollo.mutate({
@@ -87,6 +87,7 @@ export default {
         }
       }
     },
+
     editModal(_id, name) {
       this.isOpen = true;
       this.isEditMode = true

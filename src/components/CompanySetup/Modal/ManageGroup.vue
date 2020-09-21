@@ -1,7 +1,7 @@
 <template>
   <div class="modal is-active">
-    <div class="modal-background" @click="CloseModal()"></div>
-    <div class="modal-content box slide-down">
+    <div class="modal-background" @click="CloseModal"></div>
+    <ValidationObserver v-slot="{ handleSubmit }" tag="div" class="modal-content box slide-down">
       <div class="header">
         <i class="far fa-object-group"></i>
         <div>
@@ -12,13 +12,16 @@
       <div class="field">
         <label for="" class="label">Group Name</label>
         <div class="control">
-          <input v-model="form.name" type="text" class="input">
+          <ValidationProvider rules="required" v-slot="{ errors }">
+            <input v-model="form.name" type="text" class="input">
+            <p class="has-text-danger">{{ errors[0] }}</p>
+          </ValidationProvider>
         </div>
       </div>
       <div class="field">
         <label for="" class="label">Assigned Item</label>
         <div class="control switch">
-          <div class="item"  v-for="(i, idx) in earnDeducts"
+          <div class="item" v-for="(i, idx) in earnDeducts"
                :key="idx"
                :class="{'is-active': form.earnDeductIds.includes(i._id)}"
                @click="pushOrSplice(i._id)"
@@ -27,10 +30,10 @@
           </div>
         </div>
       </div>
-      <button @click="updateEarnDeductGroup" class="button save-file">Update</button>
-      <button @click="deleteEarnDeductGroup" class="button del">Delete Group</button>
-      <button class="modal-close is-large" @click="CloseModal()" aria-label="close"></button>
-    </div>
+      <button @click="handleSubmit(updateEarnDeductGroup)" class="button save-file">Update</button>
+      <button @click="handleSubmit(deleteEarnDeductGroup)" class="button del">Delete Group</button>
+      <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
+    </ValidationObserver>
   </div>
 </template>
 
@@ -68,18 +71,18 @@ export default {
       this.CloseModal()
     },
     async deleteEarnDeductGroup() {
-     try {
-       const item = await deleteEarnDeductGroup(this.form.earnDeductGroupId)
-       this.$emit('SpliceGroupItem', item)
-       this.CloseModal()
-     }catch (err) {
-       if(err.graphQLErrors[0].message === 'You cannot delete default group') {
-         this.CloseModal()
-         setTimeout(() => {
-           alert(err.graphQLErrors[0].message)
-         }, 100)
-       }
-     }
+      try {
+        const item = await deleteEarnDeductGroup(this.form.earnDeductGroupId)
+        this.$emit('SpliceGroupItem', item)
+        this.CloseModal()
+      } catch (err) {
+        if (err.graphQLErrors[0].message === 'You cannot delete default group') {
+          this.CloseModal()
+          setTimeout(() => {
+            alert(err.graphQLErrors[0].message)
+          }, 100)
+        }
+      }
     }
   },
 }

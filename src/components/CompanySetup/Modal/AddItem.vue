@@ -1,18 +1,20 @@
 <template>
   <div class="modal is-active">
-    <div class="modal-background" @click="CloseModal()"></div>
-    <div class="modal-content box slide-down">
+    <div class="modal-background" @click="CloseModal"></div>
+    <ValidationObserver v-slot="{ handleSubmit }" tag="div" class="modal-content box slide-down">
       <div class="header">
         <i class="fas fa-suitcase"></i>
         <div>
           <h3>Add Earning / Deduction</h3>
         </div>
       </div>
-
       <div class="field">
         <label for="" class="label">Item Name</label>
         <div class="control">
+        <ValidationProvider rules="required" v-slot="{ errors }">
           <input v-model="form.name" type="text" class="input">
+          <p class="has-text-danger">{{ errors[0] }}</p>
+        </ValidationProvider>
         </div>
       </div>
       <div class="field">
@@ -59,10 +61,10 @@
             </div>
           </div>
       </div>
-      <button v-if="isEditMode" @click="updateEarnDeduct" class="button save-file">Update</button>
-      <button v-else @click="addEarnDeduct" class="button save-file">Save</button>
+      <button v-if="isEditMode" @click="handleSubmit(updateEarnDeduct)" class="button save-file">Update</button>
+      <button v-else @click="handleSubmit(addEarnDeduct)" class="button save-file">Save</button>
       <button class="modal-close is-large" @click="CloseModal()" aria-label="close"></button>
-    </div>
+    </ValidationObserver>
   </div>
 </template>
 

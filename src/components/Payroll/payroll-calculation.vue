@@ -18,19 +18,20 @@
       <div class="box control">
         <div class="box-control-header">
           <div class="exchange_rate">
-<!--            <span>Exchange Rate (LAK)</span>-->
-
-                <div style="display: flex">
+            <ValidationObserver v-slot="{ handleSubmit }" tag="div" style="display: flex">
                   <span class="select">
                     <select v-model="currencyIdx">
-                      <option v-for="(i, idx) in compCurrencies" :value="idx" :key="i._id">{{ i.currencyId.name }}</option>
+                      <option v-for="(i, idx) in compCurrencies" :value="idx" :key="i._id">{{
+                          i.currencyId.name
+                        }}</option>
                     </select>
                   </span>
-                    <input v-model="compCurrencies[currencyIdx].amount" type="text" class="input" required>
-                  <button @click="updateCompanyCurrency" class="button">Update</button>
-                </div>
-
-
+              <ValidationProvider name="Contract Number" rules="required|numeric" v-slot="{ errors }">
+                <input v-model="compCurrencies[currencyIdx].amount" type="text" class="input" required>
+                <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
+              <button @click="handleSubmit(updateCompanyCurrency)" class="button">Update</button>
+            </ValidationObserver>
           </div>
           <div class="button-group">
             <button class="button" @click="ModalClick = 'document'">Document</button>
@@ -63,12 +64,14 @@
                 @click="chooseTab = 'Local'"
                 class="button"
                 :class="{'active': chooseTab === 'Local'}"
-            >Local Employee</button>
+            >Local Employee
+            </button>
             <button
                 @click="chooseTab = 'Expat'"
                 class="button"
                 :class="{'active': chooseTab === 'Expat'}"
-            >Expat Employee</button>
+            >Expat Employee
+            </button>
             <input v-model="searchText" type="text" class="input" placeholder="Search employee">
           </div>
           <div class="option-group">
@@ -150,9 +153,8 @@
     >
       <section slot="pdf-content">
         <!-- PDF Content Here -->
-
         <div class="box" style="padding: 2rem; border: 0">
-          <table class="table is-fullwidth" id="my-table">
+          <table class="table is-fullwidth">
             <thead>
             <tr>
               <th>Employee</th>
@@ -171,7 +173,7 @@
               <td class="is-right">
                 <div class="workday">
                   <div v-if="!i.isEditMode" class="edit">
-<!--                    <span @click="i.isEditMode = true"><i class="fas fa-pen"></i></span>-->
+                    <!--                    <span @click="i.isEditMode = true"><i class="fas fa-pen"></i></span>-->
                     <span>{{ i.workingDay }}</span>
                   </div>
                   <div class="workdday-input" v-if="i.isEditMode">
@@ -225,7 +227,7 @@ export default {
     items: [],
     ModalClick: '',
     editWorkday: false,
-    chooseTab: 'All',// All , Local, Expat,
+    chooseTab: 'All',
     searchText: '',
 
     isMulti: true,
@@ -247,7 +249,7 @@ export default {
     }
   },
   methods: {
-    generateReport () {
+    generateReport() {
       this.$refs.html2Pdf.generatePdf()
     },
     async getCompanyCurrencies() {
@@ -290,7 +292,7 @@ export default {
         items
       }
       await addOrUpdateCompanyCurrency(form)
-      this.getPayrollByEmps()
+      await this.getPayrollByEmps()
       alert('Updated')
     },
   },
@@ -422,23 +424,29 @@ export default {
 .box-header {
   margin-bottom: 30px;
   display: flex;
+
   .button-group {
     display: flex;
+
     button {
       border-radius: $radius;
       margin-right: 10px;
+
       &:focus {
         box-shadow: none;
       }
+
       i {
         margin-right: 5px;
       }
+
       &.active {
         background-color: $primary-color;
         color: #fff;
         border: 1px solid $primary-color;
       }
     }
+
     input {
       display: inline-block;
       border-radius: 0;
