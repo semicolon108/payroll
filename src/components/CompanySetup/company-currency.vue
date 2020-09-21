@@ -1,5 +1,5 @@
 <template>
-  <div class="box slide-up">
+  <ValidationObserver v-slot="{ handleSubmit }" tag="div" class="box slide-up">
     <div class="box-header">
       <h3 class="box-title">Currency</h3>
       <p>Lorem ipsum dolor sit amet quo illum in repellendus alias corporis error facere nostrum quae aliquid illo
@@ -38,9 +38,14 @@
                     </select>
                 </span>
             </p>
-            <p class="control">
-              <input v-model="i.amount" class="input" type="text" placeholder="Exchange rate">
-            </p>
+            <div class="control">
+              <ValidationProvider rules="required|numeric" v-slot="{ errors }">
+              <input v-model="i.amount" class="input" type="text" placeholder="Exchange rate"
+
+              :style="errors[0] ? 'border: 1px solid red': null"
+              >
+              </ValidationProvider>
+            </div>
             <i class="fas fa-arrows-alt handle" style="cursor: move; font-size: 20px; color: #0253B3"></i>
             <i @click="spliceCurrency(idx)"
                class="fas fa-trash splice-icon"></i>
@@ -53,7 +58,7 @@
       </div>
     </div>
     <button @click="addOrUpdateCompanyCurrency" class="button">Save</button>
-  </div>
+  </ValidationObserver>
 </template>
 
 <script>
