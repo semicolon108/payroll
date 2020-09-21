@@ -6,7 +6,7 @@ export const GET_DEPARTMENTS = gql`
         getDepartments {
             _id
             name
-            employeeCount
+            employeesCount
         }
     }
 
@@ -20,7 +20,6 @@ export const ADD_DEPRTMENT = gql`
         addDepartment(name: $name) {
             _id
             name
-            employeesCount
         }
     }
 
@@ -38,7 +37,6 @@ export const UPDATE_DEPARTMENT = gql`
         ) {
             _id
             name
-            employeesCount
         }
     }
 

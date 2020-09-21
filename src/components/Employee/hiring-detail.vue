@@ -5,152 +5,198 @@
       <p>Please enter the employee personal information below. The information entered in previous steps is saved and
         you can always come back to complete this screen from the employees page.</p>
     </div>
-    <form action="" class="form">
-      <div class="columns is-multiline">
-        <div class="column is-4">
-          <div class="field">
-            <label for="" class="label">Date of Joining</label>
-            <DatePicker v-model="form.dateOfJoining" :defaultValue="defaultValue.dateOfJoining" />
+    <ValidationObserver v-slot="{ handleSubmit }">
+      <div class="form">
+        <div class="columns is-multiline">
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Date of Joining</label>
+              <ValidationProvider name="Date of Joining" rules="required|isDate" v-slot="{ errors }">
+                <DatePicker v-model="form.dateOfJoining" :defaultValue="defaultValue.dateOfJoining"/>
+                <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
+            </div>
           </div>
-        </div>
-        <div class="column is-4">
-          <div  class="field">
-            <label for="" class="label">Probation End Date</label>
-            <DatePicker v-model="form.probationEndDate"  :defaultValue="defaultValue.probationEndDate" />
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Probation End Date</label>
+              <ValidationProvider name="Probation End Date" rules="required|isDate" v-slot="{ errors }">
+                <DatePicker v-model="form.probationEndDate" :defaultValue="defaultValue.probationEndDate"/>
+                <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
+            </div>
           </div>
-        </div>
-        <div class="column is-4">
-          <div class="field">
-            <label for="" class="label">Position</label>
-            <div class="control">
-              <div class="select">
-                <select v-model="form.positionId">
-                  <option v-for="i in positions" :key="i._id" :value="i._id">
-                    {{ i.name }}
-                  </option>
-                </select>
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Position</label>
+              <div class="control">
+                <div class="select">
+                  <ValidationProvider name="Position" rules="required" v-slot="{ errors }">
+                    <select v-model="form.positionId">
+                      <option v-for="i in positions" :key="i._id" :value="i._id">
+                        {{ i.name }}
+                      </option>
+                    </select>
+                    <p class="has-text-danger">{{ errors[0] }}</p>
+                  </ValidationProvider>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Work Day</label>
+              <div class="control">
+                <ValidationProvider name="Work Day" rules="required|numeric" v-slot="{ errors }">
+                  <input v-model="form.workingDay" type="text" class="input" required>
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+                </ValidationProvider>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Working Location</label>
+              <div class="control">
+                <div class="select">
+                  <ValidationProvider name="Working Location" rules="required" v-slot="{ errors }">
+                    <select v-model="form.provinceId" class="select">
+                      <option v-for="i in provinces" :key="i._id" :value="i._id">
+                        {{ i.name }}
+                      </option>
+                    </select>
+                    <p class="has-text-danger">{{ errors[0] }}</p>
+                  </ValidationProvider>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <label for="" class="label">Salary</label>
+            <div class="field has-addons">
+              <div class="control">
+                <div class="select">
+                  <ValidationProvider name="File" rules="required" v-slot="{ errors }">
+                    <select v-model="form.currencyId">
+                      <option v-for="i in currencies"
+                              :value="i._id"
+                              :key="i._id">{{ i.name }}
+                      </option>
+                    </select>
+                    <p class="has-text-danger">{{ errors[0] }}</p>
+                  </ValidationProvider>
+
+                </div>
+              </div>
+              <div class="control is-expanded">
+                <input v-model="form.salary" type="text" class="input" required>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Contract Type</label>
+              <div class="control">
+                <div class="select">
+                  <ValidationProvider name="Contract Type" rules="required" v-slot="{ errors }">
+                  <select v-model="form.contactDetail.contactTypeId" class="select" name="" id="">
+                    <option v-for="i in contactTypes" :key="i._id" :value="i._id">
+                      {{ i.name }}
+                    </option>
+                  </select>
+                    <p class="has-text-danger">{{ errors[0] }}</p>
+                  </ValidationProvider>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="column is-4">
-          <div class="field">
-            <label for="" class="label">Work Day</label>
-            <div class="control">
-              <input v-model="form.workingDay" type="text" class="input" required>
+
+        <hr>
+
+
+        <!-- Contract detail -->
+        <h3 class="form-title">Contract Detail</h3>
+        <div class="columns is-multiline">
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Contract Number</label>
+              <div class="control">
+                <ValidationProvider name="Contract Number" rules="required" v-slot="{ errors }">
+                    <input v-model="form.contactDetail.mobile" type="text" class="input" required>
+                    <p class="has-text-danger">{{ errors[0] }}</p>
+                </ValidationProvider>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Effective Date / Start Date</label>
+              <ValidationProvider name="Effective Date / Start Date" rules="required|isDate" v-slot="{ errors }">
+              <DatePicker v-model="form.contactDetail.startDate" :defaultValue="defaultValue.contactDetail.startDate"/>
+                <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Until Date / End Date</label>
+              <ValidationProvider name="Until Date / End Date" rules="required|isDate" v-slot="{ errors }">
+                <DatePicker v-model="form.contactDetail.endDate" :defaultValue="defaultValue.contactDetail.endDate"/>
+                <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
             </div>
           </div>
         </div>
-        <div class="column is-4">
-          <div class="field">
-            <label for="" class="label">Working Location</label>
-            <div class="control">
-              <div class="select">
-                <select v-model="form.provinceId" class="select">
-                  <option v-for="i in provinces" :key="i._id" :value="i._id">
-                    {{ i.name }}
-                  </option>
-                </select>
+
+        <hr>
+
+        <div class="form-title-wraper">
+          <h3 class="form-title">Work Permit</h3>
+          <div class="control switch-btn">
+            <ValidationProvider name="Work Permit" rules="required" v-slot="{ errors }">
+            <input v-model="form.isExpat" type="checkbox" id="expat">
+              <p class="has-text-danger">{{ errors[0] }}</p>
+            </ValidationProvider>
+            <label for="expat"></label>
+          </div>
+        </div>
+        <div class="columns" v-show="form.isExpat">
+          <div class="column">
+            <div class="field">
+              <label class="label">Start Date</label>
+              <ValidationProvider name="Start Date" rules="required|isDate" v-slot="{ errors }">
+              <DatePicker v-model="form.workPermit.startDate" :defaultValue="defaultValue.workPermit.startDate"/>
+                <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label">End Date</label>
+              <ValidationProvider name="End Date" rules="required|isDate" v-slot="{ errors }">
+                <DatePicker v-model="form.workPermit.endDate" :defaultValue="defaultValue.workPermit.startDate"/>
+                <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label">Days of notify</label>
+              <div class="control">
+                <ValidationProvider name="End Date" rules="required|numeric" v-slot="{ errors }">
+                <input v-model="form.workPermit.daysOfNotify" type="text" class="input">
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+                </ValidationProvider>
               </div>
             </div>
           </div>
         </div>
-        <div class="column is-4">
-          <label for="" class="label">Salary</label>
-          <div class="field has-addons">
-            <p class="control">
-              <span class="select">
-                <select v-model="form.currencyId">
-                  <option v-for="i in currencies"
-                          :value="i._id"
-                          :key="i._id">{{ i.name }}</option>
-                </select>
-              </span>
-            </p>
-            <div class="control is-expanded">
-              <input v-model="form.salary" type="text" class="input" required>
-            </div>
-          </div>
-        </div>
-        <div class="column is-4">
-          <div class="field">
-            <label for="" class="label">Contract Type</label>
-            <div class="control">
-              <div class="select">
-                <select v-model="form.contactDetail.contactTypeId" class="select" name="" id="">
-                  <option v-for="i in contactTypes" :key="i._id" :value="i._id">
-                    {{ i.name }}
-                  </option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
+        <button type="button" @click="handleSubmit(addOrUpdateHirringDetail)" class="button save-btn">Save and
+          Continue
+        </button>
       </div>
-
-      <hr>
-
-
-      <!-- Contract detail -->
-      <h3 class="form-title">Contract Detail</h3>
-      <div class="columns is-multiline">
-        <div class="column is-4">
-          <div class="field">
-            <label for="" class="label">Contract Number</label>
-            <div class="control">
-              <input v-model="form.contactDetail.mobile" type="text" class="input" required>
-            </div>
-          </div>
-        </div>
-        <div class="column is-4">
-          <div class="field">
-            <label for="" class="label">Effective Date / Start Date</label>
-            <DatePicker v-model="form.contactDetail.startDate"  :defaultValue="defaultValue.contactDetail.startDate" />
-          </div>
-        </div>
-        <div class="column is-4">
-          <div  class="field">
-            <label for="" class="label">Until Date / End Date</label>
-            <DatePicker v-model="form.contactDetail.endDate"  :defaultValue="defaultValue.contactDetail.endDate" />
-          </div>
-        </div>
-      </div>
-
-      <hr>
-
-      <div class="form-title-wraper">
-        <h3 class="form-title">Work Permit</h3>
-        <div class="control switch-btn">
-          <input v-model="form.isExpat" type="checkbox" id="expat">
-          <label for="expat"></label>
-        </div>
-      </div>
-      <div class="columns" v-show="form.isExpat">
-        <div class="column">
-          <div class="field">
-            <label class="label">Start Date</label>
-            <DatePicker v-model="form.workPermit.startDate"  :defaultValue="defaultValue.workPermit.startDate" />
-          </div>
-        </div>
-        <div class="column">
-          <div class="field">
-            <label class="label">End Date</label>
-            <DatePicker v-model="form.workPermit.endDate"  :defaultValue="defaultValue.workPermit.startDate" />
-          </div>
-        </div>
-        <div class="column">
-          <div class="field">
-            <label class="label">Days of notify</label>
-            <div class="control">
-              <input v-model="form.workPermit.daysOfNotify" type="text" class="input">
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <button type="button" @click="addOrUpdateHirringDetail" class="button save-btn">Save and Continue</button>
-    </form>
+    </ValidationObserver>
   </div>
 </template>
 
@@ -253,7 +299,7 @@ export default {
       await this.$router.push({name: 'earning', params: {id: this.$route.params.id}})
     },
     async getCurrencies() {
-       this.currencies = await getReuse('Currency')
+      this.currencies = await getReuse('Currency')
 
     }
   },
@@ -266,36 +312,43 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.form-title-wraper{
+.form-title-wraper {
   display: flex;
   align-items: center;
   margin-bottom: 30px;
-  .form-title{
+
+  .form-title {
     margin: 0;
   }
-  .switch-btn{
+
+  .switch-btn {
     margin-left: 10px;
     display: flex;
     width: 80px;
     position: relative;
-    input{
+
+    input {
       display: none;
-      &:checked ~ label{
+
+      &:checked ~ label {
         background-color: $primary-color;
       }
-      &:checked ~ label::after{
+
+      &:checked ~ label::after {
         left: auto;
         right: 3px;
       }
     }
-    label{
+
+    label {
       transition: all 0.1s ease 0.1s;
       background-color: $grey-color;
       border-radius: 40px;
       position: relative;
       width: 45px;
       height: 26px;
-       &::after{
+
+      &::after {
         transition: all 0.1s ease 0.1s;
         content: '';
         position: absolute;

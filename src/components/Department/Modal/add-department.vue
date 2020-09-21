@@ -1,31 +1,40 @@
 <template>
   <div class="modal is-active">
-    <div class="modal-background" @click="CloseModal()"></div>
+    <div class="modal-background" @click="CloseModal"></div>
     <div class="modal-content box slide-down">
-      <div class="header">
-        <i class="fas fa-sitemap"></i>
-        <div>
-          <h3>Add Department</h3>
-        </div>
-      </div>
 
-      <div class="field">
-        <label for="" class="label">Department Name</label>
-        <div class="control">
-          <input v-model="name" type="text" class="input">
+      <ValidationObserver v-slot="{ handleSubmit }">
+        <div class="header">
+          <i class="fas fa-sitemap"></i>
+          <div>
+            <h3>{{ isEditMode ? 'Edit Department' : 'Add Department' }}</h3>
+          </div>
         </div>
-      </div>
-      <button @click="addDepartment" class="button save-file">Save</button>
-      <button class="modal-close is-large" @click="CloseModal()" aria-label="close"></button>
+
+        <div class="field">
+          <label for="" class="label">Department Name</label>
+          <div class="control">
+            <ValidationProvider name="Department Name" rules="required" v-slot="{ errors }">
+              <input v-model="name" type="text" class="input">
+              <p class="has-text-danger">{{ errors[0] }}</p>
+            </ValidationProvider>
+          </div>
+        </div>
+        <button v-if="isEditMode" @click="handleSubmit(updateDepartment)" class="button save-file">Update</button>
+        <button v-else @click="handleSubmit(addDepartment)" class="button save-file">Save</button>
+        <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
+      </ValidationObserver>
     </div>
   </div>
 </template>
 
 <script>
-import {ADD_DEPRTMENT} from "@/graphql/Department";
+import {ADD_DEPRTMENT, UPDATE_DEPARTMENT} from "@/graphql/Department";
 
 export default {
+  props: ['isEditMode'],
   data: () => ({
+    _id: '',
     name: ''
   }),
   methods: {
@@ -43,6 +52,24 @@ export default {
         const item = res.data.addDepartment
         this.$emit('PushItem', item)
         this.$emit('CloseModal')
+      } catch (err) {
+        throw new Error(err)
+      }
+    },
+    async updateDepartment() {
+      try {
+        const res = await this.$apollo.mutate({
+          mutation: UPDATE_DEPARTMENT,
+          variables: {
+            departmentId: this._id,
+            name: this.name
+          }
+        })
+        const item = res.data.updateDepartment
+        if(item) {
+          this.$emit('UpdateItem', item)
+          this.$emit('CloseModal')
+        }
       } catch (err) {
         throw new Error(err)
       }

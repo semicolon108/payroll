@@ -1,34 +1,44 @@
 <template>
   <div class="modal" :class="{'is-active' : modalClick === true}">
-    <div class="modal-background" @click="CloseModal()"></div>
+    <div class="modal-background" @click="CloseModal"></div>
     <div class="modal-content box">
-      <div class="header">
-        <i class="fas fa-folder"></i>
-        <div>
-          <h3>Upload your document</h3>
-          <p>Please select file to upload</p>
-        </div>
-      </div>
-
-      <div class="upload-box">
-        <div class="upload">
-          <button class="button upload-btn" @click="chooseFile">Select File</button>
-          <span v-if="file">{{file.name}}</span>
-          <span v-else>File support PDF, DOC, DOCX</span>
+      <ValidationObserver v-slot="{ handleSubmit }">
+        <div class="header">
+          <i class="fas fa-folder"></i>
+          <div>
+            <h3>Upload your document</h3>
+            <p>Please select file to upload</p>
+          </div>
         </div>
 
-        <!-- hidden -->
-        <input @change="onFileChange" type="file" class="input is-hidden" ref="FileInput">
-      </div>
+        <div class="upload-box">
+          <div class="upload">
+            <button class="button upload-btn" @click="chooseFile">Select File</button>
+            <span v-if="file">{{file.name}}</span>
+            <span v-else>File support PDF, DOC, DOCX</span>
+          </div>
 
-      <div class="field">
-        <label for="" class="label">File Name</label>
-        <div class="control">
-          <input v-model="name" type="text" class="input">
+          <!-- hidden -->
+          <input @change="onFileChange" type="file" class="input is-hidden" ref="FileInput">
         </div>
-      </div>
-      <button @click="addDocument" class="button save-file">Save</button>
-      <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
+
+        <ValidationProvider name="File" rules="required" v-slot="{ errors }">
+          <input  v-model="file" class="is-hidden" type="text">
+          <p class="has-text-danger">{{ errors[0] }}</p>
+        </ValidationProvider>
+
+        <div class="field">
+          <label class="label">File Name</label>
+          <div class="control">
+            <ValidationProvider name="File Name" rules="required" v-slot="{ errors }">
+              <input v-model="name" type="text" class="input">
+              <p class="has-text-danger">{{ errors[0] }}</p>
+            </ValidationProvider>
+          </div>
+        </div>
+        <button @click="handleSubmit(addDocument)" class="button save-file">Save</button>
+        <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
+      </ValidationObserver>
     </div>
   </div>
 </template>

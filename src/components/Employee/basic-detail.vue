@@ -5,7 +5,8 @@
       <p>Need help or have questions about adding employees? Call us at (856) 21 254709.</p>
     </div>
 
-    <form action="" class="form">
+    <ValidationObserver v-slot="{ handleSubmit }">
+    <div  class="form">
       <div class="columns is-multiline">
         <div class="column is-12">
           <div class="field">
@@ -18,10 +19,18 @@
                    :style="{ 'background-image': 'url(' +  profileImage + ')' }"
               ></div>
 
-              <input ref="FileInput"
+              <input
+                  ref="FileInput"
                      @change="onFileChange"
                      type="file" class="input">
               <div class="upload-label">
+
+                <ValidationProvider name="File" rules="required" v-slot="{ errors }">
+                  <input v-if="isEditMode && !file" v-model="image.src" type="text" style="display: none">
+                  <input v-else v-model="file" type="text" style="display: none">
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+                </ValidationProvider>
+
                 <div>
                   <h3>Employee Photo</h3>
                   <p v-if="isEditMode">file size: {{ image.size | readSize }}</p>
@@ -40,7 +49,10 @@
           <div class="field">
             <label for="" class="label">Employee ID</label>
             <div class="control">
-              <input type="text" class="input" required>
+              <ValidationProvider name="Employee ID" rules="required" v-slot="{ errors }">
+                <input v-model="form.employeeCode" type="text" class="input" required>
+                <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
             </div>
           </div>
         </div>
@@ -48,7 +60,10 @@
           <div class="field">
             <label for="" class="label">First Name</label>
             <div class="control">
-              <input v-model="form.firstName" type="text" class="input" required>
+              <ValidationProvider name="firstName" rules="required" v-slot="{ errors }">
+                <input v-model="form.firstName" type="text" class="input" required>
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
             </div>
           </div>
         </div>
@@ -56,7 +71,10 @@
           <div class="field">
             <label for="" class="label">Last Name</label>
             <div class="control">
+              <ValidationProvider name="lastName" rules="required" v-slot="{ errors }">
               <input v-model="form.lastName" type="text" class="input" required>
+                <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
             </div>
           </div>
         </div>
@@ -76,19 +94,24 @@
         <div class="column is-4">
           <div  class="field">
             <label for="" class="label">Date of Birth</label>
+            <ValidationProvider name="Date of Birth" rules="required|isDate" v-slot="{ errors }">
             <DatePicker v-model="form.dateOfBirth" :defaultValue="defaultValue.dateOfBirth" class="control date"/>
-            {{ form.dateOfBirth }}
+              <p class="has-text-danger">{{ errors[0] }}</p>
+            </ValidationProvider>
           </div>
         </div>
         <div class="column is-4">
           <div class="field">
             <label for="" class="label">Marital Status</label>
             <div class="select">
+              <ValidationProvider name="Marital Status" rules="required" v-slot="{ errors }">
               <select v-model="form.maritalStatusId" class="control select" style="width: 100%">
                 <option v-for="i in maritalStatuses" :value="i._id" :key="i._id" type="text" class="input" required>
                   {{ i.name }}
                 </option>
               </select>
+                <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
             </div>
           </div>
         </div>
@@ -96,11 +119,14 @@
           <div class="field">
             <label for="" class="label">Nationality</label>
             <div class="select">
+              <ValidationProvider name="Nationality" rules="required" v-slot="{ errors }">
               <select v-model="form.nationalityId" class="control select" style="width: 100%">
                 <option v-for="i in nationalities" :value="i._id" :key="i._id" type="text" class="input" required>
                   {{ i.name }}
                 </option>
               </select>
+                <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
             </div>
           </div>
         </div>
@@ -108,7 +134,10 @@
           <div class="field">
             <label for="" class="label">Contact Number</label>
             <div class="control">
+              <ValidationProvider name="Contact Number" rules="required" v-slot="{ errors }">
               <input v-model="form.contactName" type="text" class="input" required>
+                <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
             </div>
           </div>
         </div>
@@ -116,7 +145,10 @@
           <div class="field">
             <label for="" class="label">ID card / Passport No.</label>
             <div class="control">
+              <ValidationProvider name="ID card / Passport No." rules="required" v-slot="{ errors }">
               <input v-model="form.idCardOrPassport" type="text" class="input" required>
+                <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
             </div>
           </div>
         </div>
@@ -124,7 +156,10 @@
           <div class="field">
             <label for="" class="label">Email</label>
             <div class="control">
+              <ValidationProvider name="Email" rules="required" v-slot="{ errors }">
               <input v-model="form.email" type="text" class="input" required>
+                <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
             </div>
           </div>
         </div>
@@ -132,7 +167,10 @@
           <div class="field">
             <label for="" class="label">Social security ID</label>
             <div class="control toggle">
-              <input v-model="form.ssoId" type="text" class="input" required>
+              <ValidationProvider name="Social security ID" rules="required" v-slot="{ errors }">
+                 <input v-model="form.ssoId" type="text" class="input" required>
+                 <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
               <div class="sso-toggle">
                 <input v-model="form.isSso" type="checkbox" id="sso" checked>
                 <label for="sso">Use</label>
@@ -150,7 +188,10 @@
           <div class="field">
             <label for="" class="label">Full Name</label>
             <div class="control">
-              <input v-model="form.emergencyContact.fullName" type="text" class="input" required>
+              <ValidationProvider name="EmergencyContact Full Name" rules="required" v-slot="{ errors }">
+                <input v-model="form.emergencyContact.fullName" type="text" class="input" required>
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
             </div>
           </div>
         </div>
@@ -158,11 +199,14 @@
           <div class="field">
             <label for="" class="label">Relationship</label>
             <div class="select">
+              <ValidationProvider name="Full Name" rules="required" v-slot="{ errors }">
               <select v-model="form.emergencyContact.relationshipId" class="control select" style="width: 100%;">
                 <option v-for="i in relationships" :value="i._id" :key="i._id" type="text" class="input" required>
                   {{ i.name }}
                 </option>
               </select>
+                <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
             </div>
           </div>
         </div>
@@ -170,7 +214,10 @@
           <div class="field">
             <label for="" class="label">Contact Number</label>
             <div class="control">
-              <input v-model="form.emergencyContact.contactNumber" type="text" class="input" required>
+              <ValidationProvider name="EmergencyContact Contact Number 2" rules="required" v-slot="{ errors }">
+               <input v-model="form.emergencyContact.contactNumber" type="text" class="input" required>
+                <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
             </div>
           </div>
         </div>
@@ -182,7 +229,10 @@
           <div class="field">
             <label for="" class="label">Bank Name</label>
             <div class="control">
+              <ValidationProvider name="Bank Name" rules="required" v-slot="{ errors }">
               <input v-model="form.bankAccount.bankName" type="text" class="input" required>
+                <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
             </div>
           </div>
         </div>
@@ -190,7 +240,10 @@
           <div class="field">
             <label for="" class="label">Account Name</label>
             <div class="control">
+              <ValidationProvider name="Account Name" rules="required" v-slot="{ errors }">
               <input v-model="form.bankAccount.accountName" type="text" class="input" required>
+                <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
             </div>
           </div>
         </div>
@@ -198,14 +251,18 @@
           <div class="field">
             <label for="" class="label">Account Number</label>
             <div class="control">
+              <ValidationProvider name="Account Number" rules="required" v-slot="{ errors }">
               <input v-model="form.bankAccount.accountNumber" type="text" class="input" required>
+                <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
             </div>
           </div>
         </div>
       </div>
-      <button v-if="isEditMode" @click=" updateEmployee" type="button" class="button save-btn">Update</button>
-      <button v-else @click=" addEmployee" type="button" class="button save-btn">Save and Continue</button>
-    </form>
+      <button v-if="isEditMode" @click="handleSubmit(updateEmployee)" type="submit" class="button save-btn">Update</button>
+      <button v-else @click="handleSubmit(addEmployee)" type="submit" class="button save-btn">Save and Continue</button>
+    </div>
+    </ValidationObserver>
   </div>
 </template>
 
@@ -260,7 +317,7 @@ export default {
   computed: {
     profileImage() {
       if (!this.file) return 'https://www.cobdoglaps.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg'
-      return this.$baseUrl + this.file.name
+      return this.$baseUrl + '/' + this.file.name
     }
   },
   filters: {

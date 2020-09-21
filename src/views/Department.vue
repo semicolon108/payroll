@@ -2,7 +2,7 @@
   <div>
     <div class="page-header">
       <h3 class="page-title">Department</h3>
-      <button class="button" @click="ModalClick = 'AddDepartment'"><i class="fas fa-plus"></i></button>
+      <button class="button" @click="isOpen = true; isEditMode = false"><i class="fas fa-plus"></i></button>
     </div>
     <div class="box">
       <table class="table is-fullwidth" id="my-table">
@@ -16,7 +16,7 @@
         <tbody>
         <tr v-for="(i, idx) in departments" :key="idx">
           <td>{{ i.name }}</td>
-          <td>{{ i.employeeCount }}</td>
+          <td>{{ i.employeesCount }}</td>
           <td>
             <div class="icons">
               <span class="icon" @click="editModal(i._id, i.name)"><i class="fas fa-pen"></i></span>
@@ -27,27 +27,35 @@
         </tbody>
       </table>
     </div>
-    <component :is="ModalClick" @CloseModal="ModalClick=''" @PushItem="pushItem"
-               @UpdateItem="updateItem"
-               ref="Modal"
-    ></component>
+<!--    <component :is="ModalClick" @CloseModal="ModalClick=''" @PushItem="pushItem"-->
+<!--               @UpdateItem="updateItem"-->
+<!--               ref="Modal"-->
+<!--    ></component>-->
+    <AddDepartment
+        v-if="isOpen"
+       :isEditMode="isEditMode"
+       @CloseModal="isOpen = false"
+       @PushItem="getDepartments"
+       @UpdateItem="getDepartments"
+       ref="Modal"
+    />
   </div>
 </template>
 
 <script>
 import AddDepartment from '@coms/Department/Modal/add-department.vue';
-import EditDepartment from '@coms/Department/Modal/edit-department.vue';
 import {DELETE_DEPARTMENT, GET_DEPARTMENTS} from "@/graphql/Department";
 
 
 export default {
   components: {
-    AddDepartment,
-    EditDepartment
+    AddDepartment
   },
   data: () => ({
     ModalClick: '',
-    departments: []
+    departments: [],
+    isOpen: false,
+    isEditMode: false
   }),
   methods: {
     async getDepartments() {
@@ -80,19 +88,20 @@ export default {
       }
     },
     editModal(_id, name) {
-      this.ModalClick = 'EditDepartment';
+      this.isOpen = true;
+      this.isEditMode = true
       this.$nextTick(() => {
         this.$refs.Modal._id = _id
         this.$refs.Modal.name = name
       })
     },
-    pushItem(item) {
-      this.departments.push(item)
-    },
-    updateItem(item) {
-      const curIdx = this.departments.findIndex(i => i._id === item._id)
-      this.departments.splice(curIdx, 1, item)
-    }
+    // pushItem(item) {
+    //   this.departments.push(item)
+    // },
+    // updateItem(item) {
+    //   const curIdx = this.departments.findIndex(i => i._id === item._id)
+    //   this.departments.splice(curIdx, 1, item)
+    // }
   },
   created() {
     this.getDepartments()

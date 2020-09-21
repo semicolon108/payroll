@@ -1,0 +1,31 @@
+import Vue from 'vue'
+import moment from 'moment'
+
+import {ValidationObserver, ValidationProvider, extend} from 'vee-validate'
+import {required, numeric} from "vee-validate/dist/rules";
+
+
+Vue.component('ValidationObserver', ValidationObserver)
+Vue.component('ValidationProvider', ValidationProvider)
+
+
+
+
+extend('required', {
+    ...required,
+    message: 'This field is required'
+})
+
+extend('numeric', {
+    ...numeric,
+    message: 'This field must be Number'
+})
+
+extend('isDate', {
+    validate: (value) => {
+        const utc = moment(value, 'DD/MM/YYYY', true)
+        return utc.isValid()
+    },
+    computesRequired: true,
+    message: 'This field must be DATE'
+})

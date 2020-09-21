@@ -1,13 +1,14 @@
 <template>
-  <div>
-    <div>
+    <ValidationObserver
+        v-slot="{ handleSubmit }" class="form">
       <div class="form-header">
         <div>
           <h3>Allowance</h3>
           <button
               v-if="!customAllowances.length"
               @click="addCustomAllo"
-              class="button">Add custom item</button>
+              class="button">Add custom item
+          </button>
         </div>
         <p>Please choose at least one earning group below</p>
         <ul class="allowance-list">
@@ -28,14 +29,14 @@
                 {{ i.earnDeductId.name }}
                 <!--              ({{ i.earnDeductId.groups.map(i => i.name).join(', ') }})-->
               </label>
-              <input v-model="i.amount" type="text" class="input" placeholder="Enter default amount">
+              <ValidationProvider :name="i.earnDeductId.name " rules="required|numeric" v-slot="{ errors }">
+                <input v-model="i.amount" type="text" class="input" placeholder="Enter default amount">
+                <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
             </div>
           </div>
         </div>
       </div>
-
-    </div>
-
     <div
         v-if="customAllowances.length"
         class="box">
@@ -46,74 +47,89 @@
 
       <!-- Custom allowance group -->
       <div class="form">
-        <div  class="columns is-multiline"
-              v-for="(i, idx) in customAllowances"
-              :key="i._id">
+        <div class="columns is-multiline"
+             v-for="(i, idx) in customAllowances"
+             :key="idx">
           <div class="column is-2 custom">
             <div class="field">
               <label class="label">Name</label>
               <div class="contro">
-                <input v-model="i.name" type="text" class="input" placeholder="Enter default amount">
+                <ValidationProvider rules="required" v-slot="{ errors }">
+                  <input v-model="i.name" type="text" class="input" placeholder="Enter default amount">
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+                </ValidationProvider>
               </div>
             </div>
           </div>
           <div class="column is-3 custom">
-              <div class="field">
-                <label class="label">Amount</label>
-                <div class="contro">
+            <div class="field">
+              <label class="label">Amount</label>
+              <div class="contro">
+                <ValidationProvider rules="required" v-slot="{ errors }">
                   <input v-model="i.amount" type="text" class="input" placeholder="Enter default amount">
-                </div>
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+                </ValidationProvider>
               </div>
+            </div>
           </div>
           <div class="column is-3 custom">
-              <div class="field">
-                <label class="label">Type</label>
-                <div class="control">
-                  <div class="select">
-                    <select v-model="i.type">
-                      <option v-for="(i, idx) in types" :key="idx" :value="i">{{ i }}</option>
-                    </select>
-                  </div>
+            <div class="field">
+              <label class="label">Type</label>
+              <div class="control">
+                <div class="select">
+                  <ValidationProvider rules="required" v-slot="{ errors }">
+                  <select v-model="i.type">
+                    <option v-for="(i, idx) in types" :key="idx" :value="i">{{ i }}</option>
+                  </select>
+                    <p class="has-text-danger">{{ errors[0] }}</p>
+                  </ValidationProvider>
                 </div>
               </div>
+            </div>
           </div>
           <div class="column is-3 custom">
-              <div class="field">
-                <label class="label">TAX Calculation</label>
-                <div class="control">
-                  <div class="select">
-                    <select v-model="i.isBeforeTax">
-                      <option :value="true">Before TAX</option>
-                      <option :value="false">After TAX</option>
-                    </select>
-                  </div>
+            <div class="field">
+              <label class="label">TAX Calculation</label>
+              <div class="control">
+                <div class="select">
+
+                  <ValidationProvider rules="required" v-slot="{ errors }">
+                  <select v-model="i.isBeforeTax">
+                    <option :value="true">Before TAX</option>
+                    <option :value="false">After TAX</option>
+                  </select>
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+                  </ValidationProvider>
+
                 </div>
               </div>
+            </div>
           </div>
           <div class="column is-1">
             <div class="field">
-                <label class="label">Option</label>
-                <div
-                    @click="spliceCustomAllo(idx)"
-                    class="control has-icon">
-                  <i class="fas fa-trash"></i>
-                </div>
+              <label class="label">Option</label>
+              <div
+                  @click="spliceCustomAllo(idx)"
+                  class="control has-icon">
+                <i class="fas fa-trash"></i>
               </div>
+            </div>
           </div>
         </div> <!-- Columns -->
         <button
             @click="addCustomAllo"
-            type="button" class="button add-btn">Add</button>
+            type="button" class="button add-btn">Add
+        </button>
       </div>
     </div>
-    <button @click="addOrUpdateAllowance" type="button" class="button save-btn">Save and Continue</button>
-  </div>
+    <button @click="handleSubmit(addOrUpdateAllowance)" type="button" class="button save-btn">Save and Continue</button>
+    </ValidationObserver>
 </template>
 
 <script>
 import {getEarnDeductGroups} from "@/apis/earn-deduct-group-api";
 import {addOrUpdateAllowance, getAllowance} from "@/apis/allowance-api";
-import { getCustomAllowance, addOrUpdateCustomAllowance} from "@/apis/custom-allowance-api";
+import {getCustomAllowance, addOrUpdateCustomAllowance} from "@/apis/custom-allowance-api";
 
 export default {
   data: () => ({
@@ -223,15 +239,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.form-header{
-  div{
+.form-header {
+  div {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
-    h3{
+
+    h3 {
       margin: 0;
     }
-    button{
+
+    button {
       margin-left: 10px;
       border-radius: 0;
       border: none;
@@ -240,6 +258,7 @@ export default {
     }
   }
 }
+
 .allowance-list {
   display: flex;
   margin-top: 20px;
@@ -259,13 +278,15 @@ export default {
   }
 }
 
-.control.has-icon{
+.control.has-icon {
   display: flex;
   align-items: center;
-  i{
+
+  i {
     padding: 10px;
     cursor: pointer;
-    &:hover{
+
+    &:hover {
       color: $alert-color;
     }
   }
@@ -277,22 +298,26 @@ export default {
   color: $font-color;
   border: 1px solid $sub-color;
 }
-.button{
+
+.button {
   border-radius: 0;
   border: none;
   background-color: $sub-color;
   color: #fff;
-  &.save-btn{
+
+  &.save-btn {
     background-color: $primary-color;
     color: #fff;
     margin-top: 30px;
-    &:hover{
-        box-shadow: none;
-        outline: none;
+
+    &:hover {
+      box-shadow: none;
+      outline: none;
     }
-    &:focus{
-        box-shadow: none;
-        outline: none;
+
+    &:focus {
+      box-shadow: none;
+      outline: none;
     }
   }
 }

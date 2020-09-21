@@ -2,7 +2,7 @@
   <div>
     <div class="page-header">
       <h3 class="page-title">Position</h3>
-      <button class="button" @click="ModalClick = 'AddPosition'"><i class="fas fa-plus"></i></button>
+      <button class="button" @click="isOpen = true; isEditMode = false"><i class="fas fa-plus"></i></button>
     </div>
     <div class="box">
       <table class="table is-fullwidth" id="my-table">
@@ -29,29 +29,30 @@
         </tbody>
       </table>
     </div>
-    <component
-        :is="ModalClick"
-        @CloseModal="ModalClick=''"
-        @PushItem="pushItem"
-        @UpdateItem="updateItem"
-        ref="Modal"
-    ></component>
+    <PositionModal
+         v-if="isOpen"
+         :isEditMode="isEditMode"
+          @PushItem="getPositions"
+          @UpdateItem="getPositions"
+         @CloseModal="isOpen = false"
+          ref="Modal"
+    />
   </div>
 </template>
 
 <script>
-import AddPosition from '@coms/Position/Modal/add-position.vue';
-import EditPosition from '@coms/Position/Modal/edit-position.vue';
+import PositionModal from '@coms/Position/Modal/add-position.vue';
 import {GET_POSITIONS} from "@/graphql/Position";
 
 export default {
   components: {
-    AddPosition,
-    EditPosition
+    PositionModal
   },
   data: () => ({
     ModalClick: '',
-    positions: []
+    positions: [],
+    isOpen: false,
+    isEditMode: false
   }),
   methods: {
     async getPositions() {
@@ -65,20 +66,21 @@ export default {
       }
     },
     editModal(_id, name, departmentId) {
-      this.ModalClick = 'EditPosition'
+      this.isOpen = true
+      this.isEditMode = true
       this.$nextTick(() => {
         this.$refs.Modal._id = _id
         this.$refs.Modal.name = name
         this.$refs.Modal.departmentId = departmentId
       })
     },
-    pushItem(item) {
-      this.positions.push(item)
-    },
-    updateItem(item) {
-      const curIdx = this.positions.findIndex(i => i._id === item._id)
-      this.positions.splice(curIdx, 1, item)
-    }
+    // pushItem(item) {
+    //   this.positions.push(item)
+    // },
+    // updateItem(item) {
+    //   const curIdx = this.positions.findIndex(i => i._id === item._id)
+    //   this.positions.splice(curIdx, 1, item)
+    // }
   },
   created() {
     this.getPositions()

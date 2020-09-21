@@ -4,8 +4,9 @@ import router from './router'
 import store from './store'
 import apolloProvider from "@/services/apollo-client";
 import axios from 'axios'
-
 import {baseURL} from "@/config/variables";
+
+import './plugins/vee-validate'
 
 Vue.prototype.$baseUrl = baseURL
 axios.defaults.baseURL = baseURL + '/client-api/'
