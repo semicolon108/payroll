@@ -22,11 +22,11 @@
               </div>
               <div class="summary-item">
                   <span>Status</span>
-                  <h3>Approved</h3>
+                  <h3> {{ getCurrent.isApproved ? 'Approved' : 'Unapproved' }}</h3>
               </div>
           </div>
           <div class="summary-option">
-              <span>Calculate</span>
+              <span @click="$router.push({name:'deductable_detail', params: { id: getCurrent._id }})">Calculate</span>
           </div>
       </div>
   </div> <!-- Current Box -->
@@ -44,7 +44,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(i) in monthlyPayments" :key="i._id">
+        <tr v-for="(i) in getExceptCurrent" :key="i._id">
           <td>{{ i.paymentDate | moment }}</td>
           <td class="is-right">200,000</td>
           <td class="is-right">50,000</td>
@@ -74,6 +74,14 @@ export default {
   data: () => ({
     monthlyPayments: []
   }),
+  computed: {
+    getCurrent() {
+      return this.monthlyPayments.find((i, idx) => idx === 0)
+    },
+    getExceptCurrent() {
+      return this.monthlyPayments.filter((i, idx) => idx !== 0)
+    }
+  },
   filters: {
     moment(date) {
       return moment(date).format('ll')
