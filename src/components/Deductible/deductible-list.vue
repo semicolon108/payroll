@@ -25,8 +25,10 @@
                   <h3> {{ getCurrent.isApproved ? 'Approved' : 'Unapproved' }}</h3>
               </div>
           </div>
-          <div class="summary-option">
-              <span @click="$router.push({name:'deductable_detail', params: { id: getCurrent._id }})">Calculate</span>
+          <div
+              @click="$router.push({name:'deductable_detail', params: { id: getCurrent._id }})"
+              class="summary-option">
+              <span >Calculate</span>
           </div>
       </div>
   </div> <!-- Current Box -->

@@ -6,7 +6,7 @@ import apolloProvider from "@/services/apollo-client";
 import axios from 'axios'
 import {baseURL} from "@/config/variables";
 
-import './plugins/vee-validate'
+import './plugins/index'
 
 Vue.prototype.$baseUrl = baseURL
 axios.defaults.baseURL = baseURL + '/client-api/'

@@ -453,6 +453,13 @@ export default {
     },
     async updateEmployee() {
       try {
+
+        console.log(this.$validator)
+        const isValid = true
+        if (isValid) {
+         // document.getElementsByName([this.$validator.errors.items[0].field])[0].scrollIntoView({ block: 'center' })
+          return;
+        }
         const res = await this.$apollo.mutate({
           mutation: UPDATE_EMPLOYEE,
           variables: {
