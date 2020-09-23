@@ -15,10 +15,9 @@
         <label for="expat-yes">Yes</label>
       </div>
     </div>
-
     <div v-if="isMulti">
       <h3 class="title">Setup exchange rate</h3>
-      <div class="currency" >
+      <div class="currency">
         <Draggable
             v-model="compCurrencies"
             v-bind="dragOptions"
@@ -26,8 +25,8 @@
         >
           <div
               class="field has-addons"
-               v-for="(i, idx) in compCurrencies"
-               :key="i._id"
+              v-for="(i, idx) in compCurrencies"
+              :key="i._id"
           >
             <p class="control">
                 <span class="select">
@@ -40,10 +39,12 @@
             </p>
             <div class="control">
               <ValidationProvider rules="required|numeric" v-slot="{ errors }">
-              <input v-model="i.amount" class="input" type="text" placeholder="Exchange rate"
-
-              :style="errors[0] ? 'border: 1px solid red': null"
-              >
+                <input
+                    v-model="i.amount"
+                    class="input"
+                    type="text"
+                    placeholder="Exchange rate"
+                    :style="errors[0] ? 'border: 1px solid red': null">
               </ValidationProvider>
             </div>
             <i class="fas fa-arrows-alt handle" style="cursor: move; font-size: 20px; color: #0253B3"></i>

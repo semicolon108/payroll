@@ -278,6 +278,8 @@ export default {
   },
   data: () => ({
     form: {
+      employeeCode: '',
+
       genderId: '',
       maritalStatusId: '',
       nationalityId: '',
@@ -335,6 +337,7 @@ export default {
       const data = await this.getEmployee(this.$route.params.id)
       this.image = data.image ? data.image : {}
       this.form = {
+        employeeCode: data.employeeCode,
         firstName: data.firstName,
         lastName: data.lastName,
         dateOfBirth: data.dateOfBirth,
@@ -418,6 +421,7 @@ export default {
         const res = await this.$apollo.mutate({
           mutation: ADD_EMPLOYEE,
           variables: {
+            employeeCode: this.form.employeeCode,
             firstName: this.form.firstName,
             lastName: this.form.lastName,
             dateOfBirth: this.form.dateOfBirth,
@@ -453,6 +457,7 @@ export default {
           mutation: UPDATE_EMPLOYEE,
           variables: {
             employeeId: this.$route.params.id,
+            employeeCode: this.form.employeeCode,
             firstName: this.form.firstName,
             lastName: this.form.lastName,
             dateOfBirth: this.form.dateOfBirth,

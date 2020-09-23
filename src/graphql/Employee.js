@@ -5,6 +5,7 @@ export const GET_EMPLOYEES = gql`
     {
         getEmployees {
             _id
+            employeeCode
             firstName
             lastName
             dateOfBirth
@@ -37,6 +38,7 @@ export const GET_EMPLOYEE = gql`
             employeeId: $employeeId
         ) {
             _id
+            employeeCode
             firstName
             lastName
             dateOfBirth
@@ -87,6 +89,7 @@ export const GET_EMPLOYEE = gql`
 export const ADD_EMPLOYEE = gql`
 
     mutation(
+        $employeeCode: ID!
         $firstName: String!
         $lastName: String!
         $dateOfBirth: Date!
@@ -106,6 +109,7 @@ export const ADD_EMPLOYEE = gql`
     ) {
         addEmployee(
             info: {
+                employeeCode: $employeeCode
                 firstName: $firstName
                 lastName: $lastName
                 dateOfBirth: $dateOfBirth
@@ -124,6 +128,7 @@ export const ADD_EMPLOYEE = gql`
             }
         ) {
             _id
+            employeeCode
             firstName
             lastName
             dateOfBirth
@@ -171,6 +176,8 @@ export const UPDATE_EMPLOYEE = gql`
 
     mutation(
         $employeeId: ID!
+
+        $employeeCode: ID!
         $firstName: String!
         $lastName: String!
         $dateOfBirth: Date!
@@ -191,6 +198,7 @@ export const UPDATE_EMPLOYEE = gql`
         updateEmployee(
             info: {
                 employeeId: $employeeId
+                employeeCode: $employeeCode
                 firstName: $firstName
                 lastName: $lastName
                 dateOfBirth: $dateOfBirth
@@ -209,6 +217,7 @@ export const UPDATE_EMPLOYEE = gql`
             }
         ) {
             _id
+            employeeCode
             firstName
             lastName
             dateOfBirth
@@ -246,8 +255,6 @@ export const UPDATE_EMPLOYEE = gql`
             image {
                 _id
                 name
-                src
-                size
             }
         }
     }
