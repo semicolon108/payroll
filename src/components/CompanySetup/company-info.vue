@@ -18,12 +18,12 @@
     <div class="field">
       <label for="" class="label">Company industry</label>
       <div class="control">
-        <ValidationProvider rules="required" v-slot="{ errors }">
+<!--        <ValidationProvider rules="required" v-slot="{ errors }">-->
           <select class="input">
             <option :value="i._id" v-for="i in industries" :key="i._i">{{ i.name }}</option>
           </select>
-          <p class="has-text-danger">{{ errors[0] }}</p>
-        </ValidationProvider>
+<!--          <p class="has-text-danger">{{ errors[0] }}</p>-->
+<!--        </ValidationProvider>-->
       </div>
     </div>
     <div class="field">
@@ -103,12 +103,12 @@
         <div class="field">
           <label for="" class="label">Bank name</label>
           <div class="control">
-            <ValidationProvider rules="required" v-slot="{ errors }">
+<!--            <ValidationProvider rules="required" v-slot="{ errors }">-->
             <select class="input">
               <option :value="i._Id" v-for="i in banks" :key="i._i">{{ i.name }}</option>
             </select>
-              <p class="has-text-danger">{{ errors[0] }}</p>
-            </ValidationProvider>
+<!--              <p class="has-text-danger">{{ errors[0] }}</p>-->
+<!--            </ValidationProvider>-->
           </div>
         </div>
       </div>

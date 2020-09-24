@@ -43,9 +43,13 @@
               Calculated
             </button>
             <button
-                v-else
+                v-else-if="!getCompany.isApprovedBeforeCalc"
                 @click="calcPayroll"
                 class="button is-primary">Calculate
+            </button>
+            <button
+                v-else
+                class="button is-primary">Send Request
             </button>
           </div>
         </div>
@@ -211,7 +215,8 @@ import document from './Modal/document'
 import {calcPayroll, getPayrollByEmps} from "@/apis/payroll-api";
 import {addOrUpdateActualWorkingDay} from "@/apis/actual-working-day-api";
 import VueHtml2pdf from 'vue-html2pdf'
-import {addOrUpdateCompanyCurrency, getCompanyCurrencies} from "@/apis/company-currency-api";
+import {addOrUpdateCompanyCurrency, getCompanyCurrencies} from "@/apis/company-currency-api"
+import {mapGetters} from 'vuex'
 
 export default {
   components: {
@@ -235,6 +240,7 @@ export default {
     currencyIdx: ''
   }),
   computed: {
+    ...mapGetters(['getCompany']),
     filterItems() {
       return this.items.filter(i => {
         switch (this.chooseTab) {

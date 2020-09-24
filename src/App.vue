@@ -34,7 +34,7 @@ export default {
       this.SET_TOKEN(this.$route.query.accessToken)
       this.$router.push({ name: 'getstart' })
     } else if(!this.isAuth) {
-     // window.location.href = 'http://localhost:3000'
+     window.location.href = 'http://localhost:3000'
     }
     this.getMyCompany()
   }

@@ -10,7 +10,7 @@ export const GET_POSITIONS = gql`
                 _id
                 name
             }
-            employeeCount
+            employeesCount
         }
     }
 

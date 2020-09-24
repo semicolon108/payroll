@@ -205,7 +205,9 @@
 
 import DatePicker from "@/utils/DatePicker";
 import {getReuse} from "@/apis/reuse-api";
+
 import {addOrUpdateHirringDetail, getHirringDetail} from "@/apis/hirring-detail-api";
+import {getPositions} from "@/apis/position-api";
 
 export default {
   components: {
@@ -252,7 +254,8 @@ export default {
       this.SelectActive = !this.SelectActive
     },
     async getData() {
-      this.positions = await getReuse('Position')
+
+       this.positions = await getPositions()
       this.provinces = await getReuse('Province')
       this.contactTypes = await getReuse('ContactType')
       const data = await getHirringDetail(this.$route.params.id)

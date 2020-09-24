@@ -26,6 +26,13 @@ const mutations = {
     SET_COMPANY(state, company) {
         state.company = JSON.stringify(company)
         localStorage.setItem('company', JSON.stringify(company))
+    },
+    DESTROY_TOKEN(state) {
+        state.accessToken = null
+        localStorage.removeItem('accessToken')
+
+        state.company = null
+        localStorage.removeItem('company')
     }
 }
 
