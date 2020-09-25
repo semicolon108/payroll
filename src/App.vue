@@ -16,6 +16,7 @@ import sidebar from "@coms/sidebar";
 import navigation from "@coms/navbar";
 import {mapMutations, mapGetters, mapActions} from 'vuex'
 
+import axios from 'axios'
 
 export default {
   components:{
@@ -30,6 +31,11 @@ export default {
     ...mapActions(['getMyCompany'])
   },
   created() {
+
+    axios.get('http://192.169.9192')
+        .then(() => alert('axios'))
+        .catch((err) => alert(err))
+
     if(this.$route.query.accessToken) {
       this.SET_TOKEN(this.$route.query.accessToken)
       this.$router.push({ name: 'getstart' })

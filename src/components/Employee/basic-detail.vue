@@ -4,7 +4,6 @@
       <h3>Personal Information</h3>
       <p>Need help or have questions about adding employees? Call us at (856) 21 254709.</p>
     </div>
-
     <ValidationObserver v-slot="{ handleSubmit }">
     <div  class="form">
       <div class="columns is-multiline">

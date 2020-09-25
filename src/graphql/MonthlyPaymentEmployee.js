@@ -6,8 +6,10 @@ export const GET_MONTHLY_PAYMENT_EMPLOYEES = gql`
         $monthlyPaymentId: ID!
     ) {
         getMonthlyPaymentEmployees (monthlyPaymentId: $monthlyPaymentId) {
+            isApproved
             date
             employees {
+                _id
                 employee {
                     _id
                     employeeCode
