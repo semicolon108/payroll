@@ -21,22 +21,31 @@ export const GET_PAYROLL_BY_EMPS = gql`
 
     query ($monthlyPaymentId: ID!) {
         getPayrollByEmps(monthlyPaymentId: $monthlyPaymentId) {
-            _id
-            monthlyPaymentId
-            employeeId
-            employeeCode
-            fullName
-            earningAmount
-            deductionAmount
-            calcAmount
-            basicSalary
-            netSalary
-            tax
-            sso
-            workingDay
-            isExpat
+            employees {
+                _id
+                monthlyPaymentId
+                employeeId
+                employeeCode
+                fullName
+                earningAmount
+                deductionAmount
+                calcAmount
+                basicSalary
+                netSalary
+                tax
+                sso
+                workingDay
+                isExpat
+            }
+            date
+            isApproved
+            isRequestSent
+            isRequestApproved
+            isCalculated
+
         }
     }
+
 
 
 
@@ -65,6 +74,18 @@ export const CALC_PAYROLL = gql`
             workingDay
             isExpat
         }
+    }
+
+`
+
+export const SEND_REQUEST_CALC = gql`
+
+    mutation (
+        $monthlyPaymentId: ID!
+    ) {
+        sendRequestCalc(
+            monthlyPaymentId: $monthlyPaymentId
+        )
     }
 
 `

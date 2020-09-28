@@ -26,7 +26,7 @@
                         <td>
                             <div class="icons">
                                 <span @click="$router.push({ name: 'edit_basic_detail', params: { id: i._id } } )" class="icon"><i class="fas fa-pen"></i></span>
-                                <span class="icon"><i class="fas fa-trash"></i></span>
+<!--                                <span class="icon"><i class="fas fa-trash"></i></span>-->
                             </div>
                         </td>
                     </tr>

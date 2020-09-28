@@ -6,14 +6,15 @@
         <div class="header-title">
           <h3 class="xxl-title">{{ date | momentV2 }}</h3>
           <div class="button-group">
-            <button class="button" @click="ModalClick = 'Add'">Add</button>
-            <button class="button" @click="ModalClick = 'Upload'">Upload</button>
+<!--            <button class="button" @click="ModalClick = 'Add'">Add</button>-->
+            <button v-if="!isApproved" class="button" @click="ModalClick = 'Upload'">Upload</button>
           </div>
         </div>
       </div>
       <div class="header-end">
-        <button v-if="items[0].isApproved" class="button"
-            :disabled="items[0].isApproved">
+        <button v-if="isApproved"
+                class="button"
+                :disabled="isApproved">
             <i class="fas fa-check-circle"></i>
             Approved
           </button>
@@ -47,7 +48,7 @@
           <th class="is-right">
             <span>Status</span>
           </th>
-          <th class="is-xxs is-right">Option</th>
+<!--          <th v-if="isApproved" class="is-xxs is-right">Option</th>-->
         </tr>
         </thead>
         <tbody>
@@ -66,15 +67,15 @@
                   ]">{{ i.earnDeduct.chooseAmount }}</span>
           </td>
           <td class="is-right">
-            <span v-if="i.isApproved" class="approved"><i class="fas fa-check-circle"></i></span>
+            <span v-if="isApproved" class="approved"><i class="fas fa-check-circle"></i></span>
             <span v-else class=""><i class="fas fa-check-circle"></i></span>
             <!--                            <button class="button" v-if="!i.isApproved">Approve</button>-->
           </td>
           <td>
-            <div class="icons">
-              <span class="icon" @click="ModalClick = 'Edit'"><i class="fas fa-pen"></i></span>
-              <span class="icon"><i class="fas fa-trash"></i></span>
-            </div>
+<!--            <div v-if="isApproved" class="icons">-->
+<!--              <span class="icon" @click="ModalClick = 'Edit'"><i class="fas fa-pen"></i></span>-->
+<!--              <span class="icon"><i class="fas fa-trash"></i></span>-->
+<!--            </div>-->
           </td>
         </tr>
 
@@ -128,13 +129,14 @@ export default {
     Approved: true,
     items: [],
     date: null,
+    isApproved: false,
 
     searchItem: {
       emId: '',
       emName: '',
       itemName: '',
       itemType: ''
-    }
+    },
   }),
   filters: {
     momentV2(date) {
@@ -163,9 +165,10 @@ export default {
   methods: {
     async getMonthlyPaymentEmployees() {
       try {
-        const { employees, date } = await getMonthlyPaymentEmployees(this.$route.params.id)
+        const { employees, date, isApproved } = await getMonthlyPaymentEmployees(this.$route.params.id)
         this.items = employees
         this.date = date
+        this.isApproved = isApproved
       } catch (err) {
         throw new Error(err)
       }

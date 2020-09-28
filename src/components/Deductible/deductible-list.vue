@@ -50,9 +50,13 @@
           <td class="is-right">200,000</td>
           <td class="is-right">50,000</td>
           <td class="is-right">
-            <div class="status" :class="{'approved': i.isApproved}">
+            <div v-if="i.isApproved" class="status approved">
               <span><i class="fas fa-check-circle"></i></span>
               <span>Approved</span>
+            </div>
+            <div v-else class="status">
+              <span><i class="fas fa-check-circle"></i></span>
+              <span>Unapproved</span>
             </div>
           </td>
           <td class="is-right">

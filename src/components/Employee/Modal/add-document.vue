@@ -69,6 +69,8 @@ export default {
       }
       const item = await addDocument(form)
       this.$emit('PushItem', item)
+      this.name = ''
+      this.file = null
       this.CloseModal()
     },
     async uploadImage(file) {

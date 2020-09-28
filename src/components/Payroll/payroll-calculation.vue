@@ -6,7 +6,7 @@
           <div class="header-start">
             <span @click="$router.back()" class="back">Back</span>
             <div class="header-title">
-              <h3 class="xxl-title">August, 25-2020</h3>
+              <h3 class="xxl-title">{{ payrollEmps.date | moment }}</h3>
             </div>
           </div>
         </div>
@@ -33,23 +33,49 @@
               <button @click="handleSubmit(updateCompanyCurrency)" class="button">Update</button>
             </ValidationObserver>
           </div>
-          <div class="button-group">
+          <div
+              v-if="getCompany.isApprovedBeforeCalc"
+              class="button-group">
             <button class="button" @click="ModalClick = 'document'">Document</button>
             <button class="button"><i class="fas fa-file-excel"></i> Export Payroll's Template</button>
             <button class="button">Send Payslip</button>
-            <button v-if="items[0] && items[0]._id"
-                    class="button "
-                    :disabled="items[0] && items[0]._id">
-              Calculated
+            <button
+                v-if="!payrollEmps.isRequestSent"
+                @click="sendRequestCalc"
+                class="button is-primary">Send Request
             </button>
             <button
-                v-else-if="!getCompany.isApprovedBeforeCalc"
+                v-else-if="payrollEmps.isRequestSent && !payrollEmps.isRequestApproved"
+                class="button is-primary">Wait for approval
+            </button>
+            <button
+                v-else-if="payrollEmps.isRequestApproved && !payrollEmps.isCalculated"
                 @click="calcPayroll"
                 class="button is-primary">Calculate
             </button>
             <button
                 v-else
-                class="button is-primary">Send Request
+                class="button is-primary"
+                disabled
+            >
+              Calculated
+            </button>
+          </div>
+          <div v-else class="button-group">
+            <button class="button" @click="ModalClick = 'document'">Document</button>
+            <button class="button"><i class="fas fa-file-excel"></i> Export Payroll's Template</button>
+            <button class="button">Send Payslip</button>
+            <button
+                v-if="!payrollEmps.isCalculated"
+                @click="calcPayroll"
+                class="button is-primary">Calculate
+            </button>
+            <button
+                v-else
+                class="button is-primary"
+                disabled
+            >
+              Calculated
             </button>
           </div>
         </div>
@@ -212,7 +238,7 @@
 </template>
 <script>
 import document from './Modal/document'
-import {calcPayroll, getPayrollByEmps} from "@/apis/payroll-api";
+import {calcPayroll, getPayrollByEmps, sendRequestCalc} from "@/apis/payroll-api";
 import {addOrUpdateActualWorkingDay} from "@/apis/actual-working-day-api";
 import VueHtml2pdf from 'vue-html2pdf'
 import {addOrUpdateCompanyCurrency, getCompanyCurrencies} from "@/apis/company-currency-api"
@@ -237,7 +263,18 @@ export default {
 
     isMulti: true,
     compCurrencies: [],
-    currencyIdx: ''
+    currencyIdx: '',
+
+
+    payrollEmps: {
+      employees: [],
+      date: null,
+      isApproved: false,
+      isRequestSent: false,
+      isRequestApproved: false,
+      isCalculated: false
+    }
+
   }),
   computed: {
     ...mapGetters(['getCompany']),
@@ -265,16 +302,21 @@ export default {
       this.currencyIdx = 0
     },
     async getPayrollByEmps() {
-      this.items = await getPayrollByEmps(this.$route.params.id)
-      this.items = this.items.map(i => {
+      this.payrollEmps = await getPayrollByEmps(this.$route.params.id)
+      this.items = this.payrollEmps.employees.map(i => {
         return {
           ...i,
           isEditMode: false
         }
       })
     },
+    async sendRequestCalc() {
+      await sendRequestCalc(this.$route.params.id)
+      await this.getPayrollByEmps()
+    },
     async calcPayroll() {
-      this.items = await calcPayroll(this.$route.params.id)
+      await calcPayroll(this.$route.params.id)
+      await this.getPayrollByEmps()
     },
     async addOrUpdateActualWorkingDay(employeeId) {
       const workingDay = this.$refs[`input${employeeId}`][0].value

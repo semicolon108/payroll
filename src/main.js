@@ -5,8 +5,11 @@ import store from './store'
 import apolloProvider from "@/services/apollo-client";
 import axios from 'axios'
 import {baseURL} from "@/config/variables";
+import moment from 'moment'
 
 import './plugins/index'
+
+Vue.filter('moment', (date) => moment(date).format('LL'))
 
 Vue.prototype.$baseUrl = baseURL
 axios.defaults.baseURL = baseURL + '/client-api/'

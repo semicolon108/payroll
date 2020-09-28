@@ -25,7 +25,7 @@
                     <td>{{i.createdAt | formatDate}}</td>
                     <td>
                         <div class="icons">
-                            <span class="icon"><i class="fas fa-pen"></i></span>
+<!--                            <span class="icon"><i class="fas fa-pen"></i></span>-->
                             <span @click="deleteDocument(i._id)" class="icon alert"><i class="fas fa-trash"></i></span>
                         </div>
                     </td>
