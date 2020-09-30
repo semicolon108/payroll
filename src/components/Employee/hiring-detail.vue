@@ -77,36 +77,26 @@
               <div class="control">
                 <div class="select">
                   <ValidationProvider name="File" rules="required" v-slot="{ errors }">
-                    <select v-model="form.currencyId">
-                      <option v-for="i in currencies"
-                              :value="i._id"
-                              :key="i._id">{{ i.name }}
+                    <select v-if="companyCurrencies.isMulti" v-model="form.currencyId">
+                      <option
+
+                          v-for="i in currencies"
+                          :value="i._id"
+                          :key="i._id">{{ i.name }}
+                      </option>
+                    </select>
+                    <select v-else v-model="form.currencyId">
+                      <option
+                          :value="currencies[0]._id"
+                          :key="currencies[0]._id">{{ currencies[0].name }}
                       </option>
                     </select>
                     <p class="has-text-danger">{{ errors[0] }}</p>
                   </ValidationProvider>
-
                 </div>
               </div>
               <div class="control is-expanded">
                 <input v-model="form.salary" type="text" class="input" required>
-              </div>
-            </div>
-          </div>
-          <div class="column is-4">
-            <div class="field">
-              <label for="" class="label">Contract Type</label>
-              <div class="control">
-                <div class="select">
-                  <ValidationProvider name="Contract Type" rules="required" v-slot="{ errors }">
-                  <select v-model="form.contactDetail.contactTypeId" class="select" name="" id="">
-                    <option v-for="i in contactTypes" :key="i._id" :value="i._id">
-                      {{ i.name }}
-                    </option>
-                  </select>
-                    <p class="has-text-danger">{{ errors[0] }}</p>
-                  </ValidationProvider>
-                </div>
               </div>
             </div>
           </div>
@@ -120,16 +110,24 @@
         <div class="columns is-multiline">
           <div class="column is-4">
             <div class="field">
-              <label for="" class="label">Contract Number</label>
+              <label for="" class="label">Contract Type</label>
               <div class="control">
-                <ValidationProvider name="Contract Number" rules="required" v-slot="{ errors }">
-                    <input v-model="form.contactDetail.mobile" type="text" class="input" required>
+                <div class="select">
+                  <ValidationProvider name="Contract Type" rules="required" v-slot="{ errors }">
+                    <select v-model="isOpenContract" class="select" name="" id="">
+<!--                      <option v-for="i in contactTypes" :key="i._id" :value="i._id">-->
+<!--                        {{ i.name }}-->
+<!--                      </option>-->
+                      <option selected name="open" :value="true">Open Contract</option>
+                      <option  name="fixed" :value="false">Fixed Contract</option>
+                    </select>
                     <p class="has-text-danger">{{ errors[0] }}</p>
-                </ValidationProvider>
+                  </ValidationProvider>
+                </div>
               </div>
             </div>
           </div>
-          <div class="column is-4">
+          <div class="column is-4" v-if="!isOpenContract">
             <div class="field">
               <label for="" class="label">Effective Date / Start Date</label>
               <ValidationProvider name="Effective Date / Start Date" rules="required|isDate" v-slot="{ errors }">
@@ -138,7 +136,7 @@
               </ValidationProvider>
             </div>
           </div>
-          <div class="column is-4">
+          <div class="column is-4" v-if="!isOpenContract">
             <div class="field">
               <label for="" class="label">Until Date / End Date</label>
               <ValidationProvider name="Until Date / End Date" rules="required|isDate" v-slot="{ errors }">
@@ -150,17 +148,7 @@
         </div>
 
         <hr>
-
-        <div class="form-title-wraper">
-          <h3 class="form-title">Work Permit</h3>
-          <div class="control switch-btn">
-            <ValidationProvider name="Work Permit" rules="required" v-slot="{ errors }">
-            <input v-model="form.isExpat" type="checkbox" id="expat">
-              <p class="has-text-danger">{{ errors[0] }}</p>
-            </ValidationProvider>
-            <label for="expat"></label>
-          </div>
-        </div>
+        
         <div class="columns" v-show="form.isExpat">
           <div class="column">
             <div class="field">
@@ -202,12 +190,13 @@
 
 <script>
 
-
 import DatePicker from "@/utils/DatePicker";
 import {getReuse} from "@/apis/reuse-api";
+import {mapGetters} from 'vuex'
 
 import {addOrUpdateHirringDetail, getHirringDetail} from "@/apis/hirring-detail-api";
 import {getPositions} from "@/apis/position-api";
+import {getCompanyCurrencies} from "@/apis/company-currency-api";
 
 export default {
   components: {
@@ -248,14 +237,21 @@ export default {
       contactDetail: {}
     },
 
+    companyCurrencies: [],
+
+
+    isOpenContract: true
+
   }),
+  computed: {
+    ...mapGetters(['getCompany'])
+  },
   methods: {
     select() {
       this.SelectActive = !this.SelectActive
     },
     async getData() {
-
-       this.positions = await getPositions()
+      this.positions = await getPositions()
       this.provinces = await getReuse('Province')
       this.contactTypes = await getReuse('ContactType')
       const data = await getHirringDetail(this.$route.params.id)
@@ -303,11 +299,14 @@ export default {
     },
     async getCurrencies() {
       this.currencies = await getReuse('Currency')
-
+    },
+    async getCompanyCurrencies() {
+      this.companyCurrencies = await getCompanyCurrencies()
     }
   },
   created() {
     this.getCurrencies()
+    this.getCompanyCurrencies()
     this.getData()
     window.scrollTo(0, 0)
   }
