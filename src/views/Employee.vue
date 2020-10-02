@@ -24,10 +24,11 @@
                         <td>{{i.firstName}} {{i.lastName}}</td>
                         <td class="is-hidden-mobile">{{  i.position  }}</td>
                         <td class="is-hidden-mobile">{{  i.department  }}</td>
-                        <td > {{ i.isCompleted ? 'Completed' : 'uncompleted' }}</td>
+                        <td > {{ i.isCompleted ? 'Completed' : 'Incompleted' }}</td>
                         <td>
                             <div class="icons">
-                                <span @click="$router.push({ name: 'edit_basic_detail', params: { id: i._id } } )" class="icon"><i class="fas fa-pen"></i></span>
+                                <span v-if="i.isCompleted" @click="$router.push({ name: 'edit_basic_detail', params: { id: i._id } } )" class="icon"><i class="fas fa-pen"></i></span>
+                              <span v-else @click="$router.push({ name: 'hiring_detail', params: { id: i._id } } )" class="icon"><i class="fas fa-pen"></i></span>
 <!--                                <span class="icon"><i class="fas fa-trash"></i></span>-->
                             </div>
                         </td>

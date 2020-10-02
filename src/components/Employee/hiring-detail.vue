@@ -14,7 +14,7 @@
               <div class="control">
                 <div class="select">
                   <ValidationProvider name="Contract Type" rules="required" v-slot="{ errors }">
-                    <select v-model="isOpenContract" class="select" name="" id="">
+                    <select v-model="form.isOpenContract" class="select" name="" id="">
                       <!--                      <option v-for="i in contactTypes" :key="i._id" :value="i._id">-->
                       <!--                        {{ i.name }}-->
                       <!--                      </option>-->
@@ -39,11 +39,11 @@
               </ValidationProvider>
             </div>
           </div>
-          <div class="column is-4" :style="isOpenContract ? 'opacity: 30%' : null">
+          <div class="column is-4" :style="form.isOpenContract ? 'opacity: 30%' : null">
             <div class="field">
               <label for="" class="label">Contract End Date</label>
               <ValidationProvider name="Until Date / End Date" rules="required|isDate" v-slot="{ errors }">
-                <DatePicker v-model="form.contactDetail.endDate" :defaultValue="defaultValue.contactDetail.endDate"/>
+                <DatePicker v-model="form.contractEndDate" :defaultValue="defaultValue.contractEndDate"/>
                 <p class="has-text-danger">{{ errors[0] }}</p>
               </ValidationProvider>
             </div>
@@ -244,13 +244,7 @@ export default {
       provinceId: '',
       workingDay: null,
       salary: null,
-      isExpat: true,
-      contactDetail: {
-        contactTypeId: null,
-        mobile: null,
-        startDate: null,
-        endDate: null
-      },
+      isOpenContract: true,
       workPermit: {
         startDate: null,
         endDate: null,
@@ -269,7 +263,6 @@ export default {
     companyCurrencies: [],
 
     employee: {},
-    isOpenContract: true
 
   }),
   computed: {
@@ -288,12 +281,6 @@ export default {
         this.isEditMode = true
         this.form = {
           ...data,
-          contactDetail: {
-            contactTypeId: data.contactDetail.contactTypeId,
-            mobile: data.contactDetail.mobile,
-            startDate: data.contactDetail.startDate,
-            endDate: data.contactDetail.endDate
-          },
           workPermit: {
             startDate: data.workPermit.startDate,
             endDate: data.workPermit.endDate,
@@ -303,7 +290,7 @@ export default {
         this.defaultValue = {
           dateOfJoining: data.dateOfJoining,
           probationEndDate: data.probationEndDate,
-          contactDetail: data.contactDetail,
+          contractEndDate: data.contractEndDate,
           workPermit: data.workPermit,
         }
       } else {
@@ -312,9 +299,6 @@ export default {
           positionId: this.positions[0]._id,
           provinceId: this.provinces[0]._id,
           currencyId: this.currencies[0]._id,
-          contactDetail: {
-            contactTypeId: this.contactTypes[0]._id
-          }
         }
       }
     },

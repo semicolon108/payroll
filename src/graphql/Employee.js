@@ -116,6 +116,8 @@ export const ADD_EMPLOYEE = gql`
         $nationalityId: ID!
 
         $image: AddFileInput
+
+        $isExpat: Boolean!
     ) {
         addEmployee(
             info: {
@@ -135,10 +137,10 @@ export const ADD_EMPLOYEE = gql`
                 maritalStatusId: $maritalStatusId
                 nationalityId: $nationalityId
                 image: $image
+                isExpat: $isExpat
             }
         ) {
             _id
-            employeeCode
             firstName
             lastName
             dateOfBirth

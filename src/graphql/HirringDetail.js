@@ -9,7 +9,7 @@ export const GET_HIRRING_DETAIL = gql`
             employeeId: $employeeId
         ) {
             _id
-            isExpat
+
             employeeId
             provinceId
             dateOfJoining
@@ -18,17 +18,14 @@ export const GET_HIRRING_DETAIL = gql`
             workingDay
             currencyId
             salary
-            contactDetail {
-                contactTypeId
-                mobile
-                startDate
-                endDate
-            }
+
             workPermit {
                 startDate
                 endDate
                 daysOfNotify
             }
+            isOpenContract
+            contractEndDate
         }
     }
 
@@ -38,7 +35,6 @@ export const GET_HIRRING_DETAIL = gql`
 export const ADD_OR_UPDATE_HIRRING_DETAIL = gql`
 
     mutation (
-        $isExpat: Boolean!
         $employeeId: ID!
         $provinceId: ID!
         $dateOfJoining: Date!
@@ -47,12 +43,14 @@ export const ADD_OR_UPDATE_HIRRING_DETAIL = gql`
         $workingDay: Int!
         $currencyId: ID!
         $salary: Int!
-        $contactDetail: ContactDetailInput!
+
+
+        $isOpenContract: Boolean!
         $workPermit: WorkPermitInput!
+        $contractEndDate: Date
     ) {
         addOrUpdateHirringDetail(
             info: {
-                isExpat: $isExpat
                 employeeId: $employeeId
 
                 provinceId: $provinceId
@@ -62,12 +60,14 @@ export const ADD_OR_UPDATE_HIRRING_DETAIL = gql`
                 workingDay: $workingDay
                 currencyId: $currencyId
                 salary: $salary
-                contactDetail: $contactDetail
+
                 workPermit: $workPermit
+                contractEndDate: $contractEndDate
+                isOpenContract: $isOpenContract
             }
         ) {
             _id
-            isExpat
+
             employeeId
             provinceId
             dateOfJoining
@@ -76,17 +76,14 @@ export const ADD_OR_UPDATE_HIRRING_DETAIL = gql`
             workingDay
             currencyId
             salary
-            contactDetail {
-                contactTypeId
-                mobile
-                startDate
-                endDate
-            }
+
             workPermit {
                 startDate
                 endDate
                 daysOfNotify
             }
+            isOpenContract
+            contractEndDate
         }
     }
 
