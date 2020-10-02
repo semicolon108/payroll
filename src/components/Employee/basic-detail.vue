@@ -5,262 +5,267 @@
       <p>Need help or have questions about adding employees? Call us at (856) 21 254709.</p>
     </div>
     <ValidationObserver v-slot="{ handleSubmit }">
-    <div  class="form">
-      <div class="columns is-multiline">
-        <div class="column is-12">
-          <div class="field">
-            <!-- <label for="" class="label">Photo</label> -->
-            <div class="control upload">
-              <div v-if="isEditMode && !file" class="photo"
-                   :style="{ 'background-image': 'url(' +  image.src + ')' }"
-              ></div>
-              <div v-else class="photo"
-                   :style="{ 'background-image': 'url(' +  profileImage + ')' }"
-              ></div>
+      <div class="form">
+        <div class="columns is-multiline">
+          <div class="column is-12">
+            <div class="field">
+              <!-- <label for="" class="label">Photo</label> -->
+              <div class="control upload">
+                <div v-if="isEditMode && !file" class="photo"
+                     :style="{ 'background-image': 'url(' +  image.src + ')' }"
+                ></div>
+                <div v-else class="photo"
+                     :style="{ 'background-image': 'url(' +  profileImage + ')' }"
+                ></div>
 
-              <input
-                  ref="FileInput"
-                     @change="onFileChange"
-                     type="file" class="input">
-              <div class="upload-label">
+                <input
+                    ref="FileInput"
+                    @change="onFileChange"
+                    type="file" class="input">
+                <div class="upload-label">
 
-                <ValidationProvider name="File" rules="required" v-slot="{ errors }">
-                  <input v-if="isEditMode && !file" v-model="image.src" type="text" style="display: none">
-                  <input v-else v-model="file" type="text" style="display: none">
+                  <ValidationProvider name="File" rules="required" v-slot="{ errors }">
+                    <input v-if="isEditMode && !file" v-model="image.src" type="text" style="display: none">
+                    <input v-else v-model="file" type="text" style="display: none">
+                    <p class="has-text-danger">{{ errors[0] }}</p>
+                  </ValidationProvider>
+
+                  <div>
+                    <h3>Employee Photo</h3>
+                    <p v-if="isEditMode">file size: {{ image.size | readSize }}</p>
+                    <p v-else>
+                      {{
+                        file ? file.name : 'Support file .jpg .gif .png | maximum size 5mb'
+                      }}</p>
+                    <p v-if="file">{{ file.size | readSize }}</p>
+                  </div>
+                  <div class="button" @click="chooseFile">Add Photo</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Employee ID</label>
+              <div class="control">
+                <ValidationProvider name="Employee ID" rules="required" v-slot="{ errors }">
+                  <input v-model="form.employeeCode" type="text" class="input" required>
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
-
-                <div>
-                  <h3>Employee Photo</h3>
-                  <p v-if="isEditMode">file size: {{ image.size | readSize }}</p>
-                  <p v-else>
-                    {{
-                      file ? file.name : 'Support file .jpg .gif .png | maximum size 5mb'
-                    }}</p>
-                  <p v-if="file">{{ file.size | readSize }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">First Name</label>
+              <div class="control">
+                <ValidationProvider name="firstName" rules="required" v-slot="{ errors }">
+                  <input v-model="form.firstName" type="text" class="input" required>
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+                </ValidationProvider>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Last Name</label>
+              <div class="control">
+                <ValidationProvider name="lastName" rules="required" v-slot="{ errors }">
+                  <input v-model="form.lastName" type="text" class="input" required>
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+                </ValidationProvider>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="field">
+              <label class="label">Gender</label>
+              <div class="control option">
+                <label v-for="i in genders" :key="i._id"
+                       @click="form.genderId = i._id"
+                       :style="form.genderId === i._id && 'background-color: grey; color: white'"
+                >
+                  {{ i.name }}
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Date of Birth</label>
+              <ValidationProvider name="Date of Birth" rules="required|isDate" v-slot="{ errors }">
+                <DatePicker v-model="form.dateOfBirth" :defaultValue="defaultValue.dateOfBirth" class="control date"/>
+                <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Marital Status</label>
+              <div class="select">
+                <ValidationProvider name="Marital Status" rules="required" v-slot="{ errors }">
+                  <select v-model="form.maritalStatusId" class="control select" style="width: 100%">
+                    <option v-for="i in maritalStatuses" :value="i._id" :key="i._id" type="text" class="input" required>
+                      {{ i.name }}
+                    </option>
+                  </select>
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+                </ValidationProvider>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Nationality</label>
+              <div class="select">
+                <ValidationProvider name="Nationality" rules="required" v-slot="{ errors }">
+                  <select v-model="form.isExpat" class="control select" style="width: 100%">
+                    <option :value="false" class="input">
+                      Lao
+                    </option>
+                    <option :value="true" class="input">
+                      Foreign
+                    </option>
+                  </select>
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+                </ValidationProvider>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Contact Number</label>
+              <div class="control">
+                <ValidationProvider name="Contact Number" rules="required" v-slot="{ errors }">
+                  <input v-model="form.contactName" type="text" class="input" required>
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+                </ValidationProvider>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">ID card / Passport No.</label>
+              <div class="control">
+                <ValidationProvider name="ID card / Passport No." rules="required" v-slot="{ errors }">
+                  <input v-model="form.idCardOrPassport" type="text" class="input" required>
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+                </ValidationProvider>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Email</label>
+              <div class="control">
+                <ValidationProvider name="Email" rules="required" v-slot="{ errors }">
+                  <input v-model="form.email" type="text" class="input" required>
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+                </ValidationProvider>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Social security ID</label>
+              <div class="control toggle">
+                <ValidationProvider name="Social security ID" rules="required" v-slot="{ errors }">
+                  <input v-model="form.ssoId" type="text" class="input" required>
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+                </ValidationProvider>
+                <div class="sso-toggle">
+                  <input v-model="form.isSso" type="checkbox" id="sso" checked>
+                  <label for="sso">Use</label>
                 </div>
-                <div class="button" @click="chooseFile">Add Photo</div>
               </div>
             </div>
           </div>
         </div>
-        <div class="column is-4">
-          <div class="field">
-            <label for="" class="label">Employee ID</label>
-            <div class="control">
-              <ValidationProvider name="Employee ID" rules="required" v-slot="{ errors }">
-                <input v-model="form.employeeCode" type="text" class="input" required>
-                <p class="has-text-danger">{{ errors[0] }}</p>
-              </ValidationProvider>
-            </div>
-          </div>
-        </div>
-        <div class="column is-4">
-          <div class="field">
-            <label for="" class="label">First Name</label>
-            <div class="control">
-              <ValidationProvider name="firstName" rules="required" v-slot="{ errors }">
-                <input v-model="form.firstName" type="text" class="input" required>
+
+        <hr>
+
+        <h3 class="form-title">Emergency Contact</h3>
+        <div class="columns is-multiline">
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Full Name</label>
+              <div class="control">
+                <ValidationProvider name="EmergencyContact Full Name" rules="required" v-slot="{ errors }">
+                  <input v-model="form.emergencyContact.fullName" type="text" class="input" required>
                   <p class="has-text-danger">{{ errors[0] }}</p>
-              </ValidationProvider>
+                </ValidationProvider>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="column is-4">
-          <div class="field">
-            <label for="" class="label">Last Name</label>
-            <div class="control">
-              <ValidationProvider name="lastName" rules="required" v-slot="{ errors }">
-              <input v-model="form.lastName" type="text" class="input" required>
-                <p class="has-text-danger">{{ errors[0] }}</p>
-              </ValidationProvider>
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Relationship</label>
+              <div class="select">
+                <ValidationProvider name="Full Name" rules="required" v-slot="{ errors }">
+                  <select v-model="form.emergencyContact.relationshipId" class="control select" style="width: 100%;">
+                    <option v-for="i in relationships" :value="i._id" :key="i._id" type="text" class="input" required>
+                      {{ i.name }}
+                    </option>
+                  </select>
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+                </ValidationProvider>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="column is-4">
-          <div class="field">
-            <label class="label">Gender</label>
-            <div class="control option">
-              <label v-for="i in genders" :key="i._id"
-                   @click="form.genderId = i._id"
-                   :style="form.genderId === i._id && 'background-color: grey; color: white'"
-              >
-                {{ i.name }}
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="column is-4">
-          <div  class="field">
-            <label for="" class="label">Date of Birth</label>
-            <ValidationProvider name="Date of Birth" rules="required|isDate" v-slot="{ errors }">
-            <DatePicker v-model="form.dateOfBirth" :defaultValue="defaultValue.dateOfBirth" class="control date"/>
-              <p class="has-text-danger">{{ errors[0] }}</p>
-            </ValidationProvider>
-          </div>
-        </div>
-        <div class="column is-4">
-          <div class="field">
-            <label for="" class="label">Marital Status</label>
-            <div class="select">
-              <ValidationProvider name="Marital Status" rules="required" v-slot="{ errors }">
-              <select v-model="form.maritalStatusId" class="control select" style="width: 100%">
-                <option v-for="i in maritalStatuses" :value="i._id" :key="i._id" type="text" class="input" required>
-                  {{ i.name }}
-                </option>
-              </select>
-                <p class="has-text-danger">{{ errors[0] }}</p>
-              </ValidationProvider>
-            </div>
-          </div>
-        </div>
-        <div class="column is-4">
-          <div class="field">
-            <label for="" class="label">Nationality</label>
-            <div class="select">
-              <ValidationProvider name="Nationality" rules="required" v-slot="{ errors }">
-              <select v-model="form.nationalityId" class="control select" style="width: 100%">
-                <option v-for="i in nationalities" :value="i._id" :key="i._id" type="text" class="input" required>
-                  {{ i.name }}
-                </option>
-              </select>
-                <p class="has-text-danger">{{ errors[0] }}</p>
-              </ValidationProvider>
-            </div>
-          </div>
-        </div>
-        <div class="column is-4">
-          <div class="field">
-            <label for="" class="label">Contact Number</label>
-            <div class="control">
-              <ValidationProvider name="Contact Number" rules="required" v-slot="{ errors }">
-              <input v-model="form.contactName" type="text" class="input" required>
-                <p class="has-text-danger">{{ errors[0] }}</p>
-              </ValidationProvider>
-            </div>
-          </div>
-        </div>
-        <div class="column is-4">
-          <div class="field">
-            <label for="" class="label">ID card / Passport No.</label>
-            <div class="control">
-              <ValidationProvider name="ID card / Passport No." rules="required" v-slot="{ errors }">
-              <input v-model="form.idCardOrPassport" type="text" class="input" required>
-                <p class="has-text-danger">{{ errors[0] }}</p>
-              </ValidationProvider>
-            </div>
-          </div>
-        </div>
-        <div class="column is-4">
-          <div class="field">
-            <label for="" class="label">Email</label>
-            <div class="control">
-              <ValidationProvider name="Email" rules="required" v-slot="{ errors }">
-              <input v-model="form.email" type="text" class="input" required>
-                <p class="has-text-danger">{{ errors[0] }}</p>
-              </ValidationProvider>
-            </div>
-          </div>
-        </div>
-        <div class="column is-4">
-          <div class="field">
-            <label for="" class="label">Social security ID</label>
-            <div class="control toggle">
-              <ValidationProvider name="Social security ID" rules="required" v-slot="{ errors }">
-                 <input v-model="form.ssoId" type="text" class="input" required>
-                 <p class="has-text-danger">{{ errors[0] }}</p>
-              </ValidationProvider>
-              <div class="sso-toggle">
-                <input v-model="form.isSso" type="checkbox" id="sso" checked>
-                <label for="sso">Use</label>
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Contact Number</label>
+              <div class="control">
+                <ValidationProvider name="EmergencyContact Contact Number 2" rules="required" v-slot="{ errors }">
+                  <input v-model="form.emergencyContact.contactNumber" type="text" class="input" required>
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+                </ValidationProvider>
               </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <hr>
-
-      <h3 class="form-title">Emergency Contact</h3>
-      <div class="columns is-multiline">
-        <div class="column is-4">
-          <div class="field">
-            <label for="" class="label">Full Name</label>
-            <div class="control">
-              <ValidationProvider name="EmergencyContact Full Name" rules="required" v-slot="{ errors }">
-                <input v-model="form.emergencyContact.fullName" type="text" class="input" required>
+        <hr>
+        <div class="form-title">Bank Account</div>
+        <div class="columns is-multiline">
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Bank Name</label>
+              <div class="control">
+                <ValidationProvider name="Bank Name" rules="required" v-slot="{ errors }">
+                  <input v-model="form.bankAccount.bankName" type="text" class="input" required>
                   <p class="has-text-danger">{{ errors[0] }}</p>
-              </ValidationProvider>
+                </ValidationProvider>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Account Name</label>
+              <div class="control">
+                <ValidationProvider name="Account Name" rules="required" v-slot="{ errors }">
+                  <input v-model="form.bankAccount.accountName" type="text" class="input" required>
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+                </ValidationProvider>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Account Number</label>
+              <div class="control">
+                <ValidationProvider name="Account Number" rules="required" v-slot="{ errors }">
+                  <input v-model="form.bankAccount.accountNumber" type="text" class="input" required>
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+                </ValidationProvider>
+              </div>
             </div>
           </div>
         </div>
-        <div class="column is-4">
-          <div class="field">
-            <label for="" class="label">Relationship</label>
-            <div class="select">
-              <ValidationProvider name="Full Name" rules="required" v-slot="{ errors }">
-              <select v-model="form.emergencyContact.relationshipId" class="control select" style="width: 100%;">
-                <option v-for="i in relationships" :value="i._id" :key="i._id" type="text" class="input" required>
-                  {{ i.name }}
-                </option>
-              </select>
-                <p class="has-text-danger">{{ errors[0] }}</p>
-              </ValidationProvider>
-            </div>
-          </div>
-        </div>
-        <div class="column is-4">
-          <div class="field">
-            <label for="" class="label">Contact Number</label>
-            <div class="control">
-              <ValidationProvider name="EmergencyContact Contact Number 2" rules="required" v-slot="{ errors }">
-               <input v-model="form.emergencyContact.contactNumber" type="text" class="input" required>
-                <p class="has-text-danger">{{ errors[0] }}</p>
-              </ValidationProvider>
-            </div>
-          </div>
-        </div>
+        <button v-if="isEditMode" @click="handleSubmit(updateEmployee)" type="submit" class="button save-btn">Update
+        </button>
+        <button v-else @click="handleSubmit(addEmployee)" type="submit" class="button save-btn">Save and Continue
+        </button>
       </div>
-      <hr>
-      <div class="form-title">Bank Account</div>
-      <div class="columns is-multiline">
-        <div class="column is-4">
-          <div class="field">
-            <label for="" class="label">Bank Name</label>
-            <div class="control">
-              <ValidationProvider name="Bank Name" rules="required" v-slot="{ errors }">
-              <input v-model="form.bankAccount.bankName" type="text" class="input" required>
-                <p class="has-text-danger">{{ errors[0] }}</p>
-              </ValidationProvider>
-            </div>
-          </div>
-        </div>
-        <div class="column is-4">
-          <div class="field">
-            <label for="" class="label">Account Name</label>
-            <div class="control">
-              <ValidationProvider name="Account Name" rules="required" v-slot="{ errors }">
-              <input v-model="form.bankAccount.accountName" type="text" class="input" required>
-                <p class="has-text-danger">{{ errors[0] }}</p>
-              </ValidationProvider>
-            </div>
-          </div>
-        </div>
-        <div class="column is-4">
-          <div class="field">
-            <label for="" class="label">Account Number</label>
-            <div class="control">
-              <ValidationProvider name="Account Number" rules="required" v-slot="{ errors }">
-              <input v-model="form.bankAccount.accountNumber" type="text" class="input" required>
-                <p class="has-text-danger">{{ errors[0] }}</p>
-              </ValidationProvider>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button v-if="isEditMode" @click="handleSubmit(updateEmployee)" type="submit" class="button save-btn">Update</button>
-      <button v-else @click="handleSubmit(addEmployee)" type="submit" class="button save-btn">Save and Continue</button>
-    </div>
     </ValidationObserver>
   </div>
 </template>
@@ -277,6 +282,8 @@ export default {
   },
   data: () => ({
     form: {
+      isExpat: false,
+
       employeeCode: '',
 
       genderId: '',
@@ -357,11 +364,13 @@ export default {
         },
         genderId: data.genderId._id,
         maritalStatusId: data.maritalStatusId._id,
-        nationalityId: data.nationalityId._id
+        nationalityId: data.nationalityId._id,
+        isExpat: data.isExpat
       }
       this.defaultValue.dateOfBirth = this.form.dateOfBirth
     } else {
-      this.form = {...this.form, ...{
+      this.form = {
+        ...this.form, ...{
           genderId: this.form.genderId,
           maritalStatusId: this.form.maritalStatusId,
           nationalityId: this.form.nationalityId,
@@ -394,7 +403,7 @@ export default {
         const formData = new FormData()
         formData.append('imageFile', file)
         const res = await this.$axios.post('upload-image', formData)
-        this.file =  res.data.file
+        this.file = res.data.file
       } catch (err) {
         throw new Error(err)
       }
@@ -442,10 +451,12 @@ export default {
             genderId: this.form.genderId,
             maritalStatusId: this.form.maritalStatusId,
             nationalityId: this.form.nationalityId,
-            image: this.file ? this.file : undefined
+            image: this.file ? this.file : undefined,
+
+            isExpat: this.form.isExpat
           }
         })
-        await this.$router.push({ name: 'hiring_detail', params: { id: res.data.addEmployee._id } })
+        await this.$router.push({name: 'hiring_detail', params: {id: res.data.addEmployee._id}})
       } catch (err) {
         throw new Error(err)
       }
@@ -478,10 +489,12 @@ export default {
             genderId: this.form.genderId,
             maritalStatusId: this.form.maritalStatusId,
             nationalityId: this.form.nationalityId,
-            image: this.file ? this.file : undefined
+            image: this.file ? this.file : undefined,
+
+            isExpat: this.form.isExpat
           }
         })
-        await this.$router.push({ name: 'hiring_detail', params: { id: res.data.updateEmployee._id } })
+        await this.$router.push({name: 'hiring_detail', params: {id: res.data.updateEmployee._id}})
       } catch (err) {
         throw new Error(err)
       }

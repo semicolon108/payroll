@@ -11,6 +11,8 @@ import './plugins/index'
 
 Vue.filter('moment', (date) => moment(date).format('LL'))
 
+Vue.filter('currency', (num) => new Intl.NumberFormat().format(num) + ' LAK')
+
 Vue.prototype.$baseUrl = baseURL
 axios.defaults.baseURL = baseURL + '/client-api/'
 Vue.prototype.$axios = axios

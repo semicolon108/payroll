@@ -42,6 +42,7 @@ export const GET_PAYROLL_BY_EMPS = gql`
             isRequestSent
             isRequestApproved
             isCalculated
+            totalSalary
 
         }
     }

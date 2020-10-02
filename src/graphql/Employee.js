@@ -80,6 +80,7 @@ export const GET_EMPLOYEE = gql`
                 size
 
             }
+            isExpat
 
         }
     }
@@ -167,6 +168,7 @@ export const ADD_EMPLOYEE = gql`
                 _id
                 name
             }
+            isExpat
         }
     }
 
@@ -194,6 +196,8 @@ export const UPDATE_EMPLOYEE = gql`
         $nationalityId: ID!
 
         $image: AddFileInput
+        $isExpat: Boolean!
+
     ) {
         updateEmployee(
             info: {
@@ -214,6 +218,8 @@ export const UPDATE_EMPLOYEE = gql`
                 maritalStatusId: $maritalStatusId
                 nationalityId: $nationalityId
                 image: $image
+
+                isExpat: $isExpat
             }
         ) {
             _id
@@ -256,6 +262,7 @@ export const UPDATE_EMPLOYEE = gql`
                 _id
                 name
             }
+            isExpat
         }
     }
 

@@ -12,7 +12,7 @@
         </div>
         <div class="header-end">
           <p class="sm-title">Payroll Cost (LAK)</p>
-          <h3 class="xl-title">300.0000.000</h3>
+          <h3 class="xl-title">{{ payrollEmps.totalSalary | currency  }}</h3>
         </div>
       </div>
       <div class="box control">
@@ -83,7 +83,6 @@
           </div>
         </div>
       </div>
-
       <div class="box">
         <div class="box-header">
           <div class="button-group">
@@ -274,7 +273,8 @@ export default {
       isApproved: false,
       isRequestSent: false,
       isRequestApproved: false,
-      isCalculated: false
+      isCalculated: false,
+      totalSalary: 0
     }
 
   }),
