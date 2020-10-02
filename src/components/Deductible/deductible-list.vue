@@ -8,16 +8,16 @@
       <div class="summary-container">
         <div class="summary-items">
           <div class="summary-item">
-            <span>Total Employees</span>
-            <h3>30</h3>
+            <span>Payment Date</span>
+            <h3>{{ getCurrent.paymentDate | moment }}</h3>
           </div>
           <div class="summary-item">
             <span>Earning</span>
-            <h3>3,000,000</h3>
+            <h3>{{  getCurrent.totalEarning | currency }}</h3>
           </div>
           <div class="summary-item">
             <span>Deduction</span>
-            <h3>3,000,000</h3>
+            <h3>{{  getCurrent.totalDeduction | currency }}</h3>
           </div>
           <div class="summary-item">
             <span>Status</span>
@@ -47,8 +47,8 @@
         <tbody>
         <tr v-for="(i) in getExceptCurrent" :key="i._id">
           <td>{{ i.paymentDate | moment }}</td>
-          <td class="is-right">200,000</td>
-          <td class="is-right">50,000</td>
+          <td class="is-right">{{ i.totalEarning | currency }}</td>
+          <td class="is-right">{{ i.totalDeduction | currency }}</td>
           <td class="is-right">
             <div v-if="i.isApproved" class="status approved">
               <span><i class="fas fa-check-circle"></i></span>
