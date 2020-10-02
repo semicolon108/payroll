@@ -18,11 +18,13 @@
                 </thead>
                 <tbody>
                     <tr v-for="(i, index) in employees" :key="index">
-                        <td class="is-xs"><div class="photo"></div></td>
+                        <td class="is-xs">
+                          <div :style="{ backgroundImage: 'url('+ i.image.src +')' }" class="photo"></div>
+                        </td>
                         <td>{{i.firstName}} {{i.lastName}}</td>
-                        <td class="is-hidden-mobile">Marketing</td>
-                        <td class="is-hidden-mobile">Production</td>
-                        <td >Completed</td>
+                        <td class="is-hidden-mobile">{{  i.position  }}</td>
+                        <td class="is-hidden-mobile">{{  i.department  }}</td>
+                        <td > {{ i.isCompleted ? 'Completed' : 'uncompleted' }}</td>
                         <td>
                             <div class="icons">
                                 <span @click="$router.push({ name: 'edit_basic_detail', params: { id: i._id } } )" class="icon"><i class="fas fa-pen"></i></span>

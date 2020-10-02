@@ -5,6 +5,9 @@ export const GET_EMPLOYEES = gql`
     {
         getEmployees {
             _id
+            image {
+                src
+            }
             employeeCode
             firstName
             lastName
@@ -14,9 +17,10 @@ export const GET_EMPLOYEES = gql`
             email
             ssoId
             isSso
+
             emergencyContact {
                 fullName
-                #  relationship
+                #relationship
                 contactNumber
             }
             bankAccount {
@@ -24,6 +28,11 @@ export const GET_EMPLOYEES = gql`
                 accountName
                 accountNumber
             }
+            position
+            department
+
+            isExpat
+            isCompleted
         }
     }
 

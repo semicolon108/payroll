@@ -22,7 +22,7 @@
           <td>
             <div class="icons">
               <span class="icon" @click="editModal(i._id, i.name, i.departmentId._id)"><i class="fas fa-pen"></i></span>
-              <span class="icon alert"><i class="fas fa-trash"></i></span>
+              <span @click="deletePosition(i._id)" class="icon alert"><i class="fas fa-trash"></i></span>
             </div>
           </td>
         </tr>
@@ -43,6 +43,7 @@
 <script>
 import PositionModal from '@coms/Position/Modal/add-position.vue';
 import {GET_POSITIONS} from "@/graphql/Position";
+import {deletePosition} from "@/apis/position-api";
 
 export default {
   components: {
@@ -74,13 +75,17 @@ export default {
         this.$refs.Modal.departmentId = departmentId
       })
     },
-    // pushItem(item) {
-    //   this.positions.push(item)
-    // },
-    // updateItem(item) {
-    //   const curIdx = this.positions.findIndex(i => i._id === item._id)
-    //   this.positions.splice(curIdx, 1, item)
-    // }
+    async deletePosition(id) {
+       try {
+         await deletePosition(id)
+         await this.getPositions()
+       } catch (err) {
+         if(err.graphQLErrors[0].message === 'Please unselected employees from this position first') {
+           alert(err.graphQLErrors[0].message + ': ' + err.graphQLErrors[0].extensions.isExists.map(i => i.employeeId.employeeCode))
+         }
+     }
+
+    }
   },
   created() {
     this.getPositions()
