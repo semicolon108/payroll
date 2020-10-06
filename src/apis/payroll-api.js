@@ -1,5 +1,11 @@
 import {apolloClient} from "@/services/apollo-client";
-import {CALC_PAYROLL, GET_PAYROLL_BY_EMPS, GET_PAYROLL_BY_MONTHS, SEND_REQUEST_CALC} from "@/graphql/Payroll";
+import {
+    CALC_PAYROLL,
+    GET_PAYROLL_BY_EMPS,
+    GET_PAYROLL_BY_MONTHS,
+    SEND_PAYSLIP,
+    SEND_REQUEST_CALC
+} from "@/graphql/Payroll";
 
 export const getPayrollByMonths = () => {
     return new Promise(async (resolve, reject) => {
@@ -63,5 +69,22 @@ export const sendRequestCalc = (monthlyPaymentId) => {
             reject(err)
         }
     })
+}
+
+export const sendPayslip = (monthlyPaymentId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const res = await apolloClient.mutate({
+                mutation: SEND_PAYSLIP,
+                variables: {
+                    monthlyPaymentId
+                }
+            })
+            resolve(res.data.sendPayslip)
+        }catch (err ) {
+            reject(err)
+        }
+    })
+
 }
 

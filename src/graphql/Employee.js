@@ -20,11 +20,13 @@ export const GET_EMPLOYEES = gql`
 
             emergencyContact {
                 fullName
-                #relationship
                 contactNumber
             }
             bankAccount {
-                bankName
+                bankId {
+                    _id
+                    name
+                }
                 accountName
                 accountNumber
             }
@@ -65,7 +67,10 @@ export const GET_EMPLOYEE = gql`
                 contactNumber
             }
             bankAccount {
-                bankName
+                bankId {
+                    _id
+                    name
+                }
                 accountName
                 accountNumber
             }
@@ -158,7 +163,10 @@ export const ADD_EMPLOYEE = gql`
                 contactNumber
             }
             bankAccount {
-                bankName
+                bankId {
+                    _id
+                    name
+                }
                 accountName
                 accountNumber
             }
@@ -252,7 +260,10 @@ export const UPDATE_EMPLOYEE = gql`
                 contactNumber
             }
             bankAccount {
-                bankName
+                bankId {
+                    _id
+                    name
+                }
                 accountName
                 accountNumber
             }

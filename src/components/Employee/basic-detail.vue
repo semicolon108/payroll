@@ -230,9 +230,13 @@
           <div class="column is-4">
             <div class="field">
               <label for="" class="label">Bank Name</label>
-              <div class="control">
+              <div class="select">
                 <ValidationProvider name="Bank Name" rules="required" v-slot="{ errors }">
-                  <input v-model="form.bankAccount.bankName" type="text" class="input" required>
+                  <select v-model="form.bankAccount.bankId" class="control select" style="width: 100%;">
+                    <option v-for="i in banks" :value="i._id" :key="i._id" type="text" class="input" required>
+                      {{ i.name }}
+                    </option>
+                  </select>
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
               </div>
@@ -305,7 +309,7 @@ export default {
         contactNumber: ''
       },
       bankAccount: {
-        bankName: '',
+        bankId: '',
         accountName: '',
         accountNumber: ''
       }
@@ -320,7 +324,9 @@ export default {
 
     defaultValue: {
       dateOfBirth: ''
-    }
+    },
+
+    banks: []
   }),
   computed: {
     profileImage() {
@@ -338,6 +344,7 @@ export default {
     await this.reuseGet('MaritalStatus', 'maritalStatuses', 'maritalStatusId')
     await this.reuseGet('Nationality', 'nationalities', 'nationalityId')
     await this.reuseGet('Relationship', 'relationships', 'emergencyContact', 'relationshipId')
+    await this.reuseGet('Bank', 'banks', 'bankAccount', 'bankId')
     if (this.$route.params.id) {
       this.isEditMode = true
       const data = await this.getEmployee(this.$route.params.id)
@@ -358,7 +365,7 @@ export default {
           relationshipId: data.emergencyContact.relationshipId._id
         },
         bankAccount: {
-          bankName: data.bankAccount.bankName,
+          bankId: data.bankAccount.bankId._id,
           accountName: data.bankAccount.accountName,
           accountNumber: data.bankAccount.accountNumber
         },
@@ -444,7 +451,7 @@ export default {
               relationshipId: this.form.emergencyContact.relationshipId
             },
             bankAccount: {
-              bankName: this.form.bankAccount.bankName,
+              bankId: this.form.bankAccount.bankId,
               accountName: this.form.bankAccount.accountName,
               accountNumber: this.form.bankAccount.accountNumber
             },
@@ -482,7 +489,7 @@ export default {
               relationshipId: this.form.emergencyContact.relationshipId
             },
             bankAccount: {
-              bankName: this.form.bankAccount.bankName,
+              bankId: this.form.bankAccount.bankId,
               accountName: this.form.bankAccount.accountName,
               accountNumber: this.form.bankAccount.accountNumber
             },

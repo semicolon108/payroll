@@ -42,7 +42,7 @@
           <div class="column is-4" :style="form.isOpenContract ? 'opacity: 30%' : null">
             <div class="field">
               <label for="" class="label">Contract End Date</label>
-              <ValidationProvider name="Until Date / End Date" rules="required|isDate" v-slot="{ errors }">
+              <ValidationProvider name="Until Date / End Date" rules="isDate" v-slot="{ errors }">
                 <DatePicker v-model="form.contractEndDate" :defaultValue="defaultValue.contractEndDate"/>
                 <p class="has-text-danger">{{ errors[0] }}</p>
               </ValidationProvider>
@@ -102,13 +102,14 @@
               </div>
             </div>
           </div>
+ 
           <div class="column is-4">
             <label for="" class="label">Salary</label>
             <div class="field has-addons">
               <div class="control">
-                <div class="select">
+                <div class="select" v-if="currencies.length">
                   <ValidationProvider name="File" rules="required" v-slot="{ errors }">
-                    <select v-if="companyCurrencies.isMulti" v-model="form.currencyId">
+                    <select v-if="companyCurrency && companyCurrency.isMulti" v-model="form.currencyId">
                       <option
 
                           v-for="i in currencies"
@@ -135,49 +136,7 @@
 
         <hr>
 
-        <!-- Contract detail -->
-<!--        <h3 class="form-title">Contract Detail</h3>-->
-<!--        <div class="columns is-multiline">-->
-<!--&lt;!&ndash;          <div class="column is-4">&ndash;&gt;-->
-<!--&lt;!&ndash;            <div class="field">&ndash;&gt;-->
-<!--&lt;!&ndash;              <label for="" class="label">Contract Type</label>&ndash;&gt;-->
-<!--&lt;!&ndash;              <div class="control">&ndash;&gt;-->
-<!--&lt;!&ndash;                <div class="select">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <ValidationProvider name="Contract Type" rules="required" v-slot="{ errors }">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <select v-model="isOpenContract" class="select" name="" id="">&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                      <option v-for="i in contactTypes" :key="i._id" :value="i._id">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                        {{ i.name }}&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                      </option>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;                      <option selected name="open" :value="true">Open Contract</option>&ndash;&gt;-->
-<!--&lt;!&ndash;                      <option  name="fixed" :value="false">Fixed Contract</option>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </select>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <p class="has-text-danger">{{ errors[0] }}</p>&ndash;&gt;-->
-<!--&lt;!&ndash;                  </ValidationProvider>&ndash;&gt;-->
-<!--&lt;!&ndash;                </div>&ndash;&gt;-->
-<!--&lt;!&ndash;              </div>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;          </div> &lt;!&ndash; column &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;          <div class="column is-4" v-if="!isOpenContract">&ndash;&gt;-->
-<!--&lt;!&ndash;            <div class="field">&ndash;&gt;-->
-<!--&lt;!&ndash;              <label for="" class="label">Effective Date / Start Date</label>&ndash;&gt;-->
-<!--&lt;!&ndash;              <ValidationProvider name="Effective Date / Start Date" rules="required|isDate" v-slot="{ errors }">&ndash;&gt;-->
-<!--&lt;!&ndash;              <DatePicker v-model="form.contactDetail.startDate" :defaultValue="defaultValue.contactDetail.startDate"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                <p class="has-text-danger">{{ errors[0] }}</p>&ndash;&gt;-->
-<!--&lt;!&ndash;              </ValidationProvider>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;          </div>&ndash;&gt;-->
-<!--&lt;!&ndash;          <div class="column is-4" v-if="!isOpenContract">&ndash;&gt;-->
-<!--&lt;!&ndash;            <div class="field">&ndash;&gt;-->
-<!--&lt;!&ndash;              <label for="" class="label">Until Date / End Date</label>&ndash;&gt;-->
-<!--&lt;!&ndash;              <ValidationProvider name="Until Date / End Date" rules="required|isDate" v-slot="{ errors }">&ndash;&gt;-->
-<!--&lt;!&ndash;                <DatePicker v-model="form.contactDetail.endDate" :defaultValue="defaultValue.contactDetail.endDate"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                <p class="has-text-danger">{{ errors[0] }}</p>&ndash;&gt;-->
-<!--&lt;!&ndash;              </ValidationProvider>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;          </div> &lt;!&ndash; column &ndash;&gt;&ndash;&gt;-->
-<!--        </div>-->
-<!--        <hr>-->
-        <div class="columns" v-show="employee.isExpat">
+        <div class="columns" v-if="employee.isExpat">
           <div class="column">
             <div class="field">
               <label class="label">Start Date</label>
@@ -260,7 +219,7 @@ export default {
       contactDetail: {}
     },
 
-    companyCurrencies: [],
+    companyCurrency: [],
 
     employee: {},
 
@@ -327,7 +286,7 @@ export default {
       this.currencies = await getReuse('Currency')
     },
     async getCompanyCurrencies() {
-      this.companyCurrencies = await getCompanyCurrencies()
+      this.companyCurrency = await getCompanyCurrencies()
     }
   },
   created() {

@@ -155,7 +155,7 @@ export default {
 }
 
 .user-img {
-  background-image: url('https://www.cobdoglaps.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg');
+  background-image: url('https://dailyanimeart.files.wordpress.com/2017/06/watchdog-man-gif.gif?w=392');
   width: 40px;
   height: 40px;
   background-position: center;

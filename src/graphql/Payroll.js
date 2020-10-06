@@ -41,6 +41,7 @@ export const GET_PAYROLL_BY_EMPS = gql`
             isApproved
             isRequestSent
             isRequestApproved
+            isPayslipSent
             isCalculated
             totalSalary
 
@@ -85,6 +86,18 @@ export const SEND_REQUEST_CALC = gql`
         $monthlyPaymentId: ID!
     ) {
         sendRequestCalc(
+            monthlyPaymentId: $monthlyPaymentId
+        )
+    }
+
+`
+
+export const SEND_PAYSLIP = gql`
+
+    mutation (
+        $monthlyPaymentId: ID!
+    ) {
+        sendPayslip(
             monthlyPaymentId: $monthlyPaymentId
         )
     }

@@ -12,7 +12,7 @@
         </div>
         <div class="header-end">
           <p class="sm-title">Payroll Cost (LAK)</p>
-          <h3 class="xl-title">{{ payrollEmps.totalSalary | currency  }}</h3>
+          <h3 class="xl-title">{{ payrollEmps.totalSalary | currency }}</h3>
         </div>
       </div>
       <div class="box control">
@@ -23,9 +23,9 @@
                 v-slot="{ handleSubmit }" tag="div" style="display: flex">
                   <span class="select">
                     <select v-model="currencyIdx">
-                      <option v-for="(i, idx) in compCurrencies" :value="idx" :key="i._id">{{
-                          i.currencyId.name
-                        }}</option>
+                      <option v-for="(i, idx) in compCurrencies" :value="idx" :key="i._id">
+                        {{ i.currencyId.name }}
+                      </option>
                     </select>
                   </span>
               <ValidationProvider name="Contract Number" rules="required|numeric" v-slot="{ errors }">
@@ -66,8 +66,18 @@
           <div v-else class="button-group">
             <button class="button" @click="ModalClick = 'document'">Document</button>
             <button class="button"><i class="fas fa-file-excel"></i> Export Payroll's Template</button>
-            <button class="button">Send Payslip</button>
+
+            <button v-if="payrollEmps.isPayslipSent"
+                    disabled
+                    class="button">Payslip already sent
+            </button>
             <button
+                v-else
+                @click="sendPayslip"
+                class="button">Send Payslip
+            </button>
+            <button
+
                 v-if="!payrollEmps.isCalculated"
                 @click="calcPayroll"
                 class="button is-primary">
@@ -239,7 +249,7 @@
 </template>
 <script>
 import document from './Modal/document'
-import {calcPayroll, getPayrollByEmps, sendRequestCalc} from "@/apis/payroll-api";
+import {calcPayroll, getPayrollByEmps, sendPayslip, sendRequestCalc} from "@/apis/payroll-api";
 import {addOrUpdateActualWorkingDay} from "@/apis/actual-working-day-api";
 import VueHtml2pdf from 'vue-html2pdf'
 import {addOrUpdateCompanyCurrency, getCompanyCurrencies} from "@/apis/company-currency-api"
@@ -262,7 +272,7 @@ export default {
     chooseTab: 'All',
     searchText: '',
 
-    isMulti: true,
+    isMulti: false,
     compCurrencies: [],
     currencyIdx: '',
 
@@ -313,12 +323,25 @@ export default {
       })
     },
     async sendRequestCalc() {
-      await sendRequestCalc(this.$route.params.id)
-      await this.getPayrollByEmps()
+      const isConfirmed = confirm('Sure ?')
+      if (isConfirmed) {
+        await sendRequestCalc(this.$route.params.id)
+        await this.getPayrollByEmps()
+      }
+    },
+    async sendPayslip() {
+      const isConfirmed = confirm('Sure ?')
+      if (isConfirmed) {
+        await sendPayslip(this.$route.params.id)
+        await this.getPayrollByEmps()
+      }
     },
     async calcPayroll() {
-      await calcPayroll(this.$route.params.id)
-      await this.getPayrollByEmps()
+      const isConfirmed = confirm('Sure ?')
+      if (isConfirmed) {
+        await calcPayroll(this.$route.params.id)
+        await this.getPayrollByEmps()
+      }
     },
     async addOrUpdateActualWorkingDay(employeeId) {
       const workingDay = this.$refs[`input${employeeId}`][0].value
