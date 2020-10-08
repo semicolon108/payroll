@@ -4,7 +4,7 @@
     <div class="page-header">
       <div class="header-start">
         <div class="header-title">
-          <h3 class="xxl-title">{{ date | momentV2 }}</h3>
+          <h3 class="xxl-title">{{ date | moment }}</h3>
           <div class="button-group">
 <!--            <button class="button" @click="ModalClick = 'Add'">Add</button>-->
             <button v-if="!isApproved" class="button" @click="ModalClick = 'Upload'">Upload</button>
@@ -115,7 +115,7 @@ import Edit from '@coms/Deductible/Modal/edit.vue'
 import Add from '@coms/Deductible/Modal/add.vue'
 import Upload from '@coms/Deductible/Modal/upload.vue'
 import {approveDeductible, getMonthlyPaymentEmployees} from "@/apis/monthly-payment-employee";
-import moment from "moment";
+
 export default {
   components: {
     Edit,
@@ -138,11 +138,6 @@ export default {
       itemType: ''
     },
   }),
-  filters: {
-    momentV2(date) {
-      return moment(date).format('LL')
-    }
-  },
   computed: {
     isCustomAllo() {
       return (id,) => {

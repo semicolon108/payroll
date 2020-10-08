@@ -5,11 +5,12 @@ import store from './store'
 import apolloProvider from "@/services/apollo-client";
 import axios from 'axios'
 import {baseURL} from "@/config/variables";
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 import './plugins/index'
 
-Vue.filter('moment', (date) => moment(date).format('LL'))
+
+Vue.filter('moment', (date) => moment(date).tz('Asia/Bangkok').format('LL'))
 
 Vue.filter('currency', (num) => new Intl.NumberFormat().format(num) + ' LAK')
 

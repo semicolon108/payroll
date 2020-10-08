@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="isFetched">
     <div class="page-header">
       <h3 class="page-title">Earning / Deduction</h3>
     </div>
@@ -74,11 +74,11 @@
 
 <script>
 import {getMonthlyPayments} from "@/apis/monthly-payment-api";
-import moment from 'moment'
 
 export default {
   data: () => ({
-    monthlyPayments: []
+    monthlyPayments: [],
+    isFetched: false
   }),
   computed: {
     getCurrent() {
@@ -88,17 +88,13 @@ export default {
       return this.monthlyPayments.filter((i, idx) => idx !== 0)
     }
   },
-  filters: {
-    moment(date) {
-      return moment(date).format('ll')
-    }
-  },
   created() {
     this.getMonthlyPayments()
   },
   methods: {
     async getMonthlyPayments() {
       this.monthlyPayments = await getMonthlyPayments()
+      this.isFetched = true
     }
   }
 }

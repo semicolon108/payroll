@@ -83,16 +83,12 @@
 <script>
 import checkDeductible from './Modal/check-deductible';
 import {getPayrollByMonths} from "@/apis/payroll-api";
-import moment from 'moment'
 
 export default {
   components:{
     checkDeductible
   },
   filters: {
-    moment(date) {
-      return moment(date).locale('lo').format('DD-MM-YYYY')
-    },
     currency(number) {
       return new Intl.NumberFormat().format(number) + ' LAK'
     }
