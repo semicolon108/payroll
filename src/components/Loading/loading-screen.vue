@@ -1,6 +1,8 @@
 <template>
 <div>
-  <div class="bg-loading"></div>
+  <div class="bg-loading"
+  style="opacity: 50%;"
+  ></div>
   <div class="loading"></div>
 </div>
 </template>
@@ -16,12 +18,11 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="scss">
 .bg-loading {
   position: fixed;
   z-index: 998;
   background-color: #000;
-  opacity: 50%;
   top: 0;
   left: 0;
   right: 0;
