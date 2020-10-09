@@ -130,6 +130,7 @@
 import {getEarnDeductGroups} from "@/apis/earn-deduct-group-api";
 import {addOrUpdateAllowance, getAllowance} from "@/apis/allowance-api";
 import {getCustomAllowance, addOrUpdateCustomAllowance} from "@/apis/custom-allowance-api";
+import {loadingTimeout} from "@/config/variables";
 
 export default {
   data: () => ({
@@ -161,6 +162,7 @@ export default {
       this.changeGroup(this.earnDeductGroups[0]._id)
     },
     async addOrUpdateAllowance() {
+      this.$store.commit('SET_IS_LOADING', true)
       const allowances = this.allowances.map(i => {
         return {
           earnDeductId: i.earnDeductId._id,
@@ -172,9 +174,20 @@ export default {
         employeeId: this.$route.params.id,
         allowances,
       }
-      await addOrUpdateAllowance(form)
+      try {
+        await addOrUpdateAllowance(form)
+      }catch (err) {
+        if (err.graphQLErrors[0]) {
+          alert(err.graphQLErrors[0].message)
+          this.$store.commit('SET_IS_LOADING', false)
+          return
+        }
+      }
       await this.addOrUpdateCustomAllowance()
-      alert('Saved')
+      setTimeout( () => {
+        this.$store.commit('SET_IS_LOADING', false)
+        this.$router.push({name: 'document', params: {id: this.$route.params.id}})
+      }, loadingTimeout)
 
     },
     async getAllowance() {

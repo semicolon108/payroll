@@ -115,6 +115,7 @@ import Edit from '@coms/Deductible/Modal/edit.vue'
 import Add from '@coms/Deductible/Modal/add.vue'
 import Upload from '@coms/Deductible/Modal/upload.vue'
 import {approveDeductible, getMonthlyPaymentEmployees} from "@/apis/monthly-payment-employee";
+import {loadingTimeout} from "@/config/variables";
 
 export default {
   components: {
@@ -170,10 +171,17 @@ export default {
     },
     async approveDeductible() {
       try {
+        this.$store.commit('SET_IS_LOADING', true)
         await approveDeductible(this.$route.params.id)
         await this.getMonthlyPaymentEmployees()
+        setTimeout(() => {
+          this.$store.commit('SET_IS_LOADING', false)
+        }, loadingTimeout)
       } catch (err) {
-        throw new Error(err)
+        if (err.graphQLErrors[0]) {
+            alert(err.graphQLErrors[0].message)
+            this.$store.commit('SET_IS_LOADING', false)
+        }
       }
     }
   }

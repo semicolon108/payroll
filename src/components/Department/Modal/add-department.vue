@@ -30,6 +30,7 @@
 
 <script>
 import {ADD_DEPRTMENT, UPDATE_DEPARTMENT} from "@/graphql/Department";
+import {loadingTimeout} from "@/config/variables";
 
 export default {
   props: ['isEditMode'],
@@ -43,6 +44,7 @@ export default {
     },
     async addDepartment() {
       try {
+        this.$store.commit('SET_IS_LOADING', true)
         const res = await this.$apollo.mutate({
           mutation: ADD_DEPRTMENT,
           variables: {
@@ -52,12 +54,16 @@ export default {
         const item = res.data.addDepartment
         this.$emit('PushItem', item)
         this.$emit('CloseModal')
+        setTimeout(() => {
+          this.$store.commit('SET_IS_LOADING', false)
+        }, loadingTimeout)
       } catch (err) {
         throw new Error(err)
       }
     },
     async updateDepartment() {
       try {
+        this.$store.commit('SET_IS_LOADING', true)
         const res = await this.$apollo.mutate({
           mutation: UPDATE_DEPARTMENT,
           variables: {
@@ -69,6 +75,9 @@ export default {
         if(item) {
           this.$emit('UpdateItem', item)
           this.$emit('CloseModal')
+          setTimeout(() => {
+            this.$store.commit('SET_IS_LOADING', false)
+          }, loadingTimeout)
         }
       } catch (err) {
         throw new Error(err)

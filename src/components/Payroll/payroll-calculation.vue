@@ -71,11 +71,19 @@
                     disabled
                     class="button">Payslip already sent
             </button>
+
+
+
             <button
                 v-else
                 @click="sendPayslip"
-                class="button">Send Payslip
+                class="button"
+                :disabled="!payrollEmps.isCalculated"
+            >Send Payslip
+
             </button>
+
+
             <button
 
                 v-if="!payrollEmps.isCalculated"
@@ -141,7 +149,7 @@
             <td class="is-right">
               <div class="workday">
                 <div v-if="!i.isEditMode" class="edit">
-                  <span @click="i.isEditMode = true"><i class="fas fa-pen"></i></span>
+                  <span v-if="!payrollEmps.isCalculated" @click="i.isEditMode = true"><i class="fas fa-pen"></i></span>
                   <span>{{ i.workingDay }}</span>
                 </div>
                 <div class="workdday-input" v-if="i.isEditMode">
@@ -254,6 +262,7 @@ import {addOrUpdateActualWorkingDay} from "@/apis/actual-working-day-api";
 import VueHtml2pdf from 'vue-html2pdf'
 import {addOrUpdateCompanyCurrency, getCompanyCurrencies} from "@/apis/company-currency-api"
 import {mapGetters} from 'vuex'
+import {loadingTimeout} from "@/config/variables";
 
 export default {
   components: {
@@ -304,8 +313,12 @@ export default {
     }
   },
   methods: {
-    generateReport() {
-      this.$refs.html2Pdf.generatePdf()
+    async generateReport() {
+      this.$store.commit('SET_IS_LOADING', true)
+      await this.$refs.html2Pdf.generatePdf()
+      setTimeout( () => {
+        this.$store.commit('SET_IS_LOADING', false)
+      }, loadingTimeout)
     },
     async getCompanyCurrencies() {
       const data = await getCompanyCurrencies()
@@ -325,22 +338,34 @@ export default {
     async sendRequestCalc() {
       const isConfirmed = confirm('Sure ?')
       if (isConfirmed) {
+        this.$store.commit('SET_IS_LOADING', true)
         await sendRequestCalc(this.$route.params.id)
         await this.getPayrollByEmps()
+        setTimeout( () => {
+          this.$store.commit('SET_IS_LOADING', false)
+        }, loadingTimeout)
       }
     },
     async sendPayslip() {
       const isConfirmed = confirm('Sure ?')
       if (isConfirmed) {
+        this.$store.commit('SET_IS_LOADING', true)
         await sendPayslip(this.$route.params.id)
         await this.getPayrollByEmps()
+        setTimeout( () => {
+          this.$store.commit('SET_IS_LOADING', false)
+        }, loadingTimeout)
       }
     },
     async calcPayroll() {
       const isConfirmed = confirm('Sure ?')
       if (isConfirmed) {
+        this.$store.commit('SET_IS_LOADING', true)
         await calcPayroll(this.$route.params.id)
         await this.getPayrollByEmps()
+        setTimeout( () => {
+          this.$store.commit('SET_IS_LOADING', false)
+        }, loadingTimeout)
       }
     },
     async addOrUpdateActualWorkingDay(employeeId) {
@@ -350,8 +375,12 @@ export default {
         employeeId,
         workingDay: parseInt(workingDay, 10)
       }
+      this.$store.commit('SET_IS_LOADING', true)
       await addOrUpdateActualWorkingDay(form)
       await this.getPayrollByEmps()
+      setTimeout( () => {
+        this.$store.commit('SET_IS_LOADING', false)
+      }, loadingTimeout)
     },
     async updateCompanyCurrency() {
       const items = this.compCurrencies.map(i => {
@@ -364,9 +393,12 @@ export default {
         isMulti: this.isMulti,
         items
       }
+      this.$store.commit('SET_IS_LOADING', true)
       await addOrUpdateCompanyCurrency(form)
       await this.getPayrollByEmps()
-      alert('Updated')
+      setTimeout( () => {
+        this.$store.commit('SET_IS_LOADING', false)
+      }, loadingTimeout)
     },
   },
   created() {

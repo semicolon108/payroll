@@ -40,6 +40,7 @@
 import addDocument from "@coms/Employee/Modal/add-document";
 import {deleteDocument, getDocuments} from "@/apis/document-api";
 import moment from 'moment'
+import {loadingTimeout} from "@/config/variables";
 
     export default {
         components:{
@@ -62,10 +63,14 @@ import moment from 'moment'
                 this.docs = await getDocuments(this.$route.params.id)
             },
           async deleteDocument(documentId) {
+              this.$store.commit('SET_IS_LOADING', true)
               const msg = await deleteDocument(documentId)
               if(msg==='Deleted') {
-                const curIdx = this.docs.findIndex(i=>i._id === documentId)
-                this.docs.splice(curIdx, 1)
+                setTimeout( () => {
+                  this.$store.commit('SET_IS_LOADING', false)
+                  const curIdx = this.docs.findIndex(i=>i._id === documentId)
+                  this.docs.splice(curIdx, 1)
+                }, loadingTimeout)
               }
           },
           pushItem(item) {

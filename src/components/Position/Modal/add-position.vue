@@ -42,6 +42,7 @@
 <script>
 import {GET_DEPARTMENTS} from "@/graphql/Department";
 import {ADD_POSITION, UPDATE_POSITION} from "@/graphql/Position";
+import {loadingTimeout} from "@/config/variables";
 
 export default {
   props: ['isEditMode'],
@@ -66,6 +67,7 @@ export default {
     },
     async addPosition() {
       try {
+        this.$store.commit('SET_IS_LOADING', true)
         const res = await this.$apollo.mutate({
           mutation: ADD_POSITION,
           variables: {
@@ -77,6 +79,9 @@ export default {
         if (item) {
           this.$emit('PushItem', item)
           this.$emit('CloseModal')
+          setTimeout(() => {
+            this.$store.commit('SET_IS_LOADING', false)
+          }, loadingTimeout)
         }
 
       } catch (err) {
@@ -85,6 +90,7 @@ export default {
     },
     async updatePosition() {
       try {
+        this.$store.commit('SET_IS_LOADING', true)
         const res = await this.$apollo.mutate({
           mutation: UPDATE_POSITION,
           variables: {
@@ -96,6 +102,9 @@ export default {
         const item = res.data.updatePosition
         this.$emit('CloseModal')
         this.$emit('UpdateItem', item)
+        setTimeout(() => {
+          this.$store.commit('SET_IS_LOADING', false)
+        }, loadingTimeout)
       } catch (err) {
         throw new Error(err)
       }

@@ -45,6 +45,7 @@
 
 <script>
 import {addDocument} from "@/apis/document-api";
+import {loadingTimeout} from "@/config/variables";
 
 export default {
   props: [
@@ -62,16 +63,20 @@ export default {
       this.$refs.uploadFile.click()
     },
     async addDocument() {
+      this.$store.commit('SET_IS_LOADING', true)
       const form = {
         employeeId: this.$route.params.id,
         name: this.name,
         fileInput: this.file
       }
       const item = await addDocument(form)
-      this.$emit('PushItem', item)
-      this.name = ''
-      this.file = null
-      this.CloseModal()
+      setTimeout( () => {
+        this.$store.commit('SET_IS_LOADING', false)
+        this.$emit('PushItem', item)
+        this.name = ''
+        this.file = null
+        this.CloseModal()
+      }, loadingTimeout)
     },
     async uploadImage(file) {
       try {

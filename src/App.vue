@@ -9,6 +9,7 @@
         </div>
       </div>
     </div>
+    <LoadingScreen v-if="$store.getters.isLoading" />
   </div>
 </template>
 <script>

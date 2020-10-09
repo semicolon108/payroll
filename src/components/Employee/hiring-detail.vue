@@ -184,6 +184,7 @@ import {addOrUpdateHirringDetail, getHirringDetail} from "@/apis/hirring-detail-
 import {getPositions} from "@/apis/position-api";
 import {getCompanyCurrencies} from "@/apis/company-currency-api";
 import {GET_EMPLOYEE} from "@/graphql/Employee";
+import {loadingTimeout} from "@/config/variables";
 
 
 export default {
@@ -262,12 +263,17 @@ export default {
       }
     },
     async addOrUpdateHirringDetail() {
+      this.$store.commit('SET_IS_LOADING', true)
       this.form.employeeId = this.$route.params.id
       this.form.workingDay = parseInt(this.form.workingDay, 10)
       this.form.salary = parseInt(this.form.salary, 10)
       this.form.workPermit.daysOfNotify = parseInt(this.form.workPermit.daysOfNotify, 10)
       await addOrUpdateHirringDetail(this.form)
-      await this.$router.push({name: 'earning', params: {id: this.$route.params.id}})
+      setTimeout( () => {
+        this.$store.commit('SET_IS_LOADING', false)
+        this.$router.push({name: 'earning', params: {id: this.$route.params.id}})
+      }, loadingTimeout)
+
     },
     async getEmployee() {
       try {
@@ -290,11 +296,11 @@ export default {
     }
   },
   created() {
+    window.scrollTo(0, 0)
     this.getCurrencies()
     this.getCompanyCurrencies()
     this.getData()
     this.getEmployee()
-    window.scrollTo(0, 0)
   }
 }
 </script>
