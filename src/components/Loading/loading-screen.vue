@@ -21,7 +21,7 @@ export default {
 <style lang="scss">
 .bg-loading {
   position: fixed;
-  z-index: 998;
+  z-index: 999998;
   background-color: #000;
   top: 0;
   left: 0;
@@ -30,7 +30,7 @@ export default {
 }
 
 .loading {
-  z-index: 999;
+  z-index: 999999;
   position: fixed;
   top: 50%;
   left: 50%;
