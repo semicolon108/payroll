@@ -102,7 +102,7 @@
               </div>
             </div>
           </div>
- 
+
           <div class="column is-4">
             <label for="" class="label">Salary</label>
             <div class="field has-addons">
@@ -128,7 +128,16 @@
                 </div>
               </div>
               <div class="control is-expanded">
-                <input v-model="form.salary" type="text" class="input" required>
+                <currency-input
+                    v-model="form.salary"
+                    class="input"
+                    :allow-negative="false"
+                    :value-range="{ min: 0 }"
+                    :distraction-free="false"
+                    :currency="{ prefix: '', suffix: '' }"
+                    :value-as-integer="true"
+                    :precision="0"
+                />
               </div>
             </div>
           </div>

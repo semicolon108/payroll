@@ -29,8 +29,18 @@
                 {{ i.earnDeductId.name }}
                 <!--              ({{ i.earnDeductId.groups.map(i => i.name).join(', ') }})-->
               </label>
-              <ValidationProvider :name="i.earnDeductId.name " rules="required|numeric" v-slot="{ errors }">
-                <input v-model="i.amount" type="text" class="input" placeholder="Enter default amount">
+              <ValidationProvider :name="i.earnDeductId.name " rules="required" v-slot="{ errors }">
+                <currency-input
+                    v-model="i.amount"
+                    class="input"
+                    :allow-negative="false"
+                    :value-range="{ min: 0 }"
+                    :distraction-free="false"
+                    :currency="{ prefix: '', suffix: ' LAK' }"
+                    :value-as-integer="true"
+                    :precision="0"
+                    placeholder="Enter default amount"
+                />
                 <p class="has-text-danger">{{ errors[0] }}</p>
               </ValidationProvider>
             </div>
@@ -55,7 +65,8 @@
               <label class="label">Name</label>
               <div class="contro">
                 <ValidationProvider rules="required" v-slot="{ errors }">
-                  <input v-model="i.name" type="text" class="input" placeholder="Enter default amount">
+                  <input v-model="i.name"
+                         type="text" class="input" placeholder="Enter name">
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
               </div>
@@ -66,7 +77,17 @@
               <label class="label">Amount</label>
               <div class="contro">
                 <ValidationProvider rules="required" v-slot="{ errors }">
-                  <input v-model="i.amount" type="text" class="input" placeholder="Enter default amount">
+                  <currency-input
+                      v-model="i.amount"
+                      class="input"
+                      :allow-negative="false"
+                      :value-range="{ min: 0 }"
+                      :distraction-free="false"
+                      :currency="{ prefix: '', suffix: '' }"
+                      :value-as-integer="true"
+                      :precision="0"
+                      placeholder="Enter default amount"
+                  />
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
               </div>
