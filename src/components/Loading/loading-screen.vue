@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div class="bg"></div>
+  <div class="bg-loading"></div>
   <div class="loading"></div>
 </div>
 </template>
@@ -16,10 +16,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.bg {
+<style lang="css" scoped>
+.bg-loading {
   position: fixed;
-  z-index: 9999;
+  z-index: 998;
   background-color: #000;
   opacity: 50%;
   top: 0;
@@ -29,7 +29,7 @@ export default {
 }
 
 .loading {
-  z-index: 10000;
+  z-index: 999;
   position: fixed;
   top: 50%;
   left: 50%;
