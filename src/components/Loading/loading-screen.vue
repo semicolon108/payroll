@@ -16,7 +16,7 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="css">
 .bg-loading {
   position: fixed;
   z-index: 998;
