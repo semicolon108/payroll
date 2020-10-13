@@ -12,7 +12,7 @@
       <div class="upload-box">
         <div class="upload">
           <button @click="$refs.fileInput.click()" class="button upload-btn">Select File</button>
-          <span>Support .PDF .Docx .Excel .JPG .PNG. .GIF <br> Maximum file size 5mb</span>
+          <span>Support .PDF .DOCX .XLSX <br> Maximum file size 5mb</span>
           <input type="file" style="display: none">
         </div>
         <!-- hidden -->

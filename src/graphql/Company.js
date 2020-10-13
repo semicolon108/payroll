@@ -19,6 +19,10 @@ export const GET_COMPANY = gql`
                 mobile
             }
             financialInfo {
+                bankId {
+                    _id
+                    name
+                }
                 accountNumber
             }
             payrollRule {
@@ -60,6 +64,10 @@ export const UPDATE_COMPANY = gql`
                 mobile
             }
             financialInfo {
+                bankId {
+                    _id
+                    name
+                }
                 accountNumber
             }
             payrollRule {

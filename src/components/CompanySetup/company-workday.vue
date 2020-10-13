@@ -33,6 +33,7 @@
 <script>
 import {mapGetters} from 'vuex'
 import {mapActions} from 'vuex'
+import {loadingTimeout} from "@/config/variables";
 
 export default {
   data: () => ({
@@ -44,8 +45,11 @@ export default {
   methods: {
     ...mapActions(['updateCompany']),
     async updateCompanyInfo() {
+      this.$store.commit('SET_IS_LOADING', true)
       await this.updateCompany({ workingDay: parseInt(this.workingDay, 10) })
-      alert('Updated')
+      setTimeout(() => {
+        this.$store.commit('SET_IS_LOADING', false)
+      }, loadingTimeout)
     }
   },
   created() {

@@ -179,8 +179,8 @@ export default {
         }, loadingTimeout)
       } catch (err) {
         if (err.graphQLErrors[0]) {
-            alert(err.graphQLErrors[0].message)
-            this.$store.commit('SET_IS_LOADING', false)
+          alert(err.graphQLErrors[0].message)
+          this.$store.commit('SET_IS_LOADING', false)
         }
       }
     }

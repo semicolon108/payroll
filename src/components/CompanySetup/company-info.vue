@@ -18,12 +18,12 @@
     <div class="field">
       <label for="" class="label">Company industry</label>
       <div class="control">
-<!--        <ValidationProvider rules="required" v-slot="{ errors }">-->
-          <select class="input">
-            <option :value="i._id" v-for="i in industries" :key="i._i">{{ i.name }}</option>
-          </select>
-<!--          <p class="has-text-danger">{{ errors[0] }}</p>-->
-<!--        </ValidationProvider>-->
+        <!--        <ValidationProvider rules="required" v-slot="{ errors }">-->
+        <select class="input">
+          <option :value="i._id" v-for="i in industries" :key="i._i">{{ i.name }}</option>
+        </select>
+        <!--          <p class="has-text-danger">{{ errors[0] }}</p>-->
+        <!--        </ValidationProvider>-->
       </div>
     </div>
     <div class="field">
@@ -103,12 +103,12 @@
         <div class="field">
           <label for="" class="label">Bank name</label>
           <div class="control">
-<!--            <ValidationProvider rules="required" v-slot="{ errors }">-->
-            <select class="input">
-              <option :value="i._Id" v-for="i in banks" :key="i._i">{{ i.name }}</option>
+            <!--            <ValidationProvider rules="required" v-slot="{ errors }">-->
+            <select class="input" v-model="form.financialInfo.bankId">
+              <option :value="i._id" v-for="i in banks" :key="i._i">{{ i.name }}</option>
             </select>
-<!--              <p class="has-text-danger">{{ errors[0] }}</p>-->
-<!--            </ValidationProvider>-->
+            <!--              <p class="has-text-danger">{{ errors[0] }}</p>-->
+            <!--            </ValidationProvider>-->
           </div>
         </div>
       </div>
@@ -117,7 +117,7 @@
           <label for="" class="label">Bank account number</label>
           <div class="control">
             <ValidationProvider rules="required" v-slot="{ errors }">
-            <input v-model="form.financialInfo.accountNumber" type="text" class="input">
+              <input v-model="form.financialInfo.accountNumber" type="text" class="input">
               <p class="has-text-danger">{{ errors[0] }}</p>
             </ValidationProvider>
           </div>
@@ -131,6 +131,7 @@
 <script>
 import {mapGetters, mapMutations, mapActions} from 'vuex'
 import {getReuse} from "@/apis/reuse-api";
+import {loadingTimeout} from "@/config/variables";
 
 export default {
   computed: {
@@ -150,19 +151,24 @@ export default {
     ...mapMutations(['SET_COMPANY']),
     ...mapActions(['updateCompany']),
     async updateCompanyInfo() {
+      this.$store.commit('SET_IS_LOADING', true)
       await this.updateCompany(this.form)
-      alert('Updated')
+      setTimeout(() => {
+        this.$store.commit('SET_IS_LOADING', false)
+      }, loadingTimeout)
     },
     async getIndustries() {
       this.industries = await getReuse('Industry')
     },
     async getBanks() {
       this.banks = await getReuse('Bank')
+
     }
   },
-  created() {
-    this.getIndustries()
-    this.getBanks()
+  async created() {
+    await this.getIndustries()
+    await this.getBanks()
+
     this.form = {
       basicInfo: {
         name: this.getCompany.basicInfo.name,
@@ -174,6 +180,7 @@ export default {
         mobile: this.getCompany.contactPerson.mobile
       },
       financialInfo: {
+        bankId: this.getCompany.financialInfo.bankId ? this.getCompany.financialInfo.bankId._id : this.banks[0]._id,
         accountNumber: this.getCompany.financialInfo.accountNumber
       },
       mailer: {
@@ -181,6 +188,8 @@ export default {
         email: this.getCompany.mailer.email
       }
     }
+
+
   }
 }
 </script>

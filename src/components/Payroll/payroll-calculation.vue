@@ -39,7 +39,6 @@
               v-if="getCompany.isApprovedBeforeCalc"
               class="button-group">
             <button class="button" @click="ModalClick = 'document'">Document</button>
-            <button class="button"><i class="fas fa-file-excel"></i> Export Payroll's Template</button>
             <button class="button">Send Payslip</button>
             <button
                 v-if="!payrollEmps.isRequestSent"
@@ -65,13 +64,16 @@
           </div>
           <div v-else class="button-group">
             <button class="button" @click="ModalClick = 'document'">Document</button>
-            <button class="button"><i class="fas fa-file-excel"></i> Export Payroll's Template</button>
+            <button
+                :disabled="!payrollEmps.isCalculated"
+                @click="downloadBankTemplate"
+                class="button"><i class="fas fa-file-excel"></i> Export Payroll's Template
+            </button>
 
             <button v-if="payrollEmps.isPayslipSent"
                     disabled
                     class="button">Payslip already sent
             </button>
-
 
 
             <button
@@ -295,10 +297,9 @@ export default {
       isCalculated: false,
       totalSalary: 0
     }
-
   }),
   computed: {
-    ...mapGetters(['getCompany']),
+    ...mapGetters(['getCompany', 'getToken']),
     filterItems() {
       return this.items.filter(i => {
         switch (this.chooseTab) {
@@ -313,10 +314,24 @@ export default {
     }
   },
   methods: {
+    async downloadBankTemplate() {
+      this.$axios.defaults.headers['Authorization'] = this.getToken
+      const res = await this.$axios.post(this.$api + 'download-bank-template/' + this.$route.params.id, null, {
+        responseType: 'blob'
+      })
+      const url = URL.createObjectURL(new Blob([res.data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      }))
+      const link = window.document.createElement('a') // window was root
+      link.href = url
+      link.setAttribute('download', `${this.getCompany.financialInfo.bankId.name}-Payroll-Template.xlsx`)
+      window.document.body.appendChild(link)
+      link.click()
+    },
     async generateReport() {
       this.$store.commit('SET_IS_LOADING', true)
       await this.$refs.html2Pdf.generatePdf()
-      setTimeout( () => {
+      setTimeout(() => {
         this.$store.commit('SET_IS_LOADING', false)
       }, loadingTimeout)
     },
@@ -341,7 +356,7 @@ export default {
         this.$store.commit('SET_IS_LOADING', true)
         await sendRequestCalc(this.$route.params.id)
         await this.getPayrollByEmps()
-        setTimeout( () => {
+        setTimeout(() => {
           this.$store.commit('SET_IS_LOADING', false)
         }, loadingTimeout)
       }
@@ -352,7 +367,7 @@ export default {
         this.$store.commit('SET_IS_LOADING', true)
         await sendPayslip(this.$route.params.id)
         await this.getPayrollByEmps()
-        setTimeout( () => {
+        setTimeout(() => {
           this.$store.commit('SET_IS_LOADING', false)
         }, loadingTimeout)
       }
@@ -363,7 +378,7 @@ export default {
         this.$store.commit('SET_IS_LOADING', true)
         await calcPayroll(this.$route.params.id)
         await this.getPayrollByEmps()
-        setTimeout( () => {
+        setTimeout(() => {
           this.$store.commit('SET_IS_LOADING', false)
         }, loadingTimeout)
       }
@@ -378,7 +393,7 @@ export default {
       this.$store.commit('SET_IS_LOADING', true)
       await addOrUpdateActualWorkingDay(form)
       await this.getPayrollByEmps()
-      setTimeout( () => {
+      setTimeout(() => {
         this.$store.commit('SET_IS_LOADING', false)
       }, loadingTimeout)
     },
@@ -396,7 +411,7 @@ export default {
       this.$store.commit('SET_IS_LOADING', true)
       await addOrUpdateCompanyCurrency(form)
       await this.getPayrollByEmps()
-      setTimeout( () => {
+      setTimeout(() => {
         this.$store.commit('SET_IS_LOADING', false)
       }, loadingTimeout)
     },
