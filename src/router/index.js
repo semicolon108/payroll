@@ -72,7 +72,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "basic_detail" */ '@coms/Employee/basic-detail.vue')
       },
       {
-        path: 'basic_detail',
+        path: 'add_basic_detail',
         name: 'basic_detail',
         component: () => import(/* webpackChunkName: "basic_detail" */ '@coms/Employee/basic-detail.vue')
       },

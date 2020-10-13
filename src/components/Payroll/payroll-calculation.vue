@@ -32,7 +32,11 @@
                 <input v-model="compCurrencies[currencyIdx].amount" type="text" class="input" required>
                 <p class="has-text-danger">{{ errors[0] }}</p>
               </ValidationProvider>
-              <button @click="handleSubmit(updateCompanyCurrency)" class="button">Update</button>
+              <button
+                  @click="handleSubmit(updateCompanyCurrency)"
+                  :disabled="payrollEmps.isCalculated"
+                  class="button">Update
+              </button>
             </ValidationObserver>
           </div>
           <div

@@ -99,6 +99,8 @@ export default {
       margin-bottom: 0;
     }
 
+
+
     button.is-primary {
       background-color: $sub-color;
       margin-left: 10px;
