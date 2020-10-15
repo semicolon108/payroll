@@ -37,6 +37,7 @@
 
 <script>
 import {mapMutations} from 'vuex'
+import {logoutURL} from "@/config/variables";
 
 export default {
   data: () => ({
@@ -46,7 +47,7 @@ export default {
     ...mapMutations(['DESTROY_TOKEN']),
     logout() {
       this.DESTROY_TOKEN()
-      window.location.href = 'http://localhost:3000'
+      window.location.href = logoutURL
     }
   }
 }
