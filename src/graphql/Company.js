@@ -12,6 +12,7 @@ export const GET_COMPANY = gql`
             basicInfo {
                 name
                 address
+                industry
             }
             contactPerson {
                 name
@@ -57,6 +58,7 @@ export const UPDATE_COMPANY = gql`
             basicInfo {
                 name
                 address
+                industry
             }
             contactPerson {
                 name

@@ -18,12 +18,10 @@
     <div class="field">
       <label for="" class="label">Company industry</label>
       <div class="control">
-        <!--        <ValidationProvider rules="required" v-slot="{ errors }">-->
-        <select class="input">
-          <option :value="i._id" v-for="i in industries" :key="i._i">{{ i.name }}</option>
-        </select>
-        <!--          <p class="has-text-danger">{{ errors[0] }}</p>-->
-        <!--        </ValidationProvider>-->
+        <ValidationProvider rules="required" v-slot="{ errors }">
+          <input v-model="form.basicInfo.industry" class="input" type="text">
+          <p class="has-text-danger">{{ errors[0] }}</p>
+        </ValidationProvider>
       </div>
     </div>
     <div class="field">
@@ -143,7 +141,8 @@ export default {
     form: {
       basicInfo: {
         name: '',
-        address: ''
+        address: '',
+        industry: ''
       }
     }
   }),
@@ -157,22 +156,19 @@ export default {
         this.$store.commit('SET_IS_LOADING', false)
       }, loadingTimeout)
     },
-    async getIndustries() {
-      this.industries = await getReuse('Industry')
-    },
     async getBanks() {
       this.banks = await getReuse('Bank')
 
     }
   },
   async created() {
-    await this.getIndustries()
     await this.getBanks()
 
     this.form = {
       basicInfo: {
         name: this.getCompany.basicInfo.name,
-        address: this.getCompany.basicInfo.address
+        address: this.getCompany.basicInfo.address,
+        industry: this.getCompany.basicInfo.industry
       },
       contactPerson: {
         name: this.getCompany.contactPerson.name,
