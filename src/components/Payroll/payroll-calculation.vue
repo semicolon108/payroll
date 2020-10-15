@@ -9,6 +9,7 @@
               <h3 class="xxl-title">{{ payrollEmps.date | moment }}</h3>
             </div>
           </div>
+
         </div>
         <div class="header-end">
           <p class="sm-title">Payroll Cost (LAK)</p>
@@ -109,7 +110,7 @@
       </div>
       <div class="box">
         <div class="box-header">
-          <div class="button-group">
+          <div v-if="payrollEmps.hasExpat" class="button-group">
             <button
                 @click="chooseTab = 'All'"
                 class="button"
@@ -130,6 +131,9 @@
             </button>
             <input v-model="searchText" type="text" class="input" placeholder="Search employee">
           </div>
+          <div v-else class="button-group">
+            <input v-model="searchText" type="text" class="input" placeholder="Search employee" >
+          </div>
           <div class="option-group">
             <button @click="generateReport" class="button"><i class="fas fa-file-pdf"></i> Export PDF</button>
           </div>
@@ -137,12 +141,13 @@
         <table class="table is-fullwidth" id="my-table">
           <thead>
           <tr>
-            <th>Employee</th>
+            <th class="is-right">Employee</th>
             <th class="is-right is-xs">Work Day</th>
             <th class="is-right">Basic Salary</th>
             <th class="is-right">Earning (LAK)</th>
             <th class="is-right">Deduction (LAK)</th>
-            <th class="is-right">SSO (LAK)</th>
+            <th class="is-right">SSO Com</th>
+            <th class="is-right">SSO</th>
             <th class="is-right">TAX (LAK)</th>
             <th class="is-right">Net Salary (LAK)</th>
             <th class="is-right">Status</th>
@@ -174,6 +179,7 @@
             <td class="is-right">{{ i.basicSalary | currency }}</td>
             <td class="is-right">{{ i.earningAmount | currency }}</td>
             <td class="is-right">{{ i.deductionAmount | currency }}</td>
+            <td class="is-right">{{ i.ssoPaidByCom | currency }}</td>
             <td class="is-right">{{ i.sso | currency }}</td>
             <td class="is-right">{{ i.tax | currency }}</td>
             <td class="is-right">{{ i.netSalary | currency }}</td>
