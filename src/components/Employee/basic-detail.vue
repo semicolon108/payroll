@@ -124,7 +124,7 @@
                       Lao
                     </option>
                     <option :value="true" class="input">
-                      Foreign
+                      Foreigner
                     </option>
                   </select>
                   <p class="has-text-danger">{{ errors[0] }}</p>
