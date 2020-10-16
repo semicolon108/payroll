@@ -141,15 +141,15 @@
         <table class="table is-fullwidth" id="my-table">
           <thead>
           <tr>
-            <th class="is-right">Employee</th>
+            <th class="">Employee</th>
             <th class="is-right is-xs">Work Day</th>
-            <th class="is-right">Basic Salary</th>
+            <!-- <th class="is-right">Basic Salary</th>
             <th class="is-right">Earning (LAK)</th>
-            <th class="is-right">Deduction (LAK)</th>
-            <th class="is-right">SSO Com</th>
-            <th class="is-right">SSO</th>
-            <th class="is-right">TAX (LAK)</th>
-            <th class="is-right">Net Salary (LAK)</th>
+            <th class="is-right">Deduction (LAK)</th> -->
+            <th class="is-right">Net Salary</th>
+            <th class="is-right">SSO Company</th>
+            <th class="is-right">SSO Employee</th>
+            <th class="is-right">TAX</th>
             <th class="is-right">Status</th>
             <th class="is-right">View</th>
           </tr>
@@ -176,13 +176,13 @@
                 </div>
               </div>
             </td>
-            <td class="is-right">{{ i.basicSalary | currency }}</td>
+            <!-- <td class="is-right">{{ i.basicSalary | currency }}</td>
             <td class="is-right">{{ i.earningAmount | currency }}</td>
-            <td class="is-right">{{ i.deductionAmount | currency }}</td>
+            <td class="is-right">{{ i.deductionAmount | currency }}</td> -->
+            <td class="is-right">{{ i.netSalary | currency }}</td>
             <td class="is-right">{{ i.ssoPaidByCom | currency }}</td>
             <td class="is-right">{{ i.sso | currency }}</td>
             <td class="is-right">{{ i.tax | currency }}</td>
-            <td class="is-right">{{ i.netSalary | currency }}</td>
             <td class="is-right status " :class="{'is-approved':  i._id}">
               <i v-if="i._id" class="fas fa-check-circle"></i>
               <i v-else class="far fa-check-circle"></i>

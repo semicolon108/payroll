@@ -37,6 +37,11 @@
       </tr>
       </tbody>
     </table>
+    <hr>
+    <button
+          @click="$router.push({name: 'employee'})"
+          type="button" class="button save-btn">Finish
+      </button>
     <addDocument @PushItem="pushItem" @CloseModal="closeModal($event)" :modalClick="modalClick"/>
   </div>
 </template>
