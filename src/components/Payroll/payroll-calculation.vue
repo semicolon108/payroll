@@ -44,7 +44,26 @@
               v-if="getCompany.isApprovedBeforeCalc"
               class="button-group">
             <button class="button" @click="ModalClick = 'document'">Document</button>
-            <button class="button">Send Payslip</button>
+
+            <button
+                :disabled="!payrollEmps.isCalculated"
+                @click="downloadBankTemplate"
+                class="button"><i class="fas fa-file-excel"></i>
+              Export Payroll's Template
+            </button>
+
+            <button v-if="payrollEmps.isPayslipSent"
+                    disabled
+                    class="button">Payslip already sent
+            </button>
+            <button
+                v-else
+                @click="sendPayslip"
+                class="button"
+                :disabled="!payrollEmps.isCalculated"
+            >Send Payslip
+            </button>
+
             <button
                 v-if="!payrollEmps.isRequestSent"
                 @click="sendRequestCalc"
@@ -67,32 +86,33 @@
               Calculated
             </button>
           </div>
+
+
+
           <div v-else class="button-group">
             <button class="button" @click="ModalClick = 'document'">Document</button>
             <button
                 :disabled="!payrollEmps.isCalculated"
                 @click="downloadBankTemplate"
-                class="button"><i class="fas fa-file-excel"></i> Export Payroll's Template
+                class="button"><i class="fas fa-file-excel"></i>
+              Export Payroll's Template
             </button>
 
             <button v-if="payrollEmps.isPayslipSent"
                     disabled
                     class="button">Payslip already sent
             </button>
-
-
             <button
                 v-else
                 @click="sendPayslip"
                 class="button"
                 :disabled="!payrollEmps.isCalculated"
             >Send Payslip
-
             </button>
 
 
-            <button
 
+            <button
                 v-if="!payrollEmps.isCalculated"
                 @click="calcPayroll"
                 class="button is-primary">
@@ -135,19 +155,19 @@
             <input v-model="searchText" type="text" class="input" placeholder="Search employee" >
           </div>
           <div class="option-group">
-            <button @click="generateReport" class="button"><i class="fas fa-file-pdf"></i> Export PDF</button>
+            <button @click="downloadPayrollList" class="button"><i class="fas fa-file-pdf"></i> Export PDF</button>
           </div>
         </div>
         <table class="table is-fullwidth" id="my-table">
           <thead>
           <tr>
-            <th class="is-right">Employee</th>
+            <th>Employee</th>
             <th class="is-right is-xs">Work Day</th>
             <th class="is-right">Basic Salary</th>
-            <th class="is-right">Earning (LAK)</th>
-            <th class="is-right">Deduction (LAK)</th>
+<!--            <th class="is-right">Earning (LAK)</th>-->
+<!--            <th class="is-right">Deduction (LAK)</th>-->
             <th class="is-right">SSO Com</th>
-            <th class="is-right">SSO</th>
+            <th class="is-right">SSO Emp</th>
             <th class="is-right">TAX (LAK)</th>
             <th class="is-right">Net Salary (LAK)</th>
             <th class="is-right">Status</th>
@@ -177,10 +197,10 @@
               </div>
             </td>
             <td class="is-right">{{ i.basicSalary | currency }}</td>
-            <td class="is-right">{{ i.earningAmount | currency }}</td>
-            <td class="is-right">{{ i.deductionAmount | currency }}</td>
+<!--            <td class="is-right">{{ i.earningAmount | currency }}</td>-->
+<!--            <td class="is-right">{{ i.deductionAmount | currency }}</td>-->
             <td class="is-right">{{ i.ssoPaidByCom | currency }}</td>
-            <td class="is-right">{{ i.sso | currency }}</td>
+            <td class="is-right">{{ i.ssoPaidByEmp | currency }}</td>
             <td class="is-right">{{ i.tax | currency }}</td>
             <td class="is-right">{{ i.netSalary | currency }}</td>
             <td class="is-right status " :class="{'is-approved':  i._id}">
@@ -198,80 +218,12 @@
       </div>
     </div>
     <component :is="ModalClick" @CloseModal="ModalClick=''"></component>
-
-    <vue-html2pdf
-        :show-layout="false"
-        :enable-download="true"
-        :preview-modal="false"
-        :paginate-elements-by-height="800"
-        filename="Gen"
-        :pdf-quality="2"
-        :manual-pagination="false"
-        pdf-format="a4"
-        pdf-orientation="landscape"
-        pdf-content-width="100%"
-        ref="html2Pdf"
-    >
-      <section slot="pdf-content">
-        <!-- PDF Content Here -->
-        <div class="box" style="padding: 2rem; border: 0">
-          <table class="table is-fullwidth">
-            <thead>
-            <tr>
-              <th>Employee</th>
-              <th class="is-right is-xs">Work Day</th>
-              <th class="is-right">Basic Salary</th>
-              <th class="is-right">Earning (LAK)</th>
-              <th class="is-right">Deduction (LAK)</th>
-              <th class="is-right">SSO (LAK)</th>
-              <th class="is-right">TAX (LAK)</th>
-              <th class="is-right">Net Salary (LAK)</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="(i, idx) in filterItems" :key="idx">
-              <td>{{ i.fullName }}</td>
-              <td class="is-right">
-                <div class="workday">
-                  <div v-if="!i.isEditMode" class="edit">
-                    <!--                    <span @click="i.isEditMode = true"><i class="fas fa-pen"></i></span>-->
-                    <span>{{ i.workingDay }}</span>
-                  </div>
-                  <div class="workdday-input" v-if="i.isEditMode">
-                    <span @click="addOrUpdateActualWorkingDay(i.employeeId)" class="save">Save</span>
-                    <input
-                        :ref="`input${i.employeeId}`"
-                        :value="i.workingDay"
-                        class="input"
-                        type="text"
-                        style="width: 30px"
-                    >
-                    <span @click="i.isEditMode = false">&times;</span>
-                  </div>
-                </div>
-              </td>
-              <td class="is-right">{{ i.basicSalary | currency }}</td>
-              <td class="is-right">{{ i.earningAmount | currency }}</td>
-              <td class="is-right">{{ i.deductionAmount | currency }}</td>
-              <td class="is-right">{{ i.sso | currency }}</td>
-              <td class="is-right">{{ i.tax | currency }}</td>
-              <td class="is-right">{{ i.netSalary | currency }}</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-
-
-      </section>
-    </vue-html2pdf>
-
   </div>
 </template>
 <script>
 import document from './Modal/document'
 import {calcPayroll, getPayrollByEmps, sendPayslip, sendRequestCalc} from "@/apis/payroll-api";
 import {addOrUpdateActualWorkingDay} from "@/apis/actual-working-day-api";
-import VueHtml2pdf from 'vue-html2pdf'
 import {addOrUpdateCompanyCurrency, getCompanyCurrencies} from "@/apis/company-currency-api"
 import {mapGetters} from 'vuex'
 import {loadingTimeout} from "@/config/variables";
@@ -279,12 +231,6 @@ import {loadingTimeout} from "@/config/variables";
 export default {
   components: {
     document,
-    VueHtml2pdf
-  },
-  filters: {
-    currency(number) {
-      return new Intl.NumberFormat().format(number) + ' LAK'
-    }
   },
   data: () => ({
     items: [],
@@ -342,9 +288,20 @@ export default {
         this.$store.commit('SET_IS_LOADING', false)
       }, loadingTimeout)
     },
-    async generateReport() {
+    async downloadPayrollList() {
       this.$store.commit('SET_IS_LOADING', true)
-      await this.$refs.html2Pdf.generatePdf()
+      this.$axios.defaults.headers['Authorization'] = this.getToken
+      const res = await this.$axios.post(this.$api + 'download-payroll-list/' + this.$route.params.id, null, {
+        responseType: 'blob'
+      })
+      const url = URL.createObjectURL(new Blob([res.data], {
+        type: 'application/pdf'
+      }))
+      const link = window.document.createElement('a') // window was root
+      link.href = url
+      link.setAttribute('download', `Payroll-List.pdf`)
+      window.document.body.appendChild(link)
+      link.click()
       setTimeout(() => {
         this.$store.commit('SET_IS_LOADING', false)
       }, loadingTimeout)

@@ -14,7 +14,7 @@ Vue.component('LoadingScreen', LoadingScreen)
 
 Vue.filter('moment', (date) => moment(date).tz('Asia/Bangkok').format('LL'))
 
-Vue.filter('currency', (num) => new Intl.NumberFormat().format(num) + ' LAK')
+Vue.filter('currency', (num) => new Intl.NumberFormat().format(num))
 
 Vue.prototype.$baseUrl = baseURL
 axios.defaults.baseURL = baseURL + '/client-api/'

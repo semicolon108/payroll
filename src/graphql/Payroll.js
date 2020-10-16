@@ -36,6 +36,7 @@ export const GET_PAYROLL_BY_EMPS = gql`
                 tax
                 sso
                 ssoPaidByCom
+                ssoPaidByEmp
                 workingDay
                 isExpat
             }

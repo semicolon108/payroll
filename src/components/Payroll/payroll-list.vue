@@ -13,15 +13,15 @@
                 </div>
                 <div class="summary-item">
                     <span>Total SSO</span>
-                    <h3>{{ currentItem.totalSso | currency }}</h3>
+                    <h3>{{ currentItem.totalSso | currency }} LAK</h3>
                 </div>
                 <div class="summary-item">
                     <span>Total TAX</span>
-                    <h3>{{ currentItem.totalTax | currency }}</h3>
+                    <h3>{{ currentItem.totalTax | currency }} LAK</h3>
                 </div>
                 <div class="summary-item">
                     <span>Total Net Salary</span>
-                    <h3>{{ currentItem.totalSalary | currency }}</h3>
+                    <h3>{{ currentItem.totalSalary | currency }} LAK</h3>
                 </div>
             </div>
           <div
@@ -55,9 +55,9 @@
         <tr v-for="i in exceptCurrent" :key="i._id">
           <td>{{ i.paymentDate | moment }}</td>
           <td class="is-right">{{ i.employeeCount }}</td>
-          <td class="is-right">{{ i.totalSso | currency }}</td>
-          <td class="is-right">{{ i.totalTax | currency }}</td>
-          <td class="is-right">{{ i.totalSalary | currency }}</td>
+          <td class="is-right">{{ i.totalSso | currency }} LAK</td>
+          <td class="is-right">{{ i.totalTax | currency }} LAK</td>
+          <td class="is-right">{{ i.totalSalary | currency }} LAK</td>
           <td class="is-right">
             <div v-if="i.isApproved" class="option is-primary">
               <router-link :to="{ name: 'payrollCalculation', params: { id: i.monthlyPaymentId } }">
@@ -87,11 +87,6 @@ import {getPayrollByMonths} from "@/apis/payroll-api";
 export default {
   components:{
     checkDeductible
-  },
-  filters: {
-    currency(number) {
-      return new Intl.NumberFormat().format(number) + ' LAK'
-    }
   },
   computed: {
     currentItem() {
