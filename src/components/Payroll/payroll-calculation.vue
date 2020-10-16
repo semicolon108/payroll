@@ -325,6 +325,7 @@ export default {
   },
   methods: {
     async downloadBankTemplate() {
+      this.$store.commit('SET_IS_LOADING', true)
       this.$axios.defaults.headers['Authorization'] = this.getToken
       const res = await this.$axios.post(this.$api + 'download-bank-template/' + this.$route.params.id, null, {
         responseType: 'blob'
@@ -337,6 +338,9 @@ export default {
       link.setAttribute('download', `${this.getCompany.financialInfo.bankId.name}-Payroll-Template.xlsx`)
       window.document.body.appendChild(link)
       link.click()
+      setTimeout(() => {
+        this.$store.commit('SET_IS_LOADING', false)
+      }, loadingTimeout)
     },
     async generateReport() {
       this.$store.commit('SET_IS_LOADING', true)
