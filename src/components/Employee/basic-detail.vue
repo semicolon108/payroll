@@ -432,7 +432,6 @@ export default {
         this[arr] = res.data.getReuses
         if (nestedSelected)  this.form[selected][nestedSelected] = this[arr][0]._id
         else this.form[selected] = this[arr][0]._id
-        console.log(this.form)
       } catch (err) {
         throw new Error(err)
       }

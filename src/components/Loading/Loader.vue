@@ -11,7 +11,7 @@
           :options="{...completedOptions, loop: true}"
           :height="120" :width="220"/>
 
-      
+
       <Loading
 
           v-else
