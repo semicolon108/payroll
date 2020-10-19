@@ -4,7 +4,7 @@
       <h3>Personal Information</h3>
       <p>Need help or have questions about adding employees? Call us at (856) 21 254709.</p>
     </div>
-    <ValidationObserver v-slot="{ handleSubmit }">
+    <ValidationObserver slim ref="refForm">
       <div class="form">
         <div class="columns is-multiline">
           <div class="column is-12">
@@ -147,8 +147,8 @@
             <div class="field">
               <label for="" class="label">ID card / Passport No.</label>
               <div class="control">
-                <ValidationProvider name="ID card / Passport No." rules="required" v-slot="{ errors }">
-                  <input v-model="form.idCardOrPassport" type="text" class="input" required>
+                <ValidationProvider name="ID card / Passport No." v-slot="{ errors }">
+                  <input v-model="form.idCardOrPassport" type="text" class="input">
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
               </div>
@@ -169,8 +169,10 @@
             <div class="field">
               <label for="" class="label">Social security ID</label>
               <div class="control toggle">
-                <ValidationProvider name="Social security ID" rules="required" v-slot="{ errors }">
-                  <input v-model="form.ssoId" type="text" class="input" required>
+                <ValidationProvider name="Social security ID" v-slot="{ errors }">
+                  <input v-model="form.ssoId" type="text" class="input"
+                  :disabled="!form.isSso"
+                  >
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
                 <div class="sso-toggle">
@@ -190,8 +192,8 @@
             <div class="field">
               <label for="" class="label">Full Name</label>
               <div class="control">
-                <ValidationProvider name="EmergencyContact Full Name" rules="required" v-slot="{ errors }">
-                  <input v-model="form.emergencyContact.fullName" type="text" class="input" required>
+                <ValidationProvider name="EmergencyContact Full Name"  v-slot="{ errors }">
+                  <input v-model="form.emergencyContact.fullName" type="text" class="input" >
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
               </div>
@@ -201,9 +203,10 @@
             <div class="field">
               <label for="" class="label">Relationship</label>
               <div class="select">
-                <ValidationProvider name="Full Name" rules="required" v-slot="{ errors }">
+                <ValidationProvider name="Full Name"  v-slot="{ errors }">
                   <select v-model="form.emergencyContact.relationshipId" class="control select" style="width: 100%;">
-                    <option v-for="i in relationships" :value="i._id" :key="i._id" type="text" class="input" required>
+                    <option :value="null" type="text" class="input" selected>None</option>
+                    <option v-for="i in relationships" :value="i._id" :key="i._id" type="text" class="input" >
                       {{ i.name }}
                     </option>
                   </select>
@@ -216,8 +219,8 @@
             <div class="field">
               <label for="" class="label">Contact Number</label>
               <div class="control">
-                <ValidationProvider name="EmergencyContact Contact Number 2" rules="required" v-slot="{ errors }">
-                  <input v-model="form.emergencyContact.contactNumber" type="text" class="input" required>
+                <ValidationProvider name="EmergencyContact Contact Number 2"  v-slot="{ errors }">
+                  <input v-model="form.emergencyContact.contactNumber" type="text" class="input" >
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
               </div>
@@ -265,10 +268,7 @@
             </div>
           </div>
         </div>
-        <button v-if="isEditMode" @click="handleSubmit(updateEmployee)" type="submit" class="button save-btn">Update
-        </button>
-        <button v-else @click="handleSubmit(addEmployee)" type="submit" class="button save-btn">Save and Continue
-        </button>
+        <button @click="saveOnly" type="button" class="button save-btn">{{  isEditMode ? 'Update' : 'Save' }}</button>
       </div>
     </ValidationObserver>
   </div>
@@ -344,7 +344,7 @@ export default {
     await this.reuseGet('Gender', 'genders', 'genderId')
     await this.reuseGet('MaritalStatus', 'maritalStatuses', 'maritalStatusId')
     await this.reuseGet('Nationality', 'nationalities', 'nationalityId')
-    await this.reuseGet('Relationship', 'relationships', 'emergencyContact', 'relationshipId')
+     await this.reuseGet('Relationship', 'relationships')
     await this.reuseGet('Bank', 'banks', 'bankAccount', 'bankId')
     if (this.$route.params.id) {
       this.isEditMode = true
@@ -363,16 +363,16 @@ export default {
         emergencyContact: {
           fullName: data.emergencyContact.fullName,
           contactNumber: data.emergencyContact.contactNumber,
-          relationshipId: data.emergencyContact.relationshipId._id
+          relationshipId: data.emergencyContact.relationshipId
         },
         bankAccount: {
-          bankId: data.bankAccount.bankId._id,
+          bankId: data.bankAccount.bankId,
           accountName: data.bankAccount.accountName,
           accountNumber: data.bankAccount.accountNumber
         },
-        genderId: data.genderId._id,
-        maritalStatusId: data.maritalStatusId._id,
-        nationalityId: data.nationalityId._id,
+        genderId: data.genderId,
+        maritalStatusId: data.maritalStatusId,
+        nationalityId: data.nationalityId,
         isExpat: data.isExpat
       }
       this.defaultValue.dateOfBirth = this.form.dateOfBirth
@@ -405,6 +405,11 @@ export default {
       }
     }
   },
+  watch: {
+    'form.isSso'(val) {
+      if(!val) this.form.ssoId = null
+    }
+  },
   methods: {
     async uploadImage(file) {
       try {
@@ -425,9 +430,9 @@ export default {
           }
         })
         this[arr] = res.data.getReuses
-        if (nestedSelected) {
-          this.form[selected][nestedSelected] = this[arr][0]._id
-        } else this.form[selected] = this[arr][0]._id
+        if (nestedSelected)  this.form[selected][nestedSelected] = this[arr][0]._id
+        else this.form[selected] = this[arr][0]._id
+        console.log(this.form)
       } catch (err) {
         throw new Error(err)
       }
@@ -465,7 +470,7 @@ export default {
             isExpat: this.form.isExpat
           }
         })
-        await this.$router.push({name: 'hiring_detail', params: {id: res.data.addEmployee._id}})
+        await this.$router.push({name: 'edit_basic_detail', params: {id: res.data.addEmployee._id}})
         setTimeout(() => {
           this.$store.commit('SET_IS_LOADING', false)
         }, loadingTimeout)
@@ -476,7 +481,7 @@ export default {
     async updateEmployee() {
       try {
         this.$store.commit('SET_IS_LOADING', true)
-        const res = await this.$apollo.mutate({
+        await this.$apollo.mutate({
           mutation: UPDATE_EMPLOYEE,
           variables: {
             employeeId: this.$route.params.id,
@@ -510,12 +515,30 @@ export default {
 
         setTimeout( () => {
            this.$store.commit('SET_IS_LOADING', false)
-           this.$router.push({ name: 'hiring_detail', params: {id: res.data.updateEmployee._id} })
-
         }, loadingTimeout)
 
       } catch (err) {
         throw new Error(err)
+      }
+    },
+    async saveAndContinue() {
+      const isValid = await this.$refs.refForm.validate()
+      if(!isValid) return
+      if(this.isEditMode)  {
+        await this.updateEmployee()
+        await this.$router.push({ name: 'hiring_detail', params: {id: this.$route.params.id} })
+      }else {
+        await this.addEmployee()
+        await this.$router.push({ name: 'hiring_detail', params: {id: this.$route.params.id} })
+      }
+    },
+    async saveOnly() {
+      const isValid = await this.$refs.refForm.validate()
+      if(!isValid) return
+      if(this.isEditMode)  {
+        await this.updateEmployee()
+      }else {
+        await this.addEmployee()
       }
     },
     async getEmployee(employeeId) {

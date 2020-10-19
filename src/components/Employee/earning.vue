@@ -1,6 +1,7 @@
 <template>
     <ValidationObserver
-        v-slot="{ handleSubmit }" class="form">
+        ref="refForm"
+         class="form">
       <div class="form-header">
         <div>
           <h3>Earning / Deduction</h3>
@@ -145,7 +146,7 @@
       </div>
     </div>
     <hr>
-    <button @click="handleSubmit(addOrUpdateAllowance)" type="button" class="button save-btn">Save and Continue</button>
+    <button @click="saveOnly" type="button" class="button save-btn">Update</button>
     </ValidationObserver>
 </template>
 
@@ -209,10 +210,23 @@ export default {
       await this.addOrUpdateCustomAllowance()
       setTimeout( () => {
         this.$store.commit('SET_IS_LOADING', false)
-        this.$router.push({name: 'document', params: {id: this.$route.params.id}})
       }, loadingTimeout)
 
     },
+
+    async saveAndContinue() {
+      const isValid = await this.$refs.refForm.validate()
+      if(!isValid) return
+      await this.addOrUpdateAllowance()
+      await this.$router.push({name: 'document', params: {id: this.$route.params.id}})
+
+    },
+    async saveOnly() {
+      const isValid = await this.$refs.refForm.validate()
+      if(!isValid) return
+      await this.addOrUpdateAllowance()
+    },
+
     async getAllowance() {
       const data = await getAllowance(this.$route.params.id)
       this.changeGroup(data.earnDeductGroupId._id)

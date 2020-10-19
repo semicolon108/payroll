@@ -29,3 +29,12 @@ extend('isDate', {
     computesRequired: true,
     message: 'This field must be DATE'
 })
+
+extend('isDateOrNull', {
+    validate: (value) => {
+        const utc = moment(value, 'DD/MM/YYYY', true)
+        return utc.isValid() || value === '' ||  value === null || value === undefined
+    },
+    computesRequired: true,
+    message: 'This field must be DATE or NULL'
+})

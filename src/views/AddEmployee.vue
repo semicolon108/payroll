@@ -8,18 +8,24 @@
         }}</h3>
 
         <div class="header-end">
-          <button class="button is-grey">Close</button>
+          <button @click="$router.replace({ name: 'employee' })" class="button is-grey">Close</button>
 
           <!-- isOnFinish -->
-          <button class="button">Finish</button>
+          <button
+              v-if="$route.name === 'document'"
+              @click="$router.replace({ name: 'employee' })" class="button">Finish</button>
 
           <!-- isAddMode -->
-          <button class="button">Save and continue</button>
+          <button
+              v-if="$route.name !== 'document'"
+              @click="$refs.refRoute.saveAndContinue()"
+              class="button">Save and continue</button>
 
           <!-- isEditMode -->
-          <button class="button">Save</button>
+          <button
+              v-if="$route.name !== 'document'"
+              @click="$refs.refRoute.saveOnly()" class="button">Save</button>
 
-          
         </div>
     </div>
     <div class="steps" v-if="$route.params.id">
@@ -39,7 +45,7 @@
       <router-link :to="{name:'document'}" class="step">4. Document</router-link>
     </div><!-- Step -->
     <div class="box">
-      <router-view></router-view>
+      <router-view ref="refRoute"></router-view>
     </div>
   </div>
 </template>

@@ -5,7 +5,7 @@
       <p>Please enter the hiring detail below. The information entered in previous steps is saved and
         you can always come back to complete this screen from the employees page.</p>
     </div>
-    <ValidationObserver v-slot="{ handleSubmit }">
+    <ValidationObserver slim ref="refForm">
       <div class="form">
         <div class="columns is-multiline">
           <div class="column is-4">
@@ -19,7 +19,7 @@
                       <!--                        {{ i.name }}-->
                       <!--                      </option>-->
                       <option selected name="open" :value="true">Open Contract</option>
-                      <option  name="fixed" :value="false">Fixed Contract</option>
+                      <option name="fixed" :value="false">Fixed Contract</option>
                     </select>
                     <p class="has-text-danger">{{ errors[0] }}</p>
                   </ValidationProvider>
@@ -42,7 +42,7 @@
           <div class="column is-4" :style="form.isOpenContract ? 'opacity: 30%' : null">
             <div class="field">
               <label for="" class="label">Contract End Date</label>
-              <ValidationProvider name="Until Date / End Date" rules="isDate" v-slot="{ errors }">
+              <ValidationProvider name="Until Date / End Date" rules="isDateOrNull" v-slot="{ errors }">
                 <DatePicker v-model="form.contractEndDate" :defaultValue="defaultValue.contractEndDate"/>
                 <p class="has-text-danger">{{ errors[0] }}</p>
               </ValidationProvider>
@@ -51,7 +51,7 @@
           <div class="column is-4">
             <div class="field">
               <label for="" class="label">Probation End Date</label>
-              <ValidationProvider name="Probation End Date" rules="required|isDate" v-slot="{ errors }">
+              <ValidationProvider name="Probation End Date" rules="isDateOrNull" v-slot="{ errors }">
                 <DatePicker v-model="form.probationEndDate" :defaultValue="defaultValue.probationEndDate"/>
                 <p class="has-text-danger">{{ errors[0] }}</p>
               </ValidationProvider>
@@ -143,41 +143,43 @@
           </div>
         </div>
 
-        <hr>
-        <h3 class="form-title">Work Permit Notification</h3>
-        <div class="columns" v-if="employee.isExpat">
-          <div class="column">
-            <div class="field">
-              <label class="label">Start Date</label>
-              <ValidationProvider name="Start Date" rules="required|isDate" v-slot="{ errors }">
-              <DatePicker v-model="form.workPermit.startDate" :defaultValue="defaultValue.workPermit.startDate"/>
-                <p class="has-text-danger">{{ errors[0] }}</p>
-              </ValidationProvider>
-            </div>
-          </div>
-          <div class="column">
-            <div class="field">
-              <label class="label">End Date</label>
-              <ValidationProvider name="End Date" rules="required|isDate" v-slot="{ errors }">
-                <DatePicker v-model="form.workPermit.endDate" :defaultValue="defaultValue.workPermit.startDate"/>
-                <p class="has-text-danger">{{ errors[0] }}</p>
-              </ValidationProvider>
-            </div>
-          </div>
-          <div class="column">
-            <div class="field">
-              <label class="label">Days of notify</label>
-              <div class="control">
-                <ValidationProvider name="End Date" rules="required|numeric" v-slot="{ errors }">
-                <input v-model="form.workPermit.daysOfNotify" type="text" class="input">
+        <div v-if="employee.isExpat">
+          <hr>
+          <h3 class="form-title">Work Permit Notification</h3>
+          <div class="columns">
+            <div class="column">
+              <div class="field">
+                <label class="label">Start Date</label>
+                <ValidationProvider name="Start Date" rules="required|isDate" v-slot="{ errors }">
+                  <DatePicker v-model="form.workPermit.startDate" :defaultValue="defaultValue.workPermit.startDate"/>
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
+              </div>
+            </div>
+            <div class="column">
+              <div class="field">
+                <label class="label">End Date</label>
+                <ValidationProvider name="End Date" rules="required|isDate" v-slot="{ errors }">
+                  <DatePicker v-model="form.workPermit.endDate" :defaultValue="defaultValue.workPermit.startDate"/>
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+                </ValidationProvider>
+              </div>
+            </div>
+            <div class="column">
+              <div class="field">
+                <label class="label">Days of notify</label>
+                <div class="control">
+                  <ValidationProvider name="Days of notify" rules="required|numeric" v-slot="{ errors }">
+                    <input v-model="form.workPermit.daysOfNotify" type="text" class="input">
+                    <p class="has-text-danger">{{ errors[0] }}</p>
+                  </ValidationProvider>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <hr>
-        <button type="button" @click="handleSubmit(addOrUpdateHirringDetail)" class="button save-btn">Save and Continue
+        <button type="button" @click="saveOnly" class="button save-btn">Update
         </button>
       </div>
     </ValidationObserver>
@@ -279,11 +281,20 @@ export default {
       this.form.salary = parseInt(this.form.salary, 10)
       this.form.workPermit.daysOfNotify = parseInt(this.form.workPermit.daysOfNotify, 10)
       await addOrUpdateHirringDetail(this.form)
-      setTimeout( () => {
+      setTimeout(() => {
         this.$store.commit('SET_IS_LOADING', false)
-        this.$router.push({name: 'earning', params: {id: this.$route.params.id}})
       }, loadingTimeout)
-
+    },
+    async saveAndContinue() {
+      const isValid = await this.$refs.refForm.validate()
+      if (!isValid) return
+      await this.addOrUpdateHirringDetail()
+      await this.$router.push({name: 'earning', params: {id: this.$route.params.id}})
+    },
+    async saveOnly() {
+      const isValid = await this.$refs.refForm.validate()
+      if (!isValid) return
+      await this.addOrUpdateHirringDetail()
     },
     async getEmployee() {
       try {
@@ -293,7 +304,7 @@ export default {
             employeeId: this.$route.params.id
           }
         })
-        this.employee =  res.data.getEmployee
+        this.employee = res.data.getEmployee
       } catch (err) {
         throw new Error(err)
       }

@@ -6,9 +6,6 @@
           <h3>Personal Document</h3>
           <button class="button is-primary" @click="modalClick = true">Add</button>
         </div>
-        <button
-            @click="$router.push({ name: 'employee' })"
-            class="button is-primary">Finish</button>
       </div>
       <p>Need help or have questions about uploading document? Call us at (856) 21 254709.</p>
     </div>
@@ -38,10 +35,6 @@
       </tbody>
     </table>
     <hr>
-    <button
-          @click="$router.push({name: 'employee'})"
-          type="button" class="button save-btn">Finish
-      </button>
     <addDocument @PushItem="pushItem" @CloseModal="closeModal($event)" :modalClick="modalClick"/>
   </div>
 </template>

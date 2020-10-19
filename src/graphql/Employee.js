@@ -21,12 +21,10 @@ export const GET_EMPLOYEES = gql`
             emergencyContact {
                 fullName
                 contactNumber
+                relationshipId
             }
             bankAccount {
-                bankId {
-                    _id
-                    name
-                }
+                bankId
                 accountName
                 accountNumber
             }
@@ -60,39 +58,23 @@ export const GET_EMPLOYEE = gql`
             isSso
             emergencyContact {
                 fullName
-                relationshipId {
-                    _id
-                    name
-                }
+                relationshipId
                 contactNumber
             }
             bankAccount {
-                bankId {
-                    _id
-                    name
-                }
+                bankId
                 accountName
                 accountNumber
             }
 
-            genderId {
-                _id
-                name
-            }
-            maritalStatusId {
-                _id
-                name
-            }
-            nationalityId {
-                _id
-                name
-            }
+            genderId 
+            maritalStatusId 
+            nationalityId
             image {
                 _id
                 name
                 src
                 size
-
             }
             isExpat
 
@@ -111,7 +93,7 @@ export const ADD_EMPLOYEE = gql`
         $contactName: String!
         $idCardOrPassport: String!
         $email: String!
-        $ssoId: String!
+        $ssoId: String
         $isSso: Boolean!
         $emergencyContact: EmergencyContactInput!
         $bankAccount: BankAccountInput!
@@ -156,33 +138,18 @@ export const ADD_EMPLOYEE = gql`
             isSso
             emergencyContact {
                 fullName
-                relationshipId {
-                    _id
-                    name
-                }
+                relationshipId
                 contactNumber
             }
             bankAccount {
-                bankId {
-                    _id
-                    name
-                }
+                bankId
                 accountName
                 accountNumber
             }
 
-            genderId {
-                _id
-                name
-            }
-            maritalStatusId {
-                _id
-                name
-            }
-            nationalityId {
-                _id
-                name
-            }
+            genderId
+            maritalStatusId 
+            nationalityId
             image {
                 _id
                 name
@@ -205,7 +172,7 @@ export const UPDATE_EMPLOYEE = gql`
         $contactName: String!
         $idCardOrPassport: String!
         $email: String!
-        $ssoId: String!
+        $ssoId: String
         $isSso: Boolean!
         $emergencyContact: EmergencyContactInput!
         $bankAccount: BankAccountInput!
@@ -253,33 +220,18 @@ export const UPDATE_EMPLOYEE = gql`
             isSso
             emergencyContact {
                 fullName
-                relationshipId {
-                    _id
-                    name
-                }
+                relationshipId
                 contactNumber
             }
             bankAccount {
-                bankId {
-                    _id
-                    name
-                }
+                bankId
                 accountName
                 accountNumber
             }
 
-            genderId {
-                _id
-                name
-            }
-            maritalStatusId {
-                _id
-                name
-            }
-            nationalityId {
-                _id
-                name
-            }
+            genderId 
+            maritalStatusId
+            nationalityId 
             image {
                 _id
                 name

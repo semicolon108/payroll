@@ -42,7 +42,10 @@ export default {
     },
     date: {
       handler(value) {
-        if (value.year && value.month && value.day) {
+        if(value.year === '' && value.month === '' && value.day === '') {
+          this.$emit('input', '')
+        }
+       else if (value.year && value.month && value.day) {
           const oriDate = `${value.year}/${value.month}/${value.day}`
           const date = moment(oriDate).toDate()
           this.$emit('input', date)

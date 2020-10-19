@@ -1,11 +1,11 @@
 import gql from 'graphql-tag'
 
-export const GET_HIRRING_DETAIL = gql`
+export const GET_HIRING_DETAIL = gql`
 
     query (
         $employeeId: ID!
     ) {
-        getHirringDetail(
+        getHiringDetail(
             employeeId: $employeeId
         ) {
             _id
@@ -32,13 +32,13 @@ export const GET_HIRRING_DETAIL = gql`
 
 `
 
-export const ADD_OR_UPDATE_HIRRING_DETAIL = gql`
+export const ADD_OR_UPDATE_HIRING_DETAIL = gql`
 
     mutation (
         $employeeId: ID!
         $provinceId: ID!
         $dateOfJoining: Date!
-        $probationEndDate: Date!
+
         $positionId: ID!
         $workingDay: Int!
         $currencyId: ID!
@@ -47,9 +47,11 @@ export const ADD_OR_UPDATE_HIRRING_DETAIL = gql`
 
         $isOpenContract: Boolean!
         $workPermit: WorkPermitInput!
+        
         $contractEndDate: Date
+        $probationEndDate: Date
     ) {
-        addOrUpdateHirringDetail(
+        addOrUpdateHiringDetail(
             info: {
                 employeeId: $employeeId
 
