@@ -1,23 +1,29 @@
 <template>
-    <div class="lottie-container" :class="{'is-active' : modal}">
-        <button class="button" @click="modal = !modal">Show</button>
+    <div class="lottie-container is-active">
         <div class="bg"></div>
         <div class="box slide-down" v-if="modal">
-            <lottie 
+          <lottie
+              v-if="$store.getters.isLoading"
+              class="lottie-box"
+              :options="{...loadingOptions, loop: true}"
+              :height="120" :width="220"/>
+
+            <lottie
+                v-else
             class="lottie-box"
-            :options="{...defaultOptions, loop: true}"
+            :options="{...defaultOptions, loop: false}"
             :height="120" :width="220"/>
 
             <div class="msg">
                 <!-- Payslip sent -->
                 <!-- <h3>Send Completed</h3>
                 <p>Pay slip has been sent to employee's email</p> -->
-
-                <h3>Add Employee Completed</h3>
-
-                <button class="button">Okay</button>
+              <br>
+              {{ $store.getters.type }}
+                <h3>Loading</h3>
+<!--                <button class="button">Okay</button>-->
+              <br>
             </div>
-            
         </div>
     </div>
 </template>
@@ -26,15 +32,23 @@
   import Lottie from './lottie.vue';
 
   export default {
+    props: ['type'],
     components: {
       'lottie': Lottie
     },
     data: () => ({
-        modal: false,
+        modal: true,
         defaultOptions: {},
+      loadingOptions: {}
     }),
     created(){
-        this.defaultOptions = {animationData: require('./completed.json')}
+      this.loadingOptions = { animationData: require(`./email-sent.json`) }
+      const arr = [
+        { fileName: 'email-sent.json', name: 'EmailSent' },
+        { fileName: 'completed.json', name: 'Completed' }
+      ]
+      const choosen = arr.find(i => i.name === this.type)
+      this.defaultOptions = { animationData: require(`./${choosen.fileName}`) }
     }
     
   }

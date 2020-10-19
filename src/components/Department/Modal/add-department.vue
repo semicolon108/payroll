@@ -63,7 +63,10 @@ export default {
     },
     async updateDepartment() {
       try {
-        this.$store.commit('SET_IS_LOADING', true)
+        this.$store.dispatch('startLoading', {
+          type: 'Completed',
+          message: 'Department Updated'
+        })
         const res = await this.$apollo.mutate({
           mutation: UPDATE_DEPARTMENT,
           variables: {
@@ -76,7 +79,7 @@ export default {
           this.$emit('UpdateItem', item)
           this.$emit('CloseModal')
           setTimeout(() => {
-            this.$store.commit('SET_IS_LOADING', false)
+            this.$store.dispatch('stopLoading')
           }, loadingTimeout)
         }
       } catch (err) {

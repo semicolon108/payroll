@@ -2,7 +2,7 @@
 const isProd = process.env.NODE_ENV === 'production' && true
 // const isProd = true
 
-export const loadingTimeout = 600
+export const loadingTimeout = 1200
 
 export const logoutURL = isProd ? 'https://auth-payroll.sabai.la' : 'http://localhost:3000'
 
