@@ -75,18 +75,25 @@ export default {
       this.$emit('CloseModal')
     },
     async downloadTemplate() {
-      this.$axios.defaults.headers['Authorization'] = this.getToken
-      const res = await this.$axios.post(this.$api + 'download-deductable-template', null, {
-        responseType: 'blob'
-      })
-      const url = URL.createObjectURL(new Blob([res.data], {
-        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      }))
-      const link = document.createElement('a')
-      link.href = url
-      link.setAttribute('download', 'deductable-template.xlsx')
-      document.body.appendChild(link)
-      link.click()
+      try {
+        await this.$store.dispatch('loading')
+        this.$axios.defaults.headers['Authorization'] = this.getToken
+        const res = await this.$axios.post(this.$api + 'download-deductable-template', null, {
+          responseType: 'blob'
+        })
+        const url = URL.createObjectURL(new Blob([res.data], {
+          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        }))
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', 'deductable-template.xlsx')
+        document.body.appendChild(link)
+        link.click()
+        await this.$store.dispatch('completed')
+      } catch (err) {
+        await this.$store.dispatch('error')
+        throw new Error(err)
+      }
     },
     async chooseFile($file) {
       const file = $file.target.files[0]
@@ -110,7 +117,9 @@ export default {
               }
             })
             try {
+              await this.$store.dispatch('loading')
               const data = await uploadDeductible(mapKey)
+              await this.$store.dispatch('completed')
               this.data = {
                 items: data.items,
                 total: data.total,
@@ -118,6 +127,7 @@ export default {
               }
               this.isChecker = true
             } catch (err) {
+              await this.$store.dispatch('error')
               const errorType = err.graphQLErrors[0].extensions.validationErrors
               if (errorType.typeErrors.length) {
                 this.data = {

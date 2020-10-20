@@ -130,8 +130,14 @@ export default {
         isMulti: this.isMulti,
         items
       }
-      await addOrUpdateCompanyCurrency(form)
-      alert('Updated')
+      try {
+        await this.$store.dispatch('loading')
+        await addOrUpdateCompanyCurrency(form)
+        await this.$store.dispatch('completed')
+      } catch(err) {
+        await this.$store.dispatch('error')
+        throw new Error(err)
+      }
     },
     pushCurrency() {
       const exceptCur = this.chooseCurrency()

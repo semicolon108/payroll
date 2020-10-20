@@ -199,11 +199,13 @@ export default {
         allowances,
       }
       try {
+        await this.$store.dispatch('loading')
         await addOrUpdateAllowance(form)
+        await this.$store.dispatch('completed')
       }catch (err) {
         if (err.graphQLErrors[0]) {
           alert(err.graphQLErrors[0].message)
-          this.$store.commit('SET_IS_LOADING', false)
+          await this.$store.dispatch('error')
           return
         }
       }

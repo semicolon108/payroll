@@ -44,7 +44,6 @@
 import PositionModal from '@coms/Position/Modal/add-position.vue';
 import {GET_POSITIONS} from "@/graphql/Position";
 import {deletePosition} from "@/apis/position-api";
-import {loadingTimeout} from "@/config/variables";
 
 export default {
   components: {
@@ -78,16 +77,15 @@ export default {
     },
     async deletePosition(id) {
        try {
-         this.$store.commit('SET_IS_LOADING', true)
+         await this.$store.dispatch('loading')
          await deletePosition(id)
+         await this.$store.dispatch('completed')
          await this.getPositions()
-         setTimeout(() => {
-           this.$store.commit('SET_IS_LOADING', false)
-         }, loadingTimeout)
+
        } catch (err) {
+         await this.$store.dispatch('error')
          if(err.graphQLErrors[0].message === 'Please unselected employees from this position first') {
            alert(err.graphQLErrors[0].message + ': ' + err.graphQLErrors[0].extensions.isExists.map(i => i.employeeId.employeeCode))
-
          }
      }
 

@@ -82,19 +82,34 @@ export default {
         name,
         fileInput
       }
-      const data = await addMonthlyDocument(form)
-      this.items.push(data)
-      this.items = this.items.map(i => {
-        return {
-          ...i,
-          isDeleteMode: false
-        }
-      })
+      try {
+        await this.$store.dispatch('loading')
+        const data = await addMonthlyDocument(form)
+        await this.$store.dispatch('completed')
+        this.items.push(data)
+        this.items = this.items.map(i => {
+          return {
+            ...i,
+            isDeleteMode: false
+          }
+        })
+      } catch (err) {
+        await this.$store.dispatch('error')
+        throw new Error(err)
+      }
+
     },
     async deleteMonthlyDoc(id) {
-      await deleteMonthlyDocument(id)
-      const curIdx = this.items.findIndex(i=>i._id === id)
-      this.items.splice(curIdx, 1)
+      try {
+        await this.$store.dispatch('loading')
+        await deleteMonthlyDocument(id)
+        await this.$store.dispatch('completed')
+        const curIdx = this.items.findIndex(i => i._id === id)
+        this.items.splice(curIdx, 1)
+      } catch (err) {
+        await this.$store.dispatch('error')
+        throw new Error(err)
+      }
     }
   }
 }

@@ -2,15 +2,17 @@
   <div class="box slide-up">
     <div class="box-header">
       <h3 class="box-title">Payroll Rule</h3>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, sunt quo illum in repellendus alias corporis error facere nostrum quae aliquid illo blanditiis nihil consectetur expedita, amet officia optio eveniet?</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, sunt quo illum in repellendus alias
+        corporis error facere nostrum quae aliquid illo blanditiis nihil consectetur expedita, amet officia optio
+        eveniet?</p>
     </div>
     <div class="field">
       <label for="" class="label">Does your company need an approval before Payroll Calculation?</label>
       <div class="control switch">
-          <input type="radio" name="approved" id="need" :checked="!isApprovedBeforeCalc">
-          <label @click="isApprovedBeforeCalc = false" for="need">No</label>
-          <input type="radio" name="approved" id="unneed"  :checked="isApprovedBeforeCalc">
-          <label @click="isApprovedBeforeCalc = true" for="unneed">Yes</label>
+        <input type="radio" name="approved" id="need" :checked="!isApprovedBeforeCalc">
+        <label @click="isApprovedBeforeCalc = false" for="need">No</label>
+        <input type="radio" name="approved" id="unneed" :checked="isApprovedBeforeCalc">
+        <label @click="isApprovedBeforeCalc = true" for="unneed">Yes</label>
       </div>
     </div>
 
@@ -21,7 +23,7 @@
           <div class="field">
             <label for="" class="label">Authority Name</label>
             <div class="control">
-              <input v-model="form.authorityName" type="text" class="input" >
+              <input v-model="form.authorityName" type="text" class="input">
             </div>
           </div>
         </div>
@@ -29,7 +31,7 @@
           <div class="field">
             <label for="" class="label">Authority Email</label>
             <div class="control">
-              <input v-model="form.authorityEmail" type="text" class="input" >
+              <input v-model="form.authorityEmail" type="text" class="input">
             </div>
           </div>
         </div>
@@ -41,7 +43,7 @@
           <div class="field">
             <label for="" class="label">Name</label>
             <div class="control">
-              <input v-model="form.payrollManagerName" type="text" class="input" >
+              <input v-model="form.payrollManagerName" type="text" class="input">
             </div>
           </div>
         </div>
@@ -49,7 +51,7 @@
           <div class="field">
             <label for="" class="label">Email</label>
             <div class="control">
-              <input v-model="form.payrollManagerEmail" type="text" class="input" >
+              <input v-model="form.payrollManagerEmail" type="text" class="input">
             </div>
           </div>
         </div>
@@ -80,17 +82,23 @@ export default {
   methods: {
     ...mapActions(['updateCompany']),
     async updateCompanyInfo() {
-      await this.updateCompany({
-        payrollRule: this.form,
-        isApprovedBeforeCalc: this.isApprovedBeforeCalc
-      })
-      alert('Updated')
+      try {
+        await this.$store.dispatch('loading')
+        await this.updateCompany({
+          payrollRule: this.form,
+          isApprovedBeforeCalc: this.isApprovedBeforeCalc
+        })
+        await this.$store.dispatch('completed')
+      } catch (err) {
+        await this.$store.dispatch('error')
+        throw new Error(err)
+      }
     },
   },
   created() {
     this.form = {
       authorityName: this.getCompany.payrollRule.authorityName,
-      authorityEmail:  this.getCompany.payrollRule.authorityEmail,
+      authorityEmail: this.getCompany.payrollRule.authorityEmail,
       payrollManagerName: this.getCompany.payrollRule.payrollManagerName,
       payrollManagerEmail: this.getCompany.payrollRule.payrollManagerEmail
     }
@@ -100,52 +108,59 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.box-header{
+.box-header {
   color: $font-color;
   margin-bottom: 20px;
-  .box-title{
+
+  .box-title {
     font-size: 18px;
     font-weight: 700;
     color: $font-color;
     margin-bottom: 5px;
   }
 }
-.title{
-    font-size: 18px;
-    font-weight: 700;
-    color: $font-color;
-    margin-bottom: 15px;
-    margin-top: 30px;
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  color: $font-color;
+  margin-bottom: 15px;
+  margin-top: 30px;
 }
-.input, .textarea{
+
+.input, .textarea {
   @include input;
 }
-.button{
+
+.button {
   border-radius: 0;
   background-color: $primary-color;
   border-color: $primary-color;
   color: #fff;
 }
 
-.switch{
+.switch {
+  display: flex;
+  align-items: center;
+  width: 50%;
+
+  label {
+    width: 50%;
+    height: 36px;
+    background-color: $light-grey-color;
     display: flex;
     align-items: center;
-    width: 50%;
-    label{
-        width: 50%;
-        height: 36px;
-        background-color: $light-grey-color;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  input {
+    display: none;
+
+    &:checked + label {
+      background-color: $sub-color;
+      color: #fff;
     }
-    input{
-        display: none;
-        &:checked + label{
-            background-color: $sub-color;
-            color: #fff;
-        }
-    }
+  }
 }
 </style>

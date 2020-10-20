@@ -129,7 +129,6 @@
 <script>
 import {mapGetters, mapMutations, mapActions} from 'vuex'
 import {getReuse} from "@/apis/reuse-api";
-import {loadingTimeout} from "@/config/variables";
 
 export default {
   computed: {
@@ -150,15 +149,17 @@ export default {
     ...mapMutations(['SET_COMPANY']),
     ...mapActions(['updateCompany']),
     async updateCompanyInfo() {
-      this.$store.commit('SET_IS_LOADING', true)
-      await this.updateCompany(this.form)
-      setTimeout(() => {
-        this.$store.commit('SET_IS_LOADING', false)
-      }, loadingTimeout)
+      try {
+        await this.$store.dispatch('loading')
+        await this.updateCompany(this.form)
+        await this.$store.dispatch('completed')
+      } catch (err) {
+        await this.$store.dispatch('error')
+        throw new Error(err)
+      }
     },
     async getBanks() {
       this.banks = await getReuse('Bank')
-
     }
   },
   async created() {

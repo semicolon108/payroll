@@ -45,7 +45,6 @@
 <script>
 import AddDepartment from '@coms/Department/Modal/add-department.vue';
 import {DELETE_DEPARTMENT, GET_DEPARTMENTS} from "@/graphql/Department";
-import {loadingTimeout} from "@/config/variables";
 
 export default {
   components: {
@@ -71,7 +70,7 @@ export default {
 
     async deleteDepartment(departmentId) {
       try {
-        this.$store.commit('SET_IS_LOADING', true)
+        await this.$store.dispatch('loading')
         const res = await this.$apollo.mutate({
           mutation: DELETE_DEPARTMENT,
           variables: {
@@ -79,14 +78,13 @@ export default {
           }
         })
         const message = res.data.deleteDepartment
-        if( message === 'Deleted') {
+        if(message === 'Deleted') {
+          await this.$store.dispatch('completed')
           const curIdx = this.departments.findIndex(i => i._id === departmentId)
           this.departments.splice(curIdx, 1)
-          setTimeout(() => {
-            this.$store.commit('SET_IS_LOADING', false)
-          }, loadingTimeout)
         }
       } catch (err) {
+        await this.$store.dispatch('error')
         if(err.graphQLErrors[0].message === 'You need to delete this positions first') {
           alert(err.graphQLErrors[0].message + ': ' + err.graphQLErrors[0].extensions.positionExists.map(i => i.name))
         }

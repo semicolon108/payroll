@@ -88,7 +88,6 @@
           </div>
 
 
-
           <div v-else class="button-group">
             <button class="button" @click="ModalClick = 'document'">Document</button>
             <button
@@ -109,7 +108,6 @@
                 :disabled="!payrollEmps.isCalculated"
             >Send Payslip
             </button>
-
 
 
             <button
@@ -152,7 +150,7 @@
             <input v-model="searchText" type="text" class="input" placeholder="Search employee">
           </div>
           <div v-else class="button-group">
-            <input v-model="searchText" type="text" class="input" placeholder="Search employee" >
+            <input v-model="searchText" type="text" class="input" placeholder="Search employee">
           </div>
           <div class="option-group">
             <button @click="downloadPayrollList" class="button"><i class="fas fa-file-pdf"></i> Export PDF</button>
@@ -164,8 +162,8 @@
             <th>Employee</th>
             <th class="is-right is-xs">Work Day</th>
             <th class="is-right">Basic Salary</th>
-<!--            <th class="is-right">Earning (LAK)</th>-->
-<!--            <th class="is-right">Deduction (LAK)</th>-->
+            <!--            <th class="is-right">Earning (LAK)</th>-->
+            <!--            <th class="is-right">Deduction (LAK)</th>-->
             <th class="is-right">SSO Com</th>
             <th class="is-right">SSO Emp</th>
             <th class="is-right">TAX (LAK)</th>
@@ -197,8 +195,8 @@
               </div>
             </td>
             <td class="is-right">{{ i.basicSalary | currency }}</td>
-<!--            <td class="is-right">{{ i.earningAmount | currency }}</td>-->
-<!--            <td class="is-right">{{ i.deductionAmount | currency }}</td>-->
+            <!--            <td class="is-right">{{ i.earningAmount | currency }}</td>-->
+            <!--            <td class="is-right">{{ i.deductionAmount | currency }}</td>-->
             <td class="is-right">{{ i.ssoPaidByCom | currency }}</td>
             <td class="is-right">{{ i.ssoPaidByEmp | currency }}</td>
             <td class="is-right">{{ i.tax | currency }}</td>
@@ -289,22 +287,25 @@ export default {
       }, loadingTimeout)
     },
     async downloadPayrollList() {
-      this.$store.commit('SET_IS_LOADING', true)
-      this.$axios.defaults.headers['Authorization'] = this.getToken
-      const res = await this.$axios.post(this.$api + 'download-payroll-list/' + this.$route.params.id, null, {
-        responseType: 'blob'
-      })
-      const url = URL.createObjectURL(new Blob([res.data], {
-        type: 'application/pdf'
-      }))
-      const link = window.document.createElement('a') // window was root
-      link.href = url
-      link.setAttribute('download', `Payroll-List.pdf`)
-      window.document.body.appendChild(link)
-      link.click()
-      setTimeout(() => {
-        this.$store.commit('SET_IS_LOADING', false)
-      }, loadingTimeout)
+      try {
+        await this.$store.dispatch('loading')
+        this.$axios.defaults.headers['Authorization'] = this.getToken
+        const res = await this.$axios.post(this.$api + 'download-payroll-list/' + this.$route.params.id, null, {
+          responseType: 'blob'
+        })
+        const url = URL.createObjectURL(new Blob([res.data], {
+          type: 'application/pdf'
+        }))
+        const link = window.document.createElement('a') // window was root
+        link.href = url
+        link.setAttribute('download', `Payroll-List.pdf`)
+        window.document.body.appendChild(link)
+        link.click()
+        await this.$store.dispatch('completed')
+      } catch (err) {
+        await this.$store.dispatch('error')
+        throw new Error(err)
+      }
     },
     async getCompanyCurrencies() {
       const data = await getCompanyCurrencies()
@@ -379,12 +380,15 @@ export default {
         isMulti: this.isMulti,
         items
       }
-      this.$store.commit('SET_IS_LOADING', true)
-      await addOrUpdateCompanyCurrency(form)
-      await this.getPayrollByEmps()
-      setTimeout(() => {
-        this.$store.commit('SET_IS_LOADING', false)
-      }, loadingTimeout)
+      try {
+        await this.$store.dispatch('loading')
+        await addOrUpdateCompanyCurrency(form)
+        await this.getPayrollByEmps()
+        await this.$store.dispatch('completed')
+      } catch (err) {
+        await this.$store.dispatch('error')
+        throw new Error(err)
+      }
     },
   },
   created() {

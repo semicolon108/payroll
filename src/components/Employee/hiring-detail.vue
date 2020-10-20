@@ -196,7 +196,6 @@ import {addOrUpdateHirringDetail, getHirringDetail} from "@/apis/hirring-detail-
 import {getPositions} from "@/apis/position-api";
 import {getCompanyCurrencies} from "@/apis/company-currency-api";
 import {GET_EMPLOYEE} from "@/graphql/Employee";
-import {loadingTimeout} from "@/config/variables";
 
 
 export default {
@@ -275,15 +274,18 @@ export default {
       }
     },
     async addOrUpdateHirringDetail() {
-      this.$store.commit('SET_IS_LOADING', true)
-      this.form.employeeId = this.$route.params.id
-      this.form.workingDay = parseInt(this.form.workingDay, 10)
-      this.form.salary = parseInt(this.form.salary, 10)
-      this.form.workPermit.daysOfNotify = parseInt(this.form.workPermit.daysOfNotify, 10)
-      await addOrUpdateHirringDetail(this.form)
-      setTimeout(() => {
-        this.$store.commit('SET_IS_LOADING', false)
-      }, loadingTimeout)
+      try {
+        await this.$store.dispatch('loading')
+        this.form.employeeId = this.$route.params.id
+        this.form.workingDay = parseInt(this.form.workingDay, 10)
+        this.form.salary = parseInt(this.form.salary, 10)
+        this.form.workPermit.daysOfNotify = parseInt(this.form.workPermit.daysOfNotify, 10)
+        await addOrUpdateHirringDetail(this.form)
+        await this.$store.dispatch('completed')
+      } catch (err) {
+        await this.$store.dispatch('error')
+        throw new Error(err)
+      }
     },
     async saveAndContinue() {
       const isValid = await this.$refs.refForm.validate()

@@ -30,7 +30,6 @@
 
 <script>
 import {ADD_DEPRTMENT, UPDATE_DEPARTMENT} from "@/graphql/Department";
-import {loadingTimeout} from "@/config/variables";
 
 export default {
   props: ['isEditMode'],
@@ -44,7 +43,7 @@ export default {
     },
     async addDepartment() {
       try {
-        this.$store.commit('SET_IS_LOADING', true)
+        await this.$store.dispatch('loading')
         const res = await this.$apollo.mutate({
           mutation: ADD_DEPRTMENT,
           variables: {
@@ -52,21 +51,17 @@ export default {
           }
         })
         const item = res.data.addDepartment
+        await this.$store.dispatch('completed')
         this.$emit('PushItem', item)
         this.$emit('CloseModal')
-        setTimeout(() => {
-          this.$store.commit('SET_IS_LOADING', false)
-        }, loadingTimeout)
       } catch (err) {
+        await this.$store.dispatch('error')
         throw new Error(err)
       }
     },
     async updateDepartment() {
       try {
-        this.$store.dispatch('startLoading', {
-          type: 'Completed',
-          message: 'Department Updated'
-        })
+        await this.$store.dispatch('loading')
         const res = await this.$apollo.mutate({
           mutation: UPDATE_DEPARTMENT,
           variables: {
@@ -75,14 +70,13 @@ export default {
           }
         })
         const item = res.data.updateDepartment
-        if(item) {
+        if (item) {
+          await this.$store.dispatch('completed')
           this.$emit('UpdateItem', item)
           this.$emit('CloseModal')
-          setTimeout(() => {
-            this.$store.dispatch('stopLoading')
-          }, loadingTimeout)
         }
       } catch (err) {
+        await this.$store.dispatch('error')
         throw new Error(err)
       }
     }

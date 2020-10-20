@@ -13,8 +13,9 @@
 <!--        v-if="$store.getters.isLoading"-->
 <!--    :type="$store.getters.type"-->
 <!--    />-->
-    <LoadingScreen v-if="$store.getters.isLoading" />
+<!--    <LoadingScreen v-if="$store.getters.isLoading" />-->
 <!--    <Loader/>-->
+    <DefaultLoading/>
   </div>
 </template>
 <script>
@@ -24,6 +25,8 @@ import navigation from "@coms/navbar";
 import {mapMutations, mapGetters, mapActions} from 'vuex'
 // import Loader from '@/components/Loading/Loader'
 
+import DefaultLoading from '@/components/DefaultLoader/loading'
+
 //import axios from 'axios'
 
 export default {
@@ -31,14 +34,13 @@ export default {
     // Lottie,
     // Loader,
     sidebar,
-    navigation
+    navigation,
+    DefaultLoading
   },
   computed: {
     ...mapGetters(['isAuth'])
   },
-  data: () => ({
-    isEndLoading: false
-  }),
+
 
   methods: {
     ...mapMutations(['SET_TOKEN']),

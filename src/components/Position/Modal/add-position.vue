@@ -42,7 +42,6 @@
 <script>
 import {GET_DEPARTMENTS} from "@/graphql/Department";
 import {ADD_POSITION, UPDATE_POSITION} from "@/graphql/Position";
-import {loadingTimeout} from "@/config/variables";
 
 export default {
   props: ['isEditMode'],
@@ -67,7 +66,7 @@ export default {
     },
     async addPosition() {
       try {
-        this.$store.commit('SET_IS_LOADING', true)
+       await this.$store.dispatch('loading')
         const res = await this.$apollo.mutate({
           mutation: ADD_POSITION,
           variables: {
@@ -77,20 +76,19 @@ export default {
         })
         const item = res.data.addPosition
         if (item) {
+          await this.$store.dispatch('completed')
           this.$emit('PushItem', item)
           this.$emit('CloseModal')
-          setTimeout(() => {
-            this.$store.commit('SET_IS_LOADING', false)
-          }, loadingTimeout)
         }
 
       } catch (err) {
+        await this.$store.dispatch('error')
         throw new Error(err)
       }
     },
     async updatePosition() {
       try {
-        this.$store.commit('SET_IS_LOADING', true)
+        await this.$store.dispatch('loading')
         const res = await this.$apollo.mutate({
           mutation: UPDATE_POSITION,
           variables: {
@@ -100,12 +98,11 @@ export default {
           }
         })
         const item = res.data.updatePosition
+        await this.$store.dispatch('completed')
         this.$emit('CloseModal')
         this.$emit('UpdateItem', item)
-        setTimeout(() => {
-          this.$store.commit('SET_IS_LOADING', false)
-        }, loadingTimeout)
       } catch (err) {
+        await this.$store.dispatch('error')
         throw new Error(err)
       }
     }

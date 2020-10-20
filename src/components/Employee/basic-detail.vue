@@ -280,7 +280,7 @@ import {readableBytes} from "@/utils/read-file";
 import {GET_REUSES} from "@/graphql/Reuse";
 import DatePicker from "@/utils/DatePicker";
 import {ADD_EMPLOYEE, GET_EMPLOYEE, UPDATE_EMPLOYEE} from "@/graphql/Employee";
-import {loadingTimeout} from "@/config/variables";
+
 
 export default {
   components: {
@@ -439,7 +439,7 @@ export default {
     },
     async addEmployee() {
       try {
-        this.$store.commit('SET_IS_LOADING', true)
+        await this.$store.dispatch('loading')
         const res = await this.$apollo.mutate({
           mutation: ADD_EMPLOYEE,
           variables: {
@@ -470,17 +470,16 @@ export default {
             isExpat: this.form.isExpat
           }
         })
+        await this.$store.dispatch('completed')
         await this.$router.push({name: 'edit_basic_detail', params: {id: res.data.addEmployee._id}})
-        setTimeout(() => {
-          this.$store.commit('SET_IS_LOADING', false)
-        }, loadingTimeout)
       } catch (err) {
+        await this.$store.dispatch('error')
         throw new Error(err)
       }
     },
     async updateEmployee() {
       try {
-        this.$store.commit('SET_IS_LOADING', true)
+        await this.$store.dispatch('loading')
         await this.$apollo.mutate({
           mutation: UPDATE_EMPLOYEE,
           variables: {
@@ -513,11 +512,10 @@ export default {
           }
         })
 
-        setTimeout( () => {
-           this.$store.commit('SET_IS_LOADING', false)
-        }, loadingTimeout)
+        await this.$store.dispatch('completed')
 
       } catch (err) {
+        await this.$store.dispatch('error')
         throw new Error(err)
       }
     },

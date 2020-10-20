@@ -30,8 +30,14 @@ export default {
   methods: {
     ...mapActions(['updateCompany']),
     async updateCompanyInfo() {
-      await this.updateCompany({ isTaxPaidByCompany: this.isTaxPaidByCompany })
-      alert('Updated')
+      try {
+        await this.$store.dispatch('loading')
+        await this.updateCompany({ isTaxPaidByCompany: this.isTaxPaidByCompany })
+        await this.$store.dispatch('completed')
+      } catch (err) {
+        await this.$store.dispatch('error')
+        throw new Error(err)
+      }
     }
   },
   created() {
