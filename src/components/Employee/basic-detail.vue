@@ -268,7 +268,8 @@
             </div>
           </div>
         </div>
-        <button @click="saveOnly" type="button" class="button save-btn">{{  isEditMode ? 'Update' : 'Save' }}</button>
+        <button v-if="isEditMode" @click="saveOnly" type="button" class="button save-btn">Update</button>
+        <button @click="saveAndContinue" type="button" class="button save-btn">Save and continue</button>
       </div>
     </ValidationObserver>
   </div>
