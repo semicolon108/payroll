@@ -269,7 +269,7 @@
           </div>
         </div>
         <button v-if="isEditMode" @click="saveOnly" type="button" class="button save-btn">Update</button>
-        <button @click="saveAndContinue" type="button" class="button save-btn">Save and continue</button>
+        <button v-else @click="saveAndContinue" type="button" class="button save-btn">Save and continue</button>
       </div>
     </ValidationObserver>
   </div>
