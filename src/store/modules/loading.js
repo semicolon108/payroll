@@ -38,7 +38,7 @@ const actions = {
            commit('SET_IS_LOADING', false)
            commit('SET_IS_COMPLETED', false)
 
-       }, 1200)
+       }, 200)
     }
 }
 

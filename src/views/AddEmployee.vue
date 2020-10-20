@@ -17,13 +17,13 @@
 
           <!-- isAddMode -->
           <button
-              v-if="$route.name !== 'document'"
+              v-if="$route.name !== 'document' && $route.name === 'basic_detail'"
               @click="$refs.refRoute.saveAndContinue()"
               class="button">Save and continue</button>
 
           <!-- isEditMode -->
           <button
-              v-if="$route.name !== 'document'"
+              v-if="$route.name !== 'document' && $route.name !== 'basic_detail'"
               @click="$refs.refRoute.saveOnly()" class="button">Save</button>
 
         </div>

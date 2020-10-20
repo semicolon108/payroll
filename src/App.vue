@@ -13,8 +13,8 @@
 <!--        v-if="$store.getters.isLoading"-->
 <!--    :type="$store.getters.type"-->
 <!--    />-->
-<!--    <LoadingScreen v-if="$store.getters.isLoading" />-->
-    <Loader/>
+    <LoadingScreen v-if="$store.getters.isLoading" />
+<!--    <Loader/>-->
   </div>
 </template>
 <script>
@@ -22,14 +22,14 @@
 import sidebar from "@coms/sidebar";
 import navigation from "@coms/navbar";
 import {mapMutations, mapGetters, mapActions} from 'vuex'
-import Loader from '@/components/Loading/Loader'
+// import Loader from '@/components/Loading/Loader'
 
 //import axios from 'axios'
 
 export default {
   components:{
     // Lottie,
-    Loader,
+    // Loader,
     sidebar,
     navigation
   },
