@@ -173,6 +173,7 @@ export default {
       await this.$store.dispatch('loading')
         await approveDeductible(this.$route.params.id)
         await this.$store.dispatch('completed')
+        this.$dialog.alert('Approved')
         await this.getMonthlyPaymentEmployees()
       } catch (err) {
         await this.$store.dispatch('error')

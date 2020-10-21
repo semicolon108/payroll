@@ -8,6 +8,9 @@ import {baseURL} from "@/config/variables";
 import moment from 'moment-timezone'
 import './plugins/index'
 import LoadingScreen from '@/components/Loading/loading-screen'
+import dialog  from '@/components/Confirm'
+
+Vue.use(dialog)
 
 Vue.component('LoadingScreen', LoadingScreen)
 
@@ -22,6 +25,10 @@ Vue.prototype.$axios = axios
 Vue.prototype.$api = baseURL + '/client-api/'
 
 Vue.config.productionTip = false
+
+
+
+
 
 new Vue({
   router,

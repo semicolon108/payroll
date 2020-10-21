@@ -3,6 +3,7 @@
     <div class="content-container">
       <sidebar />
       <div class="main-content">
+        <button @click="$dialog.alert()">confim mss</button>
         <navigation />
         <div class="content-area">
           <router-view/>
@@ -15,10 +16,13 @@
 <!--    />-->
 <!--    <LoadingScreen v-if="$store.getters.isLoading" />-->
 <!--    <Loader/>-->
+
+
     <DefaultLoading/>
   </div>
 </template>
 <script>
+
 // import Lottie from "@coms/Loading/lottie-modal";
 import sidebar from "@coms/sidebar";
 import navigation from "@coms/navbar";
@@ -31,11 +35,12 @@ import DefaultLoading from '@/components/DefaultLoader/loading'
 
 export default {
   components:{
+
     // Lottie,
     // Loader,
     sidebar,
     navigation,
-    DefaultLoading
+    DefaultLoading,
   },
   computed: {
     ...mapGetters(['isAuth'])
