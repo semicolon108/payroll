@@ -85,6 +85,12 @@
             >
               Calculated
             </button>
+
+            <button
+
+                @click="calcPayroll"
+                class="button is-primary">Test Calculate
+            </button>
           </div>
 
 
@@ -216,6 +222,7 @@
       </div>
     </div>
     <component :is="ModalClick" @CloseModal="ModalClick=''"></component>
+    <CalcAnim :isCalculating="isCalculating"/>
   </div>
 </template>
 <script>
@@ -225,10 +232,12 @@ import {addOrUpdateActualWorkingDay} from "@/apis/actual-working-day-api";
 import {addOrUpdateCompanyCurrency, getCompanyCurrencies} from "@/apis/company-currency-api"
 import {mapGetters} from 'vuex'
 import {loadingTimeout} from "@/config/variables";
+import CalcAnim from "@coms/Payroll/Anim/CalcAnim";
 
 export default {
   components: {
     document,
+    CalcAnim
   },
   data: () => ({
     items: [],
@@ -240,6 +249,8 @@ export default {
     isMulti: false,
     compCurrencies: [],
     currencyIdx: '',
+
+    isCalculating: false,
 
 
     payrollEmps: {
@@ -269,22 +280,26 @@ export default {
   },
   methods: {
     async downloadBankTemplate() {
-      this.$store.commit('SET_IS_LOADING', true)
-      this.$axios.defaults.headers['Authorization'] = this.getToken
-      const res = await this.$axios.post(this.$api + 'download-bank-template/' + this.$route.params.id, null, {
-        responseType: 'blob'
-      })
-      const url = URL.createObjectURL(new Blob([res.data], {
-        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      }))
-      const link = window.document.createElement('a') // window was root
-      link.href = url
-      link.setAttribute('download', `${this.getCompany.financialInfo.bankId.name}-Payroll-Template.xlsx`)
-      window.document.body.appendChild(link)
-      link.click()
-      setTimeout(() => {
-        this.$store.commit('SET_IS_LOADING', false)
-      }, loadingTimeout)
+      try {
+        await this.$store.dispatch('loading')
+        this.$axios.defaults.headers['Authorization'] = this.getToken
+        const res = await this.$axios.post(this.$api + 'download-bank-template/' + this.$route.params.id, null, {
+          responseType: 'blob'
+        })
+        const url = URL.createObjectURL(new Blob([res.data], {
+          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        }))
+        const link = window.document.createElement('a') // window was root
+        link.href = url
+        link.setAttribute('download', `${this.getCompany.financialInfo.bankId.name}-Payroll-Template.xlsx`)
+        window.document.body.appendChild(link)
+        link.click()
+        await this.$store.dispatch('completed')
+        this.$dialog.alert('Exported')
+      } catch (err) {
+        await this.$store.dispatch('error')
+        throw new Error(err)
+      }
     },
     async downloadPayrollList() {
       try {
@@ -302,6 +317,7 @@ export default {
         window.document.body.appendChild(link)
         link.click()
         await this.$store.dispatch('completed')
+        this.$dialog.alert('Exported')
       } catch (err) {
         await this.$store.dispatch('error')
         throw new Error(err)
@@ -323,14 +339,20 @@ export default {
       })
     },
     async sendRequestCalc() {
-      const isConfirmed = confirm('Sure ?')
+      const isConfirmed = await this.$dialog.confirm()
       if (isConfirmed) {
-        this.$store.commit('SET_IS_LOADING', true)
-        await sendRequestCalc(this.$route.params.id)
-        await this.getPayrollByEmps()
-        setTimeout(() => {
-          this.$store.commit('SET_IS_LOADING', false)
-        }, loadingTimeout)
+        try {
+          await this.$store.dispatch('loading')
+          await sendRequestCalc(this.$route.params.id)
+          await this.$store.dispatch('completed')
+          this.$dialog.alert('Request was sent')
+          await this.getPayrollByEmps()
+        } catch (err) {
+          await this.$store.dispatch('error')
+          throw new Error(err)
+        }
+
+
       }
     },
     async sendPayslip() {
@@ -345,14 +367,27 @@ export default {
       }
     },
     async calcPayroll() {
-      const isConfirmed = confirm('Sure ?')
+      const isConfirmed = await this.$dialog.confirm()
       if (isConfirmed) {
-        this.$store.commit('SET_IS_LOADING', true)
-        await calcPayroll(this.$route.params.id)
-        await this.getPayrollByEmps()
-        setTimeout(() => {
-          this.$store.commit('SET_IS_LOADING', false)
-        }, loadingTimeout)
+        try {
+          this.isCalculating = true
+         await this.$store.dispatch('loading')
+          await calcPayroll(this.$route.params.id)
+          await this.getPayrollByEmps()
+          await setTimeout(async() => {
+            await this.$store.dispatch('completed')
+            this.isCalculating = false
+            setTimeout(() => {
+              this.$dialog.alert('Calculated')
+            }, 1400)
+          }, 1800)
+
+
+        } catch (err) {
+          this.isCalculating = false
+         await this.$store.dispatch('error')
+          throw new Error(err)
+        }
       }
     },
     async addOrUpdateActualWorkingDay(employeeId) {

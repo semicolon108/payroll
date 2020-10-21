@@ -3,7 +3,6 @@
     <div class="content-container">
       <sidebar />
       <div class="main-content">
-        <button @click="$dialog.alert()">confim mss</button>
         <navigation />
         <div class="content-area">
           <router-view/>
