@@ -1,29 +1,32 @@
 <template>
-  <transition name="bounce">
-    <div v-if="item.isShow && item.type === 'Alert'" class="flex-container">
-      <div class="dialog">
-        <h2 class="dialog-header">{{item.title}}</h2>
-        <div class="dialog-content">
-          <p>{{item.msg}}</p>
-        </div>
-        <div class="dialog-button">
-          <a @click="confirm">{{ item.okBtn }}</a>
-        </div>
-      </div>
-    </div>
-    <div v-else-if="item.isShow && item.type === 'Confirm'" class="flex-container">
-      <div class="dialog">
-        <h2 class="dialog-header">{{item.title}}</h2>
-        <div class="dialog-content">
-          <p>{{item.msg}}</p>
-        </div>
-        <div class="dialog-button">
-          <a @click="confirm">{{ item.confrimBtn }}</a>
-          <a @click="cancel" class="cancel">{{ item.cancelBtn }}</a>
+  <div>
+    <div class="dialog-bg" v-if="item.isShow"></div>
+    <transition name="bounce">
+      <div v-if="item.isShow && item.type === 'Alert'" class="flex-container">
+        <div class="dialog">
+          <h2 class="dialog-header">{{item.title}}</h2>
+          <div class="dialog-content">
+            <p>{{item.msg}}</p>
+          </div>
+          <div class="dialog-button">
+            <a @click="confirm">{{ item.okBtn }}</a>
+          </div>
         </div>
       </div>
-    </div>
-  </transition>
+      <div v-else-if="item.isShow && item.type === 'Confirm'" class="flex-container">
+        <div class="dialog">
+          <h2 class="dialog-header">{{item.title}}</h2>
+          <div class="dialog-content">
+            <p>{{item.msg}}</p>
+          </div>
+          <div class="dialog-button">
+            <a @click="confirm">{{ item.confrimBtn }}</a>
+            <a @click="cancel" class="cancel">{{ item.cancelBtn }}</a>
+          </div>
+        </div>
+      </div>
+    </transition>
+  </div>
 </template>
 
 <script>
@@ -41,7 +44,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.dialog-bg {
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #000;
+  opacity: 30%;
 
+}
 
 .bounce-enter-active {
   animation: bounce-in .5s;
@@ -103,7 +116,8 @@ export default {
 
   width: 250px;
 
-  background: rgba(220, 220, 220, 0.85)
+  //background: rgba(220, 220, 220, 0.85);
+  background: #fff;
 }
 
 .dialog-header {
@@ -145,7 +159,7 @@ export default {
 }
 
 .dialog-button a:hover {
-  background: rgb(180,180,180);
+  background: #dedede;
 }
 
 p {
