@@ -9,7 +9,8 @@
           v-if="$store.getters.isCompleted"
           class="lottie-box"
           :options="{...completedOptions, loop: true}"
-          :height="120" :width="220"/>
+          :height="120" :width="220"
+      />
 
 
       <Loading

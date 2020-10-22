@@ -107,20 +107,20 @@
             <label for="" class="label">Salary</label>
             <div class="field has-addons">
               <div class="control">
-                <div class="select" v-if="currencies.length">
+                <div class="select">
                   <ValidationProvider name="File" rules="required" v-slot="{ errors }">
                     <select v-if="companyCurrency && companyCurrency.isMulti" v-model="form.currencyId">
                       <option
 
-                          v-for="i in currencies"
+                          v-for="i in comCurrencies"
                           :value="i._id"
                           :key="i._id">{{ i.name }}
                       </option>
                     </select>
                     <select v-else v-model="form.currencyId">
                       <option
-                          :value="currencies[0]._id"
-                          :key="currencies[0]._id">{{ currencies[0].name }}
+                          :value="comCurrencies[0]._id"
+                          :key="comCurrencies[0]._id">{{ comCurrencies[0].name }}
                       </option>
                     </select>
                     <p class="has-text-danger">{{ errors[0] }}</p>
@@ -237,7 +237,17 @@ export default {
 
   }),
   computed: {
-    ...mapGetters(['getCompany'])
+    ...mapGetters(['getCompany']),
+    comCurrencies() {
+      const comCur = this.companyCurrency.currencies.map(i=>(
+          {
+            _id: i.currencyId._id,
+            name: i.currencyId.name
+          }
+      ))
+      comCur.unshift(this.currencies[0])
+      return comCur
+    }
   },
   methods: {
     select() {

@@ -7,12 +7,12 @@ import axios from 'axios'
 import {baseURL} from "@/config/variables";
 import moment from 'moment-timezone'
 import './plugins/index'
-import LoadingScreen from '@/components/Loading/loading-screen'
+// import LoadingScreen from '@/components/Loading/loading-screen'
 import dialog  from '@/components/Confirm'
 
 Vue.use(dialog)
 
-Vue.component('LoadingScreen', LoadingScreen)
+// Vue.component('LoadingScreen', LoadingScreen)
 
 
 Vue.filter('moment', (date) => moment(date).tz('Asia/Bangkok').format('LL'))

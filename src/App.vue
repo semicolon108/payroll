@@ -22,21 +22,14 @@
 </template>
 <script>
 
-// import Lottie from "@coms/Loading/lottie-modal";
 import sidebar from "@coms/sidebar";
 import navigation from "@coms/navbar";
 import {mapMutations, mapGetters, mapActions} from 'vuex'
-// import Loader from '@/components/Loading/Loader'
-
 import DefaultLoading from '@/components/DefaultLoader/loading'
 
-//import axios from 'axios'
 
 export default {
   components:{
-
-    // Lottie,
-    // Loader,
     sidebar,
     navigation,
     DefaultLoading,

@@ -58,6 +58,13 @@ const actions = {
             await timeout(1400)
             commit('SET_IS_ERROR', false)
         })
+    },
+    stopLoading({commit}) {
+        return new Promise(async resolve => {
+            await timeout(500)
+            commit('SET_IS_LOADING', false)
+            resolve('done')
+        })
     }
 }
 

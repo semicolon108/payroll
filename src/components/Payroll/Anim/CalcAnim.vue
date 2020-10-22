@@ -1,63 +1,88 @@
 <template>
-<div>
-  <div v-if="isCalculating" class="anim">
-    <div class="anim-bg"></div>
-    <img src="../../../../public/assets/gif/calc-anim.gif" alt="">
+  <div v-if="isCalculating || afterCalculated" class="lottie-container is-active">
+    <div class="bg"></div>
+    <div class="box slide-down">
+      <div v-if="isCalculating">
+        <Calculating
+            type="Calculating"/>
+        <!--        <p>Sending...</p>-->
+      </div>
+      <div v-else-if="afterCalculated">
+        <Completed
+            type="Completed"/>
+        <div style="display: flex; justify-content: center">
+          <button @click="afterCalculated = false" class="button">OK</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <div v-if="afterCalculated" class="anim">
-    <div class="anim-bg"></div>
-    <img src="../../../../public/assets/gif/done-calc-anim.gif" alt="">
-  </div>
-</div>
 </template>
 
 <script>
+import Calculating from './Lottie/Loader'
+import Completed from './Lottie/Loader'
+
 export default {
+  components: {
+    Calculating,
+    Completed
+  },
   props: ['isCalculating'],
   data: () => ({
     afterCalculated: false
   }),
   watch: {
     isCalculating(val) {
-      if(!val) this.afterCalculated = true
-    },
-    afterCalculated(val) {
-      if(val) setTimeout(() => {
-        this.afterCalculated = false
-      }, 1200)
+      if (!val) {
+        this.afterCalculated = true
+      }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.anim {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  overflow: hidden;
+.lottie-container {
+  background-color: rgba(#000, .8);
   position: fixed;
-  top: 0;
   left: 0;
   right: 0;
+  top: 0;
   bottom: 0;
   z-index: 999;
-  .anim-bg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #000;
-    opacity: 30%;
-  }
-  img {
-    z-index: 999;
-    border-radius: 20px;
+  .box {
+    width: 400px;
+    max-width: 500px;
 
+    .lottie-box {
+      height: 120px;
+    }
+
+    .msg {
+      color: $font-color;
+      text-align: center;
+
+      h3 {
+        font-size: 22px;
+        font-weight: 700;
+      }
+
+      p {
+        font-size: 16px;
+      }
+
+      .button {
+        margin-top: 10px;
+        background-color: $primary-color;
+        color: #fff;
+        border-radius: $radius;
+        font-size: 18px;
+      }
+    }
   }
 }
-
 </style>

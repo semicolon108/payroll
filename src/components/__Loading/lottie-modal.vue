@@ -6,7 +6,9 @@
               v-if="$store.getters.isLoading"
               class="lottie-box"
               :options="{...loadingOptions, loop: true}"
-              :height="120" :width="220"/>
+              :height="120" :width="220"
+
+          />
 
             <lottie
                 v-else
@@ -39,7 +41,7 @@
     data: () => ({
         modal: true,
         defaultOptions: {},
-      loadingOptions: {}
+        loadingOptions: {}
     }),
     created(){
       this.loadingOptions = { animationData: require(`./email-sent.json`) }

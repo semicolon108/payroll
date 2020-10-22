@@ -86,11 +86,11 @@
               Calculated
             </button>
 
-            <button
+<!--            <button-->
+<!--                @click="calcPayroll"-->
+<!--                class="button is-primary">Test Calculate-->
+<!--            </button>-->
 
-                @click="calcPayroll"
-                class="button is-primary">Test Calculate
-            </button>
           </div>
 
 
@@ -356,14 +356,16 @@ export default {
       }
     },
     async sendPayslip() {
-      const isConfirmed = confirm('Sure ?')
+      const isConfirmed = await this.$dialog.confirm()
       if (isConfirmed) {
-        this.$store.commit('SET_IS_LOADING', true)
+        this.isCalculating = true
+        await this.$store.dispatch('loading')
         await sendPayslip(this.$route.params.id)
         await this.getPayrollByEmps()
-        setTimeout(() => {
-          this.$store.commit('SET_IS_LOADING', false)
-        }, loadingTimeout)
+        await setTimeout(async () => {
+          await this.$store.dispatch('stopLoading')
+          this.isCalculating = false
+        }, 1800)
       }
     },
     async calcPayroll() {
@@ -371,21 +373,16 @@ export default {
       if (isConfirmed) {
         try {
           this.isCalculating = true
-         await this.$store.dispatch('loading')
+          await this.$store.dispatch('loading')
           await calcPayroll(this.$route.params.id)
           await this.getPayrollByEmps()
-          await setTimeout(async() => {
-            await this.$store.dispatch('completed')
+          await setTimeout(async () => {
+            await this.$store.dispatch('stopLoading')
             this.isCalculating = false
-            setTimeout(() => {
-              this.$dialog.alert('Calculated')
-            }, 1400)
           }, 1800)
-
-
         } catch (err) {
           this.isCalculating = false
-         await this.$store.dispatch('error')
+          await this.$store.dispatch('error')
           throw new Error(err)
         }
       }
