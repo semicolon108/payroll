@@ -160,7 +160,7 @@
               <div class="field">
                 <label class="label">End Date</label>
                 <ValidationProvider name="End Date" rules="required|isDate" v-slot="{ errors }">
-                  <DatePicker v-model="form.workPermit.endDate" :defaultValue="defaultValue.workPermit.startDate"/>
+                  <DatePicker v-model="form.workPermit.endDate" :defaultValue="defaultValue.workPermit.endDate"/>
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
               </div>
