@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="dialog-bg"
+         style="opacity: 30%"
          v-if="item.isShow"></div>
     <transition name="bounce">
       <div v-if="item.isShow && item.type === 'Alert'" class="flex-container">
