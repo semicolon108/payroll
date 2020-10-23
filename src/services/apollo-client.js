@@ -27,7 +27,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
                window.location.href = logoutURL
             }
         })
-    if (networkError) console.log(`[Network error]: ${networkError}`)
+   // if (networkError) console.log(`[Network error]: ${networkError}`)
 })
 
 const defaultOptions = {
