@@ -20,7 +20,7 @@ const authLink = setContext(async (_, { headers }) => {
     }
 })
 
-const errorLink = onError(({ graphQLErrors, networkError }) => {
+const errorLink = onError(({ graphQLErrors }) => {
     if (graphQLErrors)
         graphQLErrors.forEach((err) => {
             if(err.extensions.code === 'UNAUTHENTICATED') {
@@ -40,7 +40,6 @@ const defaultOptions = {
         errorPolicy: 'all',
     }
 }
-
 
 
 // HTTP connection to the API
