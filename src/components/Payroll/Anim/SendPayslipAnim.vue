@@ -1,6 +1,6 @@
 <template>
   <div v-if="isCalculating || afterCalculated" class="lottie-container is-active">
-    <div class="bg"></div>
+    <div class="bg"  style="opacity: 30%"></div>
     <div class="box slide-down">
       <div v-if="isCalculating">
         <Calculating
