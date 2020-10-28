@@ -128,17 +128,18 @@
                 </div>
               </div>
               <div class="control is-expanded">
-                <ValidationProvider name="File" rules="required" v-slot="{ errors }">
-                <currency-input
-                    v-model="form.salary"
-                    class="input"
-                    :allow-negative="false"
-                    :value-range="{ min: 0 }"
-                    :distraction-free="false"
-                    :currency="{ prefix: '', suffix: '' }"
-                    :value-as-integer="true"
-                    :precision="0"
-                />
+                <ValidationProvider name="Salary" rules="required" v-slot="{ errors }">
+                  <currency-input
+                      v-model="form.salary"
+                      class="input"
+                      :allow-negative="false"
+                      :value-range="{ min: 0 }"
+                      :distraction-free="false"
+                      :currency="{ prefix: '', suffix: '' }"
+                      :value-as-integer="true"
+                      :precision="0"
+                  />
+                  <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
               </div>
             </div>
