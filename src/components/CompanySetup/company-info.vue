@@ -127,7 +127,7 @@
 </template>
 
 <script>
-import {mapGetters, mapMutations, mapActions} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 import {getReuse} from "@/apis/reuse-api";
 
 export default {
@@ -146,7 +146,6 @@ export default {
     }
   }),
   methods: {
-    ...mapMutations(['SET_COMPANY']),
     ...mapActions(['updateCompany']),
     async updateCompanyInfo() {
       try {

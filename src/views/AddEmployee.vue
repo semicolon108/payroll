@@ -25,25 +25,24 @@
           <button
               v-if="$route.name !== 'document' && $route.name !== 'basic_detail'"
               @click="$refs.refRoute.saveOnly()" class="button">Save</button>
-
         </div>
     </div>
     <div class="steps" v-if="$route.params.id">
       <router-link
           v-if="$route.params.id"
-          :to="{name:'edit_basic_detail', params: { id: $route.params.id }}" class="step done"
+          :to="{name:'edit_basic_detail', params: { id: $route.params.id }}" class="step "
       >1. Basic Detail
       </router-link>
       <router-link
           v-else
-          :to="{name:'basic_detail'}" class="step done"
+          :to="{name:'basic_detail'}" class="step "
       >1. Basic Detail
       </router-link>
       <router-link :to="{name:'hiring_detail', params: { id: $route.params.id }}" class="step">2. Hiring Detail
       </router-link>
       <router-link :to="{name:'earning'}" class="step">3. Earning / Deduction</router-link>
       <router-link :to="{name:'document'}" class="step">4. Document</router-link>
-    </div><!-- Step -->
+    </div>
     <div class="box">
       <router-view ref="refRoute"></router-view>
     </div>
@@ -58,7 +57,6 @@ export default {}
 .box {
   padding: 30px;
   border: 1px solid $border-color;
-  box-shadow: none;
   box-shadow: unset;
   color: $font-color;
 

@@ -36,6 +36,11 @@ export const GET_COMPANY = gql`
                 name
                 email
             }
+            expatManager {
+                notificationEmail
+                noticePeriodDay
+            }
+            isHiringExpat
         }
     }
 
@@ -82,6 +87,7 @@ export const UPDATE_COMPANY = gql`
                 name
                 email
             }
+            isHiringExpat
         }
     }
 

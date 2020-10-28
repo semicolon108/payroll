@@ -14,6 +14,7 @@
 </template>
 <script>
 
+
 import sidebar from "@coms/sidebar";
 import navigation from "@coms/navbar";
 import {mapMutations, mapGetters, mapActions} from 'vuex'

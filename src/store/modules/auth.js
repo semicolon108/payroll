@@ -44,6 +44,7 @@ const actions  =  {
     },
     async updateCompany({ commit }, form) {
         const company = await updateCompany(form)
+        console.log(company)
         commit('SET_COMPANY', company)
     }
 }
