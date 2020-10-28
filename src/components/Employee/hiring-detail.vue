@@ -128,6 +128,7 @@
                 </div>
               </div>
               <div class="control is-expanded">
+                <ValidationProvider name="File" rules="required" v-slot="{ errors }">
                 <currency-input
                     v-model="form.salary"
                     class="input"
@@ -138,6 +139,7 @@
                     :value-as-integer="true"
                     :precision="0"
                 />
+                </ValidationProvider>
               </div>
             </div>
           </div>
