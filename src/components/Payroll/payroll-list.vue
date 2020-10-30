@@ -25,16 +25,16 @@
                 </div>
             </div>
           <div
-              v-if="currentItem.isApproved"
+
               @click="$router.push({ name: 'payrollCalculation', params: { id: currentItem.monthlyPaymentId } })"
               class="summary-option">
             <span>Calculate</span>
           </div>
-            <div v-else class="summary-option"
-                 @click="alert = 'checkDeductible'; monthlyPaymentId = currentItem.monthlyPaymentId "
-            >
-                <span>Calculate</span>
-            </div>
+<!--            <div v-else class="summary-option"-->
+<!--                 @click="alert = 'checkDeductible'; monthlyPaymentId = currentItem.monthlyPaymentId "-->
+<!--            >-->
+<!--                <span>Calculate</span>-->
+<!--            </div>-->
         </div>
     </div>
 

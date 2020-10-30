@@ -111,7 +111,6 @@
                   <ValidationProvider name="File" rules="required" v-slot="{ errors }">
                     <select v-if="companyCurrency && companyCurrency.isMulti" v-model="form.currencyId">
                       <option
-
                           v-for="i in comCurrencies"
                           :value="i._id"
                           :key="i._id">{{ i.name }}

@@ -1,6 +1,6 @@
 <template>
 <div class="modal is-active">
-  <div class="modal-background" @click="CloseModal()"></div>
+  <div class="modal-background" @click="CloseModal"></div>
   <div class="modal-content box slide-down">
     <div class="header">
         <!-- <i class="fas fa-receipt"></i> -->
@@ -12,21 +12,22 @@
     <div class="modal-form">
         <div class="columns is-multiline">
             <div class="column is-6">
-                <div class="field">
+                <div class="field" style="position: relative;">
                     <label for="" class="label">Employee Name + ID</label>
                     <div class="conttrol">
-                        <input type="text" class="input" required>
+                        <input type="text" class="input" style="cursor: pointer" disabled required>
                     </div>
+                  <Dropdown />
                 </div>
             </div>
-            <div class="column is-6">
-                <div class="field">
-                    <label for="" class="label">Payment Date</label>
-                    <div class="conttrol">
-                        <input type="text" class="input" required>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="column is-6">-->
+<!--                <div class="field">-->
+<!--                    <label for="" class="label">Payment Date</label>-->
+<!--                    <div class="conttrol">-->
+<!--                        <input type="text" class="input" required>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="column is-6">
                 <div class="field">
                     <label for="" class="label">Earning / Deducting</label>
@@ -55,22 +56,30 @@
 
     <div class="btn-group">
         <button class="button">Save Changes</button>
-        <button class="button"  @click="CloseModal()">Cancel</button>
+        <button class="button"  @click="CloseModal">Cancel</button>
     </div>
-    <button class="modal-close is-large" @click="CloseModal()" aria-label="close"></button>
+    <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
   </div>
 </div>
 </template>
 
+
+
 <script>
+
+import Dropdown from "@coms/Reusable/Dropdown";
+
     export default {
+      components: {
+        Dropdown
+      },
         data: () => ({
             employee : false,
         }),
         methods:{
             CloseModal(){
                 this.$emit('CloseModal')
-            },
+            }
         },
     }
 </script>

@@ -6,23 +6,24 @@
         <div class="header-title">
           <h3 class="xxl-title">{{ date | moment }}</h3>
           <div class="button-group">
-<!--            <button class="button" @click="ModalClick = 'Add'">Add</button>-->
+            <button class="button" @click="ModalClick = 'Add'">Add</button>
             <button v-if="!isApproved" class="button" @click="ModalClick = 'Upload'">Upload</button>
           </div>
         </div>
       </div>
-      <div class="header-end">
-        <button v-if="isApproved"
-                class="button"
-                :disabled="isApproved">
-            <i class="fas fa-check-circle"></i>
-            Approved
-          </button>
-          <button v-else
-                  @click="approveDeductible"
-                  class="button pending">Approve All
-          </button>
-      </div>
+<!--      <div class="header-end">-->
+<!--        <button v-if="isApproved"-->
+<!--                class="button"-->
+<!--                :disabled="isApproved">-->
+<!--            <i class="fas fa-check-circle"></i>-->
+<!--            Approved-->
+<!--          </button>-->
+<!--          <button-->
+<!--              v-else-->
+<!--              @click="approveDeductible"-->
+<!--              class="button pending">Approve All-->
+<!--          </button>-->
+<!--      </div>-->
     </div>
     <div class="box slide-up">
       <table class="table is-fullwidth" id="my-table">
@@ -111,14 +112,12 @@
 </template>
 
 <script>
-import Edit from '@coms/Deductible/Modal/edit.vue'
 import Add from '@coms/Deductible/Modal/add.vue'
 import Upload from '@coms/Deductible/Modal/upload.vue'
 import {approveDeductible, getMonthlyPaymentEmployees} from "@/apis/monthly-payment-employee";
 
 export default {
   components: {
-    Edit,
     Add,
     Upload
   },

@@ -1,5 +1,5 @@
-import {apolloClient} from "@/services/apollo-client";
-import {ADD_OR_UPDATE_ACTUAL_WORKING_DAY} from "@/graphql/ActualWorkingDay";
+import {apolloClient} from '@/services/apollo-client'
+import {ADD_OR_UPDATE_ACTUAL_WORKING_DAY} from '@/graphql/ActualWorkingDay'
 
 export const addOrUpdateActualWorkingDay = (form) => {
     return new Promise(async (resolve, reject) => {
@@ -14,3 +14,5 @@ export const addOrUpdateActualWorkingDay = (form) => {
         }
     })
 }
+
+
