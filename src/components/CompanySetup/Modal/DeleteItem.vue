@@ -3,13 +3,10 @@
     <div class="modal-background" @click="CloseModal()"></div>
     <div class="modal-content box slide-down">
       <div class="header">
-        <i class="fas fa-exclamation"></i>
-        <div>
-          <h3>Delete</h3>
-          <p>Are you sure to delete "({{ name }})"</p>
-        </div>
+        <h3>Delete</h3>
+        <p>Are you sure to delete "({{ name }})"</p>
       </div>
-      <button @click="deleteEarnDeduct" class="button save-file">Confirm</button>
+      <button @click="deleteEarnDeduct" class="button primary">Confirm</button>
       <button class="button" @click="CloseModal">Cencel</button>
       <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
     </div>
@@ -79,38 +76,9 @@ export default {
   button.button {
     border-radius: 0;
     border: 1px solid $border-color;
-  }
-
-  .save-file {
-    background-color: $primary-color;
-    border-color: $primary-color;
-    color: #fff;
     margin-right: 10px;
   }
 }
 
-.modal-close {
-  position: absolute;
-  top: 20px;
-  z-index: 1;
-  height: 40px;
-  max-height: 40px;
-  max-width: 40px;
-  min-height: 40px;
-  min-width: 40px;
-  width: 40px;
-
-  &:hover {
-    background-color: $border-color;
-  }
-
-  &::after {
-    background-color: $grey-color;
-  }
-
-  &::before {
-    background-color: $grey-color;
-  }
-}
 
 </style>

@@ -4,11 +4,8 @@
     <div class="modal-content box">
       <ValidationObserver v-slot="{ handleSubmit }">
         <div class="header">
-          <i class="fas fa-folder"></i>
-          <div>
             <h3>Upload your document</h3>
             <p>Please select file to upload</p>
-          </div>
         </div>
 
         <div class="upload-box">
@@ -36,7 +33,7 @@
             </ValidationProvider>
           </div>
         </div>
-        <button @click="handleSubmit(addDocument)" class="button save-file">Save</button>
+        <button @click="handleSubmit(addDocument)" class="button primary">Save</button>
         <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
       </ValidationObserver>
     </div>
@@ -109,100 +106,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.modal-content {
-  border-radius: 0;
-  position: relative;
-  padding: 40px;
-  color: $font-color;
+.upload-box {
+  margin: 20px 0;
+  width: 100%;
+  height: 150px;
+  border: 2px dashed $border-color;
+  display: flex;
+  justify-content: center;
 
-  .header {
-    i {
-      font-size: 30px;
-      margin-bottom: 20px;
-      color: $sub-color;
-    }
-
-    h3 {
-      font-size: 24px;
-      font-weight: 700;
-      color: $font-color;
-    }
-
-    p {
-      color: $font-color;
-    }
-  }
-
-  .field {
-    margin-bottom: 20px;
-
-    label {
-      color: $font-color;
-      font-weight: normal;
-    }
-
-    input {
-      @include input;
-    }
-  }
-
-  .upload-box {
-    margin: 20px 0;
-    width: 100%;
-    height: 150px;
-    border: 2px dashed $border-color;
+  .upload {
     display: flex;
-    justify-content: center;
+    align-items: center;
 
-    .upload {
-      display: flex;
-      align-items: center;
+    .upload-btn {
+      border-radius: 0;
+      background-color: $border-color;
+      color: $font-color;
+      border: none;
 
-      .upload-btn {
-        border-radius: 0;
-        background-color: $border-color;
-        color: $font-color;
+      &:focus {
         border: none;
-
-        &:focus {
-          border: none;
-        }
-      }
-
-      span {
-        font-size: 14px;
-        margin-left: 10px;
       }
     }
-  }
 
-  .save-file {
-    border-radius: 0;
-    background-color: $primary-color;
-    border-color: $primary-color;
-    color: #fff;
+    span {
+      font-size: 14px;
+      margin-left: 10px;
+    }
   }
 }
 
-.modal-close {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 1;
-  height: 40px;
-  max-height: 40px;
-  max-width: 40px;
-  min-height: 40px;
-  min-width: 40px;
-  width: 40px;
-  border-radius: 0 0 0 5px;
-  background-color: $border-color;
-  &::after {
-    background-color: $grey-color;
-  }
-
-  &::before {
-    background-color: $grey-color;
-  }
-}
 </style>

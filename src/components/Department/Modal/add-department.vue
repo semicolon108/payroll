@@ -5,10 +5,7 @@
 
       <ValidationObserver v-slot="{ handleSubmit }">
         <div class="header">
-          <i class="fas fa-sitemap"></i>
-          <div>
-            <h3>{{ isEditMode ? 'Edit Department' : 'Add Department' }}</h3>
-          </div>
+          <h3>{{ isEditMode ? 'Edit Department' : 'Add Department' }}</h3>
         </div>
 
         <div class="field">
@@ -21,10 +18,11 @@
           </div>
         </div>
         <button v-if="isEditMode" @click="handleSubmit(updateDepartment)" class="button save-file">Update</button>
-        <button v-else @click="handleSubmit(addDepartment)" class="button save-file">Save</button>
+        <button v-else @click="handleSubmit(addDepartment)" class="button primary">Save</button>
         <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
       </ValidationObserver>
     </div>
+    
   </div>
 </template>
 
@@ -123,37 +121,6 @@ export default {
     input {
       @include input;
     }
-  }
-
-  .save-file {
-    border-radius: 0;
-    background-color: $primary-color;
-    border-color: $primary-color;
-    color: #fff;
-  }
-}
-
-.modal-close {
-  position: absolute;
-  top: 20px;
-  z-index: 1;
-  height: 40px;
-  max-height: 40px;
-  max-width: 40px;
-  min-height: 40px;
-  min-width: 40px;
-  width: 40px;
-
-  &:hover {
-    background-color: $border-color;
-  }
-
-  &::after {
-    background-color: $grey-color;
-  }
-
-  &::before {
-    background-color: $grey-color;
   }
 }
 </style>

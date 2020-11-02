@@ -4,10 +4,7 @@
     <ValidationObserver v-slot="{ handleSubmit }">
       <div class="modal-content box slide-down">
         <div class="header">
-          <i class="fas fa-sitemap"></i>
-          <div>
-            <h3>{{ isEditMode ? 'Edit Position' : 'Add Position' }}</h3>
-          </div>
+          <h3>{{ isEditMode ? 'Edit Position' : 'Add Position' }}</h3>
         </div>
         <div class="field">
           <label for="" class="label">Position</label>
@@ -30,8 +27,8 @@
             </div>
           </div>
         </div>
-        <button v-if="isEditMode" @click="handleSubmit(updatePosition)" class="button save-file">Update</button>
-        <button v-else @click="handleSubmit(addPosition)" class="button save-file">Save</button>
+        <button v-if="isEditMode" @click="handleSubmit(updatePosition)" class="button primary">Update</button>
+        <button v-else @click="handleSubmit(addPosition)" class="button primary">Save</button>
         <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
       </div>
     </ValidationObserver>
@@ -114,78 +111,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.modal-content {
-  border-radius: 0;
-  position: relative;
-  padding: 40px;
-  color: $font-color;
-
-  .header {
-    margin-bottom: 20px;
-
-    i {
-      font-size: 30px;
-      margin-bottom: 20px;
-      color: $sub-color;
-    }
-
-    h3 {
-      font-size: 24px;
-      font-weight: 700;
-      color: $font-color;
-    }
-
-    p {
-      color: $font-color;
-    }
-  }
-
-  .field {
-    margin-bottom: 20px;
-
-    label {
-      color: $font-color;
-      font-weight: normal;
-    }
-
-    input {
-      @include input;
-    }
-  }
-
-  .save-file {
-    border-radius: 0;
-    background-color: $primary-color;
-    border-color: $primary-color;
-    color: #fff;
-  }
-}
-
-.modal-close {
-  position: absolute;
-  top: 20px;
-  z-index: 1;
-  height: 40px;
-  max-height: 40px;
-  max-width: 40px;
-  min-height: 40px;
-  min-width: 40px;
-  width: 40px;
-
-  &:hover {
-    background-color: $border-color;
-  }
-
-  &::after {
-    background-color: $grey-color;
-  }
-
-  &::before {
-    background-color: $grey-color;
-  }
-}
-
 
 .select {
   width: 100%;

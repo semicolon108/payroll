@@ -208,18 +208,16 @@ th {
 }
 .back {
   cursor: pointer;
+  display: inline-block;
   color: $font-grey-color;
-  display: flex;
-  align-items: center;
+  &:hover {
+    color: $primary-color;
+  }
   &::before {
-    content: '';
-    display: inline-block;
-    border-right: 2px solid $font-grey-color;
-    border-bottom: 2px solid $font-grey-color;
-    width: 8px;
-    height: 8px;
-    transform: rotate(-225deg);
-    margin-right: 3px;
+    content: '\f053';
+    font-family: FontAwesome;
+    margin-right: 5px;
+    font-size: 14px;
   }
 }
 th {

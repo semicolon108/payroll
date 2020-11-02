@@ -3,10 +3,7 @@
     <div class="modal-background" @click="CloseModal"></div>
     <ValidationObserver v-slot="{ handleSubmit }" tag="div" class="modal-content box slide-down">
       <div class="header">
-        <i class="fas fa-suitcase"></i>
-        <div>
-          <h3>Add Earning / Deduction</h3>
-        </div>
+        <h3>Add Earning / Deduction</h3>
       </div>
       <div class="field">
         <label for="" class="label">Item Name</label>
@@ -62,6 +59,9 @@
             </div>
           </div>
       </div>
+
+      <hr>
+
       <button v-if="isEditMode" @click="handleSubmit(updateEarnDeduct)" class="button save-file">Update</button>
       <button v-else @click="handleSubmit(addEarnDeduct)" class="button save-file">Save</button>
       <button class="modal-close is-large" @click="CloseModal()" aria-label="close"></button>
@@ -135,6 +135,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+hr{
+  height: 1px;
+}
 .items{
   display: flex;
   .item{
@@ -148,80 +151,9 @@ export default {
       color: #000;
     }
     .is-active{
-      background-color: $primary-color;
+      background-color: $sub-color;
       color: #fff;
     }
-  }
-}
-
-.modal-content {
-  border-radius: 0;
-  position: relative;
-  padding: 40px;
-  color: $font-color;
-
-  .header {
-    margin-bottom: 20px;
-
-    i {
-      font-size: 30px;
-      margin-bottom: 20px;
-      color: $sub-color;
-    }
-
-    h3 {
-      font-size: 24px;
-      font-weight: 700;
-      color: $font-color;
-    }
-
-    p {
-      color: $font-color;
-    }
-  }
-
-  .field {
-    margin-bottom: 20px;
-
-    label {
-      color: $font-color;
-      font-weight: normal;
-    }
-
-    input {
-      @include input;
-    }
-  }
-
-  .save-file {
-    border-radius: 0;
-    background-color: $primary-color;
-    border-color: $primary-color;
-    color: #fff;
-  }
-}
-
-.modal-close {
-  position: absolute;
-  top: 20px;
-  z-index: 1;
-  height: 40px;
-  max-height: 40px;
-  max-width: 40px;
-  min-height: 40px;
-  min-width: 40px;
-  width: 40px;
-
-  &:hover {
-    background-color: $border-color;
-  }
-
-  &::after {
-    background-color: $grey-color;
-  }
-
-  &::before {
-    background-color: $grey-color;
   }
 }
 

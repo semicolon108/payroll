@@ -3,10 +3,7 @@
   <div class="modal-background" @click="CloseModal"></div>
   <div class="modal-content box slide-down">
     <div class="header">
-        <i class="fas fa-sitemap"></i>
-        <div>
-            <h3>Edit Department</h3>
-        </div>
+        <h3>Edit Department</h3>
     </div>
 
     <div class="field">

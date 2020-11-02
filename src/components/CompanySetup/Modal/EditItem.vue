@@ -3,10 +3,7 @@
   <div class="modal-background" @click="CloseModal()"></div>
   <div class="modal-content box slide-down">
     <div class="header">
-        <i class="fas fa-pen"></i>
-        <div>
-            <h3>Edit Earning / Deduction</h3>
-        </div>
+        <h3>Edit Earning / Deduction</h3>
     </div>
 
     <div class="field">
@@ -39,7 +36,7 @@
             <input type="text" class="input" placeholder="Item, Item">
         </div>
     </div>
-    <button class="button save-file">Save</button>
+    <button class="button primary">Save</button>
     <button class="modal-close is-large" @click="CloseModal()" aria-label="close"></button>
   </div>
 </div>
@@ -59,66 +56,6 @@
 </script>
 
 <style lang="scss" scoped>
-.modal-content{
-    border-radius: 0;
-    position: relative;
-    padding: 40px;
-    color: $font-color;
-    .header{
-        margin-bottom: 20px;
-        i{
-            font-size: 30px;
-            margin-bottom: 20px;
-            color: $sub-color;
-        }
-        h3{
-            font-size: 24px;
-            font-weight: 700;
-            color: $font-color;
-        }
-        p{
-            color: $font-color;
-        }
-    }
-    .field{
-        margin-bottom: 20px;
-        label{
-            color: $font-color;
-            font-weight: normal;
-        }
-        input{
-            @include input;
-        }
-    }
-
-    .save-file{
-        border-radius: 0;
-        background-color: $primary-color;
-        border-color: $primary-color;
-        color: #fff;
-    }
-}
-.modal-close{
-    position: absolute;
-    top: 20px;
-    z-index: 1;
-    height: 40px;
-    max-height: 40px;
-    max-width: 40px;
-    min-height: 40px;
-    min-width: 40px;
-    width: 40px;
-    &:hover{
-        background-color: $border-color;
-    }
-    &::after{
-        background-color: $grey-color;
-    }
-    &::before{
-        background-color: $grey-color;
-    }
-}
-
 .switch{
     display: flex;
     align-items: center;

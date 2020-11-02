@@ -3,10 +3,7 @@
   <div class="modal-background" @click="CloseModal"></div>
   <ValidationObserver v-slot="{ handleSubmit }" tag="div" class="modal-content box slide-down">
     <div class="header">
-        <i class="far fa-object-group"></i>
-        <div>
-            <h3>Create Group</h3>
-        </div>
+      <h3>Create Group</h3>
     </div>
     <div class="field">
         <label for="" class="label">Group Name</label>
@@ -89,25 +86,4 @@
         color: #fff;
     }
 }
-.modal-close{
-    position: absolute;
-    top: 20px;
-    z-index: 1;
-    height: 40px;
-    max-height: 40px;
-    max-width: 40px;
-    min-height: 40px;
-    min-width: 40px;
-    width: 40px;
-    &:hover{
-        background-color: $border-color;
-    }
-    &::after{
-        background-color: $grey-color;
-    }
-    &::before{
-        background-color: $grey-color;
-    }
-}
-
 </style>

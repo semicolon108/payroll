@@ -3,13 +3,9 @@
     <div class="modal-background" @click="CloseModal"></div>
     <div class="modal-content box slide-down">
       <div class="header">
-        <i class="fas fa-folder"></i>
-        <div>
           <h3>Upload Deductible</h3>
           <p>Please download to fill earning / deduction information</p>
-          <a
-              @click="downloadTemplate" class="template-file"><i class="fas fa-file-excel"></i>Excel Template</a>
-        </div>
+          <a @click="downloadTemplate" class="template-file"><i class="fas fa-file-excel"></i>Excel Template</a>
       </div>
 
       <div class="upload-box">
@@ -22,7 +18,7 @@
         <!-- hidden -->
         <input type="file" class="input is-hidden" ref="uploadFile">
       </div>
-      <button class="button save-file">Save</button>
+      <button class="button primary">Save</button>
       <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
     </div>
     <!--    <div @click="items = []" v-if="items.length" style="position: fixed; bottom: 0; left: 0; right: 0; top: 0; background-color: #fff">-->
@@ -163,46 +159,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.modal-content {
-  border-radius: 0;
-  position: relative;
-  padding: 40px;
-  color: $font-color;
 
-  .header {
+  .template-file {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: $sub-color;
+    color: #fff;
+    cursor: pointer;
     i {
-      font-size: 30px;
-      margin-bottom: 20px;
-      color: $sub-color;
-    }
-
-    h3 {
-      font-size: 24px;
-      font-weight: 700;
-      color: $font-color;
-    }
-
-    p {
-      color: $font-color;
-    }
-
-    .template-file {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 5px 10px;
-      background-color: $sub-color;
       color: #fff;
-      cursor: pointer;
-      font-size: 14px;
-
-      i {
-        color: #fff;
-        font-size: 14px;
-        margin: 0 5px 0 0;
-      }
-    }
+      margin: 0 5px 0 0;
+    }  
   }
-
   .field {
     margin-bottom: 20px;
 
@@ -252,36 +221,4 @@ export default {
       }
     }
   }
-
-  .save-file {
-    border-radius: 0;
-    background-color: $primary-color;
-    border-color: $primary-color;
-    color: #fff;
-  }
-}
-
-.modal-close {
-  position: absolute;
-  top: 20px;
-  z-index: 1;
-  height: 40px;
-  max-height: 40px;
-  max-width: 40px;
-  min-height: 40px;
-  min-width: 40px;
-  width: 40px;
-
-  &:hover {
-    background-color: $border-color;
-  }
-
-  &::after {
-    background-color: $grey-color;
-  }
-
-  &::before {
-    background-color: $grey-color;
-  }
-}
 </style>

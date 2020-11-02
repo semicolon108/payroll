@@ -13,7 +13,7 @@
           <!-- isOnFinish -->
           <button
               v-if="$route.name === 'document'"
-              @click="$router.replace({ name: 'employee' })" class="button">Finish</button>
+              @click="$router.replace({ name: 'employee' })" class="button primary size-lg">Finish</button>
 
           <!-- isAddMode -->
           <button
@@ -59,13 +59,6 @@ export default {}
   border: 1px solid $border-color;
   box-shadow: unset;
   color: $font-color;
-
-  .save-btn {
-    margin-top: 30px;
-    margin-left: auto;
-    margin-right: auto;
-    @include primary-btn;
-  }
 }
 
 .steps {

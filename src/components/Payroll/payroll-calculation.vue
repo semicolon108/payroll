@@ -453,11 +453,9 @@ export default {
   cursor: pointer;
   display: inline-block;
   color: $font-grey-color;
-
   &:hover {
     color: $primary-color;
   }
-
   &::before {
     content: '\f053';
     font-family: FontAwesome;

@@ -141,13 +141,6 @@
 .btn-group{
     margin-top: 20px;
     display: flex;
-    .button{
-        border-radius: 0;
-        &:first-child{
-            margin-right: 10px;
-            @include primary-btn;
-        }
-    }
 }
     
 

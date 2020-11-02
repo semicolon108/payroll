@@ -3,10 +3,7 @@
     <div class="modal-background" @click="CloseModal"></div>
     <ValidationObserver v-slot="{ handleSubmit }" tag="div" class="modal-content box slide-down">
       <div class="header">
-        <i class="far fa-object-group"></i>
-        <div>
-          <h3>Manage Group</h3>
-        </div>
+        <h3>Manage Group</h3>
       </div>
 
       <div class="field">
@@ -30,8 +27,11 @@
           </div>
         </div>
       </div>
-      <button @click="handleSubmit(updateEarnDeductGroup)" class="button save-file">Update</button>
-      <button @click="handleSubmit(deleteEarnDeductGroup)" class="button del">Delete Group</button>
+
+      <hr>
+
+      <button @click="handleSubmit(updateEarnDeductGroup)" class="button primary">Update</button>
+      <button @click="handleSubmit(deleteEarnDeductGroup)" class="button alert">Delete Group</button>
       <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
     </ValidationObserver>
   </div>
@@ -89,94 +89,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.modal-content {
-  border-radius: 0;
-  position: relative;
-  padding: 40px;
-  color: $font-color;
-
-  .header {
-    margin-bottom: 20px;
-
-    i {
-      font-size: 30px;
-      margin-bottom: 20px;
-      color: $sub-color;
-    }
-
-    h3 {
-      font-size: 24px;
-      font-weight: 700;
-      color: $font-color;
-    }
-
-    p {
-      color: $font-color;
-    }
-  }
-
-  .field {
-    margin-bottom: 20px;
-
-    label {
-      color: $font-color;
-      font-weight: normal;
-    }
-
-    input {
-      @include input;
-    }
-  }
-
-  button.button {
-    border-radius: 0;
-
-    &.save-file {
-      margin-right: 5px;
-      background-color: $primary-color;
-      border-color: $primary-color;
-      color: #fff;
-    }
-
-    &.del {
-      background-color: $alert-color;
-      background-color: $alert-color;
-      border-color: $alert-color;
-      color: #fff;
-
-      &:disabled {
-        background-color: $grey-color;
-        color: $font-color;
-        border-color: $grey-color;
-      }
-    }
-  }
-
-
-}
-
-.modal-close {
-  position: absolute;
-  top: 20px;
-  z-index: 1;
-  height: 40px;
-  max-height: 40px;
-  max-width: 40px;
-  min-height: 40px;
-  min-width: 40px;
-  width: 40px;
-
-  &:hover {
-    background-color: $border-color;
-  }
-
-  &::after {
-    background-color: $grey-color;
-  }
-
-  &::before {
-    background-color: $grey-color;
-  }
+hr{
+  height: 1px;
 }
 
 .checkbox-item {
@@ -203,8 +117,9 @@ export default {
 .switch {
   display: flex;
   align-items: center;
-
+  flex-wrap: wrap;
   .item {
+    margin-bottom: 5px;
     padding: 5px 15px 5px 15px;
     height: 36px;
     margin-right: 5px;
@@ -213,7 +128,7 @@ export default {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-
+    white-space: nowrap;
     &.is-active {
       background-color: $sub-color;
       color: #fff;
