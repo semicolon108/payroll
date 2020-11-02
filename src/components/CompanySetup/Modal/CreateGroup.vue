@@ -14,7 +14,7 @@
           </ValidationProvider>
         </div>
     </div>
-    <button @click="handleSubmit(addEarnDeductGroup)" class="button save-file">Save</button>
+    <button @click="handleSubmit(addEarnDeductGroup)" class="button primary">Save</button>
     <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
   </ValidationObserver>
 </div>

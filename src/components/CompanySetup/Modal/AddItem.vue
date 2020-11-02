@@ -62,8 +62,8 @@
 
       <hr>
 
-      <button v-if="isEditMode" @click="handleSubmit(updateEarnDeduct)" class="button save-file">Update</button>
-      <button v-else @click="handleSubmit(addEarnDeduct)" class="button save-file">Save</button>
+      <button v-if="isEditMode" @click="handleSubmit(updateEarnDeduct)" class="button primary">Update</button>
+      <button v-else @click="handleSubmit(addEarnDeduct)" class="button primary">Save</button>
       <button class="modal-close is-large" @click="CloseModal()" aria-label="close"></button>
     </ValidationObserver>
   </div>
