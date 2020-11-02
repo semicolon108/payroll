@@ -9,6 +9,7 @@ import moment from 'moment-timezone'
 import './plugins/index'
 // import LoadingScreen from '@/components/Loading/loading-screen'
 import dialog  from '@/components/Confirm'
+ 
 
 Vue.use(dialog)
 

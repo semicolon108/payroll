@@ -8041,7 +8041,7 @@ sort-keys@^1.0.0:
   dependencies:
     is-plain-obj "^1.0.0"
 
-sortablejs@^1.10.1:
+sortablejs@1.10.2:
   version "1.10.2"
   resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.10.2.tgz#6e40364d913f98b85a14f6678f92b5c1221f5290"
   integrity sha512-YkPGufevysvfwn5rfdlGyrGjt7/CRHwvRPogD/lC+TnvcN29jDpCifKP+rBqf+LRldfXSTh+0CGLcSg0VIxq3A==
@@ -8990,6 +8990,11 @@ vue-currency-input@^1.22.3:
   resolved "https://registry.yarnpkg.com/vue-currency-input/-/vue-currency-input-1.22.3.tgz#49d02fbe79e35d015b7c4762f669829701beec0c"
   integrity sha512-vrOaaiCSG8Hh7Fw7CYROIymFvVprWKaze3h67sihqJ4QAI9F+YElTQYv0fJwFK1NkKUS8H/MvAL0mwg9qrUfgg==
 
+vue-draggable@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/vue-draggable/-/vue-draggable-2.0.6.tgz#8ab4c1e90576e19c5676de812cf802b243beb2cb"
+  integrity sha512-/FHtAwrhy6a4duF/zr5Sf3oowf3BMHdcEfi1v8SsYYFCNqbKvBFUaiMs7Lw1ZQq2/2j6yvBoAHPKVmuLFSSiJw==
+
 vue-eslint-parser@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-5.0.0.tgz#00f4e4da94ec974b821a26ff0ed0f7a78402b8a1"
@@ -9082,12 +9087,12 @@ vue@^2.6.10:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.12.tgz#f5ebd4fa6bd2869403e29a896aed4904456c9123"
   integrity sha512-uhmLFETqPPNyuLLbsKz6ioJ4q7AZHzD8ZVFNATNyICSZouqP2Sz0rotWQC8UNBF6VGSCs5abnKJoStA6JbCbfg==
 
-vuedraggable@^2.24.1:
-  version "2.24.1"
-  resolved "https://registry.yarnpkg.com/vuedraggable/-/vuedraggable-2.24.1.tgz#304abd7644dde05c1f199a227bf9e9107f56197a"
-  integrity sha512-G1fxO1oshx+WLdieSGl6jSJdlHOQFga1FpjuUpgXldbpKNzxpjsGn4xYNnRHVrOAqm8aG5FfpdQlh5LHesxCeA==
+vuedraggable@^2.24.3:
+  version "2.24.3"
+  resolved "https://registry.yarnpkg.com/vuedraggable/-/vuedraggable-2.24.3.tgz#43c93849b746a24ce503e123d5b259c701ba0d19"
+  integrity sha512-6/HDXi92GzB+Hcs9fC6PAAozK1RLt1ewPTLjK0anTYguXLAeySDmcnqE8IC0xa7shvSzRjQXq3/+dsZ7ETGF3g==
   dependencies:
-    sortablejs "^1.10.1"
+    sortablejs "1.10.2"
 
 vuex@^3.1.2:
   version "3.5.1"

@@ -16,6 +16,10 @@
           <h3 class="xl-title">{{ payrollEmps.totalSalary | currency }}</h3>
         </div>
       </div>
+
+
+
+      <!-- Box control -->
       <div class="box control">
         <div class="box-control-header">
           <div class="exchange_rate">
@@ -131,7 +135,9 @@
             </button>
           </div>
         </div>
-      </div>
+      </div> <!-- box control -->
+      <!-- Box control -->
+
       <div class="box">
         <div class="box-header">
           <div v-if="payrollEmps.hasExpat" class="button-group">
@@ -159,22 +165,32 @@
             <input v-model="searchText" type="text" class="input" placeholder="Search employee">
           </div>
           <div class="option-group">
+            <!-- Customise Table icons -->
+
+            
+            <button class="button" @click="ModalClick = 'customise'">
+              <i class="fas fa-cog"></i>
+              Customise
+            </button>
+
             <button @click="downloadPayrollList" class="button"><i class="fas fa-file-pdf"></i> Export PDF</button>
           </div>
-        </div>
+        </div> <!-- Box Header -->
+        
+
         <table class="table is-fullwidth" id="my-table">
           <thead>
           <tr>
             <th>Employee</th>
             <th class="is-right is-xs">Work Day</th>
             <th class="is-right">Basic Salary</th>
-            <!--            <th class="is-right">Earning (LAK)</th>-->
-            <!--            <th class="is-right">Deduction (LAK)</th>-->
-            <th class="is-right">SSO Com</th>
-            <th class="is-right">SSO Emp</th>
+            <th class="is-right">Earning (LAK)</th>
+            <th class="is-right">Deduction (LAK)</th>
+            <th class="is-right">SSO Company</th>
+            <th class="is-right">SSO Employee</th>
             <th class="is-right">TAX (LAK)</th>
             <th class="is-right">Net Salary (LAK)</th>
-            <th class="is-right">Status</th>
+            <!-- <th class="is-right">Status</th> -->
             <th class="is-right">View</th>
           </tr>
           </thead>
@@ -201,16 +217,16 @@
               </div>
             </td>
             <td class="is-right">{{ i.basicSalary | currency }}</td>
-            <!--            <td class="is-right">{{ i.earningAmount | currency }}</td>-->
-            <!--            <td class="is-right">{{ i.deductionAmount | currency }}</td>-->
+            <td class="is-right">{{ i.earningAmount | currency }}</td>
+            <td class="is-right">{{ i.deductionAmount | currency }}</td>
             <td class="is-right">{{ i.ssoPaidByCom | currency }}</td>
             <td class="is-right">{{ i.ssoPaidByEmp | currency }}</td>
             <td class="is-right">{{ i.tax | currency }}</td>
             <td class="is-right">{{ i.netSalary | currency }}</td>
-            <td class="is-right status " :class="{'is-approved':  i._id}">
+            <!-- <td class="is-right status " :class="{'is-approved':  i._id}">
               <i v-if="i._id" class="fas fa-check-circle"></i>
               <i v-else class="far fa-check-circle"></i>
-            </td>
+            </td> -->
             <td class="is-right">
               <div class="icons">
                 <span class="icon"><i class="fas fa-search"></i></span>
@@ -227,6 +243,7 @@
 </template>
 <script>
 import document from './Modal/document'
+import customise from './Modal/customise'
 import {calcPayroll, getPayrollByEmps, sendPayslip, sendRequestCalc} from "@/apis/payroll-api";
 import {addOrUpdateActualWorkingDay} from "@/apis/actual-working-day-api";
 import {addOrUpdateCompanyCurrency, getCompanyCurrencies} from "@/apis/company-currency-api"
@@ -237,7 +254,8 @@ import CalcAnim from "@coms/Payroll/Anim/CalcAnim";
 export default {
   components: {
     document,
-    CalcAnim
+    CalcAnim,
+    customise
   },
   data: () => ({
     items: [],

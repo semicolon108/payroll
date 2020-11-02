@@ -186,7 +186,8 @@ export default {
 
 .modal-close {
   position: absolute;
-  top: 20px;
+  top: 0;
+  right: 0;
   z-index: 1;
   height: 40px;
   max-height: 40px;
@@ -194,11 +195,8 @@ export default {
   min-height: 40px;
   min-width: 40px;
   width: 40px;
-
-  &:hover {
-    background-color: $border-color;
-  }
-
+  border-radius: 0 0 0 5px;
+  background-color: $border-color;
   &::after {
     background-color: $grey-color;
   }

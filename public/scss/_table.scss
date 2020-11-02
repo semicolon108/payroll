@@ -47,7 +47,7 @@
       td{
         padding: 15px 10px;
         vertical-align: middle;
-        .deduct{
+        &.deduct{
           color: $alert-color;
         }
         &.is-right{
