@@ -11,7 +11,8 @@ import store from '../store'
 Vue.use(VueApollo)
 
 const authLink = setContext(async (_, { headers }) => {
-    const token = store.getters.getToken || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjhlNTBmM2FiZjhlNjAxZTAzZTg5ZDciLCJpYXQiOjE2MDQyODY1NDcsImV4cCI6MTYwNDM3Mjk0N30.BOerf-ZjtzmVXolQk1K5Kvp02WfKI5JYWECQ6fdWj0c'
+    // const token = store.getters.getToken || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjhlNTBmM2FiZjhlNjAxZTAzZTg5ZDciLCJpYXQiOjE2MDQyODY1NDcsImV4cCI6MTYwNDM3Mjk0N30.BOerf-ZjtzmVXolQk1K5Kvp02WfKI5JYWECQ6fdWj0c'
+    const token = store.getters.getToken
     return {
         headers: {
             ...headers,
