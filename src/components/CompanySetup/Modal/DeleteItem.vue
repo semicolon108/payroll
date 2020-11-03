@@ -7,7 +7,6 @@
         <p>Are you sure to delete "({{ name }})"</p>
       </div>
       <button @click="deleteEarnDeduct" class="button primary">Confirm</button>
-      <button class="button" @click="CloseModal">Cencel</button>
       <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
     </div>
   </div>
@@ -47,38 +46,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.modal-content {
-  border-radius: 0;
-  position: relative;
-  padding: 40px;
-  color: $font-color;
-
-  .header {
-    margin-bottom: 20px;
-
-    i {
-      font-size: 30px;
-      margin-bottom: 20px;
-      color: $sub-color;
-    }
-
-    h3 {
-      font-size: 24px;
-      font-weight: 700;
-      color: $font-color;
-    }
-
-    p {
-      color: $font-color;
-    }
-  }
-
-  button.button {
-    border-radius: 0;
-    border: 1px solid $border-color;
-    margin-right: 10px;
-  }
-}
-
 
 </style>

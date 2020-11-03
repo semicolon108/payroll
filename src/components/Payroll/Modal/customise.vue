@@ -1,44 +1,45 @@
 <template>
 <div class="modal is-active">
     <div class="modal-background" @click="CloseModal"></div>
-    <div class="modal-content box slide-down">
-        <div class="header">
-            <i class="fas fa-table"></i>
+    <div class="modal-card slide-down">
+        <div class="modal-card-head">
             <h3>Customisze Table</h3>
-            <div class="modal-close-btn" @click="CloseModal"></div>
+            <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
         </div>
+        <section class="modal-card-body">
+            <div class="table-items">
+                <draggable class="table-item-list"
+                    v-model="tableSelectedItems"
+                    v-bind="dragOptions"
+                    @start="drag = true"
+                    @end="drag = false"
+                >
+                    <h3>Select and reorder columns</h3>
+                    <div 
+                    @click="remove(idx, 'tableSelectedItems', 'tableUnselectedItems')"
+                    class="table-item" v-for="(i, idx) in tableSelectedItems" :key="idx">
+                        <label v-if="i" class="checked" :for="i.tblItem">
+                            {{i.tblItem}}
+                        </label>
+                    </div>
+                    
+                </draggable>
 
-        <div class="table-items">
-            <draggable class="table-item-list"
-                v-model="tableSelectedItems"
-                v-bind="dragOptions"
-                @start="drag = true"
-                @end="drag = false"
-            >
-                <h3>Select and reorder columns</h3>
-                <div 
-                 @click="remove(idx, 'tableSelectedItems', 'tableUnselectedItems')"
-                class="table-item" v-for="(i, idx) in tableSelectedItems" :key="idx">
-                    <label v-if="i" class="checked" :for="i.tblItem">
-                        {{i.tblItem}}
-                    </label>
-                </div>
-                
-            </draggable>
-
-            <div class="table-item-list">
-                <h3>Unselect items</h3>
-                <div
-                @click="remove(idx, 'tableUnselectedItems', 'tableSelectedItems')"
-                 class="table-item" v-for="(i, idx) in tableUnselectedItems" :key="idx">
-                    <label v-if="i" :for="i.tblItem" >
-                        {{i.tblItem}}
-                    </label>
+                <div class="table-item-list">
+                    <h3>Unselect items</h3>
+                    <div
+                    @click="remove(idx, 'tableUnselectedItems', 'tableSelectedItems')"
+                    class="table-item" v-for="(i, idx) in tableUnselectedItems" :key="idx">
+                        <label v-if="i" :for="i.tblItem" >
+                            {{i.tblItem}}
+                        </label>
+                    </div>
                 </div>
             </div>
+        </section>
+        <div class="modal-card-foot">
+            <button class="button is-primary">Save</button>		
         </div>
-
-        <button class="button is-primary">Save</button>		
     </div>
 </div>
 </template>
@@ -96,69 +97,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.modal-content {
-  border-radius: 0;
-  position: relative;
-  padding: 40px;
-  color: $font-color;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  overflow: hidden;
-}
-.header {
+
+.modal-card-head {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
     i {
         font-size: 30px;
         color: $sub-color;
         margin-right: 10px;
     }
-
-    h3 {
-        font-size: 24px;
-        font-weight: 700;
-        color: $font-color;
-    }
-    p {
-        color: $font-color;
-    }  
-    .modal-close-btn {
-        position: absolute;
-        top: 0;
-        right: 0;
-        z-index: 1;
-        height: 40px;
-        width: 40px;
-        border-radius: 0 0 0 5px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        background-color: $border-color;
-        &:before{
-            position: absolute;
-            content: '';
-            width: 1px;
-            height: 25px;
-            width: 2px;
-            transform: rotate(45deg);
-            transform-origin: center center;
-            background-color: $grey-color;
-        }
-        &:after{
-            position: absolute;
-            content: '';
-            width: 1px;
-            height: 25px;
-            width: 2px;
-            transform: rotate(-45deg);
-            transform-origin: center center;
-            background-color: $grey-color;
-        }
-    }
 }
+
+
 .table-items{
     overflow: auto;
     .table-item-list{

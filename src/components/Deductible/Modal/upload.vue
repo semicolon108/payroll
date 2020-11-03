@@ -1,25 +1,28 @@
 <template>
   <div class="modal is-active">
     <div class="modal-background" @click="CloseModal"></div>
-    <div class="modal-content box slide-down">
-      <div class="header">
+    <div class="modal-card slide-down">
+      <div class="modal-card-head">
           <h3>Upload Deductible</h3>
           <p>Please download to fill earning / deduction information</p>
           <a @click="downloadTemplate" class="template-file"><i class="fas fa-file-excel"></i>Excel Template</a>
+          <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
       </div>
+      <section class="modal-card-body">
+        <div class="upload-box">
+          <div class="upload">
+            <button class="button upload-btn" @click="$refs.FileInput.click()">Select File</button>
+            <span>File support Excel</span>
+            <input @change="chooseFile" ref="FileInput" type="file" style="display: none">
+          </div>
 
-      <div class="upload-box">
-        <div class="upload">
-          <button class="button upload-btn" @click="$refs.FileInput.click()">Select File</button>
-          <span>File support Excel</span>
-          <input @change="chooseFile" ref="FileInput" type="file" style="display: none">
+          <!-- hidden -->
+          <input type="file" class="input is-hidden" ref="uploadFile">
         </div>
-
-        <!-- hidden -->
-        <input type="file" class="input is-hidden" ref="uploadFile">
+      </section>
+      <div class="modal-card-foot">
+        <button class="button primary">Save</button>
       </div>
-      <button class="button primary">Save</button>
-      <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
     </div>
     <!--    <div @click="items = []" v-if="items.length" style="position: fixed; bottom: 0; left: 0; right: 0; top: 0; background-color: #fff">-->
     <!--      <table>-->

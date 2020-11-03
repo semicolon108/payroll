@@ -1,15 +1,16 @@
 <template>
 <div class="modal is-active">
   <div class="modal-background" @click="CloseModal"></div>
-  <div class="modal-content box slide-down">
-    <div class="header">
+  <div class="modal-card slide-down">
+    <div class="modal-card-head">
         <h3>Add Earning / Deducting.</h3>
+        <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
     </div>
     
-    <div class="modal-form">
+    <section class="modal-card-body has-dropdown">
         <div class="columns is-multiline">
             <div class="column is-6">
-                <div class="field">
+                <div class="field bottom-0">
                     <label for="" class="label">Employee Name + ID</label>
                     <div class="conttrol">
                         <input @focus="showDropdown = true" @blur="showDropdown = false" type="text" class="input" style="cursor: pointer" required>
@@ -23,7 +24,7 @@
                 </div>
             </div>
             <div class="column is-6">
-                <div class="field">
+                <div class="field bottom-0">
                     <label for="" class="label">Earning / Deducting</label>
                     <div class="control">
                         <div class="select">
@@ -37,7 +38,7 @@
                 </div>
             </div>
             <div class="column is-6">
-                <div class="field">
+                <div class="field bottom-0">
                     <label for="" class="label">Amount (LAK)</label>
                     <div class="conttrol">
                         <input type="text" class="input" required placeholder="0">
@@ -45,14 +46,10 @@
                 </div>
             </div>
         </div>
-    </div>
-    
-
-    <div class="btn-group">
+    </section>
+    <div class="modal-card-foot">
         <button class="button primary">Save</button>
-        <button class="button grey"  @click="CloseModal">Cancel</button>
     </div>
-    <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
   </div>
 </div>
 </template>
@@ -85,25 +82,20 @@
 </script>
 
 <style lang="scss" scoped>
-.modal-form{
-    .field{
-        position: relative;
-        margin-bottom: 0;
-    }
-}  
-.btn-group{
-    margin-top: 20px;
-    display: flex;
-}
 
+.field.bottom-0{
+    position: relative;
+    margin-bottom: 0;
+}
 .dropdown-container{
     position: absolute;
+    display: block;
     border: 1px solid $border-color;
     width: 100%;
     padding: 10px;
     background-color: #fff;
     z-index: 1;
-    max-height: 150px;
+    max-height: 120px;
     overflow: auto;
     .dropdown-item{
         cursor: pointer;

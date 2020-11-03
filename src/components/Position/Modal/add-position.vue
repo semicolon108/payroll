@@ -2,34 +2,40 @@
   <div class="modal is-active">
     <div class="modal-background" @click="CloseModal"></div>
     <ValidationObserver v-slot="{ handleSubmit }">
-      <div class="modal-content box slide-down">
-        <div class="header">
+      <div class="modal-card slide-down">
+        <div class="modal-card-head">
           <h3>{{ isEditMode ? 'Edit Position' : 'Add Position' }}</h3>
+          <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
         </div>
-        <div class="field">
-          <label for="" class="label">Position</label>
-          <div class="control">
-            <ValidationProvider name="Position" rules="required" v-slot="{ errors }">
-              <input v-model="name" type="text" class="input" placeholder="Enter position name">
-              <p class="has-text-danger">{{ errors[0] }}</p>
-            </ValidationProvider>
-          </div>
-        </div>
-        <div class="field">
-          <label for="" class="label">Select Department</label>
-          <div class="control">
-            <div class="select">
-              <ValidationProvider name="Department" rules="required" v-slot="{ errors }">
-                <select v-model="departmentId">
-                  <option v-for="i in departments" :key="i._id" :value="i._id">{{ i.name }}</option>
-                </select>
+
+        <section class="modal-card-body">
+          <div class="field">
+            <label for="" class="label">Position</label>
+            <div class="control">
+              <ValidationProvider name="Position" rules="required" v-slot="{ errors }">
+                <input v-model="name" type="text" class="input" placeholder="Enter position name">
+                <p class="has-text-danger">{{ errors[0] }}</p>
               </ValidationProvider>
             </div>
           </div>
+          <div class="field">
+            <label for="" class="label">Select Department</label>
+            <div class="control">
+              <div class="select">
+                <ValidationProvider name="Department" rules="required" v-slot="{ errors }">
+                  <select v-model="departmentId">
+                    <option v-for="i in departments" :key="i._id" :value="i._id">{{ i.name }}</option>
+                  </select>
+                </ValidationProvider>
+              </div>
+            </div>
+          </div>
+        </section>
+        <div class="modal-card-foot">
+          <button v-if="isEditMode" @click="handleSubmit(updatePosition)" class="button primary">Update</button>
+          <button v-else @click="handleSubmit(addPosition)" class="button primary">Save</button>
         </div>
-        <button v-if="isEditMode" @click="handleSubmit(updatePosition)" class="button primary">Update</button>
-        <button v-else @click="handleSubmit(addPosition)" class="button primary">Save</button>
-        <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
+        
       </div>
     </ValidationObserver>
 
@@ -112,17 +118,4 @@ export default {
 
 <style lang="scss" scoped>
 
-.select {
-  width: 100%;
-
-  &:after {
-    border-color: $grey-color !important;
-  }
-
-  select {
-    width: 100%;
-    border: 1 pxs solid $border-color;
-    border-radius: $radius;
-  }
-}
 </style>

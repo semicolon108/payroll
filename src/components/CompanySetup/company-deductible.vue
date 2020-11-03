@@ -21,18 +21,19 @@
             <span>{{ i.name }}</span>
             <span class="count">{{ i.earnDeductsCount }}</span>
             <span @click="editGroup(i)">
-                        <i class="fas fa-cog"></i>
-                    </span>
+                <i class="fas fa-cog"></i>
+            </span>
           </div>
+          <!-- <button class="button grey" style="margin-left: 5px"><i class="fas fa-plus"></i></button> -->
 
         </div>
         <table class="table is-fullwidth">
           <thead>
           <tr>
             <th>Item Name</th>
-            <th>Item Category</th>
-            <th>Group</th>
-            <th class="is-sm">TAX</th>
+            <th class="is-xs">Item Type</th>
+            <th class="">Group</th>
+            <th class="is-xs">TAX</th>
             <th class="is-xs">Option</th>
           </tr>
           </thead>
@@ -74,7 +75,6 @@
 
 <script>
 import AddItem from '@coms/CompanySetup/Modal/AddItem';
-import EditItem from '@coms/CompanySetup/Modal/EditItem';
 import CreateGroup from '@coms/CompanySetup/Modal/CreateGroup';
 import ManageGroup from '@coms/CompanySetup/Modal/ManageGroup';
 import DeleteItem from '@coms/CompanySetup/Modal/DeleteItem';
@@ -85,7 +85,6 @@ import {getEarnDeductGroups} from "@/apis/earn-deduct-group-api";
 export default {
   components: {
     AddItem,
-    EditItem,
     CreateGroup,
     ManageGroup,
     DeleteItem
@@ -220,8 +219,8 @@ export default {
 .button-group {
   display: flex;
   margin-left: auto;
-
-  button.button {
+}
+.button {
     border-radius: $radius;
     border: 1px solid $border-color;
     margin-left: 10px;
@@ -244,12 +243,10 @@ export default {
       color: $font-color;
     }
   }
-}
 
 .group-list {
   display: flex;
   margin-bottom: 20px;
-
   .group-item {
     cursor: pointer;
     padding: 5px 15px;
@@ -270,7 +267,6 @@ export default {
       color: $primary-color;
       font-weight: 700;
     }
-
     i {
       cursor: pointer;
       font-size: 14px;
@@ -330,6 +326,8 @@ export default {
           label {
             position: relative;
             display: flex;
+            flex-wrap: nowrap;
+            white-space: nowrap;
             align-items: center;
             cursor: pointer;
             margin: 0;

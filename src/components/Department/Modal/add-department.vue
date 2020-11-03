@@ -1,25 +1,28 @@
 <template>
   <div class="modal is-active">
     <div class="modal-background" @click="CloseModal"></div>
-    <div class="modal-content box slide-down">
+    <div class="modal-card slide-down">
 
       <ValidationObserver v-slot="{ handleSubmit }">
-        <div class="header">
+        <header class="modal-card-head">
           <h3>{{ isEditMode ? 'Edit Department' : 'Add Department' }}</h3>
-        </div>
-
-        <div class="field">
-          <label for="" class="label">Department Name</label>
-          <div class="control">
-            <ValidationProvider name="Department Name" rules="required" v-slot="{ errors }">
-              <input v-model="name" type="text" class="input">
-              <p class="has-text-danger">{{ errors[0] }}</p>
-            </ValidationProvider>
+          <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <div class="field">
+            <label for="" class="label">Department Name</label>
+            <div class="control">
+              <ValidationProvider name="Department Name" rules="required" v-slot="{ errors }">
+                <input v-model="name" type="text" class="input">
+                <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
+            </div>
           </div>
-        </div>
-        <button v-if="isEditMode" @click="handleSubmit(updateDepartment)" class="button save-file">Update</button>
-        <button v-else @click="handleSubmit(addDepartment)" class="button primary">Save</button>
-        <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
+        </section>
+        <footer class="modal-card-foot">
+          <button v-if="isEditMode" @click="handleSubmit(updateDepartment)" class="button save-file">Update</button>
+          <button v-else @click="handleSubmit(addDepartment)" class="button primary">Save</button>
+        </footer>
       </ValidationObserver>
     </div>
     
@@ -83,44 +86,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.modal-content {
-  border-radius: 0;
-  position: relative;
-  padding: 40px;
-  color: $font-color;
-
-  .header {
-    margin-bottom: 20px;
-
-    i {
-      font-size: 30px;
-      margin-bottom: 20px;
-      color: $sub-color;
-    }
-
-    h3 {
-      font-size: 24px;
-      font-weight: 700;
-      color: $font-color;
-    }
-
-    p {
-      color: $font-color;
-    }
-  }
-
-  .field {
-    margin-bottom: 20px;
-
-    label {
-      color: $font-color;
-      font-weight: normal;
-    }
-
-    input {
-      @include input;
-    }
-  }
-}
 </style>

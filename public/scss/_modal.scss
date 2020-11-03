@@ -1,3 +1,75 @@
+// Modal card
+.modal-card {
+  border-radius: 0;
+  position: relative;
+  color: $font-color;
+  padding: 40px;
+  .modal-card-head {
+    padding: 40px 40px 10px 40px;
+    background-color: #fff;
+    border: none;
+    border-radius: 0;
+    display: block;
+    h3 {
+      font-size: 24px;
+      font-weight: 700;
+      color: $font-color;
+    }
+    p {
+      color: $font-color;
+    }
+  }
+  .modal-card-body{
+    padding: 10px 40px 20px;
+    &.has-dropdown{
+      overflow: visible;
+    }
+    .field {
+      margin-bottom: 10px;
+      &.bottom-0{
+        margin-bottom: 0;
+      }
+      label {
+        color: $font-color;
+        font-weight: normal;
+      }
+      input {
+        @include input;
+      }
+    }
+    .select {
+      width: 100%;
+
+      &:after {
+        border-color: $grey-color !important;
+      }
+
+      select {
+        width: 100%;
+        border: 1 pxs solid $border-color;
+        border-radius: $radius;
+      }
+    }
+  }
+  .modal-card-foot{
+    padding: 20px 0 0 0;
+    background-color: #fff;
+    border: none;
+    .button {
+      margin: 0;
+      width: 100%;
+      &:disabled {
+        background-color: $grey-color;
+        color: $font-color;
+        border-color: $grey-color;
+      }
+    }
+  }
+}
+
+
+
+// Modal confirm
 .modal-content {
   border-radius: 0;
   position: relative;
@@ -14,30 +86,10 @@
       color: $font-color;
     }
   }
-
-  .field {
-    margin-bottom: 20px;
-
-    label {
-      color: $font-color;
-      font-weight: normal;
-    }
-
-    input {
-      @include input;
-    }
-  }
-
-  button.button {
-    border-radius: 0;
-    margin-right: 10px;
-    &:disabled {
-      background-color: $grey-color;
-      color: $font-color;
-      border-color: $grey-color;
-    }
-  }
 }
+
+
+// Close modal button
 .modal-close {
   position: absolute;
   top: 0;
