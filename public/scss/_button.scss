@@ -1,5 +1,10 @@
-.button{
+button.button{
     border-radius: 0;
+    border: 1px solid $border-color;
+    color: $font-color;
+    i {
+        margin-right: 5px;
+    }
     &.primary{
         box-shadow: none;
         box-shadow: unset;
@@ -30,6 +35,6 @@
         background-color: $border-color;
         background-color: $border-color;
         border-color: $border-color;
-        color: $grey-color;
+        color: $font-color;
     }
 }

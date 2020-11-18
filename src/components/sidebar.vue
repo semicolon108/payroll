@@ -12,10 +12,7 @@
       </div>
       <div class="sidebar-items">
         <div class="sidebar-title">Salary</div>
-        <!--            <router-link class="sidebar-item" to=/overtime-calculation>OT Calculation</router-link>-->
-        <router-link class="sidebar-item" to=/deductable>Earning / Deduction</router-link>
-        <router-link to="/payroll" class="sidebar-item">Payroll</router-link>
-        <!--            <router-link to="/report" class="sidebar-item">Report</router-link>-->
+        <router-link to="/payroll_list" class="sidebar-item">Payroll</router-link>
       </div>
       <div class="sidebar-items" style="opacity: 50%; cursor: not-allowed">
         <div style=" cursor: not-allowed" class="sidebar-title">Setting</div>

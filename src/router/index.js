@@ -25,38 +25,6 @@ const routes = [
     component: () => import(/* webpackChunkName: "Employee" */ '../views/Employee.vue')
   },
   {
-    path: '/overtime-calculation',
-    component: () => import(/* webpackChunkName: "overtime_calculation" */ '../views/OTCalculation.vue'),
-    children:[
-      {
-        path: '',
-        name: 'overtime_calculation',
-        component: () => import(/* webpackChunkName: "overtime_calculation" */ '../components/Overtime/overtime-list.vue')
-      },
-      {
-        path: '/overtime-detail',
-        name: 'overtime_detail',
-        component: () => import(/* webpackChunkName: "overtime_detail" */ '../components/Overtime/overtime-detail.vue')
-      },
-    ]
-  },
-  {
-    path: '/deductable',
-    component: () => import(/* webpackChunkName: "deductable" */ '../views/Deductable.vue'),
-    children:[
-      {
-        path: '',
-        name: 'deductable_list',
-        component: () => import(/* webpackChunkName: "template" */ '../components/Deductible/deductible-list.vue')
-      },
-      {
-        path: 'detail/:id',
-        name: 'deductable_detail',
-        component: () => import(/* webpackChunkName: "template" */ '../components/Deductible/deductible-detail.vue')
-      },
-    ]
-  },
-  {
     path: '/template',
     name: 'template',
     component: () => import(/* webpackChunkName: "template" */ '../views/Template.vue')
@@ -94,21 +62,34 @@ const routes = [
     ]
   },
   {
-    path: '/payroll',
-    component: () => import(/* webpackChunkName: "payroll" */ '../views/Payroll.vue'),
+    path: '/payroll_list',
+    name: 'payroll_list',
+    component: () => import(/* webpackChunkName: "payroll" */ '../views/PayrollList.vue'),
+  },
+
+  {
+    path: '/payroll-calculation',
+    name: 'payroll_calculation',
+    component: () => import(/* webpackChunkName: "calculate_earning_deduction" */ '../views/PayrollCalculation.vue'),
     children:[
       {
-        path: '',
-        name: 'payrollList',
-        component: () => import(/* webpackChunkName: "payrollList" */ '../components/Payroll/payroll-list.vue')
+        path: 'calculate-earning-deduction/:id',
+        name: 'calculate_earning_deduction',
+        component: () => import(/* webpackChunkName: "calculate_earning_deduction" */ '../components/PayrollCalculation/Deductible/deductible-detail.vue')
       },
       {
-        path: '/payroll-calculation/:id',
-        name: 'payrollCalculation',
-        component: () => import(/* webpackChunkName: "payrollCalculation" */ '../components/Payroll/payroll-calculation.vue')
+        path: 'calculate-payroll/:id',
+        name: 'calculate_payroll',
+        component: () => import(/* webpackChunkName: "calculate_earning_deduction" */ '../components/PayrollCalculation/Payroll/payroll-detail.vue')
+      },
+      {
+        path: 'calculate-overtime/:id',
+        name: 'calculate_overtime',
+        component: () => import(/* webpackChunkName: "calculate_overtime" */ '../components/PayrollCalculation/Overtime/overtime-detail.vue')
       },
     ]
   },
+
   {
     path: '/report',
     name: 'report',

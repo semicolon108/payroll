@@ -4,14 +4,14 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import Vue from 'vue'
 import VueApollo from 'vue-apollo'
 import { setContext } from 'apollo-link-context'
-import {baseURL, logoutURL} from "@/config/variables";
+import {baseURL,} from "@/config/variables";
 import { onError } from "apollo-link-error"
 import store from '../store'
 
 Vue.use(VueApollo)
 
 const authLink = setContext(async (_, { headers }) => {
-    const token = store.getters.getToken || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjhlNTBmM2FiZjhlNjAxZTAzZTg5ZDciLCJpYXQiOjE2MDQyODY1NDcsImV4cCI6MTYwNDM3Mjk0N30.BOerf-ZjtzmVXolQk1K5Kvp02WfKI5JYWECQ6fdWj0c'
+    const token = store.getters.getToken || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjhlNTBmM2FiZjhlNjAxZTAzZTg5ZDciLCJpYXQiOjE2MDU1NzgxODAsImV4cCI6MTYwNTY2NDU4MH0.SRTcLodEkOIbj0I6COn6Yb6RnCecGyrTveyV7p9unh8'
     // const token = store.getters.getToken
     return {
         headers: {
@@ -25,7 +25,7 @@ const errorLink = onError(({ graphQLErrors }) => {
     if (graphQLErrors)
         graphQLErrors.forEach((err) => {
             if(err.extensions.code === 'UNAUTHENTICATED') {
-               window.location.href = logoutURL
+              // window.location.href = logoutURL
             }
         })
    // if (networkError) console.log(`[Network error]: ${networkError}`)

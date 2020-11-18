@@ -39,20 +39,16 @@ body, html{
     display: flex;
     align-items: center;
     .header-start{
-        .header-title{
-            display: flex;
-            align-items: center;
-        }
+        display: flex;
+        align-items: center;
+        // .header-title{
+        //     // display: flex;
+        //     // align-items: center;
+        // }
     }
     .header-end{
         margin-left: auto;
         text-align: right;
-        .button{
-            &.is-grey{
-                background-color: $light-grey-color;
-                color: $font-color;
-            }
-        }
     }
     &.bottom{
         align-items: flex-end;
@@ -88,18 +84,5 @@ body, html{
     }
     .button{
         margin-left: 10px;
-        background-color: $primary-color;
-        border: none;
-        color: #fff;
-        border-radius: $radius;
-        &:focus{
-            color: #fff;
-            border: none;
-            outline: none;
-        }
-        &:hover{
-            color: #fff;
-            border: none;
-        }
     }
 }

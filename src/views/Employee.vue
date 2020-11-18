@@ -2,7 +2,7 @@
     <div>
         <div class="page-header">
             <h3 class="page-title">Employee</h3>
-            <button class="button" @click="$router.push({name:'basic_detail'})"><i class="fas fa-plus"></i></button>
+            <button class="button primary" @click="$router.push({name:'basic_detail'})"><i class="fas fa-plus"></i> Add</button>
         </div>
         <div class="box">
             <table class="table is-fullwidth" id="my-table">

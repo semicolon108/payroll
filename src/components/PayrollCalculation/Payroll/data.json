@@ -1,0 +1,104 @@
+﻿{
+    "DataSet": [
+        {
+            "FieldItem": "Employee ID",
+            "Type": "Employee Info"
+        },
+        {
+            "FieldItem": "Names and Surnames (English)",
+            "Type": "Employee Info"
+        },
+        {
+            "FieldItem": "Names and Surnames (Laos)",
+            "Type": "Employee Info"
+        },
+        {
+            "FieldItem": "Position",
+            "Type": "Employee Info"
+        },
+        {
+            "FieldItem": "Department",
+            "Type": "Employee Info"
+        },
+        {
+            "FieldItem": "Salary Grade",
+            "Type": "Employee Info"
+        },
+        {
+            "FieldItem": "Start Working Date",
+            "Type": "Employee Info"
+        },
+        {
+            "FieldItem": "\r\nBasic Salary\r\n",
+            "Type": "Salary"
+        },
+        {
+            "FieldItem": "Default Working Day / Month",
+            "Type": "Employee Info"
+        },
+        {
+            "FieldItem": "Actual Work Day This month",
+            "Type": "Employee Info"
+        },
+        {
+            "FieldItem": "This Month Salary",
+            "Type": "Salary"
+        },
+        {
+            "FieldItem": "Earning / Deduction Before SSO",
+            "Type": "Earning / Deduction"
+        },
+        {
+            "FieldItem": "Company SSO 6%",
+            "Type": "SSO"
+        },
+        {
+            "FieldItem": "Employee SSO 5.5%",
+            "Type": "SSO"
+        },
+        {
+            "FieldItem": "Total After SSO",
+            "Type": "Salary"
+        },
+        {
+            "FieldItem": "\r\nOT Work (Hrs) * 5\r\n",
+            "Type": "OT"
+        },
+        {
+            "FieldItem": "OT Amount (LAK) * 5",
+            "Type": "OT"
+        },
+        {
+            "FieldItem": "Total OT Amount",
+            "Type": "OT"
+        },
+        {
+            "FieldItem": "Earning / Deduction Before TAX",
+            "Type": "Earning / Deduction"
+        },
+        {
+            "FieldItem": "Total before TAX",
+            "Type": "Salary"
+        },
+        {
+            "FieldItem": "% Tax for Each Scale (LAK) * 5",
+            "Type": "TAX"
+        },
+        {
+            "FieldItem": "Total Due\r\n as Tax",
+            "Type": "TAX"
+        },
+        {
+            "FieldItem": "Total\r\n (After Tax+SSO)",
+            "Type": "Salary"
+        },
+        {
+            "FieldItem": "Earning / Deduction After TAX ",
+            "Type": "Earning / Deduction"
+        },
+        {
+            "FieldItem": "\r\nFinal \r\nNet Pay\r\n",
+            "Type": "Salary"
+        }
+    ]
+}

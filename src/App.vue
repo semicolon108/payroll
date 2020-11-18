@@ -5,7 +5,9 @@
       <div class="main-content">
         <navigation />
         <div class="content-area">
-          <router-view/>
+        
+            <router-view/>
+
         </div>
       </div>
     </div>

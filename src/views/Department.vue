@@ -2,7 +2,7 @@
   <div>
     <div class="page-header">
       <h3 class="page-title">Department</h3>
-      <button class="button" @click="isOpen = true; isEditMode = false"><i class="fas fa-plus"></i></button>
+      <button class="button primary" @click="isOpen = true; isEditMode = false"><i class="fas fa-plus"></i> Add</button>
     </div>
     <div class="box">
       <table class="table is-fullwidth" id="my-table">
