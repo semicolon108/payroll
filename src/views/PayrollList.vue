@@ -6,7 +6,7 @@
     <div class="box current">
         <h3 class="box-title">Current Payroll</h3>
         <div class="summary-container">
-            <div class="summary-items">
+            <div v-if="currentItem" class="summary-items">
                 <div class="summary-item">
                     <span>Total Employees</span>
                     <h3>{{currentItem.employeeCount }}</h3>

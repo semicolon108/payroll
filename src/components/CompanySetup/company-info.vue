@@ -34,7 +34,7 @@
       </div>
     </div>
     <h3 class="title">Contact Person</h3>
-    <div class="columns">
+    <div class="columns" v-if="form.contactPerson">
       <div class="column">
         <div class="field">
           <label for="" class="label">Contact name</label>
@@ -71,7 +71,7 @@
     </div>
 
     <h3 class="title">Company Email</h3>
-    <div class="columns">
+    <div class="columns" v-if="form.mailer">
       <div class="column">
         <div class="field">
           <label for="" class="label">From Name</label>
@@ -96,13 +96,15 @@
       </div>
     </div>
     <h3 class="title">Financial Information</h3>
-    <div class="columns">
+    <div class="columns"    v-if="form.financialInfo">
       <div class="column">
         <div class="field">
           <label for="" class="label">Bank name</label>
           <div class="control">
             <!--            <ValidationProvider rules="required" v-slot="{ errors }">-->
-            <select class="input" v-model="form.financialInfo.bankId">
+            <select
+
+                class="input" v-model="form.financialInfo.bankId">
               <option :value="i._id" v-for="i in banks" :key="i._i">{{ i.name }}</option>
             </select>
             <!--              <p class="has-text-danger">{{ errors[0] }}</p>-->
