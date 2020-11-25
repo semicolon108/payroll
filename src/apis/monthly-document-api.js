@@ -17,7 +17,6 @@ export const getMonthlyDocuments = (monthlyPaymentId) => {
     })
 }
 
-
 export const addMonthlyDocument = (form) => {
     return new Promise(async (resolve, reject) => {
         try {
