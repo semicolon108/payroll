@@ -227,7 +227,6 @@ export default {
     },
     layouts: {
       handler(items) {
-        console.log(items)
        this.DataSet.map(i => {
            if(items.includes(i.fieldItem)) {
              const curIdx = this.DataSet.findIndex(o => o.fieldItem === i.fieldItem)
