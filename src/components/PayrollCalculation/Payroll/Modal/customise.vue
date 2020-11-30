@@ -1,14 +1,11 @@
 <template>
   <div class="customise-page">
-
     <div class="close-button" @click="CloseModal">
       <i class="fal fa-chevron-down"></i>
     </div>
-
     <section class="section">
       <div class="container">
         <div class="page-header">
-
 
           <h3>Customise Table and Export Layout</h3>
           <div class="field">
@@ -31,7 +28,7 @@
         >
           <div class="selected-item" v-for="(i, index) in layouts" :key="index">
             <span>{{ index + 1 }}.</span>
-            <p>{{ i }}</p>
+            <p>{{ convertName(i) }}</p>
           </div>
         </draggable>
 
@@ -40,19 +37,18 @@
           <div class="container">
             <div class="unselect-item-group" v-for="i in type" :key="i">
               <h3 class="group-name">
-                {{ i }}
               </h3>
               <ul>
-                <li v-for="item in items(i)" :key="item.fieldItem"
+                <li v-for="item in items(i)" :key="item.name"
 
                 >
                   <input
                       @change="item.isSelected = !item.isSelected"
-                      type="checkbox" :checked="item.isSelected" :id="item.fieldItem">
+                      type="checkbox" :checked="item.isSelected" :id="item.name">
                   <label
 
-                      :for="item.fieldItem"
-                      class="label">{{ item.fieldItem }}</label>
+                      :for="item.name"
+                      class="label">{{ item.name }}</label>
                 </li>
               </ul>
             </div>
@@ -61,7 +57,12 @@
       </div>
     </section>
 
-    <component :is="LayoutOption" @CloseLayoutOption="LayoutOption = ''"></component>
+    <component
+        :is="LayoutOption"
+        @CloseLayoutOption="LayoutOption = ''"
+        @CloseModal="CloseModal"
+    :layouts="layouts"
+    ></component>
   </div>
 </template>
 
@@ -87,128 +88,166 @@ export default {
     layouts: [],
     DataSet: [
       {
-        "fieldItem": "Employee ID",
+        "name": "Employee ID",
+        key: 'empId',
         "type": "Employee Info",
         isSelected: false
       },
       {
-        "fieldItem": "Names and Surnames (English)",
+        "name": "Names and Surnames (English)",
+        key: 'empName',
         "type": "Employee Info",
         isSelected: false
       },
       {
-        "fieldItem": "Names and Surnames (Laos)",
+        "name": "Names and Surnames (Laos)",
+        key: 'empNameLao',
         "type": "Employee Info",
         isSelected: false
       },
       {
-        "fieldItem": "Position",
+        "name": "Position",
+        key: 'position',
         "type": "Employee Info",
         isSelected: false
       },
       {
-        "fieldItem": "Department",
+        "name": "Department",
+        key: 'department',
         "type": "Employee Info",
         isSelected: false
       },
       {
-        "fieldItem": "Salary Grade",
+        "name": "Salary Grade",
+        key: 'salaryGrade',
         "type": "Employee Info",
         isSelected: false
       },
       {
-        "fieldItem": "Start Working Date",
+        "name": "Start Working Date",
+        key: 'startWorkingDay',
         "type": "Employee Info",
         isSelected: false
       },
       {
-        "fieldItem": "Basic Salary",
+        "name": "Basic Salary",
+        key: 'basicSalary',
         "type": "Salary",
         isSelected: false
       },
       {
-        "fieldItem": "Default Working Day / Month",
+        "name": "Default Working Day / Month",
+        key: 'defaultWorkingDay',
         "type": "Employee Info",
         isSelected: false
       },
       {
-        "fieldItem": "Actual Work Day This month",
+        "name": "Actual Work Day This month",
+        key: 'actualWorkingDay',
         "type": "Employee Info",
         isSelected: false
       },
       {
-        "fieldItem": "This Month Salary",
+        "name": "This Month Salary",
+        key: 'thisMonthSalary',
         "type": "Salary",
         isSelected: false
       },
       {
-        "fieldItem": "Earning / Deduction Before SSO",
+        "name": "Earning / Deduction Before SSO",
+        key: 'deductibleBeforeSSO',
         "type": "Earning / Deduction",
         isSelected: false
       },
       {
-        "fieldItem": "Company SSO 6%",
+        "name": "Company SSO 6%",
+        key: 'ssoPaidByCom',
         "type": "SSO",
         isSelected: false
       },
       {
-        "fieldItem": "Employee SSO 5.5%",
+        "name": "Employee SSO 5.5%",
+        key: 'ssoPaidByEmp',
         "type": "SSO",
         isSelected: false
       },
       {
-        "fieldItem": "Total After SSO",
+        "name": "Total After SSO",
+        key: 'totalAfterSSO',
         "type": "Salary",
         isSelected: false
       },
       {
-        "fieldItem": "OT Work (Hrs) * 5",
+        "name": "OT Work (Hrs) * 5",
         "type": "OT",
+        key: 'OTHours',
         isSelected: false
       },
       {
-        "fieldItem": "OT Amount (LAK) * 5",
+        "name": "OT Amount (LAK) * 5",
         "type": "OT",
+        key: 'OTAmount',
         isSelected: false
       },
       {
-        "fieldItem": "Total OT Amount",
+        "name": "Total OT Amount",
         "type": "OT",
+        key: 'totalOTAmount',
         isSelected: false
       },
       {
-        "fieldItem": "Earning / Deduction Before TAX",
+        key: 'deductibleBeforeTax',
+        "name": "Earning / Deduction Before TAX",
         "type": "Earning / Deduction",
         isSelected: false
       },
       {
-        "fieldItem": "Total before TAX",
+        key: 'totalBeforeTax',
+        "name": "Total before TAX",
         "type": "Salary",
         isSelected: false
       },
       {
-        "fieldItem": "% Tax for Each Scale (LAK) * 5",
+        key: 'taxForEachScale',
+        "name": "% Tax for Each Scale (LAK) * 5",
         "type": "TAX",
         isSelected: false
       },
       {
-        "fieldItem": "Total Due as Tax",
+        "name": "Total Due as Tax",
         "type": "TAX",
+        key: 'totalDueAsTax',
         isSelected: false
       },
       {
-        "fieldItem": "Total (After Tax+SSO)",
+        key: 'totalAfterTax',
+        "name": "Total (After Tax+SSO)",
         "type": "Salary",
         isSelected: false
       },
       {
-        "fieldItem": "Earning / Deduction After TAX ",
+        key: 'deductibleAfterTax',
+        "name": "Earning / Deduction After TAX ",
         "type": "Earning / Deduction",
         isSelected: false
       },
       {
-        "fieldItem": "Final Net Pay",
+        "key": "netSalary",
+        "name": "Final Net Pay",
         "type": "Salary",
+        isSelected: false
+      },
+
+      {
+        key: 'earning',
+        name: 'Earning',
+        type: 'Salary',
+        isSelected: false
+      },
+      {
+        key: 'deduction',
+        name: 'Deduction',
+        type: 'Salary',
         isSelected: false
       }
     ]
@@ -217,8 +256,8 @@ export default {
     DataSet: {
       handler(items) {
         items.map(i => {
-          if(i.isSelected) this.layouts.push(i.fieldItem)
-          else this.layouts = this.layouts.filter(o => o !== i.fieldItem)
+          if (i.isSelected) this.layouts.push(i.key)
+          else this.layouts = this.layouts.filter(o => o !== i.key)
           this.layouts = _.uniq(this.layouts)
         })
       },
@@ -227,16 +266,11 @@ export default {
     },
     layouts: {
       handler(items) {
-       this.DataSet.map(i => {
-           if(items.includes(i.fieldItem)) {
-             const curIdx = this.DataSet.findIndex(o => o.fieldItem === i.fieldItem)
-             this.DataSet[curIdx].isSelected = true
-           }
-           //   return {
-           //   ...i,
-           //   isSelected: true
-           // }
-          // else return i
+        this.DataSet.map(i => {
+          if (items.includes(i.key)) {
+            const curIdx = this.DataSet.findIndex(o => o.key === i.key)
+            this.DataSet[curIdx].isSelected = true
+          }
         })
       },
       deep: true,
@@ -244,6 +278,12 @@ export default {
     }
   },
   computed: {
+    convertName() {
+      return (key) => {
+        const ret =  this.DataSet.find(i => i.key === key)
+        return ret ? ret.name : null
+      }
+    },
     type() {
       const d = _.uniqBy(this.DataSet, 'type')
       return d.map(i => i.type)
@@ -256,33 +296,62 @@ export default {
   },
   created() {
     this.layouts = [
-      'Employee ID',
-      'Names and Surnames (English)',
-      "Names and Surnames (Laos)",
-      "Position",
-      "Department",
-      "Salary Grade",
-      "Start Working Date",
-      "Basic Salary",
-      "Default Working Day / Month",
-      "Actual Work Day This month",
-      "This Month Salary",
-      "Earning / Deduction Before SSO",
-      "Company SSO 6%",
-      "Employee SSO 5.5%",
-      "Total After SSO",
-      "OT Work (Hrs) * 5",
-      "OT Amount (LAK) * 5",
-      "Total OT Amount",
-      "Earning / Deduction Before TAX",
-      "Total before TAX",
-      "% Tax for Each Scale (LAK) * 5",
-     "Total Due as Tax",
-      "Total (After Tax+SSO)",
-      "Earning / Deduction After TAX ",
-      "Final Net Pay",
-
+      'empId',
+      'empName',
+      'empNameLao',
+      'basicSalary',
+      'thisMonthSalary',
+      'position',
+      'department',
+      'salaryGrade',
+      'earning',
+      'deduction',
+      'ssoPaidByEmp',
+      'ssoPaidByCom',
+      'OTHours',
+      'OTAmount',
+      'totalOTAmount',
+      'deductibleBeforeTax',
+      'deductibleAfterTax',
+      'deductibleBeforeSSO',
+      'salaryGrade',
+      'startWorkingDay',
+      'defaultWorkingDay',
+      'actualWorkingDay',
+      'taxForEachScale',
+      'totalBeforeTax',
+      'totalDueAsTax',
+      'totalAfterTax',
+      'totalAfterSSO',
+      'netSalary'
     ]
+    // this.layouts = [
+    //   'Employee ID',
+    //   'Names and Surnames (English)',
+    //   "Names and Surnames (Laos)",
+    //   "Position",
+    //   "Department",
+    //   "Salary Grade",
+    //   "Start Working Date",
+    //   "Basic Salary",
+    //   "Default Working Day / Month",
+    //   "Actual Work Day This month",
+    //   "This Month Salary",
+    //   "Earning / Deduction Before SSO",
+    //   "Company SSO 6%",
+    //   "Employee SSO 5.5%",
+    //   "Total After SSO",
+    //   "OT Work (Hrs) * 5",
+    //   "OT Amount (LAK) * 5",
+    //   "Total OT Amount",
+    //   "Earning / Deduction Before TAX",
+    //   "Total before TAX",
+    //   "% Tax for Each Scale (LAK) * 5",
+    //   "Total Due as Tax",
+    //   "Total (After Tax+SSO)",
+    //   "Earning / Deduction After TAX ",
+    //   "Final Net Pay",
+    // ]
   }
 }
 </script>
