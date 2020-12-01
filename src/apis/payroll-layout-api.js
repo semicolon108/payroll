@@ -2,7 +2,7 @@ import {apolloClient} from "@/services/apollo-client";
 import {
     ADD_PAYROLL_LAYOUT,
     DELETE_PAYROLL_LAYOUT, GET_DEFAULT_LAYOUT,
-    GET_PAYROLL_LAYOUTS,
+    GET_PAYROLL_LAYOUTS, SET_DEFAULT_LAYOUT,
     UPDATE_PAYROLL_LAYOUT
 } from "@/graphql/PayrollLayout";
 
@@ -64,6 +64,20 @@ export const  updatePayrollLayout = (form) => {
     })
 }
 
+
+export const  setDefaultLayout = (form) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const res = await apolloClient.mutate({
+                mutation: SET_DEFAULT_LAYOUT,
+                variables: form
+            })
+            resolve(res.data.setDefaultLayout)
+        } catch (err) {
+            reject(err)
+        }
+    })
+}
 
 
 export const  deletePayrollLayout = (form) => {

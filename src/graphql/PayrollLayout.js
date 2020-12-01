@@ -12,6 +12,7 @@ export const GET_PAYROLL_LAYOUTS = gql`
 
 `
 
+
 export const GET_DEFAULT_LAYOUT = gql`
 
     {
@@ -46,6 +47,16 @@ export const UPDATE_PAYROLL_LAYOUT = gql`
         $layouts: [String]
     ) {
         updatePayrollLayout(payrollLayoutId: $payrollLayoutId layouts: $layouts name: $name)
+    }
+
+`
+
+export const SET_DEFAULT_LAYOUT = gql`
+
+    mutation (
+        $payrollLayoutId: ID
+    ) {
+        setDefaultLayout(payrollLayoutId: $payrollLayoutId)
     }
 
 `
