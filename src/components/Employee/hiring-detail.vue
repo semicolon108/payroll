@@ -143,6 +143,19 @@
               </div>
             </div>
           </div>
+
+
+          <div class="column">
+            <div class="field">
+              <label class="label">Salary Grade</label>
+              <div class="control">
+                <ValidationProvider name="Salary Grade" rules="required" v-slot="{ errors }">
+                  <input v-model="form.salaryGrade" type="text" class="input">
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+                </ValidationProvider>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div v-if="employee.isExpat">
@@ -217,6 +230,7 @@ export default {
       provinceId: '',
       workingDay: null,
       salary: null,
+      salaryGrade: '',
       isOpenContract: true,
       workPermit: {
         startDate: null,
@@ -267,7 +281,8 @@ export default {
             startDate: data.workPermit.startDate,
             endDate: data.workPermit.endDate,
             daysOfNotify: data.workPermit.daysOfNotify
-          }
+          },
+          
         }
         this.defaultValue = {
           dateOfJoining: data.dateOfJoining,

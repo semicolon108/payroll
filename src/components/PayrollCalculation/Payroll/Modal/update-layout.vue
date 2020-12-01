@@ -42,8 +42,13 @@ export default {
     layoutSelected: ''
   }),
 watch: {
-  layoutSelected(value) {
-    if(value) this.name = this.payrollLayouts.find(i => i._id === value).name
+  layoutSelected: {
+   handler(val) {
+     if(val) {
+       this.name = this.payrollLayouts.find(i => i._id === val).name
+     }
+   },
+    immediate: true
   }
 },
   methods: {

@@ -84,7 +84,10 @@
         </div>
 
 
+
+
         <div v-else class="button-group">
+
           <button class="button" @click="ModalClick = 'document'"><i class="fal fa-hdd"></i>Store Document</button>
           <button
               :disabled="!payrollEmps.isCalculated"
@@ -124,7 +127,9 @@
     </div> <!-- box control -->
     <!-- Box control -->
 
-    <div class="box">
+    <div
+        style="max-width: 800vw; overflow-x: auto"
+        class="box">
       <div class="box-header">
         <div v-if="payrollEmps.hasExpat" class="button-group">
           <button
@@ -157,7 +162,6 @@
             <i class="fal fa-cog"></i>
             Custom Layout
           </button>
-
           <button class="button"
                   v-click-outside="()=>{dropdownView = false}"
                   :class="{'primary' : dropdownView}"
@@ -167,7 +171,7 @@
               <div class="dropdown-list">
                 <div
                     v-for="i in layouts" :key="i._id"
-                    class="dropdown-list-item"><i class="far fa-file-excel"></i>{{ i.name }}
+                    class="dropdown-list-item"><i class="far fa-file-excel"></i>{{  i.name }}
                 </div>
                 <!--                  <div class="dropdown-list-item"><i class="far fa-file-excel"></i>SSO Report</div>-->
                 <!--                  <div class="dropdown-list-item"><i class="far fa-file-excel"></i>TAX Report</div>-->
@@ -175,9 +179,9 @@
             </div>
           </button>
           <button class="button"
-                  v-click-outside="()=>{dropdownExport = false}"
-                  :class="{'primary' : dropdownExport}"
-                  @click="dropdownExport = !dropdownExport">
+              v-click-outside="()=>{dropdownExport = false}"
+              :class="{'primary' : dropdownExport}"
+              @click="dropdownExport = !dropdownExport">
             <i class="fal fa-file-export"></i>Export
             <div v-if="dropdownExport" class="dropdown slide-up">
               <div class="dropdown-list">
@@ -189,74 +193,37 @@
               </div>
             </div>
           </button>
-
           <!-- <button @click="downloadPayrollList" class="button"><i class="fas fa-file-pdf"></i> Export PDF</button> -->
         </div>
       </div> <!-- Box Header -->
 
 
-      <table class="table is-fullwidth" id="my-table">
-        <thead>
-        <tr>
-          <th>Employee</th>
-          <th class="is-right is-xs">Work Day</th>
-          <th class="is-right">Basic Salary</th>
-          <th class="is-right">Earning (LAK)</th>
-          <th class="is-right">Deduction (LAK)</th>
-          <th class="is-right">SSO Company</th>
-          <th class="is-right">SSO Employee</th>
-          <th class="is-right">TAX (LAK)</th>
-          <th class="is-right">Net Salary (LAK)</th>
-          <!-- <th class="is-right">Status</th> -->
-          <th class="is-right">View</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="(i, idx) in filterItems" :key="idx">
-          <td>{{ i.fullName }}</td>
-          <td class="is-right">
-            <div class="workday">
-              <div v-if="!i.isEditMode" class="edit">
-                <span v-if="!payrollEmps.isCalculated" @click="i.isEditMode = true"><i class="fas fa-pen"></i></span>
-                <span>{{ i.workingDay }}</span>
-              </div>
-              <div class="workdday-input" v-if="i.isEditMode">
-                <span @click="addOrUpdateActualWorkingDay(i.employeeId)" class="save">Save</span>
-                <input
-                    :ref="`input${i.employeeId}`"
-                    :value="i.workingDay"
-                    class="input"
-                    type="text"
-                    style="width: 30px"
-                >
-                <span @click="i.isEditMode = false">&times;</span>
-              </div>
-            </div>
-          </td>
-          <td class="is-right">{{ i.basicSalary | currency }}</td>
-          <td class="is-right">{{ i.earningAmount | currency }}</td>
-          <td class="is-right">{{ i.deductionAmount | currency }}</td>
-          <td class="is-right">{{ i.ssoPaidByCom | currency }}</td>
-          <td class="is-right">{{ i.ssoPaidByEmp | currency }}</td>
-          <td class="is-right">{{ i.tax | currency }}</td>
-          <td class="is-right">{{ i.netSalary | currency }}</td>
-          <!-- <td class="is-right status " :class="{'is-approved':  i._id}">
-            <i v-if="i._id" class="fas fa-check-circle"></i>
-            <i v-else class="far fa-check-circle"></i>
-          </td> -->
-          <td class="is-right">
-            <div class="icons">
-              <span class="icon"><i class="fas fa-search"></i></span>
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+
+
+
+        <table class="table is-fullwidth" id="my-table">
+          <thead >
+          <tr>
+            <th v-for="(i, idx) in headers" :key="idx">{{ convertName(i) }}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="(i, idx) in payrollEmps.employees" :key="idx">
+            <td v-for="(h, idx) in headers" :key="idx">{{ i[h] }}</td>
+          </tr>
+          </tbody>
+        </table>
+
+
+
+
+
     </div>
     <transition name="slideup">
-      <component :is="ModalClick" @CloseModal="ModalClick=''"></component>
+      <component :is="ModalClick" @CloseModal="closeModal"
+      :defaultLayout="headers"
+      ></component>
     </transition>
-
     <CalcAnim :isCalculating="isCalculating"/>
   </div>
 </template>
@@ -270,7 +237,8 @@ import {mapGetters} from 'vuex'
 import {loadingTimeout} from "@/config/variables";
 import CalcAnim from "@coms/PayrollCalculation/Anim/CalcAnim";
 import vClickOutside from 'v-click-outside'
-import {getPayrollLayouts} from "@/apis/payroll-layout-api";
+import {getDefaultLayout, getPayrollLayouts} from "@/apis/payroll-layout-api";
+import {layoutData} from "@coms/PayrollCalculation/Payroll/Modal/layout-data";
 
 export default {
   components: {
@@ -282,6 +250,42 @@ export default {
     clickOutside: vClickOutside.directive
   },
   data: () => ({
+    layoutData: layoutData,
+    headers: [
+      // "employeeCode",
+      // "fullName",
+      // "fullNameLao",
+      //
+      // "basicSalary",
+      // "thisMonthSalary",
+      // "position",
+      // "department",
+      // "salaryGrade",
+      //
+      // "earning",
+      // "deduction",
+      //
+      //
+      // "ssoPaidByEmp",
+      // "ssoPaidByCom",
+      // "OTHours",
+      // "OTAmount",
+      // "totalOTAmount",
+      // "deductibleBeforeTax",
+      // "deductibleAfterTax",
+      // "deductibleBeforeSSO",
+      // "startWorkingDay",
+      // "defaultWorkingDay",
+      // "actualWorkingDay",
+      // "taxForEachScale",
+      // "totalBeforeTax",
+      // "totalDueAsTax",
+      // "totalAfterTax",
+      // "totalAfterSSO",
+      // "netSalary"
+    ],
+
+
     dropdownExport: false,
     dropdownView: false,
     items: [],
@@ -305,11 +309,17 @@ export default {
       totalSalary: 0
     },
 
-
+    layoutSelected: '',
     layouts: []
   }),
   computed: {
     ...mapGetters(['getCompany', 'getToken']),
+    convertName() {
+      return (key) => {
+        const ret =  this.layoutData.find(i => i.key === key)
+        return ret ? ret.name : null
+      }
+    },
     filterItems() {
       return this.items.filter(i => {
         switch (this.chooseTab) {
@@ -324,6 +334,20 @@ export default {
     }
   },
   methods: {
+    closeModal() {
+      this.ModalClick = ''
+      this.getPayrollByEmps()
+      this.getDefaultLayout()
+      this.getPayrollLayouts()
+    },
+    async getDefaultLayout() {
+      const data = await getDefaultLayout()
+      this.layoutSelected = data._id
+      this.headers = data.layouts
+    },
+    async getPayrollLayouts() {
+      this.layouts = await getPayrollLayouts()
+    },
     async downloadBankTemplate() {
       try {
         await this.$store.dispatch('loading')
@@ -341,9 +365,9 @@ export default {
         link.click()
         await this.$store.dispatch('completed')
         this.$dialog.alert('Exported')
-      } catch (err) {
+      } catch (e) {
         await this.$store.dispatch('error')
-        throw new Error(err)
+        throw new Error(e)
       }
     },
     async downloadPayrollList(id) {
@@ -363,9 +387,9 @@ export default {
         link.click()
         await this.$store.dispatch('completed')
         this.$dialog.alert('Exported')
-      } catch (err) {
+      } catch (e) {
         await this.$store.dispatch('error')
-        throw new Error(err)
+        throw new Error(e)
       }
     },
     async getCompanyCurrencies() {
@@ -392,9 +416,9 @@ export default {
           await this.$store.dispatch('completed')
           this.$dialog.alert('Request was sent')
           await this.getPayrollByEmps()
-        } catch (err) {
+        } catch (e) {
           await this.$store.dispatch('error')
-          throw new Error(err)
+          throw new Error(e)
         }
 
 
@@ -425,10 +449,10 @@ export default {
             await this.$store.dispatch('stopLoading')
             this.isCalculating = false
           }, 1800)
-        } catch (err) {
+        } catch (e) {
           this.isCalculating = false
           await this.$store.dispatch('error')
-          throw new Error(err)
+          throw new Error(e)
         }
       }
     },
@@ -464,14 +488,15 @@ export default {
         await this.$store.dispatch('completed')
       } catch (e) {
         await this.$store.dispatch('error')
-        console.error(e)
+        throw new Error(e)
       }
     },
   },
   async created() {
     this.getCompanyCurrencies()
     this.getPayrollByEmps()
-    this.layouts = await getPayrollLayouts()
+    this.getDefaultLayout()
+    this.getPayrollLayouts()
   },
 }
 </script>

@@ -18,6 +18,7 @@ export const GET_HIRING_DETAIL = gql`
             workingDay
             currencyId
             salary
+            salaryGrade
 
             workPermit {
                 startDate
@@ -43,6 +44,7 @@ export const ADD_OR_UPDATE_HIRING_DETAIL = gql`
         $workingDay: Int!
         $currencyId: ID!
         $salary: Int!
+        $salaryGrade: String
 
 
         $isOpenContract: Boolean!
@@ -62,6 +64,7 @@ export const ADD_OR_UPDATE_HIRING_DETAIL = gql`
                 workingDay: $workingDay
                 currencyId: $currencyId
                 salary: $salary
+                salaryGrade: $salaryGrade
 
                 workPermit: $workPermit
                 contractEndDate: $contractEndDate
@@ -78,6 +81,7 @@ export const ADD_OR_UPDATE_HIRING_DETAIL = gql`
             workingDay
             currencyId
             salary
+            salaryGrade
 
             workPermit {
                 startDate

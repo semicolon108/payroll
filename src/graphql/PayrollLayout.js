@@ -12,6 +12,19 @@ export const GET_PAYROLL_LAYOUTS = gql`
 
 `
 
+export const GET_DEFAULT_LAYOUT = gql`
+
+    {
+        getDefaultLayout {
+            _id
+            name
+            layouts
+            isDefault
+        }
+    }
+
+`
+
 
 export const ADD_PAYROLL_LAYOUT= gql`
 

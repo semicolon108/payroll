@@ -11,6 +11,8 @@ export const GET_EMPLOYEES = gql`
             employeeCode
             firstName
             lastName
+            firstNameLao
+            lastNameLao
             dateOfBirth
             contactName
             idCardOrPassport
@@ -50,6 +52,8 @@ export const GET_EMPLOYEE = gql`
             employeeCode
             firstName
             lastName
+            firstNameLao
+            lastNameLao
             dateOfBirth
             contactName
             idCardOrPassport
@@ -168,6 +172,8 @@ export const UPDATE_EMPLOYEE = gql`
         $employeeCode: ID!
         $firstName: String!
         $lastName: String!
+        $firstNameLao: String
+        $lastNameLao: String
         $dateOfBirth: Date!
         $contactName: String!
         $idCardOrPassport: String!
@@ -191,6 +197,10 @@ export const UPDATE_EMPLOYEE = gql`
                 employeeCode: $employeeCode
                 firstName: $firstName
                 lastName: $lastName
+
+                firstNameLao: $firstNameLao
+                lastNameLao: $lastNameLao
+
                 dateOfBirth: $dateOfBirth
                 contactName: $contactName
                 idCardOrPassport: $idCardOrPassport
@@ -212,6 +222,8 @@ export const UPDATE_EMPLOYEE = gql`
             employeeCode
             firstName
             lastName
+            firstNameLao
+            lastNameLao
             dateOfBirth
             contactName
             idCardOrPassport
@@ -228,10 +240,9 @@ export const UPDATE_EMPLOYEE = gql`
                 accountName
                 accountNumber
             }
-
-            genderId 
+            genderId
             maritalStatusId
-            nationalityId 
+            nationalityId
             image {
                 _id
                 name

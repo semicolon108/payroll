@@ -77,6 +77,29 @@
               </div>
             </div>
           </div>
+
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">First Name (Lao)</label>
+              <div class="control">
+                <ValidationProvider name="firstNameLao" rules="required" v-slot="{ errors }">
+                  <input v-model="form.firstNameLao" type="text" class="input" required>
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+                </ValidationProvider>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="field">
+              <label for="" class="label">Last Name (Lao)</label>
+              <div class="control">
+                <ValidationProvider name="lastNameLao" rules="required" v-slot="{ errors }">
+                  <input v-model="form.lastNameLao" type="text" class="input" required>
+                  <p class="has-text-danger">{{ errors[0] }}</p>
+                </ValidationProvider>
+              </div>
+            </div>
+          </div>
           <div class="column is-4">
             <div class="field">
               <label class="label">Gender</label>
@@ -299,6 +322,8 @@ export default {
 
       firstName: '',
       lastName: '',
+      firstNameLao: '',
+      lastNameLao: '',
       dateOfBirth: '',
       contactName: '',
       idCardOrPassport: '',
@@ -355,6 +380,8 @@ export default {
         employeeCode: data.employeeCode,
         firstName: data.firstName,
         lastName: data.lastName,
+        firstNameLao: data.firstNameLao,
+        lastNameLao: data.lastNameLao,
         dateOfBirth: data.dateOfBirth,
         contactName: data.contactName,
         idCardOrPassport: data.idCardOrPassport,
@@ -446,6 +473,8 @@ export default {
             employeeCode: this.form.employeeCode,
             firstName: this.form.firstName,
             lastName: this.form.lastName,
+            firstNameLao: this.form.firstNameLao,
+            lastNameLao: this.form.lastNameLao,
             dateOfBirth: this.form.dateOfBirth,
             contactName: this.form.contactName,
             idCardOrPassport: this.form.idCardOrPassport,
@@ -487,6 +516,8 @@ export default {
             employeeCode: this.form.employeeCode,
             firstName: this.form.firstName,
             lastName: this.form.lastName,
+            firstNameLao: this.form.firstNameLao,
+            lastNameLao: this.form.lastNameLao,
             dateOfBirth: this.form.dateOfBirth,
             contactName: this.form.contactName,
             idCardOrPassport: this.form.idCardOrPassport,
