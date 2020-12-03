@@ -79,7 +79,10 @@
         </tbody>
       </table>
     </div>
-  <Upload v-if="isUploadModal" @CloseModal="isUploadModal = false" />
+  <Upload v-if="isUploadModal" @CloseModal="isUploadModal = false"
+
+  @UploadOT="isUploadModal = false; getOTByMonth()"
+  />
   </div>
 </template>
 

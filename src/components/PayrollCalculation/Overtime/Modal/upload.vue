@@ -1,12 +1,12 @@
 <template>
   <div class="modal is-active">
-    <div class="modal-background" @click="CloseModal"></div>
+    <div class="modal-background" @click="closeModal"></div>
     <div class="modal-card slide-down">
       <div class="modal-card-head">
           <h3>Upload OT</h3>
           <p>Please download to fill earning / deduction information</p>
           <a @click="downloadTemplate" class="template-file"><i class="fas fa-file-excel"></i>Excel Template</a>
-          <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
+          <button class="modal-close is-large" @click="closeModal" aria-label="close"></button>
       </div>
       <section class="modal-card-body">
         <div class="upload-box">
@@ -73,7 +73,7 @@ export default {
     ...mapGetters(['getToken'])
   },
   methods: {
-    CloseModal() {
+    closeModal() {
       this.$emit('CloseModal')
     },
     async downloadTemplate() {
@@ -99,6 +99,7 @@ export default {
     },
     async uploadOT() {
       await uploadOT(this.form)
+      this.$emit('UploadOT')
     },
     async chooseFile($file) {
       const file = $file.target.files[0]
