@@ -6,6 +6,9 @@
               'Edit Employee' :
               'Add Employee'
         }}</h3>
+      <button
+          v-if="$route.params.id"
+          @click="isResignationModal = true" class="button is-danger">Set Resignation Date</button>
 
         <div class="header-end">
           <button @click="$router.replace({ name: 'employee' })" class="button is-grey">Close</button>
@@ -46,11 +49,24 @@
     <div class="box">
       <router-view ref="refRoute"></router-view>
     </div>
+    <ResignationModal
+        v-if="isResignationModal"
+        @CloseModal="isResignationModal = false"
+    />
   </div>
 </template>
 
 <script>
-export default {}
+import ResignationModal from '@/components/Employee/Modal/resignation-modal'
+
+export default {
+  components: {
+    ResignationModal
+  },
+  data: () => ({
+    isResignationModal: false
+  })
+}
 </script>
 
 <style lang="scss" scoped>

@@ -27,6 +27,16 @@ export const GET_HIRING_DETAIL = gql`
             }
             isOpenContract
             contractEndDate
+            resignationDate
+            isResigned
+            salaryHistories {
+                type
+                refDate
+                adjustmentAmount
+                beforeAdjustment
+                afterAdjustment
+                memo
+            }
         }
     }
 
@@ -49,9 +59,10 @@ export const ADD_OR_UPDATE_HIRING_DETAIL = gql`
 
         $isOpenContract: Boolean!
         $workPermit: WorkPermitInput!
-        
+
         $contractEndDate: Date
         $probationEndDate: Date
+        $resignationDate:  Date
     ) {
         addOrUpdateHiringDetail(
             info: {
@@ -69,6 +80,7 @@ export const ADD_OR_UPDATE_HIRING_DETAIL = gql`
                 workPermit: $workPermit
                 contractEndDate: $contractEndDate
                 isOpenContract: $isOpenContract
+                resignationDate: $resignationDate
             }
         ) {
             _id
@@ -83,6 +95,7 @@ export const ADD_OR_UPDATE_HIRING_DETAIL = gql`
             salary
             salaryGrade
 
+
             workPermit {
                 startDate
                 endDate
@@ -90,7 +103,28 @@ export const ADD_OR_UPDATE_HIRING_DETAIL = gql`
             }
             isOpenContract
             contractEndDate
+            resignationDate
+            salaryHistories {
+                type
+                refDate
+                adjustmentAmount
+                beforeAdjustment
+                afterAdjustment
+                memo
+            }
+
         }
     }
 
+`
+
+
+export const ADJUST_SALARY = gql`
+
+    mutation (
+        $info: AdjustSalaryInput
+    ) {
+        adjustSalary(info: $info)
+    }
+    
 `

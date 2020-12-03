@@ -6,7 +6,7 @@
           <h3 class="xxl-title">Earning / Deduction</h3>
         </div>
         <div class="button-group">
-            <button class="button primary" @click="ModalClick = 'Add'">Add</button>
+<!--            <button class="button primary" @click="ModalClick = 'Add'">Add</button>-->
             <button v-if="!isApproved" class="button primary" @click="ModalClick = 'Upload'">Upload</button>
           </div>
       </div>

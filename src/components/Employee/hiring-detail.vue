@@ -104,7 +104,11 @@
           </div>
 
           <div class="column is-4">
-            <label for="" class="label">Salary</label>
+            <label for="" class="label">Salary
+              <button @click="isSalaryAdjustmentModal = true">Adjust Salary</button>
+              <button @click="isAdjustmentHistoriesModal = true" style="margin-left: 5px">Histories</button>
+            </label>
+
             <div class="field has-addons">
               <div class="control">
                 <div class="select">
@@ -137,6 +141,7 @@
                       :currency="{ prefix: '', suffix: '' }"
                       :value-as-integer="true"
                       :precision="0"
+                      :disabled="$route.params.id"
                   />
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
@@ -198,6 +203,15 @@
         </button>
       </div>
     </ValidationObserver>
+    <SalaryAdjustmentModal v-if="isSalaryAdjustmentModal"
+                           @CloseModal="isSalaryAdjustmentModal = false"
+                           @AdjustSalary="isSalaryAdjustmentModal = false; getData() ;$refs.refForm.reset()"
+    />
+    <AdjustmentHistoriesModal v-if="isAdjustmentHistoriesModal"
+                              @CloseModal="isAdjustmentHistoriesModal = false"
+
+
+    />
   </div>
 </template>
 
@@ -211,11 +225,15 @@ import {addOrUpdateHirringDetail, getHirringDetail} from "@/apis/hirring-detail-
 import {getPositions} from "@/apis/position-api";
 import {getCompanyCurrencies} from "@/apis/company-currency-api";
 import {GET_EMPLOYEE} from "@/graphql/Employee";
+import SalaryAdjustmentModal from '@/components/Employee/Modal/salary-adjustment-modal'
+import AdjustmentHistoriesModal from '@coms/Employee/Modal/adjusment-histories-modal'
 
 
 export default {
   components: {
-    DatePicker
+    DatePicker,
+    SalaryAdjustmentModal,
+    AdjustmentHistoriesModal
   },
   data: () => ({
     SelectActive: false,
@@ -248,7 +266,10 @@ export default {
     },
 
     companyCurrency: [],
-    employee: {}
+    employee: {},
+
+    isSalaryAdjustmentModal: false,
+    isAdjustmentHistoriesModal: false
 
   }),
   computed: {
@@ -282,7 +303,6 @@ export default {
             endDate: data.workPermit.endDate,
             daysOfNotify: data.workPermit.daysOfNotify
           },
-          
         }
         this.defaultValue = {
           dateOfJoining: data.dateOfJoining,
