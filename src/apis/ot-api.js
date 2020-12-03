@@ -1,5 +1,24 @@
 import {apolloClient} from "@/services/apollo-client";
-import {UPLOAD_OT} from "@/graphql/OT";
+import {GET_OT_BY_MONTH, UPLOAD_OT} from "@/graphql/OT";
+
+
+
+export const getOTByMonth = (monthlyPaymentId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const res = await apolloClient.query({
+                query: GET_OT_BY_MONTH,
+                variables: {
+                    monthlyPaymentId
+                }
+            })
+            resolve(res.data.getOTByMonth)
+        }catch (err ) {
+            reject(err)
+        }
+    })
+
+}
 
 export const uploadOT = (form) => {
     return new Promise(async (resolve, reject) => {

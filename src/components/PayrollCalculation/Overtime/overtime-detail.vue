@@ -51,20 +51,8 @@
           <th class="is-right">
             <span>Basic Salary</span>
           </th>
-          <th class="is-xs is-right">
-            <p>OT Rate 1.0</p>
-          </th>
-          <th class="is-xs is-right">
-            <p>OT Rate 1.5</p>
-          </th>
-          <th class="is-xs is-right">
-            <p>OT Rate 2.0</p>
-          </th>
-          <th class="is-xs is-right">
-            <p>OT Rate 2.5</p>
-          </th>
-          <th class="is-xs is-right">
-            <p>OT Rate 3.0</p>
+          <th class="is-xs is-right" v-for="i in rates" :key="i">
+            <p>OT Rate {{ i }}</p>
           </th>
           <th class="is-sm is-right">
             <p>Total</p>
@@ -72,36 +60,20 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(i, idx) in 10" :key="idx">
-          <td>001</td>
+        <tr v-for="(i, idx) in emps" :key="idx">
+          <td>{{ i.employeeCode }}</td>
           <td>
-            Anousone
+            {{ i.fullName }}
           </td>
           <td class="is-right">
-            <p>2.000.000</p>
+            <p>{{ i.salary | currency }}</p>
           </td>
-          <td class="is-right">
-            <span>3.4</span>
-            <p v-if="showAmount">2.000.000</p>
-          </td>
-          <td class="is-right">
-            <span>3.4</span>
-            <p v-if="showAmount">2.000.000</p>
-          </td>
-          <td class="is-right">
-            <span>8.8</span>
-            <p v-if="showAmount">2.000.000</p>
-          </td>
-          <td class="is-right">
-            <span>8.8</span>
-            <p v-if="showAmount">2.000.000</p>
-          </td>
-          <td class="is-right">
-            <span>8.8</span>
-            <p v-if="showAmount">2.000.000</p>
+          <td class="is-right" v-for="(o, idx) in rates" :key="idx">
+            <span>{{ getByRate(i.OTHours, o, 'hours') }}</span>
+            <p v-if="showAmount">{{ getByRate(i.OTHours, o, 'amount') | currency }}</p>
           </td>
           <td class="is-right total">
-            <p>2.000.000</p>
+            <p>{{i.total}}</p>
           </td>
         </tr>
         </tbody>
@@ -113,6 +85,7 @@
 
 <script>
 import Upload from './Modal/upload'
+import {getOTByMonth} from "@/apis/ot-api";
 
 export default {
   components: {
@@ -120,9 +93,28 @@ export default {
   },
   data: () => ({
     showAmount: true,
-    isUploadModal: false
+    isUploadModal: false,
+    emps: [],
+    rates: [
+        1.5,
+        2.0,
+        2.5,
+        3.0,
+        3.5
+    ]
   }),
+  computed: {
+    getByRate() {
+      return (OTHours, rate, type) => {
+        const chosen = OTHours.find(i => i.rate === rate)
+        return chosen ? chosen[type] : null
+      }
+    }
+  },
   methods: {
+    async getOTByMonth() {
+      this.emps = await getOTByMonth(this.$route.params.id)
+    },
     async downloadOTTemplate() {
       try {
         await this.$store.dispatch('loading')
@@ -144,6 +136,9 @@ export default {
         throw new Error(err)
       }
     },
+  },
+  created() {
+    this.getOTByMonth()
   }
 }
 </script>
