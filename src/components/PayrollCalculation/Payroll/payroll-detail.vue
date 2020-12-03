@@ -171,6 +171,7 @@
               <div class="dropdown-list">
                 <div
                     v-for="i in layouts" :key="i._id"
+                    @click="setDefaultLayout(i._id)"
                     class="dropdown-list-item"><i class="far fa-file-excel"></i>{{  i.name }}
                 </div>
                 <!--                  <div class="dropdown-list-item"><i class="far fa-file-excel"></i>SSO Report</div>-->
@@ -237,7 +238,7 @@ import {mapGetters} from 'vuex'
 import {loadingTimeout} from "@/config/variables";
 import CalcAnim from "@coms/PayrollCalculation/Anim/CalcAnim";
 import vClickOutside from 'v-click-outside'
-import {getDefaultLayout, getPayrollLayouts} from "@/apis/payroll-layout-api";
+import {getDefaultLayout, getPayrollLayouts, setDefaultLayout} from "@/apis/payroll-layout-api";
 import {layoutData} from "@coms/PayrollCalculation/Payroll/Modal/layout-data";
 
 export default {
@@ -491,6 +492,12 @@ export default {
         throw new Error(e)
       }
     },
+    async setDefaultLayout(payrollLayoutId) {
+      await setDefaultLayout({
+        payrollLayoutId
+      })
+      this.getDefaultLayout()
+    }
   },
   async created() {
     this.getCompanyCurrencies()
