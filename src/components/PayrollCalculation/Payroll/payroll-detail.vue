@@ -240,7 +240,7 @@ import CalcAnim from "@coms/PayrollCalculation/Anim/CalcAnim";
 import vClickOutside from 'v-click-outside'
 import {getDefaultLayout, getPayrollLayouts, setDefaultLayout} from "@/apis/payroll-layout-api";
 import {layoutData} from "@coms/PayrollCalculation/Payroll/Modal/layout-data";
-import moment from 'moment'
+//import moment from 'moment'
 
 export default {
   components: {
@@ -253,40 +253,7 @@ export default {
   },
   data: () => ({
     layoutData: layoutData,
-    headers: [
-      // "employeeCode",
-      // "fullName",
-      // "fullNameLao",
-      //
-      // "basicSalary",
-      // "thisMonthSalary",
-      // "position",
-      // "department",
-      // "salaryGrade",
-      //
-      // "earning",
-      // "deduction",
-      //
-      //
-      // "ssoPaidByEmp",
-      // "ssoPaidByCom",
-      // "OTHours",
-      // "OTAmount",
-      // "totalOTAmount",
-      // "deductibleBeforeTax",
-      // "deductibleAfterTax",
-      // "deductibleBeforeSSO",
-      // "startWorkingDay",
-      // "defaultWorkingDay",
-      // "actualWorkingDay",
-      // "taxForEachScale",
-      // "totalBeforeTax",
-      // "totalDueAsTax",
-      // "totalAfterTax",
-      // "totalAfterSSO",
-      // "netSalary"
-    ],
-
+    headers: [],
 
     dropdownExport: false,
     dropdownView: false,
@@ -324,9 +291,10 @@ export default {
     },
     formatValue() {
         return (value) => {
+           console.log(value)
             let newValue = value
             if(typeof value === 'number') newValue = new Intl.NumberFormat().format(value)
-            else if(moment(value).isValid()) newValue = moment(value).format('DD-MM-YYYY')
+           // else if(moment(value).isValid()) newValue = moment(value).format('DD-MM-YYYY')
             return newValue
         }
     },

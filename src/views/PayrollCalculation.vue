@@ -44,7 +44,9 @@
                     <p>200.000.000 LAK</p>
                 </div>
             </router-link>
-            <div class="step-item">
+            <div
+                @click="$router.push({name: 'payroll_list'})"
+                class="step-item">
                 Finish
             </div>
         </div>

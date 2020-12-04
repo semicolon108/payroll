@@ -105,8 +105,10 @@
 
           <div class="column is-4">
             <label for="" class="label">Salary
-              <button @click="isSalaryAdjustmentModal = true">Adjust Salary</button>
-              <button @click="isAdjustmentHistoriesModal = true" style="margin-left: 5px">Histories</button>
+              <div v-if="hasHiringDetail">
+                <button @click="isSalaryAdjustmentModal = true">Adjust Salary</button>
+                <button @click="isAdjustmentHistoriesModal = true" style="margin-left: 5px">Histories</button>
+              </div>
             </label>
 
             <div class="field has-addons">
@@ -141,7 +143,7 @@
                       :currency="{ prefix: '', suffix: '' }"
                       :value-as-integer="true"
                       :precision="0"
-                      :disabled="$route.params.id"
+                      :disabled="hasHiringDetail"
                   />
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
@@ -241,6 +243,7 @@ export default {
     provinces: [],
     contactTypes: [],
     currencies: [],
+
     form: {
       dateOfJoining: null,
       probationEndDate: null,
@@ -269,7 +272,9 @@ export default {
     employee: {},
 
     isSalaryAdjustmentModal: false,
-    isAdjustmentHistoriesModal: false
+    isAdjustmentHistoriesModal: false,
+
+    hasHiringDetail: false,
 
   }),
   computed: {
@@ -295,6 +300,7 @@ export default {
       this.contactTypes = await getReuse('ContactType')
       const data = await getHirringDetail(this.$route.params.id)
       if (data) {
+        this.hasHiringDetail = true
         this.isEditMode = true
         this.form = {
           ...data,

@@ -95,7 +95,7 @@ export default {
     Upload
   },
   data: () => ({
-    showAmount: true,
+    showAmount: false,
     isUploadModal: false,
     emps: [],
     rates: [
