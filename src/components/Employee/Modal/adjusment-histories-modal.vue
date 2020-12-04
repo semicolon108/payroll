@@ -81,6 +81,7 @@ export default {
       }
       this.salaryHistories = this.salaryHistories.map(i => ({
         ...i,
+        adjustmentAmount: new Intl.NumberFormat().format(i.adjustmentAmount),
         refDate: moment(i.refDate).locale('lo').format('DD-MM-YYYY'),
         beforeAdjustment: new Intl.NumberFormat().format(i.beforeAdjustment),
         afterAdjustment: new Intl.NumberFormat().format(i.afterAdjustment)

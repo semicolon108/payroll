@@ -51,7 +51,7 @@
                 :class="[
                     { 'is-earning': i.earnDeduct.type === 'Earning' },
                     { 'is-deduction': i.earnDeduct.type === 'Deduction' }
-                  ]">{{ i.earnDeduct.chooseAmount }}</span>
+                  ]">{{ i.earnDeduct.chooseAmount | currency }}</span>
           </td>
           <!-- <td class="is-right">
             <span v-if="isApproved" class="approved"><i class="fas fa-check-circle"></i></span>

@@ -210,7 +210,7 @@
           </thead>
           <tbody>
           <tr v-for="(i, idx) in payrollEmps.employees" :key="idx">
-            <td v-for="(h, idx) in headers" :key="idx">{{ i[h] }}</td>
+            <td v-for="(h, idx) in headers" :key="idx">{{ formatValue(i[h]) }}</td>
           </tr>
           </tbody>
         </table>
@@ -240,6 +240,7 @@ import CalcAnim from "@coms/PayrollCalculation/Anim/CalcAnim";
 import vClickOutside from 'v-click-outside'
 import {getDefaultLayout, getPayrollLayouts, setDefaultLayout} from "@/apis/payroll-layout-api";
 import {layoutData} from "@coms/PayrollCalculation/Payroll/Modal/layout-data";
+import moment from 'moment'
 
 export default {
   components: {
@@ -320,6 +321,14 @@ export default {
         const ret =  this.layoutData.find(i => i.key === key)
         return ret ? ret.name : null
       }
+    },
+    formatValue() {
+        return (value) => {
+            let newValue = value
+            if(typeof value === 'number') newValue = new Intl.NumberFormat().format(value)
+            else if(moment(value).isValid()) newValue = moment(value).format('DD-MM-YYYY')
+            return newValue
+        }
     },
     filterItems() {
       return this.items.filter(i => {
@@ -421,8 +430,6 @@ export default {
           await this.$store.dispatch('error')
           throw new Error(e)
         }
-
-
       }
     },
     async sendPayslip() {

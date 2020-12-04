@@ -73,7 +73,7 @@
             <p v-if="showAmount">{{ getByRate(i.OTHours, o, 'amount') | currency }}</p>
           </td>
           <td class="is-right total">
-            <p>{{i.total}}</p>
+            <p>{{i.total | currency}}</p>
           </td>
         </tr>
         </tbody>
