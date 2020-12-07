@@ -3,26 +3,14 @@
     <div class="modal-background" @click="CloseModal"></div>
       <div class="modal-card">
           <div class="modal-card-head">
-            <h3>Add Working Day</h3>
+            <h3>Add Working Location</h3>
             <button class="modal-close is-large" @click="CloseModal()" aria-label="close"></button>
         </div>
         <section class="modal-card-body">
             <div class="field">
-                <label for="" class="label">Group Name</label>
+                <label for="" class="label">Location Name</label>
                 <div class="control">
-                    <input type="text" class="input" placeholder="Contract Staff">
-                </div>
-            </div>
-            <div class="field">
-                <label for="" class="label">Work Day</label>
-                <div class="control">
-                    <input type="text" class="input" placeholder="e.g 30">
-                </div>
-            </div>
-            <div class="field">
-                <label for="" class="label">OT Day</label>
-                <div class="control">
-                    <input type="text" class="input" placeholder="e.g 30">
+                    <input type="text" class="input" placeholder="Headquarters">
                 </div>
             </div>
         </section>

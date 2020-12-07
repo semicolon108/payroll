@@ -7,6 +7,7 @@
       <div class="column is-3">
         <div class="navigation-tab">
           <router-link class="navigation-item" :to="{name:'company_info'}">Company Information</router-link>
+          <router-link class="navigation-item" :to="{name:'company_working_location'}">Working Location</router-link>
           <router-link class="navigation-item" :to="{name:'company_workday'}">Work Day</router-link>
           <!--            <router-link class="navigation-item" :to="{name:'company_overtime'}">Overtime</router-link>-->
           <router-link class="navigation-item" :to="{name:'company_deductible'}">Earning / Deduction</router-link>

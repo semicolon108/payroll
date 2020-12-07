@@ -2,6 +2,9 @@
   <ValidationObserver v-slot="{ handleSubmit }" class="box slide-up">
     <div class="box-header">
       <h3 class="box-title">Company Work Day</h3>
+      <div class="button-group">
+          <button class="button primary" @click="ModalClick()">Add Working Group</button>
+      </div>
     </div>
     <div class="field">
       <!-- <div class="control">
@@ -28,7 +31,7 @@
             <td>30</td>
             <td>
               <div class="icon-group">
-                <span @click="EditWorkDay()"><i class="fas fa-pen"></i></span>
+                <span @click="ModalClick()"><i class="fas fa-pen"></i></span>
                 <span><i class="fas fa-trash"></i></span>
               </div>
             </td>
@@ -80,7 +83,7 @@ export default {
         throw new Error(err)
       }
     },
-    EditWorkDay(){
+    ModalClick(){
       this.Modal = true
     },
   },
@@ -92,14 +95,15 @@ export default {
 
 <style lang="scss" scoped>
 .box-header {
+  display: flex;
   color: $font-color;
   margin-bottom: 20px;
-
+  align-items: center;
   .box-title {
     font-size: 18px;
     font-weight: 700;
     color: $font-color;
-    margin-bottom: 5px;;
+    margin-right: 10px;
   }
 }
 

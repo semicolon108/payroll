@@ -5,7 +5,7 @@
         <div class="box-header">
 
           <h3 class="box-title">Earning / Deduction</h3>
-          <span @click="ModalClick = 'AddItem'"><i class="fas fa-plus"></i></span>
+          <button @click="ModalClick = 'AddItem'" class="button primary">Add Item</button>
           <div class="button-group">
             <button class="button" @click="showGroup = !showGroup">Manage Group</button>
             <button class="button"
@@ -201,17 +201,6 @@ export default {
     font-size: 18px;
     font-weight: 700;
     color: $font-color;
-  }
-
-  span {
-    cursor: pointer;
-    margin-left: 10px;
-    padding: 5px 8px;
-    color: #fff;
-    background-color: $primary-color;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 }
 

@@ -93,32 +93,37 @@ const routes = [
   {
     path: '/report',
     name: 'report',
-    component: () => import(/* webpackChunkName: "report" */ '../views/Report.vue')
+    component: () => import('../views/Report.vue')
   },
   {
     path: '/company-setup',
     name: 'company_setup',
-    component: () => import(/* webpackChunkName: "company_setup" */ '../views/CompanySetup.vue'),
+    component: () => import('../views/CompanySetup.vue'),
     children:[
       {
         path: 'company-info',
         name: 'company_info',
-        component: () => import(/* webpackChunkName: "company_info" */ '@coms/CompanySetup/company-info.vue')
+        component: () => import('@coms/CompanySetup/company-info.vue')
+      },
+      {
+        path: 'company-working-location',
+        name: 'company_working_location',
+        component: () => import('@coms/CompanySetup/company-working-location.vue')
       },
       {
         path: 'company-workday',
         name: 'company_workday',
-        component: () => import(/* webpackChunkName: "company_workday" */ '@coms/CompanySetup/company-workday.vue')
+        component: () => import('@coms/CompanySetup/company-workday.vue')
       },
       {
         path: 'company-overtime',
         name: 'company_overtime',
-        component: () => import(/* webpackChunkName: "company_overtime" */ '@coms/CompanySetup/company-overtime.vue')
+        component: () => import('@coms/CompanySetup/company-overtime.vue')
       },
       {
         path: 'company-deductible',
         name: 'company_deductible',
-        component: () => import(/* webpackChunkName: "company_deductible" */ '@coms/CompanySetup/company-deductible.vue')
+        component: () => import('@coms/CompanySetup/company-deductible.vue')
       },
       {
         path: 'company-tax',
