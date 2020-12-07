@@ -287,7 +287,6 @@ export default {
     },
     formatValue() {
         return (value) => {
-           console.log(value)
             let newValue = value
             if(typeof value === 'number') newValue = new Intl.NumberFormat().format(value)
            // else if(moment(value).isValid()) newValue = moment(value).format('DD-MM-YYYY')
