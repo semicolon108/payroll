@@ -26,6 +26,7 @@ export const GET_MONTHLY_PAYMENT_EMPLOYEES = gql`
                 }
                 isApproved
             }
+            totalDeductible
         }
     }
 

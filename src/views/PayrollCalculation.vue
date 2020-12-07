@@ -19,7 +19,7 @@
                 class="step-item">
                 <div class="step-info">
                     <h3>Earning / Deuction</h3>
-                    <p>80.000.000 LAK</p>
+                    <p>{{ $route.query.totalDeductible | currency }} LAK</p>
                 </div>
             </router-link>
 

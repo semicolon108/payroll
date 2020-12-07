@@ -215,10 +215,6 @@
           </tbody>
         </table>
 
-
-
-
-
     </div>
     <transition name="slideup">
       <component :is="ModalClick" @CloseModal="closeModal"

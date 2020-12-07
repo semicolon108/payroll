@@ -117,10 +117,11 @@ export default {
   methods: {
     async getMonthlyPaymentEmployees() {
       try {
-        const { employees, date, isApproved } = await getMonthlyPaymentEmployees(this.$route.params.id)
+        const { employees, date, isApproved, totalDeductible } = await getMonthlyPaymentEmployees(this.$route.params.id)
         this.items = employees
         this.date = date
         this.isApproved = isApproved
+        if(totalDeductible) this.$router.push({ ...this.$route, query: { totalDeductible } })
       } catch (err) {
         throw new Error(err)
       }

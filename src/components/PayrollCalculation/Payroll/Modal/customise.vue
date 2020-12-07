@@ -36,10 +36,10 @@
           <div class="container">
             <div class="unselect-item-group" v-for="i in type" :key="i">
               <h3 class="group-name">
+                {{i}}
               </h3>
               <ul>
                 <li v-for="item in items(i)" :key="item.name"
-
                 >
                   <input
                       @change="item.isSelected = !item.isSelected"
