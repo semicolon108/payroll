@@ -92,7 +92,9 @@ export default {
 hr{
   height: 1px;
 }
-
+button.button{
+  margin-right: 10px;
+}
 .checkbox-item {
   input {
     display: none;

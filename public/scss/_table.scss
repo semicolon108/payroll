@@ -16,6 +16,7 @@
       border: none;
       font-weight: normal;
       font-size: 14px;
+      white-space: nowrap;
       &:first-child{
         padding-left: 0;
       }
@@ -45,6 +46,7 @@
       border-radius: $radius;
       border-color: $border-color;
       td{
+        white-space: nowrap;
         padding: 15px 10px;
         vertical-align: middle;
         &.deduct{

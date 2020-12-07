@@ -3,12 +3,12 @@
         ref="refForm"
          class="form">
       <div class="form-header">
-        <div>
+        <div class="has-button">
           <h3>Earning / Deduction</h3>
           <button
               v-if="!customAllowances.length"
               @click="addCustomAllo"
-              class="button">Add custom item
+              class="button sub">Add custom item
           </button>
         </div>
         <p>Please choose at least one earning group below</p>
@@ -141,12 +141,12 @@
         
         <button
             @click="addCustomAllo"
-            type="button" class="button add-btn">Add
+            type="button" class="button sub">Add
         </button>
       </div>
     </div>
     <hr>
-    <button @click="saveOnly" type="button" class="button save-btn">Update</button>
+    <button @click="saveOnly" type="button" class="button primary">Update</button>
     </ValidationObserver>
 </template>
 
@@ -291,25 +291,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.form-header {
-  div {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-
-    h3 {
-      margin: 0;
-    }
-
-    button {
-      margin-left: 10px;
-      border-radius: 0;
-      border: none;
-      background-color: $sub-color;
-      color: #fff;
-    }
-  }
-}
 
 .allowance-list {
   display: flex;

@@ -10,6 +10,10 @@
     &:focus{
         border-color: $sub-color;
     }
+    &:disabled{
+        border: 1px solid $border-color;
+        background-color: $border-color;
+    }
 }
 
 @mixin select {

@@ -14,7 +14,7 @@
             <label for="employertax">Employer pay</label>
         </div>
     </div>
-    <button @click="updateCompanyInfo" class="button">Save</button>
+    <button @click="updateCompanyInfo" class="button primary">Save</button>
   </div>
 </template>
 

@@ -58,7 +58,7 @@
         </button>
       </div>
     </div>
-    <button @click="addOrUpdateCompanyCurrency" class="button">Save</button>
+    <button @click="addOrUpdateCompanyCurrency" class="button primary">Save</button>
   </ValidationObserver>
 </template>
 

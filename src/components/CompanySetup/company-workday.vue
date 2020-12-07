@@ -2,18 +2,39 @@
   <ValidationObserver v-slot="{ handleSubmit }" class="box slide-up">
     <div class="box-header">
       <h3 class="box-title">Company Work Day</h3>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, sunt quo illum in repellendus alias
-        corporis error facere nostrum quae aliquid illo blanditiis nihil consectetur expedita, amet officia optio
-        eveniet?</p>
     </div>
     <div class="field">
-      <label for="" class="label">Work Day / Month</label>
-      <div class="control">
+      <!-- <div class="control">
         <ValidationProvider rules="required" v-slot="{ errors }">
           <input v-model="workingDay" type="text" class="input">
           <p class="has-text-danger">{{ errors[0] }}</p>
         </ValidationProvider>
-      </div>
+      </div> -->
+      <table class="table is-fullwidth">
+        <thead>
+          <tr>
+            <th>Group Name</th>
+            <th class="is-xs">Employee</th>
+            <th class="is-xs">Workday</th>
+            <th class="is-xs">OT Day</th>
+            <th class="is-xs is-right">Option</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Default</td>
+            <td>150</td>
+            <td>30</td>
+            <td>30</td>
+            <td>
+              <div class="icon-group">
+                <span @click="EditWorkDay()"><i class="fas fa-pen"></i></span>
+                <span><i class="fas fa-trash"></i></span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <!--      <div class="field">-->
     <!--        <label class="label">Work Hours / Day</label>-->
@@ -25,17 +46,23 @@
     <!--        </div>-->
     <!--      </div>-->
 
+    <!-- Modal -->
+    <WorkDay @CloseModal="Modal = false" v-if="Modal"/>
+    <!-- Modal -->
 
-    <button @click="handleSubmit(updateCompanyInfo)" class="button">Save</button>
+    <button @click="handleSubmit(updateCompanyInfo)" class="button primary">Save</button>
   </ValidationObserver>
 </template>
 
 <script>
 import {mapGetters} from 'vuex'
 import {mapActions} from 'vuex'
+import WorkDay from './Modal/WorkDay.vue'
 
 export default {
+  components: { WorkDay },
   data: () => ({
+    Modal: false,
     workingDay: null
   }),
   computed: {
@@ -52,7 +79,10 @@ export default {
         await this.$store.dispatch('error')
         throw new Error(err)
       }
-    }
+    },
+    EditWorkDay(){
+      this.Modal = true
+    },
   },
   created() {
     this.workingDay = this.getCompany.workingDay
@@ -73,22 +103,41 @@ export default {
   }
 }
 
-.input, .textarea {
-  @include input;
-}
+.table {
+  color: $font-color;
+  thead {
+    tr {
+      th {
+        width: 30%;
+        border-width: 1px;
+        white-space: nowrap;
+        &.is-xxs {
+          width: 3%;
+        }
+        &.is-xs {
+          width: 8%;
+        }
+      }
+    }
+  }
 
-label {
-  font-weight: 700;
+  tbody {
+    tr {
+      td {
+        border-width: 1px;
+        .icon-group {
+          color: $font-grey-color;
 
-  p {
-    font-weight: normal;
+          i {
+            font-size: 14px;
+            padding: 0 5px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
   }
 }
 
-.button {
-  border-radius: 0;
-  background-color: $primary-color;
-  border-color: $primary-color;
-  color: #fff;
-}
+
 </style>

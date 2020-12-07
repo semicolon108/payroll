@@ -7,23 +7,12 @@
         </div>
         <div class="button-group">
           <button @click="isUploadModal = true" class="button primary">Upload</button>
+          <button class="button grey">Clear Data</button>
         </div>
       </div>
     </div>
 
     <div class="box">
-      <div class="formula">
-        <label>OT Rate fomula</label>
-        <span>Basic Salary</span>
-        <i class="fal fa-divide"></i>
-        <span>OT Day 26</span>
-        <i class="fal fa-divide"></i>
-        <span>Working Hrs 8</span>
-        <i class="fal fa-times"></i>
-        <span>OT Hrs</span>
-        <i class="fal fa-times"></i>
-        <span>OT Rate</span>
-      </div>
       <div class="box-header">
         <div class="box-header-start">
           <input type="text" class="input" placeholder="Search employee">
@@ -146,24 +135,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-
-.formula {
-  margin-bottom: 20px;
-
-  i {
-    margin: 0 10px;
-  }
-
-  label {
-    margin-right: 10px;
-  }
-
-  span {
-    padding: 3px 8px;
-    background-color: $light-grey-color;
-    color: $font-color;
-  }
-}
 
 .input {
   @include input;

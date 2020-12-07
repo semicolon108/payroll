@@ -8,10 +8,10 @@
         }}</h3>
       <button
           v-if="$route.params.id"
-          @click="isResignationModal = true" class="button is-danger">Set Resignation Date</button>
+          @click="isResignationModal = true" class="button alert">Resignation</button>
 
         <div class="header-end">
-          <button @click="$router.replace({ name: 'employee' })" class="button is-grey">Close</button>
+          <button @click="$router.replace({ name: 'employee' })" class="button grey">Close</button>
 
           <!-- isOnFinish -->
           <button
@@ -22,12 +22,12 @@
           <button
               v-if="$route.name !== 'document' && $route.name === 'basic_detail'"
               @click="$refs.refRoute.saveAndContinue()"
-              class="button">Save and continue</button>
+              class="button primary">Save and continue</button>
 
           <!-- isEditMode -->
           <button
               v-if="$route.name !== 'document' && $route.name !== 'basic_detail'"
-              @click="$refs.refRoute.saveOnly()" class="button">Save</button>
+              @click="$refs.refRoute.saveOnly()" class="button primary">Save</button>
         </div>
     </div>
     <div class="steps" v-if="$route.params.id">

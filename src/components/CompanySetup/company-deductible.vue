@@ -29,30 +29,30 @@
         </div>
         <table class="table is-fullwidth">
           <thead>
-          <tr>
-            <th>Item Name</th>
-            <th class="is-xs">Item Type</th>
-            <th class="">Group</th>
-            <th class="is-xs">TAX</th>
-            <th class="is-xs">Option</th>
-          </tr>
+            <tr>
+              <th>Item Name</th>
+              <th class="is-xs">Item Type</th>
+              <th class="">Group</th>
+              <th class="is-xs">TAX</th>
+              <th class="is-xs">Option</th>
+            </tr>
           </thead>
           <tbody>
-          <tr v-for="i in earnDeducts" :key="i._id">
-            <td class="check">
-              <input ref="Checkbox" type="checkbox" name="" :id="i._id">
-              <label :for="i._id" @click="itemSelect(i._id)">{{ i.name }}</label>
-            </td>
-            <td>{{ i.type }}</td>
-            <td>{{ i.groups | perttyArray }}</td>
-            <td>{{ i.isBeforeTax ? 'BeforeTAX' : 'AfterTAX' }}</td>
-            <td>
-              <div class="icon-group">
-                <span @click="editItem(i)"><i class="fas fa-pen"></i></span>
-                <span @click="deleteItem(i)"><i class="fas fa-trash"></i></span>
-              </div>
-            </td>
-          </tr>
+            <tr v-for="i in earnDeducts" :key="i._id">
+              <td class="check">
+                <input ref="Checkbox" type="checkbox" name="" :id="i._id">
+                <label :for="i._id" @click="itemSelect(i._id)">{{ i.name }}</label>
+              </td>
+              <td>{{ i.type }}</td>
+              <td>{{ i.groups | perttyArray }}</td>
+              <td>{{ i.isBeforeTax ? 'BeforeTAX' : 'AfterTAX' }}</td>
+              <td>
+                <div class="icon-group">
+                  <span @click="editItem(i)"><i class="fas fa-pen"></i></span>
+                  <span @click="deleteItem(i)"><i class="fas fa-trash"></i></span>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -175,7 +175,6 @@ export default {
         this.$refs.Modal.name = item.name
       })
     },
-
     editGroup(item) {
       this.ModalClick = 'ManageGroup'
       this.$nextTick(() => {
@@ -220,29 +219,27 @@ export default {
   display: flex;
   margin-left: auto;
 }
+
 .button {
-    border-radius: $radius;
-    border: 1px solid $border-color;
-    margin-left: 10px;
-    transition: all ease-in-out .2s;
-    color: $font-color;
-    box-shadow: none;
-
-    &:hover {
-      outline: none;
-    }
-
-    &.create {
-      background-color: $primary-color;
-      color: #fff;
-      border: 1px solid $primary-color;
-    }
-
-    &:disabled {
-      background-color: $grey-color;
-      color: $font-color;
-    }
+  border-radius: $radius;
+  border: 1px solid $border-color;
+  margin-left: 10px;
+  transition: all ease-in-out .2s;
+  color: $font-color;
+  box-shadow: none;
+  &:hover {
+    outline: none;
   }
+  &.create {
+    background-color: $primary-color;
+    color: #fff;
+    border: 1px solid $primary-color;
+  }
+  &:disabled {
+    background-color: $grey-color;
+    color: $font-color;
+  }
+}
 
 .group-list {
   display: flex;
@@ -253,15 +250,12 @@ export default {
     border: 1px solid $border-color;
     display: flex;
     align-items: center;
-
     &:first-child {
       background-color: $light-grey-color;
     }
-
     &:not(:first-child) {
       margin-left: 5px;
     }
-
     .count {
       margin-left: 8px;
       color: $primary-color;
@@ -278,17 +272,14 @@ export default {
 
 .table {
   color: $font-color;
-
   thead {
     tr {
       th {
         width: 30%;
         border-width: 1px;
-
         &.is-xxs {
           width: 3%;
         }
-
         &.is-xs {
           width: 8%;
         }
@@ -300,7 +291,6 @@ export default {
     tr {
       td {
         border-width: 1px;
-
         &.check {
           input {
             display: none;

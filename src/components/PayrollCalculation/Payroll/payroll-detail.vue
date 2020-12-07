@@ -72,22 +72,18 @@
           <button
               v-else-if="payrollEmps.isRequestApproved && !payrollEmps.isCalculated"
               @click="calcPayroll"
-              class="button is-primary">Calculate
+              class="button primary">Calculate
           </button>
           <button
               v-else
-              class="button is-primary"
+              class="button primary"
               disabled
           >
             Calculated
           </button>
         </div>
 
-
-
-
         <div v-else class="button-group">
-
           <button class="button" @click="ModalClick = 'document'"><i class="fal fa-hdd"></i>Store Document</button>
           <button
               :disabled="!payrollEmps.isCalculated"
@@ -112,12 +108,12 @@
           <button
               v-if="!payrollEmps.isCalculated"
               @click="calcPayroll"
-              class="button is-primary">
+              class="button primary">
             Calculate
           </button>
           <button
               v-else
-              class="button is-primary"
+              class="button primary"
               disabled
           >
             Calculated
@@ -160,7 +156,7 @@
 
           <button class="button" @click="ModalClick = 'customise'">
             <i class="fal fa-cog"></i>
-            Custom Layout
+            Edit Layout
           </button>
           <button class="button"
                   v-click-outside="()=>{dropdownView = false}"

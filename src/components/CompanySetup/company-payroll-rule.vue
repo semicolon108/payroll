@@ -2,12 +2,9 @@
   <div class="box slide-up">
     <div class="box-header">
       <h3 class="box-title">Payroll Rule</h3>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, sunt quo illum in repellendus alias
-        corporis error facere nostrum quae aliquid illo blanditiis nihil consectetur expedita, amet officia optio
-        eveniet?</p>
     </div>
     <div class="field">
-      <label for="" class="label">Does your company need an approval before Payroll Calculation?</label>
+      <label for="" class="label">Does your company need an approval before sending paylip?</label>
       <div class="control switch">
         <input type="radio" name="approved" id="need" :checked="!isApprovedBeforeCalc">
         <label @click="isApprovedBeforeCalc = false" for="need">No</label>
@@ -59,7 +56,7 @@
     </div>
 
 
-    <button @click="updateCompanyInfo" class="button">Save</button>
+    <button @click="updateCompanyInfo" class="button primary">Save</button>
   </div>
 </template>
 

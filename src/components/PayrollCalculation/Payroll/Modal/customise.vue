@@ -3,58 +3,72 @@
     <div class="close-button" @click="CloseModal">
       <i class="fal fa-chevron-down"></i>
     </div>
-    <section class="section">
-      <div class="container">
-        <div class="page-header">
-          <h3>Customise Table and Export Layout</h3>
-          <div class="field">
-            <div class="control">
-              <button class="button"
-                      @click="LayoutOption = 'updateLayout'">
-                Update Existing Layout
-              </button>
 
-              <button class="button primary"
-                      @click="LayoutOption = 'createLayout'">
-                Create New Layout
-              </button>
-            </div>
-          </div>
+    <div class="page-header">
+      <div class="input-group">
+        <input type="text" class="input no-input" value="Table Layout Name">
+        <button class="button sub"
+                  @click="LayoutOption = 'updateLayout'">
+            Update
+        </button>
+        <button class="button grey"
+                  @click="LayoutOption = 'updateLayout'">
+            Reset
+        </button>
+        <span></span>
+      </div>
+      
+      <div class="field">
+        <div class="control">
+          <button class="button alert"
+                  @click="LayoutOption = 'createLayout'">
+            Delete this layout
+          </button>
+          <button class="button primary"
+                  @click="LayoutOption = 'createLayout'">
+            Create New Layout
+          </button>
         </div>
-        <hr>
+      </div>
+    </div>
+
+
+    <div class="items-list-container">
+
+      <div class="selected-items">
+        <h3 class="list-title">Drag to reroder an item</h3>
         <draggable class="selected-items-list"
-                   v-model="layouts"
+                  v-model="layouts"
         >
           <div class="selected-item" v-for="(i, index) in layouts" :key="index">
             <span>{{ index + 1 }}.</span>
             <p>{{ convertName(i) }}</p>
+            <i class="fal fa-times" @click="test()"></i>
           </div>
         </draggable>
+      </div>
 
-
-        <div class="unselect-items-list">
-          <div class="container">
-            <div class="unselect-item-group" v-for="i in type" :key="i">
-              <h3 class="group-name">
-                {{i}}
-              </h3>
-              <ul>
-                <li v-for="item in items(i)" :key="item.name"
-                >
-                  <input
-                      @change="item.isSelected = !item.isSelected"
-                      type="checkbox" :checked="item.isSelected" :id="item.name">
-                  <label
-
-                      :for="item.name"
-                      class="label">{{ item.name }}</label>
-                </li>
-              </ul>
-            </div>
+      <div class="unselect-items-list">
+        <h3 class="list-title">Select Items to by shown in your table</h3>
+        <div class="unselect-item-group-container">
+          <div class="unselect-item-group" v-for="i in type" :key="i">
+            <h3 class="group-name">{{i}}</h3>
+            <ul class="active">
+              <li v-for="item in items(i)" :key="item.name"
+              >
+                <input
+                    @change="item.isSelected = !item.isSelected"
+                    type="checkbox" :checked="item.isSelected" :id="item.name">
+                <label
+                    :for="item.name"
+                    class="label">{{ item.name }}</label>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+
 
     <component
         :is="LayoutOption"
@@ -83,6 +97,9 @@ export default {
   methods: {
     CloseModal() {
       this.$emit('CloseModal')
+    },
+    test(){
+      alert('ok')
     }
   },
   data: () => ({
@@ -200,6 +217,159 @@ hr {
   height: 1px;
 }
 
+.items-list-container{
+  display: flex;
+  overflow: hidden;
+  .list-title{
+    font-size: 18px;
+    color: $font-color;
+    margin-bottom: 20px;
+  }
+  .selected-items{
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    .selected-items-list{
+      overflow: auto;
+      .selected-item {
+        height: 30px;
+        border: 1px solid $border-color;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        width: 100%;
+        margin-right: 10px;
+        white-space: pre;
+        white-space: nowrap;
+        margin-bottom: 10px;
+        span {
+          background-color: $dark-primary-color;
+          color: #fff;
+          min-width: 30px;
+          max-width: 30px;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 10px;
+        }
+        p {
+          margin: 0;
+          padding: 0;
+        }
+        i{
+          cursor: pointer;
+          margin-left: auto;
+          margin-right: 10px;
+          color: $grey-color;
+          z-index: 999;
+        }
+      }
+    }
+  }
+  .unselect-items-list{
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+    overflow: hidden;
+    .unselect-item-group-container{
+      overflow: auto;
+    }
+    .unselect-item-group {
+      padding: 10px 0;
+      margin: 0;
+      border-bottom: 1px solid $light-grey-color;
+      display: flex;
+      flex-direction: column;
+      &:first-child {
+        border-top: 1px solid $light-grey-color;
+      }
+      h3 {
+        margin: 0;
+        font-size: 16px;
+        color: $font-color;
+        min-width: 200px;
+        cursor: pointer;
+      }
+      ul {
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        height: 0;
+        overflow: hidden;
+        &.active{
+          margin-top: 10px;
+          height: 100%;
+        }
+        li {
+          cursor: pointer;
+          list-style-type: none;
+          margin: 5px 0;
+          white-space: pre;
+          width: 50%;
+          input {
+            display: none;
+
+            &:checked ~ label::before {
+              background-color: $primary-color;
+            }
+            &:checked ~ label::after {
+              content: '';
+              display: block;
+              position: absolute;
+              top: 4px;
+              left: 7px;
+              width: 5px;
+              height: 11px;
+              border: solid #fff;
+              border-width: 0 2px 2px 0;
+              transform: rotate(45deg);
+            }
+          }
+          label {
+            font-weight: normal;
+            position: relative;
+            display: flex;
+            flex-wrap: nowrap;
+            white-space: nowrap;
+            align-items: center;
+            cursor: pointer;
+            margin: 0;
+            font-size: 14px;
+
+            &::before {
+              content: '';
+              min-width: 18px;
+              min-height: 18px;
+              max-width: 18px;
+              max-height: 18px;
+              margin-right: 5px;
+              display: block;
+              border: 1px solid $border-color;
+            }
+
+            &::after {
+              content: '';
+              display: block;
+              position: absolute;
+              top: 4px;
+              left: 7px;
+              width: 5px;
+              height: 11px;
+              border: solid $light-grey-color;
+              border-width: 0 2px 2px 0;
+              transform: rotate(45deg);
+            }
+          }
+        }
+      }
+    }
+  }
+}
 .customise-page {
   background-color: #fff;
   position: fixed;
@@ -208,168 +378,68 @@ hr {
   right: 0;
   bottom: 0;
   z-index: 9;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow: auto;
-
+  overflow: hidden;
+  padding: 20px 50px 30px;
   .page-header {
     display: flex;
     align-items: center;
-
-    .field {
-      margin-left: auto;
-    }
-
-    .control {
+    justify-content: space-between;
+    .input-group{
       display: flex;
       align-items: center;
-
-      label {
-        white-space: nowrap;
-        margin-right: 10px;
-      }
-    }
-  }
-}
-
-.selected-items-list {
-  display: flex;
-  flex-wrap: wrap;
-  overflow: auto;
-  margin: 20px 0;
-  box-sizing: border-box;
-
-  .selected-item {
-    cursor: pointer;
-    display: flex;
-    flex-grow: 1;
-    color: #fff;
-    background-color: $primary-color;
-    margin-right: 10px;
-    white-space: pre;
-    white-space: nowrap;
-    margin-bottom: 8px;
-
-    span {
-      background-color: $dark-primary-color;
-      min-width: 30px;
-      max-width: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    p {
-      padding: 5px 10px;
-    }
-  }
-}
-
-.unselect-items-list {
-  height: 0;
-
-  &.active {
-    height: auto;
-  }
-
-  .unselect-item-group {
-    padding: 10px 0;
-    margin: 0;
-    border-bottom: 1px solid $light-grey-color;
-    display: flex;
-
-    &:first-child {
-      border-top: 1px solid $light-grey-color;
-    }
-
-    h3 {
-      font-size: 16px;
-      color: $font-color;
-      min-width: 200px;
-    }
-
-    ul {
-      margin: 0;
-      display: flex;
-      flex-wrap: wrap;
-      width: 100%;
-
-      li {
-        list-style-type: none;
-        margin: 5px 0;
-        white-space: pre;
-        width: 33.33%;
-
-        input {
-          display: none;
-
-          &:checked ~ label::before {
-            background-color: $primary-color;
-          }
-
-          &:checked ~ label::after {
-            content: '';
-            display: block;
-            position: absolute;
-            top: 3px;
-            left: 7px;
-            width: 5px;
-            height: 11px;
-            border: solid #fff;
-            border-width: 0 2px 2px 0;
-            transform: rotate(45deg);
-          }
+      position: relative;
+      .no-input{
+        font-size: 28px;
+        font-weight: 700;
+        padding: 0;
+        background-color: #fff;
+        border: none;
+        box-shadow: none;
+        &:valid{
+          background-color: #fff;
         }
-
-        label {
-          font-weight: normal;
-          position: relative;
-          display: flex;
-          flex-wrap: nowrap;
-          white-space: nowrap;
-          align-items: center;
-          cursor: pointer;
-          margin: 0;
-          font-size: 14px;
-
-          &::before {
-            content: '';
-            min-width: 18px;
-            min-height: 18px;
-            max-width: 18px;
-            max-height: 18px;
-            margin-right: 5px;
-            display: block;
-            border: 1px solid $border-color;
-          }
-
-          &::after {
-            content: '';
-            display: block;
-            position: absolute;
-            top: 3px;
-            left: 7px;
-            width: 5px;
-            height: 11px;
-            border: solid $light-grey-color;
-            border-width: 0 2px 2px 0;
-            transform: rotate(45deg);
-          }
+        &:focus ~ span::after{
+          width: 100%;
+          transition: 0.3s;
         }
       }
-    }
+      span{
+        content: '';
+        display: block;
+        width: 100%;
+        height: 1px;
+        background-color: $border-color;
+        position: absolute;
+        bottom: 0;
+        &::after{
+          content: '';
+          display: block;
+          width: 0;
+          height: 2px;
+          background-color: $primary-color;
+          position: absolute;
+          bottom: 0;
+        }
+      }
+    } // input-group
   }
 }
+
+
 
 // dragable
 .selected-item.sortable-chosen {
   opacity: 1;
   background-color: $dark-primary-color;
+  color: #fff;
 }
 
 .selected-item.sortable-ghost {
   opacity: 1;
-  background-color: $sub-color;
+  background-color: $primary-color;
   transform: scale(1.2);
 }
 
@@ -382,20 +452,17 @@ hr {
   top: 0;
   right: 50%;
   background-color: $grey-color;
-  min-height: 50px;
-  width: 80px;
+  min-height: 30px;
+  width: 50px;
   z-index: 1;
-  min-height: 50px;
-  width: 80px;
   background-color: rgba($grey-color, .4);
   cursor: pointer;
   border-radius: 0 0 10px 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-
   i {
-    font-size: 40px;
+    font-size: 20px;
     color: $grey-color;
   }
 }

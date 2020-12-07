@@ -41,7 +41,7 @@
     </div>
 
 
-    <button @click="handleSubmit(updateCompanyInfo)" class="button">Save</button>
+    <button @click="handleSubmit(updateCompanyInfo)" class="button primary">Save</button>
 
     </ValidationObserver>
   </div>

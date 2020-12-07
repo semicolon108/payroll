@@ -2,12 +2,17 @@ button.button{
     border-radius: 0;
     border: 1px solid $border-color;
     color: $font-color;
+    box-shadow: none;
+    box-shadow: unset;
     i {
         margin-right: 5px;
     }
+    &.sub{
+        background-color: $sub-color;
+        border-color: $sub-color;
+        color: #fff;
+    }
     &.primary{
-        box-shadow: none;
-        box-shadow: unset;
         background-color: $primary-color;
         border: 1px solid $primary-color;
         color: #fff;

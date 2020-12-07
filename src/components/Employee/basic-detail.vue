@@ -39,7 +39,7 @@
                       }}</p>
                     <p v-if="file">{{ file.size | readSize }}</p>
                   </div>
-                  <div class="button" @click="chooseFile">Add Photo</div>
+                  <button class="button sub" @click="chooseFile">Add Photo</button>
                 </div>
               </div>
             </div>
@@ -291,8 +291,8 @@
             </div>
           </div>
         </div>
-        <button v-if="isEditMode" @click="saveOnly" type="button" class="button save-btn">Update</button>
-        <button v-else @click="saveAndContinue" type="button" class="button save-btn">Save and continue</button>
+        <button v-if="isEditMode" @click="saveOnly" type="button" class="button primary">Update</button>
+        <button v-else @click="saveAndContinue" type="button" class="button primary">Save and continue</button>
       </div>
     </ValidationObserver>
   </div>
@@ -614,7 +614,6 @@ export default {
     border-radius: 50%;
     margin-right: 10px;
   }
-
   .upload-label {
     margin-left: 10px;
 
@@ -632,18 +631,6 @@ export default {
   .input {
     display: none;
   }
-
-  .button {
-    border: 1px solid $sub-color;
-    background-color: $sub-color;
-    color: #ffff;
-    border-radius: $radius;
-
-    &:focus {
-      box-shadow: unset;
-      box-shadow: none;
-    }
-  }
 }
 
 .toggle {
@@ -653,12 +640,10 @@ export default {
 .sso-toggle {
   margin-left: 10px;
   display: flex;
-
   label {
     position: relative;
     display: flex;
     align-items: center;
-
     &::before {
       margin-right: 5px;
       cursor: pointer;
@@ -675,7 +660,6 @@ export default {
     display: none;
     cursor: pointer;
     position: relative;
-
     &:checked ~ label::after {
       content: '';
       position: absolute;
@@ -692,7 +676,6 @@ export default {
       4px -8px 0 white;
       transform: rotate(45deg);
     }
-
     &:checked ~ label::before {
       background-color: $primary-color;
     }

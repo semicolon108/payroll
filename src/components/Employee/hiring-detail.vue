@@ -104,12 +104,7 @@
           </div>
 
           <div class="column is-4">
-            <label for="" class="label">Salary
-              <div v-if="hasHiringDetail">
-                <button @click="isSalaryAdjustmentModal = true">Adjust Salary</button>
-                <button @click="isAdjustmentHistoriesModal = true" style="margin-left: 5px">Histories</button>
-              </div>
-            </label>
+            <label for="" class="label">Salary</label>
 
             <div class="field has-addons">
               <div class="control">
@@ -147,6 +142,12 @@
                   />
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
+
+                <div class="salary-option" v-if="hasHiringDetail">
+                  <a @click="isSalaryAdjustmentModal = true">Adjust Salary</a>
+                  <a @click="isAdjustmentHistoriesModal = true" style="margin-left: 5px">Histories</a>
+                </div>
+
               </div>
             </div>
           </div>
@@ -201,7 +202,7 @@
           </div>
         </div>
         <hr>
-        <button type="button" @click="saveOnly" class="button save-btn">Update
+        <button type="button" @click="saveOnly" class="button primary">Update
         </button>
       </div>
     </ValidationObserver>
@@ -381,6 +382,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.salary-option{
+  margin-top: 10px;
+  a{
+    text-decoration: none;
+    color: $font-color;
+    border: 1px solid $border-color;
+    padding: 5px 10px;
+    background-color: $light-grey-color;
+  }
+}
 .form-title-wraper {
   display: flex;
   align-items: center;
@@ -416,7 +427,6 @@ export default {
       position: relative;
       width: 45px;
       height: 26px;
-
       &::after {
         transition: all 0.1s ease 0.1s;
         content: '';
