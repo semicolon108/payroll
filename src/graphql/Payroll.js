@@ -19,26 +19,28 @@ export const GET_PAYROLL_BY_MONTHS = gql`
 
 export const GET_PAYROLL_BY_EMPS = gql`
 
-    query ($monthlyPaymentId: ID!) {
+query ($monthlyPaymentId: ID!) {
         getPayrollByEmps(monthlyPaymentId: $monthlyPaymentId) {
             hasExpat
             employees {
+                employeeId
+             
                 employeeCode
                 fullName
-
+              
                 fullNameLao
                 position
                 department
-
+              
                 earningAmount
                 deductionAmount
                 deductibleBeforeTax
                 deductibleAfterTax
-
-
-                basicSalary
+              
+              
+                basicSalary              
                 salaryGrade
-                startWorkingDay
+                startWorkingDate
                 defaultWorkingDay
                 actualWorkingDay
                 thisMonthSalary
@@ -56,8 +58,9 @@ export const GET_PAYROLL_BY_EMPS = gql`
 
                 totalAfterSSO
                 deductibleBeforeSSO
-
+              
                 netSalary
+              
             }
             date
             isApproved

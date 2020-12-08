@@ -6,13 +6,13 @@
 
     <div class="page-header">
       <div class="input-group">
-        <input type="text" class="input no-input" value="Table Layout Name">
+        <input v-model="form.name" type="text" class="input no-input" value="Table Layout Name">
         <button class="button sub"
-                  @click="LayoutOption = 'updateLayout'">
+                  @click="updatePayrollLayout">
             Update
         </button>
         <button class="button grey"
-                  @click="LayoutOption = 'updateLayout'">
+                  @click="reset">
             Reset
         </button>
         <span></span>
@@ -21,7 +21,7 @@
       <div class="field">
         <div class="control">
           <button class="button alert"
-                  @click="LayoutOption = 'createLayout'">
+                  @click="deletePayrollLayout">
             Delete this layout
           </button>
           <button class="button primary"
@@ -38,9 +38,9 @@
       <div class="selected-items">
         <h3 class="list-title">Drag to reroder an item</h3>
         <draggable class="selected-items-list"
-                  v-model="layouts"
+                  v-model="form.layouts"
         >
-          <div class="selected-item" v-for="(i, index) in layouts" :key="index">
+          <div class="selected-item" v-for="(i, index) in form.layouts" :key="index">
             <span>{{ index + 1 }}.</span>
             <p>{{ convertName(i) }}</p>
             <i class="fal fa-times" @click="test()"></i>
@@ -62,6 +62,7 @@
                 <label
                     :for="item.name"
                     class="label">{{ item.name }}</label>
+      
               </li>
             </ul>
           </div>
@@ -74,7 +75,6 @@
         :is="LayoutOption"
         @CloseLayoutOption="LayoutOption = ''"
         @CloseModal="CloseModal"
-        @ChangeLayout="changeLayout"
         :layouts="layouts"
     ></component>
   </div>
@@ -83,49 +83,110 @@
 <script>
 import draggable from "vuedraggable";
 import _ from 'lodash'
-import updateLayout from './update-layout'
+//import updateLayout from './update-layout'
 import createLayout from './create-layout'
 import {layoutData} from "@coms/PayrollCalculation/Payroll/Modal/layout-data";
+import {getDefaultLayout, updatePayrollLayout, deletePayrollLayout} from '@/apis/payroll-layout-api'
 
 export default {
   components: {
     draggable,
-    updateLayout,
+   // updateLayout,
     createLayout
   },
-  props: ['defaultLayout'],
   methods: {
     CloseModal() {
       this.$emit('CloseModal')
     },
     test(){
       alert('ok')
-    }
+    },
+    reset() {
+       this.form.layouts = [
+          'employeeCode',
+          'fullName',
+          'fullNameLao',
+          'basicSalary',
+          'thisMonthSalary',
+          'position',
+          'department',
+          'salaryGrade',
+          'earning',
+          'deduction',
+          'ssoPaidByEmp',
+          'ssoPaidByCom',
+          'OTHours',
+          'OTAmount',
+          'totalOTAmount',
+          'deductibleBeforeTax',
+          'deductibleAfterTax',
+          'deductibleBeforeSSO',
+          'salaryGrade',
+          'startWorkingDate',
+          'defaultWorkingDay',
+          'actualWorkingDay',
+          'taxForEachScale',
+          'totalBeforeTax',
+          'totalDueAsTax',
+          'totalAfterTax',
+          'totalAfterSSO',
+          'netSalary'
+    ]
+    },
+    async getDefaultLayout() {
+      const defaultLayout = await getDefaultLayout()
+      this.form = {
+        layouts: defaultLayout.layouts,
+        payrollLayoutId: defaultLayout._id,
+        name: defaultLayout.name
+      }
+    },
+    async updatePayrollLayout() {
+      await updatePayrollLayout(this.form)
+      this.$emit('CloseModal')
+    },
+    async deletePayrollLayout() {
+        const isConfirmed = await this.$dialog.confirm()
+        if(isConfirmed) {
+        await deletePayrollLayout({
+          payrollLayoutId: this.form.payrollLayoutId
+        })
+          this.$emit('CloseModal')
+        }
+      }
   },
   data: () => ({
     LayoutOption: '',
     layouts: [],
     DataSet: layoutData,
-    layoutSelected: ''
+
+    form: {
+      payrollLayoutId: '',
+      name: '',
+      layouts: []
+    }
   }),
   watch: {
     DataSet: {
       handler(items) {
         items.map(i => {
-          if (i.isSelected) this.layouts.push(i.key)
-          else this.layouts = this.layouts.filter(o => o !== i.key)
-          this.layouts = _.uniq(this.layouts)
+          if (i.isSelected) this.form.layouts.push(i.key)
+          else this.form.layouts = this.form.layouts.filter(o => o !== i.key)
+          this.form.layouts = _.uniq(this.form.layouts)
         })
       },
       deep: true,
       immediate: true
     },
-    layouts: {
+    'form.layouts': {
       handler(items) {
         this.DataSet.map(i => {
           if (items.includes(i.key)) {
             const curIdx = this.DataSet.findIndex(o => o.key === i.key)
             this.DataSet[curIdx].isSelected = true
+          }else {
+             const curIdx = this.DataSet.findIndex(o => o.key === i.key)
+            this.DataSet[curIdx].isSelected = false
           }
         })
       },
@@ -151,63 +212,9 @@ export default {
     }
   },
   created() {
-    this.layouts = [
-      'employeeCode',
-      'fullName',
-      'fullNameLao',
-      'basicSalary',
-      'thisMonthSalary',
-      'position',
-      'department',
-      'salaryGrade',
-      'earning',
-      'deduction',
-      'ssoPaidByEmp',
-      'ssoPaidByCom',
-      'OTHours',
-      'OTAmount',
-      'totalOTAmount',
-      'deductibleBeforeTax',
-      'deductibleAfterTax',
-      'deductibleBeforeSSO',
-      'salaryGrade',
-      'startWorkingDay',
-      'defaultWorkingDay',
-      'actualWorkingDay',
-      'taxForEachScale',
-      'totalBeforeTax',
-      'totalDueAsTax',
-      'totalAfterTax',
-      'totalAfterSSO',
-      'netSalary'
-    ]
-    // this.layouts = [
-    //   'Employee ID',
-    //   'Names and Surnames (English)',
-    //   "Names and Surnames (Laos)",
-    //   "Position",
-    //   "Department",
-    //   "Salary Grade",
-    //   "Start Working Date",
-    //   "Basic Salary",
-    //   "Default Working Day / Month",
-    //   "Actual Work Day This month",
-    //   "This Month Salary",
-    //   "Earning / Deduction Before SSO",
-    //   "Company SSO 6%",
-    //   "Employee SSO 5.5%",
-    //   "Total After SSO",
-    //   "OT Work (Hrs) * 5",
-    //   "OT Amount (LAK) * 5",
-    //   "Total OT Amount",
-    //   "Earning / Deduction Before TAX",
-    //   "Total before TAX",
-    //   "% Tax for Each Scale (LAK) * 5",
-    //   "Total Due as Tax",
-    //   "Total (After Tax+SSO)",
-    //   "Earning / Deduction After TAX ",
-    //   "Final Net Pay",
-    // ]
+      this.form.layouts = []
+    this.getDefaultLayout()
+  
   }
 }
 </script>
