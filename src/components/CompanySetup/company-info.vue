@@ -2,9 +2,6 @@
   <ValidationObserver v-slot="{ handleSubmit }" tag="div" class="box slide-up">
     <div class="box-header">
       <h3 class="box-title">Basic information</h3>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique aspernatur repudiandae ab officia inventore
-        at impedit ipsa! Exercitationem, placeat, ducimus possimus molestiae ratione rerum, explicabo beatae ipsum
-        maiores odio dolor!</p>
     </div>
     <div class="field">
       <label for="" class="label">Company name</label>

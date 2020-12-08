@@ -13,6 +13,12 @@
                     <input type="text" class="input" placeholder="Headquarters">
                 </div>
             </div>
+            <div class="field">
+                <label for="" class="label">Province</label>
+                <div class="control">
+                    <input type="text" class="input" placeholder="Province">
+                </div>
+            </div>
         </section>
         <div class="modal-card-foot">
           <button class="button primary">Save</button>

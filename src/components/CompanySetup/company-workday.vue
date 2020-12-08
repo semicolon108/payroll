@@ -13,14 +13,14 @@
           <p class="has-text-danger">{{ errors[0] }}</p>
         </ValidationProvider>
       </div> -->
-      <table class="table is-fullwidth">
+      <table class="table has-border is-fullwidth" id="my-table">
         <thead>
           <tr>
             <th>Group Name</th>
             <th class="is-xs">Employee</th>
             <th class="is-xs">Workday</th>
             <th class="is-xs">OT Day</th>
-            <th class="is-xs is-right">Option</th>
+            <th class="is-xxs is-right">Option</th>
           </tr>
         </thead>
         <tbody>
@@ -29,10 +29,10 @@
             <td>150</td>
             <td>30</td>
             <td>30</td>
-            <td>
-              <div class="icon-group">
-                <span @click="ModalClick()"><i class="fas fa-pen"></i></span>
-                <span><i class="fas fa-trash"></i></span>
+            <td class="is-right">
+              <div class="icons">
+                <span class="icon" @click="ModalClick()"><i class="fas fa-pen"></i></span>
+                <span class="icon alert"><i class="fas fa-trash"></i></span>
               </div>
             </td>
           </tr>
@@ -106,42 +106,4 @@ export default {
     margin-right: 10px;
   }
 }
-
-.table {
-  color: $font-color;
-  thead {
-    tr {
-      th {
-        width: 30%;
-        border-width: 1px;
-        white-space: nowrap;
-        &.is-xxs {
-          width: 3%;
-        }
-        &.is-xs {
-          width: 8%;
-        }
-      }
-    }
-  }
-
-  tbody {
-    tr {
-      td {
-        border-width: 1px;
-        .icon-group {
-          color: $font-grey-color;
-
-          i {
-            font-size: 14px;
-            padding: 0 5px;
-            cursor: pointer;
-          }
-        }
-      }
-    }
-  }
-}
-
-
 </style>

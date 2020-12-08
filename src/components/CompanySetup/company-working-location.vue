@@ -6,22 +6,24 @@
             <button class="button primary" @click="ModalClick()">Add Location</button>
         </div>
     </div>
-    <table class="table is-fullwidth">
+    <table class="table has-border is-fullwidth" id="my-table">
         <thead>
           <tr>
             <th>Location Name</th>
-            <th class="is-xs">Employee</th>
+            <th class="is-md">Province</th>
+            <th class="is-sm">No. of employee</th>
             <th class="is-xxs is-right">Option</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Headquarters Office</td>
+            <td>Vientiane Capital</td>
             <td>150</td>
             <td class="is-right">
-              <div class="icon-group">
-                <span @click="ModalClick()"><i class="fas fa-pen"></i></span>
-                <span><i class="fas fa-trash"></i></span>
+              <div class="icons">
+                <span class="icon" @click="ModalClick()"><i class="fas fa-pen"></i></span>
+                <span class="icon alert"><i class="fas fa-trash"></i></span>
               </div>
             </td>
           </tr>
@@ -63,45 +65,6 @@ select {
     font-weight: 700;
     color: $font-color;
     margin-right: 10px;
-  }
-}
-.table {
-  color: $font-color;
-  th,td{
-      &.is-right{
-          text-align: right;
-      }
-  }
-  thead {
-    tr {
-      th {
-        width: 30%;
-        border-width: 1px;
-        white-space: nowrap;
-        &.is-xxs {
-          width: 3%;
-        }
-        &.is-xs {
-          width: 8%;
-        }
-      }
-    }
-  }
-
-  tbody {
-    tr {
-      td {
-        border-width: 1px;
-        .icon-group {
-          color: $font-grey-color;
-          i {
-            font-size: 14px;
-            padding: 0 5px;
-            cursor: pointer;
-          }
-        }
-      }
-    }
   }
 }
 </style>

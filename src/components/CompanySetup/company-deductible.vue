@@ -27,7 +27,7 @@
           <!-- <button class="button grey" style="margin-left: 5px"><i class="fas fa-plus"></i></button> -->
 
         </div>
-        <table class="table is-fullwidth">
+        <table class="table has-border is-fullwidth" id="my-table">
           <thead>
             <tr>
               <th>Item Name</th>
@@ -47,9 +47,9 @@
               <td>{{ i.groups | perttyArray }}</td>
               <td>{{ i.isBeforeTax ? 'BeforeTAX' : 'AfterTAX' }}</td>
               <td>
-                <div class="icon-group">
-                  <span @click="editItem(i)"><i class="fas fa-pen"></i></span>
-                  <span @click="deleteItem(i)"><i class="fas fa-trash"></i></span>
+                <div class="icons">
+                  <span class="icon" @click="editItem(i)"><i class="fas fa-pen"></i></span>
+                  <span class="icon alert" @click="deleteItem(i)"><i class="fas fa-trash"></i></span>
                 </div>
               </td>
             </tr>
