@@ -1,11 +1,9 @@
 <template>
   <div>
     <div class="form-header">
-      <div style="display: flex; justify-content: space-between">
-        <div>
-          <h3>Personal Document</h3>
-          <button class="button primary" @click="modalClick = true">Add</button>
-        </div>
+      <div class="has-botton">
+        <h3>Personal Document</h3>
+        <button class="button sub" @click="modalClick = true">Add</button>
       </div>
       <p>Need help or have questions about uploading document? Call us at (856) 21 254709.</p>
     </div>

@@ -123,9 +123,7 @@
     </div> <!-- box control -->
     <!-- Box control -->
 
-    <div
-        style="max-width: 800vw; overflow-x: auto"
-        class="box">
+    <div class="box">
       <div class="box-header">
         <div v-if="payrollEmps.hasExpat" class="button-group">
           <button
@@ -194,10 +192,7 @@
         </div>
       </div> <!-- Box Header -->
 
-
-
-
-
+      <div class="table-container">
         <table class="table is-fullwidth" id="my-table">
           <thead >
           <tr>
@@ -210,7 +205,8 @@
           </tr>
           </tbody>
         </table>
-
+      </div>
+      
     </div>
     <transition name="slideup">
       <component :is="ModalClick" @CloseModal="closeModal"
@@ -605,34 +601,6 @@ export default {
 
 
 // Table style
-#my-table {
-  .status {
-    i {
-      color: $font-grey-color;
-    }
-  }
-
-  .is-approved {
-    i {
-      color: $primary-color;
-    }
-  }
-}
-
-label {
-  position: relative;
-
-  &::before {
-    cursor: pointer;
-    content: '';
-    display: block;
-    width: 18px;
-    height: 18px;
-    border: 1px solid $border-color;
-    background-color: $placeholder-color;
-  }
-}
-
 .workday {
   .edit {
     display: flex;
@@ -682,7 +650,9 @@ label {
 
 }
 
-
+.table-container{
+  overflow: auto;
+}
 // animation
 .slideup-enter-active {
   transition: all .3s ease;

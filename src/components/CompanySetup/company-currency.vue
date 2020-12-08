@@ -1,9 +1,7 @@
 <template>
-  <ValidationObserver v-slot="{ handleSubmit }" tag="div" class="box slide-up">
+  <ValidationObserver v-slot="{ handleSubmit }" tag="div" class="box">
     <div class="box-header">
       <h3 class="box-title">Currency</h3>
-      <p>Lorem ipsum dolor sit amet quo illum in repellendus alias corporis error facere nostrum quae aliquid illo
-        blanditiis nihil consectetur expedita, amet officia optio eveniet?</p>
     </div>
     <div class="field">
       <label for="" class="label">Does your company use multiple currency?</label>

@@ -1,7 +1,5 @@
 <template>
-    <ValidationObserver
-        ref="refForm"
-         class="form">
+    <ValidationObserver ref="refForm" class="form">
       <div class="form-header">
         <div class="has-button">
           <h3>Earning / Deduction</h3>

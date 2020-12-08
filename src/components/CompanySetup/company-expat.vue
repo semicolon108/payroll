@@ -1,50 +1,46 @@
 <template>
-  <div class="box slide-up">
-    <ValidationObserver v-slot="{ handleSubmit }" tag="div" class="box slide-up">
-
-    <div class="box-header">
-      <h3 class="box-title">Expat Manager</h3>
-    </div>
-
-    <div class="field">
-      <label for="" class="label">Does your company hire Expat?</label>
-      <div class="control switch">
-        <input type="radio" name="approved" id="need" :checked="!form.isHiringExpat">
-        <label @click="form.isHiringExpat = false" for="need">No</label>
-        <input type="radio" name="approved" id="unneed" :checked="form.isHiringExpat">
-        <label @click="form.isHiringExpat = true" for="unneed">Yes</label>
-      </div>
-    </div>
-
-    <h3 v-if="form.isHiringExpat" class="title">Work permit notification</h3>
-    <div v-if="form.isHiringExpat" class="columns">
-        <div class="column">
-            <div class="field">
-                <label for="" class="label">Email to get notification</label>
-                <div class="control">
-                  <ValidationProvider rules="required" v-slot="{ errors }">
-                    <input v-model="form.expatManager.notificationEmail" type="text" class="input">
-                  </ValidationProvider>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="field">
-                <label for="" class="label">The notice period (Day)</label>
-                <div class="control">
-                  <ValidationProvider rules="required" v-slot="{ errors }">
-                    <input v-model="form.expatManager.noticePeriodDay" type="text" class="input">
-                  </ValidationProvider>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <button @click="handleSubmit(updateCompanyInfo)" class="button primary">Save</button>
-
-    </ValidationObserver>
+<ValidationObserver v-slot="{ handleSubmit }" tag="div" class="box">
+  <div class="box-header">
+    <h3 class="box-title">Expat Manager</h3>
   </div>
+
+  <div class="field">
+    <label for="" class="label">Does your company hire Expat?</label>
+    <div class="control switch">
+      <input type="radio" name="approved" id="need" :checked="!form.isHiringExpat">
+      <label @click="form.isHiringExpat = false" for="need">No</label>
+      <input type="radio" name="approved" id="unneed" :checked="form.isHiringExpat">
+      <label @click="form.isHiringExpat = true" for="unneed">Yes</label>
+    </div>
+  </div>
+
+  <h3 v-if="form.isHiringExpat" class="title">Work permit notification</h3>
+  <div v-if="form.isHiringExpat" class="columns">
+      <div class="column">
+          <div class="field">
+              <label for="" class="label">Email to get notification</label>
+              <div class="control">
+                <ValidationProvider rules="required" v-slot="{ errors }">
+                  <input v-model="form.expatManager.notificationEmail" type="text" class="input">
+                </ValidationProvider>
+              </div>
+          </div>
+      </div>
+      <div class="column">
+          <div class="field">
+              <label for="" class="label">The notice period (Day)</label>
+              <div class="control">
+                <ValidationProvider rules="required" v-slot="{ errors }">
+                  <input v-model="form.expatManager.noticePeriodDay" type="text" class="input">
+                </ValidationProvider>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <button @click="handleSubmit(updateCompanyInfo)" class="button primary">Save</button>
+
+</ValidationObserver>
 </template>
 
 <script>

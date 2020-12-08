@@ -60,13 +60,16 @@
   }
   tbody{
     tr{
-      // box-shadow: 0 0 0 1px $border-color;
       border-radius: $radius;
       border-color: $border-color;
       td{
         white-space: nowrap;
         padding: 15px 10px;
         vertical-align: middle;
+        &.wrap{
+          white-space: wrap;
+          white-space: normal;
+        }
         &.deduct{
           color: $alert-color;
         }
@@ -108,7 +111,6 @@
               color: $primary-color;
             }
           }
-         
         }
         .icons{
           display: flex;
@@ -119,7 +121,7 @@
             padding: 10px;
             color: $primary-color;
             background-color: $light-grey-color;
-            &:first-child{
+            &:not(:last-child){
               margin-right: 5px;
             }
             &.alert{

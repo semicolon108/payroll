@@ -25,9 +25,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "Employee" */ '../views/Employee.vue')
   },
   {
-    path: '/template',
-    name: 'template',
-    component: () => import(/* webpackChunkName: "template" */ '../views/Template.vue')
+    path: '/document-template',
+    name: 'document_template',
+    component: () => import(/* webpackChunkName: "template" */ '../views/DocumentTemplate.vue')
   },
   {
     path: '/employee',
@@ -106,14 +106,14 @@ const routes = [
         component: () => import('@coms/CompanySetup/company-info.vue')
       },
       {
-        path: 'company-working-location',
-        name: 'company_working_location',
-        component: () => import('@coms/CompanySetup/company-working-location.vue')
+        path: 'company-work-location',
+        name: 'company_work_location',
+        component: () => import('@coms/CompanySetup/company-work-location.vue')
       },
       {
-        path: 'company-workday',
-        name: 'company_workday',
-        component: () => import('@coms/CompanySetup/company-workday.vue')
+        path: 'company-work-group',
+        name: 'company_work_group',
+        component: () => import('@coms/CompanySetup/company-work-group.vue')
       },
       {
         path: 'company-overtime',

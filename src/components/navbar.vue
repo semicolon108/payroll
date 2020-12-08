@@ -22,7 +22,7 @@
           <div class="dd-list" :class="{'active' : ddActive}">
             <div class="dd-item" @click="$router.push({name:'company_info'})"><i class="fas fa-user"></i>Company Setup
             </div>
-            <div class="dd-item" @click="$router.push({name:'template'})"><i class="far fa-file-word"></i>Template
+            <div class="dd-item" @click="$router.push({name:'document_template'})"><i class="far fa-file-word"></i>Template
               Document
             </div>
             <hr>

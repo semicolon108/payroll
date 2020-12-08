@@ -1,8 +1,7 @@
 <template>
-  <div class="box slide-up">
+  <div class="box">
     <div class="box-header">
       <h3 class="box-title">TAX</h3>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore facere quidem magnam, voluptatum non ipsam libero consequatur modi. Fuga unde voluptatibus vitae laborum eveniet excepturi tempora, maiores dignissimos consequatur nam.</p>
     </div>
     <div class="field">
       <label for="" class="label">How TAX is paid?</label>

@@ -1,14 +1,25 @@
 <template>
-    <div>
-        <div class="page-header">
-            <h3 class="page-title">Get Start</h3>
+    <div class="columns">
+        <div class="column is-3">
+            <div class="_card">
+                dsff
+            </div>
         </div>
-        <ul>
-            <li>Company Info</li>
-            <li>Currency</li>
-            <li>Working Day</li>
-            <li>Earning / Deduction</li>
-        </ul>
+        <div class="column is-3">
+            <div class="_card">
+                dsff
+            </div>
+        </div>
+        <div class="column is-3">
+            <div class="_card">
+                dsff
+            </div>
+        </div>
+        <div class="column is-3">
+            <div class="_card">
+                dsff
+            </div>
+        </div>
     </div>
 </template>
 
@@ -19,5 +30,9 @@
 </script>
 
 <style lang="scss" scoped>
-
+._card{
+    padding: 20px;
+    border: 1px solid $border-color;
+    background-color: #fff;
+}
 </style>

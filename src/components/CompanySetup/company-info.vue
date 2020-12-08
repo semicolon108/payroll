@@ -1,5 +1,5 @@
 <template>
-  <ValidationObserver v-slot="{ handleSubmit }" tag="div" class="box slide-up">
+  <ValidationObserver v-slot="{ handleSubmit }" tag="div" class="box">
     <div class="box-header">
       <h3 class="box-title">Basic information</h3>
     </div>

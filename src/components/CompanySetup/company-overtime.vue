@@ -1,5 +1,5 @@
 <template>
-  <div class="box slide-up">
+  <div class="box">
     <div class="box-header">
       <h3 class="box-title">Overtime Setting</h3>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, sunt quo illum in repellendus alias corporis error facere nostrum quae aliquid illo blanditiis nihil consectetur expedita, amet officia optio eveniet?</p>

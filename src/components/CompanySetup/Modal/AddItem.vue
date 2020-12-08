@@ -19,7 +19,7 @@
         <div class="field">
           <label for="" class="label">Item Type</label>
           <div class="control switch" >
-            <div class="item"  v-for="(i, idx) in types" :key="idx"
+            <div class="item" v-for="(i, idx) in types" :key="idx"
                 :class="{'is-active': form.type === i}"
                 @click="form.type = i">
               <span>{{ i }}</span>
@@ -158,25 +158,5 @@ hr{
       color: #fff;
     }
   }
-}
-
-.switch {
-  display: flex;
-  align-items: center;
-
-  .item {
-    width: 50%;
-    height: 36px;
-    background-color: $light-grey-color;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    &.is-active {
-      background-color: $sub-color;
-      color: #fff;
-    }
-  }
-
 }
 </style>

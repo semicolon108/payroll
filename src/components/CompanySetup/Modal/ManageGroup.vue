@@ -17,7 +17,7 @@
       </div>
       <div class="field">
         <label for="" class="label">Assigned Item</label>
-        <div class="control switch">
+        <div class="control selected">
           <div class="item" v-for="(i, idx) in earnDeducts"
                :key="idx"
                :class="{'is-active': form.earnDeductIds.includes(i._id)}"
@@ -136,7 +136,6 @@ button.button{
       color: #fff;
     }
   }
-
 }
 
 </style>

@@ -1,11 +1,10 @@
 <template>
-  <div class="box slide-up">
+  <div class="box">
     <div class="box-header">
       <h3 class="box-title">Social Security Organization (SSO)</h3>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo modi illum pariatur. Officiis numquam, id exercitationem sequi nihil ad nisi incidunt? Minus maxime distinctio in quis. Perferendis pariatur voluptatibus delectus.</p>
     </div>
     <div class="field">
-      <label for="" class="label">SSO</label>
+      <label for="" class="label">How SSO is paid?</label>
       <div class="control switch">
           <input @click="isSsoPaidByCompany = false" type="radio" name="sso" id="employee" :checked="!isSsoPaidByCompany">
           <label for="employee">Employee pay 5.5%</label>

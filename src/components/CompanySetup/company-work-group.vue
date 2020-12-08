@@ -1,9 +1,9 @@
 <template>
-  <ValidationObserver v-slot="{ handleSubmit }" class="box slide-up">
+  <ValidationObserver v-slot="{ handleSubmit }" class="box">
     <div class="box-header">
       <h3 class="box-title">Company Work Day</h3>
       <div class="button-group">
-          <button class="button primary" @click="ModalClick()">Add Working Group</button>
+          <button class="button primary" @click="ModalClick()">Add Work Group</button>
       </div>
     </div>
     <div class="field">

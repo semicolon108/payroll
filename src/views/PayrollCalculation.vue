@@ -76,7 +76,7 @@
 <style lang="scss" scoped>
 
 .content{
-    overflow: auto; 
+    overflow-y: auto; 
 }
 .fullpage{
     box-shadow: 0 0 0 100px rgba(#000, .8);
@@ -189,18 +189,13 @@
 
 // Tab transition
 .fade-enter-active {
-  transition: all .6s ease;
+  transition: opacity 1s;
 }
-.fade-leave-active {
-  transition: all .1s ease;
-}
-.fade-enter {
-  transform: translateY(100px);
+
+.fade-enter, .fade-leave-to {
   opacity: 0;
 }
-.fade-leave-to {
-  opacity: 0;
-}
+
 
 // Page transition
 .slidedown-enter-active {

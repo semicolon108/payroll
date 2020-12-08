@@ -103,13 +103,13 @@
           <div class="column is-4">
             <div class="field">
               <label class="label">Gender</label>
-              <div class="control option">
-                <label v-for="i in genders" :key="i._id"
+              <div class="control switch">
+                <div class="item" v-for="i in genders" :key="i._id"
                        @click="form.genderId = i._id"
-                       :style="form.genderId === i._id && 'background-color: grey; color: white'"
+                       :class="{'is-active': form.genderId === i._id}"
                 >
-                  {{ i.name }}
-                </label>
+                  <span>{{ i.name }}</span>
+                </div>
               </div>
             </div>
           </div>

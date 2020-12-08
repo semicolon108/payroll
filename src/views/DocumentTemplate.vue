@@ -2,7 +2,7 @@
     <div>
         <div class="page-header">
             <h3 class="page-title">Template Document</h3>
-            <button class="button">Add Template</button>
+            <button class="button primary">Add Template</button>
         </div>
         <table class="table is-fullwidth" id="my-table">
             <thead>
@@ -18,7 +18,7 @@
                         <div class="icons">
                             <span class="icon"><i class="fas fa-file-download"></i></span>
                             <span class="icon"><i class="fas fa-pen"></i></span>
-                            <span class="icon"><i class="fas fa-trash"></i></span>
+                            <span class="icon alert"><i class="fas fa-trash"></i></span>
                         </div>
                     </td>
                 </tr>
@@ -28,7 +28,7 @@
                         <div class="icons">
                             <span class="icon"><i class="fas fa-file-download"></i></span>
                             <span class="icon"><i class="fas fa-pen"></i></span>
-                            <span class="icon"><i class="fas fa-trash"></i></span>
+                            <span class="icon alert"><i class="fas fa-trash"></i></span>
                         </div>
                     </td>
                 </tr>

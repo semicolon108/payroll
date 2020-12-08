@@ -61,28 +61,6 @@ input{
         }
     }
     .control{
-        // switch gender
-        &.option{
-            display: flex;
-            box-sizing: border-box;
-            text-align: center;
-            label{
-                width: 50%;
-                background-color: $placeholder-color;
-                height: 100%;
-                display: flex;
-                justify-content: center;
-                padding: 8px;
-                text-align: center;
-            }
-            input{
-                display: none;
-                &:checked + label{
-                    background-color: $sub-color;
-                    color: #fff;
-                }
-            }
-        }
         &.date{
             display: flex;
             input{
