@@ -2,43 +2,43 @@ import gql from 'graphql-tag'
 
 export const GET_HIRING_DETAIL = gql`
 
-    query (
-        $employeeId: ID!
-    ) {
-        getHiringDetail(
-            employeeId: $employeeId
-        ) {
-            _id
+query (
+    $employeeId: ID!
+) {
+  getHiringDetail(
+      employeeId: $employeeId
+  ) {
+      _id
 
-            employeeId
-            provinceId
-            dateOfJoining
-            probationEndDate
-            positionId
-            workingDay
-            currencyId
-            salary
-            salaryGrade
+      employeeId
+      provinceId
+      dateOfJoining
+      probationEndDate
+      positionId
+      workingDayGroupId
+      currencyId
+      salary
+      salaryGrade
 
-            workPermit {
-                startDate
-                endDate
-                daysOfNotify
-            }
-            isOpenContract
-            contractEndDate
-            resignationDate
-            isResigned
-            salaryHistories {
-                type
-                refDate
-                adjustmentAmount
-                beforeAdjustment
-                afterAdjustment
-                memo
-            }
-        }
+      workPermit {
+        startDate
+        endDate
+        daysOfNotify
+      }
+      isOpenContract
+      contractEndDate
+     resignationDate
+     isResigned
+    salaryHistories {
+         type
+        refDate
+        adjustmentAmount
+        beforeAdjustment
+        afterAdjustment
+        memo
     }
+  }
+}
 
 
 `

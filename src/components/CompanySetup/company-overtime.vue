@@ -25,8 +25,7 @@
         </div>
     </div>
 
-    
-
+  
     <button class="button">Save</button>
   </div>
 </template>

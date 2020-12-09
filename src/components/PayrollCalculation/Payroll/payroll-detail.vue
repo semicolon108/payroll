@@ -162,13 +162,17 @@
                   v-click-outside="()=>{dropdownView = false}"
                   :class="{'primary' : dropdownView}"
                   @click="dropdownView = !dropdownView">
-            <i class="fal fa-table"></i>Table Layout
+            <i class="fal fa-table"></i>
+            {{layoutSelected ? layoutSelected : 'Table Layout'}}
+            
             <div v-if="dropdownView" class="dropdown slide-up">
               <div class="dropdown-list">
                 <div
                     v-for="i in layouts" :key="i._id"
                     @click="setDefaultLayout(i._id)"
-                    class="dropdown-list-item"><i class="far fa-file-excel"></i>{{  i.name }}
+                    class="dropdown-list-item"
+                    :class="{'is-active': i.name === layoutSelected}"
+                    ><i class="far fa-file-excel"></i>{{  i.name }}
                 </div>
                 <!--                  <div class="dropdown-list-item"><i class="far fa-file-excel"></i>SSO Report</div>-->
                 <!--                  <div class="dropdown-list-item"><i class="far fa-file-excel"></i>TAX Report</div>-->
@@ -314,7 +318,7 @@ export default {
     },
     async getDefaultLayout() {
       const data = await getDefaultLayout()
-      this.layoutSelected = data._id
+      this.layoutSelected = data.name
       this.headers = data.layouts
     },
     async getPayrollLayouts() {
@@ -506,6 +510,11 @@ export default {
       &:hover {
         background-color: $primary-color;
         color: #fff;
+      }
+
+      &.is-active {
+        background-color: rgba(2, 83, 179, 0.1);
+        color: #000;
       }
 
       i {

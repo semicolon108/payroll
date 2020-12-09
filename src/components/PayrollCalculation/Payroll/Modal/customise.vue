@@ -15,22 +15,19 @@
                 </button>
                 <span></span>
             </div>
-    
             <div class="field">
                 <div class="control">
                     <button class="button alert" @click="deletePayrollLayout">
-                    Delete this layout
-                  </button>
+                        Delete this layout
+                    </button>
                     <button class="button primary" @click="LayoutOption = 'createLayout'">
-                    Create New Layout
+                        Create New Layout
                   </button>
                 </div>
             </div>
         </div>
     
-    
         <div class="items-list-container">
-    
             <div class="selected-items">
                 <h3 class="list-title">Drag to reroder an item</h3>
                 <draggable class="selected-items-list" v-model="form.layouts">
@@ -56,9 +53,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-    
-    
+        </div>    
         <component :is="LayoutOption" @CloseLayoutOption="LayoutOption = ''" @CloseModal="CloseModal" :layouts="form.layouts"></component>
     </div>
 </template>
