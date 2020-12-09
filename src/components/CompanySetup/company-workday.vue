@@ -1,5 +1,5 @@
 <template>
-    <ValidationObserver v-slot="{ handleSubmit }" class="box slide-up">
+    <div class="box slide-up">
         <div class="box-header">
             <h3 class="box-title">Company Work Day</h3>
             <div class="button-group">
@@ -42,8 +42,8 @@
         <!-- Modal -->
         <WorkDay ref="WorkingDayGroup" @CloseModal="Modal = false; getWorkingDayGroups()" v-if="Modal" />
         <!-- Modal -->
-        <button @click="handleSubmit(updateCompanyInfo)" class="button primary">Save</button>
-    </ValidationObserver>
+
+    </div>
 </template>
 
 <script>
