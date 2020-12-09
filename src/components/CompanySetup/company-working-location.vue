@@ -52,10 +52,10 @@ export default {
         editModal(item) {
           this.ModalAddLocation = true
             this.$nextTick(() => {
-               this.$refs.WorkingLocation.isEditMode = item._id
-              this.$refs.WorkingLocation.workingLocationId = item._id
-              this.$refs.WorkingLocation.form.name = item.name
-              this.$refs.WorkingLocation.form.provinceId = item.provinceId._id
+                this.$refs.WorkingLocation.isEditMode = item._id
+                this.$refs.WorkingLocation.workingLocationId = item._id
+                this.$refs.WorkingLocation.form.name = item.name
+                this.$refs.WorkingLocation.form.provinceId = item.provinceId._id
             })
         },
         async getWorkingLocations() {

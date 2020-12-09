@@ -24,26 +24,6 @@
         <button class="button primary">Save</button>
       </div>
     </div>
-    <!--    <div @click="items = []" v-if="items.length" style="position: fixed; bottom: 0; left: 0; right: 0; top: 0; background-color: #fff">-->
-    <!--      <table>-->
-    <!--        <thead>-->
-    <!--        <tr>-->
-    <!--          <th>Column</th>-->
-    <!--          <th>Employee Code</th>-->
-    <!--          <th>Type</th>-->
-    <!--          <th>Amount</th>-->
-    <!--        </tr>-->
-    <!--        </thead>-->
-    <!--        <tbody>-->
-    <!--        <tr  v-for="(i, idx) in items" :key="idx">-->
-    <!--          <td style="width: 100px">{{ i.column }}</td>-->
-    <!--          <td style="width: 200px">{{ i.employeeCode }}</td>-->
-    <!--          <td style="width: 150px">{{ i.earnDeductName }}</td>-->
-    <!--          <td style="width: 100px">{{ i.amount }}</td>-->
-    <!--        </tr>-->
-    <!--        </tbody>-->
-    <!--      </table>-->
-    <!--    </div>-->
     <Checker
         @CloseModal="isChecker = false; CloseModal()"
         @DataBack="dataBack"
