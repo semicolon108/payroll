@@ -121,8 +121,7 @@ export default {
     data: () => ({
         hiringDetail: {},
         form: {
-            type: 'Increase',
-            currencyId: ''
+            type: 'Increase'
         },
         beforeAdjustment: null,
         currencies: [],

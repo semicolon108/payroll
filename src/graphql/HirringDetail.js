@@ -30,7 +30,9 @@ query (
      resignationDate
      isResigned
     salaryHistories {
-         type
+      beforeCurrency
+      afterCurrency
+        type
         refDate
         adjustmentAmount
         beforeAdjustment
