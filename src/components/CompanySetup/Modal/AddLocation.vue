@@ -4,7 +4,7 @@
         <div class="modal-card">
             <ValidationObserver v-slot="{ handleSubmit }">
             <div class="modal-card-head">
-                <h3> {{ isEditMode ? 'Update Working Location' : 'Add Working Location' }} </h3>
+                <h3> {{ isEditMode ? 'Update Work Location' : 'Add Work Location' }} </h3>
                 <button class="modal-close is-large" @click="CloseModal()" aria-label="close"></button>
             </div>
             <section class="modal-card-body">

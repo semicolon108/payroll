@@ -1,9 +1,9 @@
 <template>
     <div class="box slide-up">
         <div class="box-header">
-            <h3 class="box-title">Company Work Day</h3>
+            <h3 class="box-title">Company Work Group</h3>
             <div class="button-group">
-                <button class="button primary" @click="ModalClick()">Add Working Group</button>
+                <button class="button primary" @click="ModalClick()">Add Work Group</button>
             </div>
         </div>
         <div class="field">

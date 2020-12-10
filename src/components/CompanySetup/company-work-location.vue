@@ -1,7 +1,7 @@
 <template>
 <div class="box">
     <div class="box-header">
-        <h3 class="box-title">Working Location</h3>
+        <h3 class="box-title">Work Location</h3>
         <div class="button-group">
             <button class="button primary" @click="ModalClick()">Add Location</button>
         </div>
