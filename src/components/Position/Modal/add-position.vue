@@ -26,6 +26,7 @@
                   <select v-model="departmentId">
                     <option v-for="i in departments" :key="i._id" :value="i._id">{{ i.name }}</option>
                   </select>
+                  <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
               </div>
             </div>
