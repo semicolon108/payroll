@@ -14,12 +14,12 @@
                                 <div class="select">
                                     <ValidationProvider name="Contract Type" rules="required" v-slot="{ errors }">
                                         <select v-model="form.isOpenContract" class="select" name="" id="">
-                          <!--                      <option v-for="i in contactTypes" :key="i._id" :value="i._id">-->
-                          <!--                        {{ i.name }}-->
-                          <!--                      </option>-->
-                          <option selected name="open" :value="true">Open Contract</option>
-                          <option name="fixed" :value="false">Fixed Contract</option>
-                        </select>
+                                  <!--                      <option v-for="i in contactTypes" :key="i._id" :value="i._id">-->
+                                  <!--                        {{ i.name }}-->
+                                  <!--                      </option>-->
+                                  <option selected name="open" :value="true">Open Contract</option>
+                                  <option name="fixed" :value="false">Fixed Contract</option>
+                                </select>
                                         <p class="has-text-danger">{{ errors[0] }}</p>
                                     </ValidationProvider>
                                 </div>
@@ -63,10 +63,10 @@
                                 <div class="select">
                                     <ValidationProvider name="Position" rules="required" v-slot="{ errors }">
                                         <select v-model="form.positionId">
-                          <option v-for="i in positions" :key="i._id" :value="i._id">
-                            {{ i.name }}
-                          </option>
-                        </select>
+                                  <option v-for="i in positions" :key="i._id" :value="i._id">
+                                    {{ i.name }}
+                                  </option>
+                                </select>
                                         <p class="has-text-danger">{{ errors[0] }}</p>
                                     </ValidationProvider>
                                 </div>
@@ -80,18 +80,18 @@
                                 <div class="select">
                                     <ValidationProvider name="Working Day Group" rules="required" v-slot="{ errors }">
                                         <select v-model="form.workingDayGroupId" class="select">
-                                        <option v-for="i in workingDayGroups" :key="i._id" :value="i._id">
-                                          {{ i.name }}
-                                        </option>
-                                      </select>
+                                                <option v-for="i in workingDayGroups" :key="i._id" :value="i._id">
+                                                  {{ i.name }}
+                                                </option>
+                                              </select>
                                         <p class="has-text-danger">{{ errors[0] }}</p>
                                     </ValidationProvider>
                                 </div>
     
                                 <!-- <ValidationProvider name="Work Day" rules="required|numeric" v-slot="{ errors }">
-                      <input v-model="form.workingDay" type="text" class="input" required>
-                      <p class="has-text-danger">{{ errors[0] }}</p>
-                    </ValidationProvider> -->
+                              <input v-model="form.workingDay" type="text" class="input" required>
+                              <p class="has-text-danger">{{ errors[0] }}</p>
+                            </ValidationProvider> -->
                             </div>
                         </div>
                     </div>
@@ -102,10 +102,10 @@
                                 <div class="select">
                                     <ValidationProvider name="Working Location" rules="required" v-slot="{ errors }">
                                         <select v-model="form.workingLocationId" class="select">
-                          <option v-for="i in workingLocations" :key="i._id" :value="i._id">
-                            {{ i.name }}
-                          </option>
-                        </select>
+                                                <option v-for="i in workingLocations" :key="i._id" :value="i._id">
+                                                    {{ i.name }}
+                                                </option>
+                                                </select>
                                         <p class="has-text-danger">{{ errors[0] }}</p>
                                     </ValidationProvider>
                                 </div>
@@ -114,30 +114,33 @@
                     </div>
     
                     <div class="column is-4">
-                        <label for="" class="label">Salary</label>
+                        <label for="" class="label">Salary '{{ currencyName(form.currencyId) }}'</label>
     
                         <div class="field has-addons">
-                            <div class="control">
+                            <div v-if="!hasHiringDetail" class="control">
+
+                            
                                 <div class="select">
                                     <ValidationProvider name="File" rules="required" v-slot="{ errors }">
                                         <select v-if="companyCurrency && companyCurrency.isMulti" v-model="form.currencyId">
-                          <option
-                              v-for="i in comCurrencies"
-                              :value="i._id"
-                              :key="i._id">{{ i.name }}
-                          </option>
-                        </select>
+                                  <option
+                                      v-for="i in comCurrencies"
+                                      :value="i._id"
+                                      :key="i._id">{{ i.name }}
+                                  </option>
+                                </select>
                                         <select v-else v-model="form.currencyId">
-                          <option
-                              :value="comCurrencies[0]._id"
-                              :key="comCurrencies[0]._id">{{ comCurrencies[0].name }}
-                          </option>
-                        </select>
+                                  <option
+                                      :value="comCurrencies[0]._id"
+                                      :key="comCurrencies[0]._id">{{ comCurrencies[0].name }}
+                                  </option>
+                                </select>
                                         <p class="has-text-danger">{{ errors[0] }}</p>
                                     </ValidationProvider>
                                 </div>
                             </div>
                             <div class="control is-expanded">
+        
                                 <ValidationProvider name="Salary" rules="required" v-slot="{ errors }">
                                     <currency-input v-model="form.salary" class="input" :allow-negative="false" :value-range="{ min: 0 }" :distraction-free="false" :currency="{ prefix: '', suffix: '' }" :value-as-integer="true" :precision="0" :disabled="hasHiringDetail" />
                                     <p class="has-text-danger">{{ errors[0] }}</p>
@@ -203,7 +206,7 @@
                 </div>
                 <hr>
                 <button type="button" @click="saveOnly" class="button primary">Update
-            </button>
+                    </button>
             </div>
         </ValidationObserver>
         <SalaryAdjustmentModal v-if="isSalaryAdjustmentModal" @CloseModal="isSalaryAdjustmentModal = false" @AdjustSalary="isSalaryAdjustmentModal = false; getData() ;$refs.refForm.reset()" />
@@ -264,7 +267,7 @@ export default {
             contactDetail: {}
         },
 
-        companyCurrency: [],
+        companyCurrency: {},
         employee: {},
 
         isSalaryAdjustmentModal: false,
@@ -282,6 +285,13 @@ export default {
             }))
             comCur.unshift(this.currencies[0])
             return comCur
+        },
+             currencyName() {
+          return (currencyId) => {
+             if(!currencyId) return
+             const obj = this.currencies.find(i => i._id === currencyId)
+            return obj ? obj.name.split('|').pop() : ''
+          }
         }
     },
     methods: {
