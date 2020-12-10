@@ -98,8 +98,16 @@ export default {
       }
     },
     async uploadOT() {
+      try {
+          this.$store.dispatch('loading')
       await uploadOT(this.form)
+       this.$store.dispatch('completed')
+      this.$router.push({...this.$route, query: { resetTotal: true }})
       this.$emit('UploadOT')
+      } catch(e) {
+         this.$store.dispatch('error')
+        throw new Error(e)
+      }
     },
     async chooseFile($file) {
       const file = $file.target.files[0]
@@ -131,6 +139,7 @@ export default {
               monthlyPaymentId: this.$route.params.id,
               items
             }
+                  
 
            this.form = form
             this.hasFile = true

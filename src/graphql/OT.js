@@ -30,3 +30,13 @@ export const UPLOAD_OT = gql`
         uploadOT(info: $info)
     }
 `
+
+export const CLEAR_OT = gql`
+
+mutation (
+  $monthlyPaymentId: ID!
+) {
+  clearOT(monthlyPaymentId: $monthlyPaymentId)
+}
+
+`

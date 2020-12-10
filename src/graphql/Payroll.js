@@ -1,5 +1,8 @@
 import gql from 'graphql-tag'
 
+
+
+
 export const GET_PAYROLL_BY_MONTHS = gql`
 
     {
@@ -16,6 +19,24 @@ export const GET_PAYROLL_BY_MONTHS = gql`
 
 
 `
+
+export const GET_TOTAL_PAYROLL = gql`
+
+query (
+  $monthlyPaymentId: ID!
+) {
+  getTotalPayroll(
+    
+    monthlyPaymentId: $monthlyPaymentId
+  ) {
+    totalDeductible
+    totalPayroll
+    totalOT
+  }
+}
+
+`
+
 
 export const GET_PAYROLL_BY_EMPS = gql`
 
@@ -80,27 +101,12 @@ query ($monthlyPaymentId: ID!) {
 
 export const CALC_PAYROLL = gql`
 
-    mutation (
+mutation (
         $monthlyPaymentId: ID!
     ) {
         calcPayroll (
             monthlyPaymentId: $monthlyPaymentId
-        ) {
-            _id
-            monthlyPaymentId
-            employeeId
-            employeeCode
-            fullName
-            earningAmount
-            deductionAmount
-            calcAmount
-            basicSalary
-            netSalary
-            tax
-            sso
-            workingDay
-            isExpat
-        }
+        )
     }
 
 `

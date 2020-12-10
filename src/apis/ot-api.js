@@ -1,5 +1,5 @@
 import {apolloClient} from "@/services/apollo-client";
-import {GET_OT_BY_MONTH, UPLOAD_OT} from "@/graphql/OT";
+import {GET_OT_BY_MONTH, UPLOAD_OT, CLEAR_OT} from "@/graphql/OT";
 
 
 
@@ -34,5 +34,21 @@ export const uploadOT = (form) => {
             reject(err)
         }
     })
+}
 
+
+export const clearOT = ( monthlyPaymentId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const res = await apolloClient.mutate({
+                mutation: CLEAR_OT,
+                variables: {
+                    monthlyPaymentId
+                }
+            })
+            resolve(res.data.clearOT)
+        }catch (err ) {
+            reject(err)
+        }
+    })
 }

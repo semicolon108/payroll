@@ -7,7 +7,7 @@
         </div>
         <div class="button-group">
           <button @click="isUploadModal = true" class="button primary">Upload</button>
-          <button class="button grey">Clear Data</button>
+          <button @click="clearOT" class="button grey">Clear Data</button>
         </div>
       </div>
     </div>
@@ -77,7 +77,8 @@
 
 <script>
 import Upload from './Modal/upload'
-import {getOTByMonth} from "@/apis/ot-api";
+import {getOTByMonth, clearOT} from "@/apis/ot-api";
+
 
 export default {
   components: {
@@ -106,6 +107,22 @@ export default {
   methods: {
     async getOTByMonth() {
       this.emps = await getOTByMonth(this.$route.params.id)
+    },
+    async clearOT() {
+      const isConfirmed = await this.$dialog.confirm('Sure ?')
+      if(!isConfirmed) return
+        
+     try {
+       this.$store.dispatch('loading')
+        await clearOT(this.$route.params.id)
+         this.$store.dispatch('completed')
+        this.$router.push({...this.$route, query: { resetTotal: true }})
+        this.getOTByMonth()
+     } catch(e) {
+        this.$store.dispatch('error')
+       throw new Error(e)
+     }
+   
     },
     async downloadOTTemplate() {
       try {

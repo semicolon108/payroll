@@ -19,7 +19,7 @@
                 class="step-item">
                 <div class="step-info">
                     <h3>Earning / Deuction</h3>
-                    <p>{{ $route.query.totalDeductible | currency }} LAK</p>
+                    <p>{{ payroll.totalDeductible | currency }} LAK</p>
                 </div>
             </router-link>
 
@@ -30,7 +30,8 @@
                 class="step-item">
                 <div class="step-info">
                     <h3>Over Time</h3>
-                    <p>N/A</p>
+                    <p v-if="payroll.totalOT">{{ payroll.totalOT | currency }} LAK</p>
+                    <p v-else>N/A</p>
                 </div>
             </router-link>
 
@@ -41,7 +42,7 @@
                 class="step-item">
                 <div class="step-info">
                     <h3>Payroll</h3>
-                    <p>200.000.000 LAK</p>
+                    <p>{{ payroll.totalPayroll | currency }} LAK</p>
                 </div>
             </router-link>
             <div
@@ -63,9 +64,26 @@
 </template>
 
 <script>
+import {getTotalPayroll} from '@/apis/payroll-api'
     export default {
+
+        data: () => ({
+            payroll: {}
+        }),
+        methods: {
+            async getTotalPayroll() {
+                this.payroll = await getTotalPayroll(this.$route.params.id)
+            }
+        },
+        watch: {
+             '$route.query.resetTotal'() {
+                this.getTotalPayroll()
+                this.$router.push({ ...this.$route, query: undefined })
+            }
+        },
         created(){
             document.documentElement.style.overflow = 'hidden'
+            this.getTotalPayroll()
         },
         beforeDestroy(){
             document.documentElement.style.overflow = 'auto'

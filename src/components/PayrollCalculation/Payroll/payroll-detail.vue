@@ -417,11 +417,11 @@ export default {
       if (isConfirmed) {
         try {
           this.isCalculating = true
-          await this.$store.dispatch('loading')
+          this.$store.dispatch('loading')
           await calcPayroll(this.$route.params.id)
           await this.getPayrollByEmps()
+          this.$store.dispatch('completed')
           await setTimeout(async () => {
-            await this.$store.dispatch('stopLoading')
             this.isCalculating = false
           }, 1800)
         } catch (e) {
