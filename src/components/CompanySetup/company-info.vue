@@ -102,7 +102,7 @@
             <select
 
                 class="input" v-model="form.financialInfo.bankId">
-              <option :value="i._id" v-for="i in banks" :key="i._i">{{ i.name }}</option>
+              <option :value="i._id" v-for="i in banks" :key="i._id">{{ i.name }}</option>
             </select>
             <!--              <p class="has-text-danger">{{ errors[0] }}</p>-->
             <!--            </ValidationProvider>-->

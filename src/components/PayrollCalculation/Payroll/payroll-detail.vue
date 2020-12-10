@@ -38,7 +38,7 @@
         <div
             v-if="getCompany.isApprovedBeforeCalc"
             class="button-group">
-          <button class="button" @click="ModalClick = 'document'"><i class="fal fa-hdd"></i>Store Document</button>
+          <button class="button" @click="isDoc = true"><i class="fal fa-hdd"></i>Store Document</button>
 
           <button
               :disabled="!payrollEmps.isCalculated"
@@ -84,7 +84,7 @@
         </div>
 
         <div v-else class="button-group">
-          <button class="button" @click="ModalClick = 'document'"><i class="fal fa-hdd"></i>Store Document</button>
+          <button class="button" @click="isDoc = true"><i class="fal fa-hdd"></i>Store Document</button>
           <button
               :disabled="!payrollEmps.isCalculated"
               @click="downloadBankTemplate"
@@ -152,7 +152,7 @@
         <div class="option-group">
           <!-- Customise Table icons -->
 
-          <button class="button" @click="ModalClick = 'customise'">
+          <button class="button" @click="isCustomise = true">
             <i class="fal fa-cog"></i>
             Edit Layout
           </button>
@@ -160,13 +160,17 @@
                   v-click-outside="()=>{dropdownView = false}"
                   :class="{'primary' : dropdownView}"
                   @click="dropdownView = !dropdownView">
-            <i class="fal fa-table"></i>Table Layout
+            <i class="fal fa-table"></i>
+            {{layoutSelected ? layoutSelected : 'Table Layout'}}
+            
             <div v-if="dropdownView" class="dropdown slide-up">
               <div class="dropdown-list">
                 <div
                     v-for="i in layouts" :key="i._id"
                     @click="setDefaultLayout(i._id)"
-                    class="dropdown-list-item"><i class="far fa-file-excel"></i>{{  i.name }}
+                    class="dropdown-list-item"
+                    :class="{'is-active': i.name === layoutSelected}"
+                    ><i class="far fa-file-excel"></i>{{  i.name }}
                 </div>
                 <!--                  <div class="dropdown-list-item"><i class="far fa-file-excel"></i>SSO Report</div>-->
                 <!--                  <div class="dropdown-list-item"><i class="far fa-file-excel"></i>TAX Report</div>-->
@@ -200,7 +204,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(i, idx) in payrollEmps.employees" :key="idx">
+          <tr v-for="(i, idx) in items" :key="idx">
             <td v-for="(h, idx) in headers" :key="idx">{{ formatValue(i[h]) }}</td>
           </tr>
           </tbody>
@@ -209,9 +213,8 @@
       
     </div>
     <transition name="slideup">
-      <component :is="ModalClick" @CloseModal="closeModal"
-      :defaultLayout="headers"
-      ></component>
+      <document v-if="isDoc" @CloseModal="closeModal" />
+      <customise v-if="isCustomise" @CloseModal="closeModal" />
     </transition>
     <CalcAnim :isCalculating="isCalculating"/>
   </div>
@@ -228,13 +231,15 @@ import CalcAnim from "@coms/PayrollCalculation/Anim/CalcAnim";
 import vClickOutside from 'v-click-outside'
 import {getDefaultLayout, getPayrollLayouts, setDefaultLayout} from "@/apis/payroll-layout-api";
 import {layoutData} from "@coms/PayrollCalculation/Payroll/Modal/layout-data";
-//import moment from 'moment'
+import moment from 'moment'
+// import Document from '../../Employee/document.vue';
 
 export default {
   components: {
     document,
     CalcAnim,
-    customise
+    customise,
+    // Document
   },
   directives: {
     clickOutside: vClickOutside.directive
@@ -267,7 +272,10 @@ export default {
     },
 
     layoutSelected: '',
-    layouts: []
+    layouts: [],
+
+    isCustomise: false,
+    isDoc: false
   }),
   computed: {
     ...mapGetters(['getCompany', 'getToken']),
@@ -300,14 +308,15 @@ export default {
   },
   methods: {
     closeModal() {
-      this.ModalClick = ''
+      this.isDoc = false
+      this.isCustomise = false
       this.getPayrollByEmps()
       this.getDefaultLayout()
       this.getPayrollLayouts()
     },
     async getDefaultLayout() {
       const data = await getDefaultLayout()
-      this.layoutSelected = data._id
+      this.layoutSelected = data.name
       this.headers = data.layouts
     },
     async getPayrollLayouts() {
@@ -368,7 +377,10 @@ export default {
       this.items = this.payrollEmps.employees.map(i => {
         return {
           ...i,
-          isEditMode: false
+          isEditMode: false,
+          earning: i.earningAmount,
+          deduction: i.deductionAmount,
+          startWorkingDate: moment(i.startWorkingDate).locale('lo').format('DD-MM-YYYY')
         }
       })
     },

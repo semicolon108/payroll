@@ -2,77 +2,78 @@ import gql from 'graphql-tag'
 
 export const GET_HIRING_DETAIL = gql`
 
-    query (
-        $employeeId: ID!
-    ) {
-        getHiringDetail(
-            employeeId: $employeeId
-        ) {
-            _id
+query (
+    $employeeId: ID!
+) {
+  getHiringDetail(
+      employeeId: $employeeId
+  ) {
+      _id
 
-            employeeId
-            provinceId
-            dateOfJoining
-            probationEndDate
-            positionId
-            workingDay
-            currencyId
-            salary
-            salaryGrade
+      employeeId
+      dateOfJoining
+      probationEndDate
+      positionId
+      workingDayGroupId
+      workingLocationId
+      currencyId
+      salary
+      salaryGrade
 
-            workPermit {
-                startDate
-                endDate
-                daysOfNotify
-            }
-            isOpenContract
-            contractEndDate
-            resignationDate
-            isResigned
-            salaryHistories {
-                type
-                refDate
-                adjustmentAmount
-                beforeAdjustment
-                afterAdjustment
-                memo
-            }
-        }
+      workPermit {
+        startDate
+        endDate
+        daysOfNotify
+      }
+      isOpenContract
+      contractEndDate
+     resignationDate
+     isResigned
+    salaryHistories {
+      beforeCurrency
+      afterCurrency
+        type
+        refDate
+        adjustmentAmount
+        beforeAdjustment
+        afterAdjustment
+        memo
     }
+  }
+}
 
 
 `
 
 export const ADD_OR_UPDATE_HIRING_DETAIL = gql`
 
-    mutation (
+mutation (
         $employeeId: ID!
-        $provinceId: ID!
         $dateOfJoining: Date!
-
-        $positionId: ID!
-        $workingDay: Int!
+        $workingDayGroupId: ID!
+        $workingLocationId: ID!
         $currencyId: ID!
         $salary: Int!
         $salaryGrade: String
+        $positionId: ID!
 
 
         $isOpenContract: Boolean!
         $workPermit: WorkPermitInput!
-
+        
         $contractEndDate: Date
         $probationEndDate: Date
-        $resignationDate:  Date
+  $resignationDate:  Date
     ) {
         addOrUpdateHiringDetail(
             info: {
                 employeeId: $employeeId
+              positionId: $positionId
 
-                provinceId: $provinceId
                 dateOfJoining: $dateOfJoining
                 probationEndDate: $probationEndDate
-                positionId: $positionId
-                workingDay: $workingDay
+                workingDayGroupId: $workingDayGroupId
+              workingLocationId: $workingLocationId
                 currencyId: $currencyId
                 salary: $salary
                 salaryGrade: $salaryGrade
@@ -80,21 +81,21 @@ export const ADD_OR_UPDATE_HIRING_DETAIL = gql`
                 workPermit: $workPermit
                 contractEndDate: $contractEndDate
                 isOpenContract: $isOpenContract
-                resignationDate: $resignationDate
+              resignationDate: $resignationDate
             }
         ) {
             _id
 
             employeeId
-            provinceId
             dateOfJoining
             probationEndDate
             positionId
-            workingDay
+            workingDayGroupId
+          workingLocationId
             currencyId
             salary
             salaryGrade
-
+        
 
             workPermit {
                 startDate
@@ -104,18 +105,10 @@ export const ADD_OR_UPDATE_HIRING_DETAIL = gql`
             isOpenContract
             contractEndDate
             resignationDate
-            salaryHistories {
-                type
-                refDate
-                adjustmentAmount
-                beforeAdjustment
-                afterAdjustment
-                memo
-            }
-
+        
         }
     }
-
+    
 `
 
 

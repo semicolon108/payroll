@@ -1,15 +1,16 @@
 <template>
-  <div id="app">
+  <div id="app" >
+    <ReloadLoading v-show="isLoading"/>
+    <div v-show="!isLoading">
     <div v-if="$store.getters.getToken" class="content-container">
       <sidebar />
       <div class="main-content">
         <navigation />
         <div class="content-area">
-        
             <router-view/>
-
         </div>
       </div>
+    </div>
     </div>
     <DefaultLoading/>
   </div>
@@ -21,13 +22,17 @@ import sidebar from "@coms/sidebar";
 import navigation from "@coms/navbar";
 import {mapMutations, mapGetters, mapActions} from 'vuex'
 import DefaultLoading from '@/components/DefaultLoader/loading'
-
+import ReloadLoading from '@/components/DefaultLoader/reload-loading'
 
 export default {
+  data: () => ({
+    isLoading: true
+  }),
   components:{
     sidebar,
     navigation,
     DefaultLoading,
+    ReloadLoading
   },
   computed: {
     ...mapGetters(['isAuth'])
@@ -49,6 +54,9 @@ export default {
     // window.location.href = 'http://localhost:3000'
     }
     this.getMyCompany()
+    setTimeout(() => {
+      this.isLoading = false
+    }, 1700)
   }
 }
 </script>

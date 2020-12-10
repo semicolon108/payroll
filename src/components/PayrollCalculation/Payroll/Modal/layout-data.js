@@ -36,8 +36,8 @@ export const layoutData = [
         isSelected: false
     },
     {
-        "name": "Start Working Date",
-        key: 'startWorkingDay',
+        name: "Start Working Date",
+        key: 'startWorkingDate',
         "type": "Employee Info",
         isSelected: false
     },
