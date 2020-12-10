@@ -168,7 +168,7 @@ th {
 .back {
   cursor: pointer;
   display: inline-block;
-  color: $font-grey-color;
+  color: $dark-grey-color;
   &:hover {
     color: $primary-color;
   }

@@ -4,8 +4,12 @@ button.button{
     color: $font-color;
     box-shadow: none;
     box-shadow: unset;
+    position: relative;
     i {
         margin-right: 5px;
+    }
+    &:focus{
+        box-shadow: none;
     }
     &.sub{
         background-color: $sub-color;
@@ -17,10 +21,6 @@ button.button{
         border: 1px solid $primary-color;
         color: #fff;
         border-radius: 0;
-        &:focus{
-            color: #fff;
-            border: 1px solid $primary-color;
-        }
         &:focus{
             color: #fff;
             border: 1px solid $primary-color;
@@ -79,6 +79,38 @@ button.button{
         &.is-active {
         background-color: $sub-color;
         color: #fff;
+        }
+    }
+}
+
+
+.dropdown {
+    background-color: #fff;
+    border: 1px solid $border-color;
+    box-shadow: 0 5px 10px 0 rgba($grey-color, 0.5);
+    position: absolute;
+    top: 120%;
+    right: -1px;
+    min-width: 102%;
+    max-width: 300px;
+    padding: 10px 0;
+    z-index: 999;
+    .dropdown-list {
+        z-index: 999;
+        color: $font-color;
+        text-align: left;
+        width: 100%;
+        .dropdown-list-item {
+            margin: 0;
+            padding: 10px 30px;
+            &:hover {
+            background-color: $primary-color;
+            color: #fff;
+            }
+            i {
+            margin: 0 5px 0 0;
+            padding: 0;
+            }
         }
     }
 }

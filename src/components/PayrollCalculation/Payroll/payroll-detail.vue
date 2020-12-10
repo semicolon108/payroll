@@ -471,40 +471,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.dropdown {
-  background-color: #fff;
-  border: 1px solid $border-color;
-  box-shadow: 0 5px 10px 0 rgba($grey-color, 0.5);
-  position: absolute;
-  top: 45px;
-  right: 0;
-  min-width: 240px;
-  max-width: 300px;
-  padding: 10px;
-  z-index: 999;
 
-  .dropdown-list {
-    z-index: 999;
-    color: $font-color;
-    text-align: left;
-    width: 100%;
-
-    .dropdown-list-item {
-      margin: 0;
-      padding: 10px 30px;
-
-      &:hover {
-        background-color: $primary-color;
-        color: #fff;
-      }
-
-      i {
-        margin: 0 5px 0 0;
-        padding: 0;
-      }
-    }
-  }
-}
 
 .box.control {
   background-color: rgba($primary-color, 0.1);
@@ -611,7 +578,7 @@ export default {
       cursor: pointer;
       font-size: 12px;
       margin-right: 5px;
-      color: $font-grey-color;
+      color: $dark-grey-color;
     }
   }
 

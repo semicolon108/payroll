@@ -251,7 +251,7 @@ export default {
       cursor: pointer;
       font-size: 14px;
       margin-left: 5px;
-      color: $font-grey-color;
+      color: $dark-grey-color;
     }
   }
 }

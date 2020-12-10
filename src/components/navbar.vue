@@ -8,7 +8,6 @@
         <span aria-hidden="true"></span>
       </a>
     </div>
-
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
         <div class="navbar-item">
@@ -17,7 +16,9 @@
       </div>
       <div class="navbar-end">
         <div class="navbar-item"><i class="fas fa-bell"></i></div>
-        <div class="navbar-item" @click="ddActive = !ddActive">
+        <div class="navbar-item" 
+          v-click-outside="()=>{ ddActive = false }"
+          @click="ddActive = !ddActive">
           <div class="user-img"></div>
           <div class="dd-list" :class="{'active' : ddActive}">
             <div class="dd-item" @click="$router.push({name:'company_info'})"><i class="fas fa-user"></i>Company Setup
@@ -38,8 +39,11 @@
 <script>
 import {mapMutations} from 'vuex'
 import {logoutURL} from "@/config/variables";
-
+import vClickOutside from 'v-click-outside'
 export default {
+  directives: {
+    clickOutside: vClickOutside.directive
+  },
   data: () => ({
     ddActive: false
   }),

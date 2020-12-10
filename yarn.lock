@@ -8990,11 +8990,6 @@ vue-apollo@^3.0.4:
     serialize-javascript "^4.0.0"
     throttle-debounce "^2.1.0"
 
-vue-click-outside@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/vue-click-outside/-/vue-click-outside-1.1.0.tgz#48b7680b518923e701643cccb3e165854aad99eb"
-  integrity sha512-pNyvAA9mRXJwPHlHJyjMb4IONSc7khS5lxGcMyE2EIKgNMAO279PWM9Hyq0d5J4FkiSRdmFLwnbjDd5UtPizHQ==
-
 vue-currency-input@^1.22.3:
   version "1.22.3"
   resolved "https://registry.yarnpkg.com/vue-currency-input/-/vue-currency-input-1.22.3.tgz#49d02fbe79e35d015b7c4762f669829701beec0c"

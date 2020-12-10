@@ -151,7 +151,7 @@ export default {
           flex-grow: 1;
           span{
               font-size: 14px;
-              color: $font-grey-color;
+              color: $dark-grey-color;
           }
           h3{
               font-size: 18px;
