@@ -82,19 +82,26 @@ export default {
         const workbook = XLSX.read(data, {
           type: 'binary'
         })
-        workbook.SheetNames.map(async (sheetName) => {
+        workbook.SheetNames.map(async (sheetName, index) => {
+           if(index > 0) return
           const xlRowObject = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
           const jsonObject = JSON.stringify(xlRowObject);
           const parseJson = JSON.parse(jsonObject)
+                 
           if(!parseJson.length) return alert('Empty')
           if (parseJson.length) {
+            
             const mapKey = parseJson.map(i => {
               return {
-                employeeCode: i.EmployeeCode,
+                 employeeCode: i['Employee Code'].split("'").pop(),
                 type: i.Type,
                 amount: i.Amount
               }
             })
+
+               console.log(parseJson)
+               console.log(mapKey)
+      
             try {
               await this.$store.dispatch('loading')
               const data = await uploadDeductible(mapKey)

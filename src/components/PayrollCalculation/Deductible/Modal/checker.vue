@@ -82,7 +82,16 @@ export default {
         monthlyPaymentId: this.$route.params.id,
         items: mapItems
       }
-      await addDeductible(form)
+      try {
+        this.$store.dispatch('loading')
+        await addDeductible(form)
+        this.$store.dispatch('completed')
+        this.$router.push({...this.$route, query: { resetTotal: true }})
+        } catch(e) {
+          this.$store.dispatch('error')
+          throw new Error(e)
+        }
+
       this.$emit('DataBack')
       this.$emit('CloseModal')
     }

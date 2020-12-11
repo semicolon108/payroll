@@ -122,15 +122,14 @@ export default {
           const xlRowObject = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
           const jsonObject = JSON.stringify(xlRowObject);
           const parseJson = JSON.parse(jsonObject)
+
           if(!parseJson.length) return alert('Empty')
           if (parseJson.length) {
-           // const mapKey =
-
            const items = parseJson.map(i => {
               const objToArr = Object.entries(i).map(([rate, hours]) => ({rate: parseFloat(rate), hours}));
               const filter = objToArr.filter((_, idx) => idx !== 0)
               return {
-                employeeCode: i['Employee Code'],
+                employeeCode: i['Employee Code'].split("'").pop(),
                 OTHours: filter
               }
             })
