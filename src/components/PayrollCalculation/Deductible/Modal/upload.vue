@@ -98,9 +98,6 @@ export default {
                 amount: i.Amount
               }
             })
-
-               console.log(parseJson)
-               console.log(mapKey)
       
             try {
               await this.$store.dispatch('loading')
