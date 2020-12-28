@@ -8,7 +8,7 @@ import {baseURL} from "@/config/variables";
 import moment from 'moment-timezone'
 import './plugins/index'
 // import LoadingScreen from '@/components/Loading/loading-screen'
-import dialog  from '@/components/Confirm'
+import dialog from '@/components/Confirm'
 
 Vue.use(dialog)
 
@@ -16,7 +16,6 @@ Vue.use(dialog)
 
 
 Vue.filter('moment', (date) => moment(date).tz('Asia/Bangkok').format('LL'))
-
 Vue.filter('currency', (num) => new Intl.NumberFormat().format(num))
 
 Vue.prototype.$baseUrl = baseURL
@@ -25,9 +24,6 @@ Vue.prototype.$axios = axios
 Vue.prototype.$api = baseURL + '/client-api/'
 
 Vue.config.productionTip = false
-
-
-
 
 
 new Vue({

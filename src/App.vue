@@ -24,6 +24,8 @@ import {mapMutations, mapGetters, mapActions} from 'vuex'
 import DefaultLoading from '@/components/DefaultLoader/loading'
 import ReloadLoading from '@/components/DefaultLoader/reload-loading'
 
+
+
 export default {
   data: () => ({
     isLoading: true

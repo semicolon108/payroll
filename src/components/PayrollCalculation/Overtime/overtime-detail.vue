@@ -58,7 +58,9 @@
             <p>{{ i.salary | currency }}</p>
           </td>
           <td class="is-right" v-for="(o, idx) in rates" :key="idx">
+
             <span>{{ getByRate(i.OTHours, o, 'hours') }}</span>
+            
             <p v-if="showAmount">{{ getByRate(i.OTHours, o, 'amount') | currency }}</p>
           </td>
           <td class="is-right total">
@@ -78,7 +80,6 @@
 <script>
 import Upload from './Modal/upload'
 import {getOTByMonth, clearOT} from "@/apis/ot-api";
-
 
 export default {
   components: {
@@ -100,7 +101,8 @@ export default {
     getByRate() {
       return (OTHours, rate, type) => {
         const chosen = OTHours.find(i => i.rate === rate)
-        return chosen ? chosen[type] : null
+        console.log(chosen)
+        return chosen ? chosen[type] : ''
       }
     }
   },
@@ -122,7 +124,6 @@ export default {
         this.$store.dispatch('error')
        throw new Error(e)
      }
-   
     },
     async downloadOTTemplate() {
       try {

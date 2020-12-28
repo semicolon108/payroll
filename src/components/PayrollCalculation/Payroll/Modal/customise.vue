@@ -1,8 +1,10 @@
 <template>
-    <div class="customise-page">
+    <div class="customise-page" >
         <div class="close-button" @click="CloseModal">
             <i class="fal fa-chevron-down"></i>
         </div>
+
+        <!-- <p v-for="i in type" :key="i">{{ items(i) }}</p> -->
     
         <div class="page-header">
             <div class="input-group">
@@ -65,6 +67,7 @@ import _ from 'lodash'
 import createLayout from './create-layout'
 import { layoutData } from "@coms/PayrollCalculation/Payroll/Modal/layout-data";
 import { getDefaultLayout, updatePayrollLayout, deletePayrollLayout } from '@/apis/payroll-layout-api'
+import {getCustomFormulas} from '@/apis/custom-formula-api'
 
 export default {
     components: {
@@ -75,9 +78,6 @@ export default {
     methods: {
         CloseModal() {
             this.$emit('CloseModal')
-        },
-        test() {
-            alert('ok')
         },
         reset() {
             this.form.layouts = [
@@ -98,17 +98,17 @@ export default {
                 'totalOTAmount',
                 'deductibleBeforeTax',
                 'deductibleAfterTax',
-                'deductibleBeforeSSO',
+
+                // 'deductibleBeforeSSO',
+
                 'salaryGrade',
                 'startWorkingDate',
                 'defaultWorkingDay',
                 'actualWorkingDay',
-                'taxForEachScale',
-                'totalBeforeTax',
+                // 'taxForEachScale',
                 'totalDueAsTax',
-                'totalAfterTax',
-                'totalAfterSSO',
-                'netSalary'
+
+                'finalNetPay'
             ]
         },
         async getDefaultLayout() {
@@ -142,13 +142,13 @@ export default {
     data: () => ({
         LayoutOption: '',
         layouts: [],
-        DataSet: layoutData,
+        DataSet: [...layoutData],
 
         form: {
             payrollLayoutId: '',
             name: '',
             layouts: []
-        }
+        },
     }),
     watch: {
         DataSet: {
@@ -195,9 +195,29 @@ export default {
             }
         }
     },
-    created() {
+    async created() {
+      
+
         this.form.layouts = []
-        this.getDefaultLayout()
+        await this.getDefaultLayout()
+        const cusFormulas = await getCustomFormulas()
+
+        let newKeys = []
+        cusFormulas.map(i => {
+            newKeys.push({
+                name: i.name,
+                key: i.name,
+                type: 'Custom Fields',
+                isSelected: true
+            })
+        })
+
+        this.DataSet.unshift(...newKeys)
+
+
+      //  console.log(this.form.layouts)
+
+
 
     }
 }

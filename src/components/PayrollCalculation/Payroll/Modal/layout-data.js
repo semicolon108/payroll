@@ -83,12 +83,12 @@ export const layoutData = [
         "type": "SSO",
         isSelected: false
     },
-    {
-        "name": "Total After SSO",
-        key: 'totalAfterSSO',
-        "type": "Salary",
-        isSelected: false
-    },
+    // {
+    //     "name": "Total After SSO",
+    //     key: 'totalAfterSSO',
+    //     "type": "Salary",
+    //     isSelected: false
+    // },
     {
         "name": "OT Work (Hrs) * 5",
         "type": "OT",
@@ -113,30 +113,30 @@ export const layoutData = [
         "type": "Earning / Deduction",
         isSelected: false
     },
-    {
-        key: 'totalBeforeTax',
-        "name": "Total before TAX",
-        "type": "Salary",
-        isSelected: false
-    },
-    {
-        key: 'taxForEachScale',
-        "name": "% Tax for Each Scale (LAK) * 5",
-        "type": "TAX",
-        isSelected: false
-    },
+    // {
+    //     key: 'totalBeforeTax',
+    //     "name": "Total before TAX",
+    //     "type": "Salary",
+    //     isSelected: false
+    // },
+    // {
+    //     key: 'taxForEachScale',
+    //     "name": "% Tax for Each Scale (LAK) * 5",
+    //     "type": "TAX",
+    //     isSelected: false
+    // },
     {
         "name": "Total Due as Tax",
         "type": "TAX",
         key: 'totalDueAsTax',
         isSelected: false
     },
-    {
-        key: 'totalAfterTax',
-        "name": "Total (After Tax+SSO)",
-        "type": "Salary",
-        isSelected: false
-    },
+    // {
+    //     key: 'totalAfterTax',
+    //     "name": "Total (After Tax+SSO)",
+    //     "type": "Salary",
+    //     isSelected: false
+    // },
     {
         key: 'deductibleAfterTax',
         "name": "Earning / Deduction After TAX ",
@@ -144,7 +144,7 @@ export const layoutData = [
         isSelected: false
     },
     {
-        "key": "netSalary",
+        "key": "finalNetPay",
         "name": "Final Net Pay",
         "type": "Salary",
         isSelected: false

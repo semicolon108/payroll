@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import {addDeductible} from "@/apis/monthly-payment-employee";
+import { addDeductible } from "@/apis/monthly-payment-employee";
 
 export default {
   props: ['data'],

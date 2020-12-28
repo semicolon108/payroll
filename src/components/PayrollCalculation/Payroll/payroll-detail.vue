@@ -222,30 +222,31 @@
 <script>
 import document from './Modal/document'
 import customise from './Modal/customise'
-import {calcPayroll, getPayrollByEmps, sendPayslip, sendRequestCalc} from "@/apis/payroll-api";
-import {addOrUpdateActualWorkingDay} from "@/apis/actual-working-day-api";
-import {addOrUpdateCompanyCurrency, getCompanyCurrencies} from "@/apis/company-currency-api"
-import {mapGetters} from 'vuex'
-import {loadingTimeout} from "@/config/variables";
+import { calcPayroll, getPayrollByEmps, sendPayslip, sendRequestCalc } from "@/apis/payroll-api";
+import { addOrUpdateActualWorkingDay } from "@/apis/actual-working-day-api";
+import { addOrUpdateCompanyCurrency, getCompanyCurrencies } from "@/apis/company-currency-api"
+import { mapGetters } from 'vuex'
+import { loadingTimeout } from "@/config/variables";
 import CalcAnim from "@coms/PayrollCalculation/Anim/CalcAnim";
 import vClickOutside from 'v-click-outside'
-import {getDefaultLayout, getPayrollLayouts, setDefaultLayout} from "@/apis/payroll-layout-api";
-import {layoutData} from "@coms/PayrollCalculation/Payroll/Modal/layout-data";
+import { getDefaultLayout, getPayrollLayouts, setDefaultLayout } from "@/apis/payroll-layout-api";
+import { layoutData } from "@coms/PayrollCalculation/Payroll/Modal/layout-data";
 import moment from 'moment'
-// import Document from '../../Employee/document.vue';
+//import Document from '../../Employee/document.vue'
+import {getCustomFormulas} from '@/apis/custom-formula-api'
 
 export default {
   components: {
     document,
     CalcAnim,
-    customise,
+    customise
     // Document
   },
   directives: {
     clickOutside: vClickOutside.directive
   },
   data: () => ({
-    layoutData: layoutData,
+    layoutData: [...layoutData],
     headers: [],
 
     dropdownExport: false,
@@ -375,8 +376,17 @@ export default {
     async getPayrollByEmps() {
       this.payrollEmps = await getPayrollByEmps(this.$route.params.id)
       this.items = this.payrollEmps.employees.map(i => {
+        const filtered = i.customFields.filter(o => !o.isFinalNetPay)
+      
+      const customField = {}
+      for(let n=0; n < filtered.length; n++) {
+        customField[filtered[n].key] = filtered[n].value
+      }
+
+
         return {
           ...i,
+          ...customField,
           isEditMode: false,
           earning: i.earningAmount,
           deduction: i.deductionAmount,
@@ -478,7 +488,22 @@ export default {
     this.getPayrollByEmps()
     this.getDefaultLayout()
     this.getPayrollLayouts()
-  },
+
+      const cusFormulas = await getCustomFormulas()
+
+      let newKeys = []
+      cusFormulas.map(i => {
+          newKeys.push({
+              name: i.name,
+              key: i.name,
+              type: 'Custom Fields',
+              isSelected: true
+          })
+      })
+
+      this.layoutData.unshift(...newKeys)
+
+    },
 }
 </script>
 

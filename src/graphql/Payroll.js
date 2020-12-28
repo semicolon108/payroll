@@ -45,16 +45,19 @@ query ($monthlyPaymentId: ID!) {
             hasExpat
             employees {
                 employeeId
-             
                 employeeCode
-                fullName
               
+                fullName
                 fullNameLao
+              
                 position
                 department
               
-                earningAmount
-                deductionAmount
+                earningBeforeTax
+                earningAfterTax
+                deductionBeforeTax
+                deductionAfterTax
+                calcDeductible
                 deductibleBeforeTax
                 deductibleAfterTax
               
@@ -70,17 +73,19 @@ query ($monthlyPaymentId: ID!) {
                 OTHours
                 OTAmount
                 totalOTAmount
-                taxForEachScale
                 totalDueAsTax
-                totalBeforeTax
-                totalAfterTax
+              
                 ssoPaidByCom
                 ssoPaidByEmp
+                calcSso
+                tax
+                customFields {
+                    key
+                    value
+                    isFinalNetPay
+                }
+              finalNetPay
 
-                totalAfterSSO
-                deductibleBeforeSSO
-              
-                netSalary
               
             }
             date
@@ -89,7 +94,7 @@ query ($monthlyPaymentId: ID!) {
             isRequestApproved
             isPayslipSent
             isCalculated
-            totalSalary
+            
 
         }
     }
