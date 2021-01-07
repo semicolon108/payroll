@@ -151,13 +151,13 @@ export const layoutData = [
     },
 
     {
-        key: 'earning',
+        key: 'earnings',
         name: 'Earning',
         type: 'Salary',
         isSelected: false
     },
     {
-        key: 'deduction',
+        key: 'deductions',
         name: 'Deduction',
         type: 'Salary',
         isSelected: false

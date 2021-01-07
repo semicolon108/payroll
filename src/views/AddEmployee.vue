@@ -45,6 +45,7 @@
       </router-link>
       <router-link :to="{name:'earning'}" class="step">3. Earning / Deduction</router-link>
       <router-link :to="{name:'document'}" class="step">4. Document</router-link>
+      <router-link :to="{name:'custom_field'}" class="step">5. Custom Field</router-link>
     </div>
     <div class="box">
       <router-view ref="refRoute"></router-view>

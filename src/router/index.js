@@ -10,6 +10,16 @@ const routes = [
     component: () => import(/* webpackChunkName: "getstart" */ '../views/GetStart.vue')
   },
   {
+    path: '/formula',
+    name: 'formula',
+    component: () => import(/* webpackChunkName: "getstart" */ '../views/Formula.vue')
+  },
+  {
+    path: '/custom-field',
+    name: 'customfield',
+    component: () => import(/* webpackChunkName: "getstart" */ '../views/CustomField.vue')
+  },
+  {
     path: '/department',
     name: 'department',
     component: () => import(/* webpackChunkName: "department" */ '../views/Department.vue')
@@ -58,6 +68,11 @@ const routes = [
         path: 'document/:id',
         name: 'document',
         component: () => import(/* webpackChunkName: "document" */ '@coms/Employee/document.vue')
+      },
+      {
+        path: 'custom_field/:id',
+        name: 'custom_field',
+        component: () => import(/* webpackChunkName: "document" */ '@coms/Employee/custom-field.vue')
       }
     ]
   },

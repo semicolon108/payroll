@@ -67,7 +67,7 @@ import _ from 'lodash'
 import createLayout from './create-layout'
 import { layoutData } from "@coms/PayrollCalculation/Payroll/Modal/layout-data";
 import { getDefaultLayout, updatePayrollLayout, deletePayrollLayout } from '@/apis/payroll-layout-api'
-import {getCustomFormulas} from '@/apis/custom-formula-api'
+import {getCustomFormulasApi} from '@/apis/custom-formula-api'
 
 export default {
     components: {
@@ -89,8 +89,8 @@ export default {
                 'position',
                 'department',
                 'salaryGrade',
-                'earning',
-                'deduction',
+                'earnings',
+                'deductions',
                 'ssoPaidByEmp',
                 'ssoPaidByCom',
                 'OTHours',
@@ -98,16 +98,12 @@ export default {
                 'totalOTAmount',
                 'deductibleBeforeTax',
                 'deductibleAfterTax',
-
-                // 'deductibleBeforeSSO',
-
                 'salaryGrade',
                 'startWorkingDate',
                 'defaultWorkingDay',
                 'actualWorkingDay',
                 // 'taxForEachScale',
                 'totalDueAsTax',
-
                 'finalNetPay'
             ]
         },
@@ -118,6 +114,22 @@ export default {
                 payrollLayoutId: defaultLayout._id,
                 name: defaultLayout.name
             }
+        },
+        async getCustomFormulas() {
+            const cusFormulas = await getCustomFormulasApi()
+
+            let newKeys = []
+            cusFormulas.map(i => {
+                if(i.isFinalNetPay) return
+                newKeys.push({
+                    name: i.name,
+                    key: i.name,
+                    type: 'Custom Fields',
+                    isSelected: true
+                })
+            })
+
+            this.DataSet.unshift(...newKeys)
         },
         async updatePayrollLayout() {
             await updatePayrollLayout(this.form)
@@ -199,25 +211,10 @@ export default {
       
 
         this.form.layouts = []
+        await this.getCustomFormulas()
         await this.getDefaultLayout()
-        const cusFormulas = await getCustomFormulas()
-
-        let newKeys = []
-        cusFormulas.map(i => {
-            newKeys.push({
-                name: i.name,
-                key: i.name,
-                type: 'Custom Fields',
-                isSelected: true
-            })
-        })
-
-        this.DataSet.unshift(...newKeys)
-
-
-      //  console.log(this.form.layouts)
-
-
+        
+    
 
     }
 }

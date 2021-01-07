@@ -7,7 +7,6 @@
         </div>
       </div>
     </div>
-
     <!-- Box control -->
     <div class="box control">
       <div class="box-control-header">
@@ -233,7 +232,7 @@ import { getDefaultLayout, getPayrollLayouts, setDefaultLayout } from "@/apis/pa
 import { layoutData } from "@coms/PayrollCalculation/Payroll/Modal/layout-data";
 import moment from 'moment'
 //import Document from '../../Employee/document.vue'
-import {getCustomFormulas} from '@/apis/custom-formula-api'
+import {getCustomFormulasApi} from '@/apis/custom-formula-api'
 
 export default {
   components: {
@@ -376,23 +375,36 @@ export default {
     async getPayrollByEmps() {
       this.payrollEmps = await getPayrollByEmps(this.$route.params.id)
       this.items = this.payrollEmps.employees.map(i => {
-        const filtered = i.customFields.filter(o => !o.isFinalNetPay)
+      const filtered = i.customFormulas.filter(o => !o.isFinalNetPay)
       
-      const customField = {}
+      const customFormula = {}
       for(let n=0; n < filtered.length; n++) {
-        customField[filtered[n].key] = filtered[n].value
+        customFormula[filtered[n].key] = parseInt(filtered[n].value, 10)
       }
-
-
         return {
           ...i,
-          ...customField,
+          ...customFormula,
           isEditMode: false,
-          earning: i.earningAmount,
-          deduction: i.deductionAmount,
           startWorkingDate: moment(i.startWorkingDate).locale('lo').format('DD-MM-YYYY')
         }
       })
+    },
+
+    async getCustomFormulas() {
+       const cusFormulas = await getCustomFormulasApi()
+
+          let newKeys = []
+          cusFormulas.map(i => {
+              if(i.isFinalNetPay) return
+              newKeys.push({
+                  name: i.name,
+                  key: i.name,
+                  type: 'Custom Fields',
+                  isSelected: true
+              })
+          })
+
+          this.layoutData.unshift(...newKeys)
     },
     async sendRequestCalc() {
       const isConfirmed = await this.$dialog.confirm()
@@ -481,28 +493,15 @@ export default {
         payrollLayoutId
       })
       this.getDefaultLayout()
-    }
+    },
+
   },
   async created() {
-    this.getCompanyCurrencies()
-    this.getPayrollByEmps()
-    this.getDefaultLayout()
-    this.getPayrollLayouts()
-
-      const cusFormulas = await getCustomFormulas()
-
-      let newKeys = []
-      cusFormulas.map(i => {
-          newKeys.push({
-              name: i.name,
-              key: i.name,
-              type: 'Custom Fields',
-              isSelected: true
-          })
-      })
-
-      this.layoutData.unshift(...newKeys)
-
+   await this.getCompanyCurrencies()
+   await this.getPayrollByEmps()
+   await this.getDefaultLayout()
+   await this.getPayrollLayouts()
+   await this.getCustomFormulas()
     },
 }
 </script>

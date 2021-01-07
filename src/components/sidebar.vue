@@ -14,8 +14,10 @@
         <div class="sidebar-title">Salary</div>
         <router-link to="/payroll_list" class="sidebar-item">Payroll</router-link>
       </div>
-      <div class="sidebar-items" style="opacity: 50%; cursor: not-allowed">
+      <div class="sidebar-items" style="cursor: not-allowed">
         <div style=" cursor: not-allowed" class="sidebar-title">Setting</div>
+        <router-link :to="{ name: 'customfield' }" class="sidebar-item">Custom Field</router-link>
+         <router-link :to="{ name: 'formula' }" class="sidebar-item">Formula</router-link>
         <div style=" cursor: not-allowed" class="sidebar-item">SSO List</div>
         <div style=" cursor: not-allowed" class="sidebar-item">User</div>
       </div>

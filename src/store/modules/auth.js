@@ -6,6 +6,7 @@ const state = {
     company: localStorage.getItem('company') || {}
 }
 
+
 const getters = {
     getToken(state) {
         return state.accessToken

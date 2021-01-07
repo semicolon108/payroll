@@ -72,6 +72,10 @@ query ($monthlyPaymentId: ID!) {
 
                 OTHours
                 OTAmount
+                earnings
+                deductions
+
+
                 totalOTAmount
                 totalDueAsTax
               
@@ -79,10 +83,15 @@ query ($monthlyPaymentId: ID!) {
                 ssoPaidByEmp
                 calcSso
                 tax
-                customFields {
+                customFormulas {
                     key
                     value
                     isFinalNetPay
+                }
+                customFields {
+                    key
+                    value
+         
                 }
               finalNetPay
 
