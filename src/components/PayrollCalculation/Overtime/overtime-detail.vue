@@ -101,7 +101,6 @@ export default {
     getByRate() {
       return (OTHours, rate, type) => {
         const chosen = OTHours.find(i => i.rate === rate)
-        console.log(chosen)
         return chosen ? chosen[type] : ''
       }
     }
