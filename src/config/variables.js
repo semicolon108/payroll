@@ -6,5 +6,5 @@ export const loadingTimeout = 100
 
 export const logoutURL = isProd ? 'https://auth-payroll.sabai.la' : 'http://localhost:3000'
 
-export const baseURL = isProd ? 'https://payroll.sabai.la' : 'http://localhost:4000'
+export const baseURL = isProd ? 'https://hr-sabai.la' : 'http://localhost:4000'
 
