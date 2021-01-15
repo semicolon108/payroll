@@ -75,7 +75,9 @@
             </div>
 
             <div v-else class="option is-primary">
-              <a @click="alert = 'checkDeductible'; monthlyPaymentId = i.monthlyPaymentId ">
+              <a 
+               @click="$router.push({ name: 'calculate_earning_deduction', params: { id: i.monthlyPaymentId } })"
+             >
                 <i class="fas fa-calculator"></i>
                 <span>Calculate</span>
               </a>
