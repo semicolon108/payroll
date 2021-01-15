@@ -68,7 +68,7 @@
           <td class="is-right">{{ i.totalSalary | currency }} LAK</td>
           <td class="is-right">
             <div v-if="i.isApproved" class="option is-primary">
-              <router-link :to="{ name: 'payroll_calculation', params: { id: i.monthlyPaymentId } }">
+              <router-link :to="{ name: 'calculate_earning_deduction', params: { id: i.monthlyPaymentId } }">
                 <i class="fas fa-expand"></i>
                 <span>Check</span>
               </router-link>
