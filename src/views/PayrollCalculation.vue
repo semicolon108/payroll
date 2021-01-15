@@ -9,7 +9,7 @@
             <div class="step-item disabled">
                 <div class="step-info">
                     <h3>Payroll of</h3> 
-                    <p>November, 2020</p>
+                    <p>January, 2021</p>
                 </div>
             </div>
             <router-link
