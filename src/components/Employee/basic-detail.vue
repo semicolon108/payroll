@@ -12,7 +12,7 @@
               <!-- <label for="" class="label">Photo</label> -->
               <div class="control upload">
                 <div v-if="isEditMode && !file" class="photo"
-                     :style="{ 'background-image': 'url(' +  image.src + ')' }"
+                     :style="{ 'background-image': 'url(' + placeholder + ')' }"
                 ></div>
                 <div v-else class="photo"
                      :style="{ 'background-image': 'url(' +  profileImage + ')' }"
@@ -24,7 +24,7 @@
                     type="file" class="input">
                 <div class="upload-label">
 
-                  <ValidationProvider name="File" rules="required" v-slot="{ errors }">
+                  <ValidationProvider name="File"  v-slot="{ errors }">
                     <input v-if="isEditMode && !file" v-model="image.src" type="text" style="display: none">
                     <input v-else v-model="file" type="text" style="display: none">
                     <p class="has-text-danger">{{ errors[0] }}</p>
@@ -82,7 +82,7 @@
             <div class="field">
               <label for="" class="label">First Name (Lao)</label>
               <div class="control">
-                <ValidationProvider name="firstNameLao" rules="required" v-slot="{ errors }">
+                <ValidationProvider name="firstNameLao" v-slot="{ errors }">
                   <input v-model="form.firstNameLao" type="text" class="input" required>
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
@@ -93,7 +93,7 @@
             <div class="field">
               <label for="" class="label">Last Name (Lao)</label>
               <div class="control">
-                <ValidationProvider name="lastNameLao" rules="required" v-slot="{ errors }">
+                <ValidationProvider name="lastNameLao" v-slot="{ errors }">
                   <input v-model="form.lastNameLao" type="text" class="input" required>
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
@@ -116,7 +116,7 @@
           <div class="column is-4">
             <div class="field">
               <label for="" class="label">Date of Birth</label>
-              <ValidationProvider name="Date of Birth" rules="required|isDate" v-slot="{ errors }">
+              <ValidationProvider name="Date of Birth" rules="isDateOrNull" v-slot="{ errors }">
                 <DatePicker v-model="form.dateOfBirth" :defaultValue="defaultValue.dateOfBirth" class="control date"/>
                 <p class="has-text-danger">{{ errors[0] }}</p>
               </ValidationProvider>
@@ -126,7 +126,7 @@
             <div class="field">
               <label for="" class="label">Marital Status</label>
               <div class="select">
-                <ValidationProvider name="Marital Status" rules="required" v-slot="{ errors }">
+                <ValidationProvider name="Marital Status"  v-slot="{ errors }">
                   <select v-model="form.maritalStatusId" class="control select" style="width: 100%">
                     <option v-for="i in maritalStatuses" :value="i._id" :key="i._id" type="text" class="input" required>
                       {{ i.name }}
@@ -158,9 +158,10 @@
           <div class="column is-4">
             <div class="field">
               <label for="" class="label">Contact Number</label>
+
               <div class="control">
                 <ValidationProvider name="Contact Number" rules="required" v-slot="{ errors }">
-                  <input v-model="form.contactName" type="text" class="input" required>
+                  <input v-model="form.mobile" type="text" class="input" required>
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
               </div>
@@ -325,7 +326,7 @@ export default {
       firstNameLao: '',
       lastNameLao: '',
       dateOfBirth: '',
-      contactName: '',
+      mobile: '',
       idCardOrPassport: '',
       email: '',
       ssoId: '',
@@ -359,6 +360,16 @@ export default {
     profileImage() {
       if (!this.file) return 'https://www.cobdoglaps.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg'
       return this.$baseUrl + '/' + this.file.name
+    },
+    placeholder() {
+      if(this.image.src) return this.image.src
+
+      if(this.gender === 'Male') return 'https://scontent.fvte3-1.fna.fbcdn.net/v/t1.15752-9/140251705_457048842135240_4704188877788428268_n.png?_nc_cat=102&ccb=2&_nc_sid=ae9488&_nc_eui2=AeGxkU95l9xEHwch1Zxplsx5IytlsIEl9ZojK2WwgSX1mli_dZJt_MTQr2lOvF1matKd0pIjPrQ1NPOjBMfleMFu&_nc_ohc=UB0B-fUjp-kAX_pTAhL&_nc_ht=scontent.fvte3-1.fna&oh=cfd12a486324e8e6a1e55baa74f4f14b&oe=602C88F1'
+      return 'https://scontent.fvte3-1.fna.fbcdn.net/v/t1.15752-9/139135444_1150433082054095_1036264055400093887_n.png?_nc_cat=101&ccb=2&_nc_sid=ae9488&_nc_eui2=AeEKwJUIoUpXN2RcbJoxZIfwbvHzfcGpIERu8fN9wakgRPeGxT5Z79T21TVl41fevSQXFmfxRNdwULFebR9IEWjC&_nc_ohc=IjdD4D0RxLIAX_4-4hW&_nc_oc=AQkBe3G3cgHjKmTz_MYhwHKeBjWEtTCqiQlzldRfV02FOuIovaNCmHppI_dX4n-9TNg&_nc_ht=scontent.fvte3-1.fna&oh=78d9515d21c893039859e07521f34981&oe=602C2B2A'
+    },
+    gender() {
+      const gender = this.genders.find(i => i._id === this.form.genderId)
+      return gender ? gender.name : null
     }
   },
   filters: {
@@ -383,7 +394,7 @@ export default {
         firstNameLao: data.firstNameLao,
         lastNameLao: data.lastNameLao,
         dateOfBirth: data.dateOfBirth,
-        contactName: data.contactName,
+        mobile: data.mobile,
         idCardOrPassport: data.idCardOrPassport,
         email: data.email,
         ssoId: data.ssoId,
@@ -438,6 +449,7 @@ export default {
       if(!val) this.form.ssoId = null
     }
   },
+  
   methods: {
     async uploadImage(file) {
       try {
@@ -476,7 +488,7 @@ export default {
             firstNameLao: this.form.firstNameLao,
             lastNameLao: this.form.lastNameLao,
             dateOfBirth: this.form.dateOfBirth,
-            contactName: this.form.contactName,
+            mobile: this.form.mobile,
             idCardOrPassport: this.form.idCardOrPassport,
             email: this.form.email,
             ssoId: this.form.ssoId,
@@ -519,7 +531,7 @@ export default {
             firstNameLao: this.form.firstNameLao,
             lastNameLao: this.form.lastNameLao,
             dateOfBirth: this.form.dateOfBirth,
-            contactName: this.form.contactName,
+            mobile: this.form.mobile,
             idCardOrPassport: this.form.idCardOrPassport,
             email: this.form.email,
             ssoId: this.form.ssoId,

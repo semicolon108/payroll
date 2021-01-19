@@ -14,11 +14,13 @@ export const GET_EMPLOYEES = gql`
             firstNameLao
             lastNameLao
             dateOfBirth
-            contactName
+            mobile
             idCardOrPassport
             email
             ssoId
             isSso
+            mobile
+            gender
 
             emergencyContact {
                 fullName
@@ -55,11 +57,12 @@ export const GET_EMPLOYEE = gql`
             firstNameLao
             lastNameLao
             dateOfBirth
-            contactName
+            mobile
             idCardOrPassport
             email
             ssoId
             isSso
+            
             emergencyContact {
                 fullName
                 relationshipId
@@ -72,6 +75,7 @@ export const GET_EMPLOYEE = gql`
             }
 
             genderId 
+            gender
             maritalStatusId 
             nationalityId
             image {
@@ -93,9 +97,9 @@ export const ADD_EMPLOYEE = gql`
         $employeeCode: ID!
         $firstName: String!
         $lastName: String!
-        $dateOfBirth: Date!
-        $contactName: String!
-        $idCardOrPassport: String!
+        $dateOfBirth: Date
+        $mobile: String!
+        $idCardOrPassport: String
         $email: String!
         $ssoId: String
         $isSso: Boolean!
@@ -116,7 +120,7 @@ export const ADD_EMPLOYEE = gql`
                 firstName: $firstName
                 lastName: $lastName
                 dateOfBirth: $dateOfBirth
-                contactName: $contactName
+                mobile: $mobile
                 idCardOrPassport: $idCardOrPassport
                 email: $email
                 ssoId: $ssoId
@@ -135,7 +139,7 @@ export const ADD_EMPLOYEE = gql`
             firstName
             lastName
             dateOfBirth
-            contactName
+            mobile
             idCardOrPassport
             email
             ssoId
@@ -174,9 +178,9 @@ export const UPDATE_EMPLOYEE = gql`
         $lastName: String!
         $firstNameLao: String
         $lastNameLao: String
-        $dateOfBirth: Date!
-        $contactName: String!
-        $idCardOrPassport: String!
+        $dateOfBirth: Date
+        $mobile: String!
+        $idCardOrPassport: String
         $email: String!
         $ssoId: String
         $isSso: Boolean!
@@ -202,7 +206,7 @@ export const UPDATE_EMPLOYEE = gql`
                 lastNameLao: $lastNameLao
 
                 dateOfBirth: $dateOfBirth
-                contactName: $contactName
+                mobile: $mobile
                 idCardOrPassport: $idCardOrPassport
                 email: $email
                 ssoId: $ssoId
@@ -225,7 +229,7 @@ export const UPDATE_EMPLOYEE = gql`
             firstNameLao
             lastNameLao
             dateOfBirth
-            contactName
+            mobile
             idCardOrPassport
             email
             ssoId

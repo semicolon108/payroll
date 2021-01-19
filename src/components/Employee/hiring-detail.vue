@@ -160,7 +160,7 @@
                         <div class="field">
                             <label class="label">Salary Grade</label>
                             <div class="control">
-                                <ValidationProvider name="Salary Grade" rules="required" v-slot="{ errors }">
+                                <ValidationProvider name="Salary Grade"  v-slot="{ errors }">
                                     <input v-model="form.salaryGrade" type="text" class="input">
                                     <p class="has-text-danger">{{ errors[0] }}</p>
                                 </ValidationProvider>
