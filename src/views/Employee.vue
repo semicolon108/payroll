@@ -18,7 +18,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="(i, index) in employees" :key="index">
-                        <td class="is-xs">
+                        <td class="is-xs" v-if="i.image">
                           <div :style="{ backgroundImage: 'url('+ i.image.src +')' }" class="photo"></div>
                         </td>
                         <td>{{i.firstName}} {{i.lastName}}</td>
