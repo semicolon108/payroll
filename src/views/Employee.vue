@@ -7,6 +7,7 @@
         <div class="box">
             <table class="table is-fullwidth" id="my-table">
                 <thead>
+                  
                     <tr>
                         <th class="is-xs">Photo</th>
                         <th>Full Name</th>
