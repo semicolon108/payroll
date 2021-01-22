@@ -114,17 +114,35 @@ export default {
 
           if (!parseJson.length) return alert("Empty");
           if (parseJson.length) {
-            const mapKey = parseJson.map((i) => {
-              return {
-                employeeCode: i["Employee Code"].split("'").pop(),
-                type: i.Type,
-                amount: i.Amount,
-              };
-            });
+
+ 
+      
+            const keysMaped = 
+            parseJson.map((i) => {
+      
+
+              const keys = Object.keys(i)
+
+              const keysFiltered = keys.filter(o => o !== 'Employee Code')
+              
+              const matchKey = keysFiltered.map(o => {
+                return {
+                  employeeCode: i['Employee Code'],
+                  type: o,
+                  amount: i[o]
+                }
+              })
+              return matchKey
+            })
+
+            const ttMap = keysMaped[0].map(o=>({
+              ...o,
+              employeeCode: o.employeeCode.split("'").pop()
+            }))
 
             try {
               await this.$store.dispatch("loading");
-              const data = await uploadDeductible(mapKey);
+              const data = await uploadDeductible(ttMap);
               await this.$store.dispatch("completed");
               this.data = {
                 items: data.items,
