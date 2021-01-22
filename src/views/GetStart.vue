@@ -83,43 +83,48 @@
             </button>
         </div>
     </div>
-
     <div class="columns">
         <div class="column is-3">
             <div class="_card">
                 <span class="_card-icon"><i class="fas fa-wallet"></i></span>
-                <h3>270,160,000</h3>
+                <h3>{{ data.totalSalary | currency}}</h3>
+                <!-- <h3>270,160,000</h3> -->
                 <small>Net Pay</small>
             </div>
         </div>
         <div class="column is-3">
             <div class="_card">
                 <span class="_card-icon"><i class="fas fa-clock"></i></span>
-                <h3>120,140,000</h3>
+                <h3>{{total.totalOT}}</h3>
                 <small>Over time</small>
             </div>
         </div>
         <div class="column is-3">
             <div class="_card">
                 <span class="_card-icon"><i class="fas fa-percentage"></i></span>
-                <h3>65,320,000</h3>
+                <!-- <h3>65,320,000</h3> -->
+                <h3>{{data.totalTax | currency}}</h3>
                 <small>TAX</small>
             </div>
         </div>
         <div class="column is-3">
             <div class="_card">
                 <span class="_card-icon"><i class="fas fa-heartbeat"></i></span>
-                <h3>80,981,000</h3>
+                <h3>{{data.totalSso | currency}}</h3>
                 <small>SSO</small>
             </div>
         </div>
     </div>
+
+    <video autoplay loop class="w-full" src="https://s1.sentry-cdn.com/_static/e0f43681a09b5d889040b0289ac4d921/sentry/dist/congrats-robots.c1aa5c.mp4"></video>
 
 </div>
 </template>
 
 <script>
     import vClickOutside from 'v-click-outside'
+    import {getPayrollByMonths} from '@/apis/payroll-api'
+    import {getTotalPayroll} from '@/apis/payroll-api'
     export default {
         directives: {
             clickOutside: vClickOutside.directive
@@ -127,8 +132,20 @@
         data: () => ({
             selectMonth : false,
             selectYear : false,
-            selectOption : false
+            selectOption : false,
+            data: {},
+            total: {}
         }),
+        methods: {
+            async getPayrollByMonths() {
+                const data = await getPayrollByMonths()
+                this.data = data[0]
+                this.total = await getTotalPayroll(this.data.monthlyPaymentId)
+            }
+        },
+        created() {
+            this.getPayrollByMonths()
+        }
     }
 </script>
 
