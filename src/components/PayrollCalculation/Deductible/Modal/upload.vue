@@ -132,13 +132,16 @@ export default {
                   amount: i[o]
                 }
               })
-              return matchKey
+              return matchKey[0]
             })
+           
 
-            const ttMap = keysMaped[0].map(o=>({
+            const ttMap = keysMaped.map(o=>({
               ...o,
               employeeCode: o.employeeCode.split("'").pop()
             }))
+
+
 
             try {
               await this.$store.dispatch("loading");
