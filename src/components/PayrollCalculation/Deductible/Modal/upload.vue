@@ -117,26 +117,27 @@ export default {
 
  
       
-            const keysMaped = 
+          const items = []
+     
             parseJson.map((i) => {
-      
 
+    
               const keys = Object.keys(i)
 
               const keysFiltered = keys.filter(o => o !== 'Employee Code')
               
-              const matchKey = keysFiltered.map(o => {
-                return {
+               keysFiltered.map(o => {
+                const item = {
                   employeeCode: i['Employee Code'],
                   type: o,
                   amount: i[o]
                 }
+                items.push(item)
               })
-              return matchKey[0]
+    
             })
            
-
-            const ttMap = keysMaped.map(o=>({
+            const ttMap = items.map(o=>({
               ...o,
               employeeCode: o.employeeCode.split("'").pop()
             }))
