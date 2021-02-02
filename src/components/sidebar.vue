@@ -17,7 +17,7 @@
       <div class="sidebar-items" style="cursor: not-allowed">
         <div style=" cursor: not-allowed" class="sidebar-title">Setting</div>
        
-         <router-link :to="{ name: 'formula' }" class="sidebar-item">Formula</router-link>
+         <!-- <router-link :to="{ name: 'formula' }" class="sidebar-item">Formula</router-link> -->
           <!-- <router-link :to="{ name: 'customfield' }" class="sidebar-item">Custom Field</router-link> -->
           <div style=" cursor: not-allowed" class="sidebar-item">Custom Field</div>
         <div style=" cursor: not-allowed" class="sidebar-item">SSO List</div>
