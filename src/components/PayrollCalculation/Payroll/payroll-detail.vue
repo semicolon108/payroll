@@ -205,6 +205,11 @@
           <tbody>
           <tr v-for="(i, idx) in items" :key="idx">
             <td v-for="(h, idx) in headers" :key="idx">{{ formatValue(i[h]) }}</td>
+            <td>
+              <button 
+              @click="downloadPayslip(i.employeeId)"
+              class="button text-sm">Download Payslip</button>
+            </td>
           </tr>
           </tbody>
         </table>
@@ -321,6 +326,26 @@ export default {
     },
     async getPayrollLayouts() {
       this.layouts = await getPayrollLayouts()
+    },
+    async downloadPayslip(id) {
+      try {
+          await this.$store.dispatch('loading')
+        this.$axios.defaults.headers['Authorization'] = this.getToken
+        const res = await this.$axios.post(`${this.$api}download-payslip/${this.$route.params.id}/${id}`, null, {
+          responseType: 'blob'
+        })
+        const url = URL.createObjectURL(new Blob([res.data], {
+          type: 'application/pdf'
+        }))
+        const link = window.document.createElement('a') // window was root
+        link.href = url
+        link.setAttribute('download', `Payslip-Preview.pdf`)
+        window.document.body.appendChild(link)
+        link.click()
+        await this.$store.dispatch('completed')
+      } catch(e) {
+        console.error(e)
+      }
     },
     async downloadBankTemplate() {
       try {
