@@ -344,7 +344,8 @@ export default {
         link.click()
         await this.$store.dispatch('completed')
       } catch(e) {
-        console.error(e)
+        
+        throw new Error(e)
       }
     },
     async downloadBankTemplate() {
