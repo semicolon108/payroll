@@ -130,7 +130,7 @@ export default {
                 const item = {
                   employeeCode: i['Employee Code'],
                   type: o,
-                  amount: i[o]
+                  amount: i[o].toFixed(2)
                 }
                 items.push(item)
               })

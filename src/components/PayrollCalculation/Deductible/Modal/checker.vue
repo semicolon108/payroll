@@ -72,16 +72,18 @@ export default {
   methods: {
     async addDeductible() {
       const mapItems = this.data.items.map(i => {
+       const amount = i.amount
         return {
           employeeCode: i.employeeCode,
           type: i.type,
-          amount: i.amount
+          amount
         }
       })
       const form = {
         monthlyPaymentId: this.$route.params.id,
         items: mapItems
       }
+
       try {
         this.$store.dispatch('loading')
         await addDeductible(form)

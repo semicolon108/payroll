@@ -151,7 +151,6 @@
 
 <style lang="scss" scoped>
 
-
 ._card{
     padding: 20px;
     // border: 1px solid $border-color;
