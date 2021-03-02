@@ -10,7 +10,6 @@
     <!-- Box control -->
     <div class="box control">
       <div class="box-control-header">
-
         <div class="exchange_rate">
           <ValidationObserver
               v-if="isMulti"
@@ -525,8 +524,8 @@ export default {
   async created() {
    await this.getCompanyCurrencies()
    await this.getPayrollByEmps()
+    await this.getPayrollLayouts()
    await this.getDefaultLayout()
-   await this.getPayrollLayouts()
    await this.getCustomFormulas()
     },
 }

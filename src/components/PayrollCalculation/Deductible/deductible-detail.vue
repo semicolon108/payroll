@@ -8,8 +8,7 @@
         <div class="button-group">
 <!--            <button class="button primary" @click="ModalClick = 'Add'">Add</button>-->
             <button 
-            
-       class="button primary" @click="ModalClick = 'Upload'">Upload</button>
+                class="button primary" @click="ModalClick = 'Upload'">Upload</button>
           </div>
       </div>
     </div>
