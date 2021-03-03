@@ -23,9 +23,9 @@
                           <div :style="{ backgroundImage: 'url('+ i.image.src +')' }" class="photo"></div>
                         </td>
                         <td class="is-xs" v-else>
-                          <div v-if="i.gender === 'Male'" :style="{ backgroundImage: 'url('+ 'https://scontent.fvte3-1.fna.fbcdn.net/v/t1.15752-9/140251705_457048842135240_4704188877788428268_n.png?_nc_cat=102&ccb=2&_nc_sid=ae9488&_nc_eui2=AeGxkU95l9xEHwch1Zxplsx5IytlsIEl9ZojK2WwgSX1mli_dZJt_MTQr2lOvF1matKd0pIjPrQ1NPOjBMfleMFu&_nc_ohc=UB0B-fUjp-kAX_pTAhL&_nc_ht=scontent.fvte3-1.fna&oh=cfd12a486324e8e6a1e55baa74f4f14b&oe=602C88F1' +')' }" class="photo"></div>
+                          <div v-if="i.gender === 'Male'" :style="{ backgroundImage: 'url('+ require('../../../public/assets/img/male-avatar.png') +')' }" class="photo"></div>
 
-                          <div v-else :style="{ backgroundImage: 'url('+ 'https://scontent.fvte3-1.fna.fbcdn.net/v/t1.15752-9/139135444_1150433082054095_1036264055400093887_n.png?_nc_cat=101&ccb=2&_nc_sid=ae9488&_nc_eui2=AeEKwJUIoUpXN2RcbJoxZIfwbvHzfcGpIERu8fN9wakgRPeGxT5Z79T21TVl41fevSQXFmfxRNdwULFebR9IEWjC&_nc_ohc=IjdD4D0RxLIAX_4-4hW&_nc_oc=AQkBe3G3cgHjKmTz_MYhwHKeBjWEtTCqiQlzldRfV02FOuIovaNCmHppI_dX4n-9TNg&_nc_ht=scontent.fvte3-1.fna&oh=78d9515d21c893039859e07521f34981&oe=602C2B2A' +')' }" class="photo"></div>
+                          <div v-else :style="{ backgroundImage: 'url('+  require('../../../public/assets/img/female-avatar.png') +')' }" class="photo"></div>
                           
                         </td>
                         
