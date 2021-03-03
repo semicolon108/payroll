@@ -23,9 +23,9 @@
                           <div :style="{ backgroundImage: 'url('+ i.image.src +')' }" class="photo"></div>
                         </td>
                         <td class="is-xs" v-else>
-                          <div v-if="i.gender === 'Male'" :style="{ backgroundImage: 'url('+ require('../../../public/assets/img/male-avatar.png') +')' }" class="photo"></div>
+                          <div v-if="i.gender === 'Male'" :style="{ backgroundImage: 'url('+ require('../../public/assets/img/male-avatar.png') +')' }" class="photo"></div>
 
-                          <div v-else :style="{ backgroundImage: 'url('+  require('../../../public/assets/img/female-avatar.png') +')' }" class="photo"></div>
+                          <div v-else :style="{ backgroundImage: 'url('+  require('../../public/assets/img/female-avatar.png') +')' }" class="photo"></div>
                           
                         </td>
                         
