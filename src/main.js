@@ -11,12 +11,14 @@ import './plugins/index'
 import dialog from '@/components/Confirm'
 
 Vue.use(dialog)
+import {readableBytes} from '@/utils/read-file'
 
 // Vue.component('LoadingScreen', LoadingScreen)
 
 
 Vue.filter('moment', (date) => moment(date).tz('Asia/Bangkok').format('LL'))
 Vue.filter('currency', (num) => new Intl.NumberFormat().format(num))
+Vue.filter('fileSize', (num) => readableBytes(num))
 
 Vue.prototype.$baseUrl = baseURL
 axios.defaults.baseURL = baseURL + '/client-api/'
