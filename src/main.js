@@ -16,7 +16,7 @@ import {readableBytes} from '@/utils/read-file'
 // Vue.component('LoadingScreen', LoadingScreen)
 
 
-Vue.filter('moment', (date) => moment(date).tz('Asia/Bangkok').format('LL'))
+Vue.filter('moment', (date, format) => moment(date).tz('Asia/Bangkok').format(format ? format : 'LL'))
 Vue.filter('currency', (num) => new Intl.NumberFormat().format(num))
 Vue.filter('fileSize', (num) => readableBytes(num))
 

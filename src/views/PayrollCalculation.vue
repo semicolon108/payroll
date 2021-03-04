@@ -9,7 +9,7 @@
             <div class="step-item disabled">
                 <div class="step-info">
                     <h3>Payroll of</h3> 
-                    <p>February, 2021</p>
+                    {{ payroll.paymentDate | moment('MMMM, YYYY')}}
                 </div>
             </div>
             <router-link

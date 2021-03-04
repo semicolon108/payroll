@@ -32,6 +32,7 @@ query (
     totalDeductible
     totalPayroll
     totalOT
+    paymentDate
   }
 }
 
