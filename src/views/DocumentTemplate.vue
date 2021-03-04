@@ -43,7 +43,7 @@
                 
                 >Set Default</button>
                   <div class="absolute right-0 top-0 mt-4 mr-4 text-blue-800 text-right" >
-                    <a download :href="payslipTemplate.payslip.src">
+                    <a v-if="payslipTemplate.payslip" download :href="payslipTemplate.payslip.src">
                         <i class="block fa-lg fas fa-file-download cursor-pointer"></i>
                     </a>
                     <button 
