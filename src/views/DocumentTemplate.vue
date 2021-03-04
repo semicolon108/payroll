@@ -18,7 +18,8 @@
                 @click="setDefault(false)"
                 >Set Default</button>
                 <div class="absolute right-0 top-0 mt-4 mr-4  text-blue-800" >
-                    <i class="fas fa-lg  fa-file-download cursor-pointer"></i>
+                    <a download href="https://paytoday-bucket.s3-ap-southeast-1.amazonaws.com/payslip-templates/DefaultTemplate.docx">
+                    <i class="fas fa-lg  fa-file-download cursor-pointer"></i></a>
                 </div>
             </div>
                <div class="shadow w-1/2 m-2 relative"
@@ -42,10 +43,12 @@
                 
                 >Set Default</button>
                   <div class="absolute right-0 top-0 mt-4 mr-4 text-blue-800 text-right" >
-                    <i class="block fa-lg fas fa-file-download cursor-pointer"></i>
+                    <a download :href="payslipTemplate.payslip.src">
+                        <i class="block fa-lg fas fa-file-download cursor-pointer"></i>
+                    </a>
                     <button 
                     @click="$refs.fileInput.click()"
-                    class="bg-gray-400 text-white px-2 py-1">Upload template</button>
+                    class="bg-gray-400 text-white px-2 py-1 mt-4">Upload template</button>
                     <p v-if="payslipTemplate._id" class="text-xs mt-1 text-green-400">Template Size: ({{payslipTemplate.payslip.size | fileSize}})</p>
                 </div>
             </div>

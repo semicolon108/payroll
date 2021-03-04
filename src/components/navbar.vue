@@ -23,8 +23,8 @@
           <div class="dd-list" :class="{'active' : ddActive}">
             <div class="dd-item" @click="$router.push({name:'company_info'})"><i class="fas fa-user"></i>Company Setup
             </div>
-            <div class="dd-item" @click="$router.push({name:'document_template'})"><i class="far fa-file-word"></i>Template
-              Document
+            <div class="dd-item" @click="$router.push({name:'document_template'})"><i class="far fa-file-word"></i>
+              Payslip Template
             </div>
             <hr>
             <div @click="logout" class="dd-item"><i class="fas fa-sign-out-alt"></i>Logout</div>
