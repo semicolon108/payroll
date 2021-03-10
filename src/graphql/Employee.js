@@ -85,6 +85,10 @@ export const GET_EMPLOYEE = gql`
                 size
             }
             isExpat
+            customFields {
+                key
+                value
+            }
 
         }
     }
@@ -253,6 +257,19 @@ export const UPDATE_EMPLOYEE = gql`
             }
             isExpat
         }
+    }
+
+`
+
+export const UPDATE_CUSTOM_FIELDS_BY_EMP = gql`
+    mutation (
+    $employeeId: ID!
+    $customFields: [EmCustomFieldInput]
+    ) {
+    updateCustomFieldsByEmp(
+        employeeId: $employeeId
+        customFields: $customFields
+    )
     }
 
 `

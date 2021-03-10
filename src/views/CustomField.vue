@@ -3,14 +3,15 @@
         <div class="form-header">
             <div class="has-botton flex items-center">
                 <h3>Custom Field</h3>
-                <button class="button sub" >Add</button>
+                <button 
+                @click="fields.push(null)"
+                class="button sub" >Add</button>
             </div>
             <p>Need help or have questions about uploading document? Call us at (856) 21 254709.</p>
         </div>
-        {{ fields }}
         <div class="flex flex-wrap">
             <div class="w-1/2 p-2" v-for="(i, idx) in fields" :key="idx" >
-                <input v-model="fields[idx]" type="text input " style="width: 100%; height: 40px">
+                <input v-model="fields[idx]" type="text input " style="width: 100%; height: 40px" class="p-2">
             </div>
         </div>
         <div class="p-2">
