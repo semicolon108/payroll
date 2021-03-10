@@ -3,9 +3,9 @@
         <div class="form-header">
             <div class="has-botton flex items-center">
                 <h3>Custom Field</h3>
-                <button class="button sub">Add</button>
+       
             </div>
-            <p>Need help or have questions about uploading document? Call us at (856) 21 254709.</p>
+            <p>Need help or have questions about custom field? Call us at (856) 21 254709.</p>
         </div>
    
         <div class="flex flex-wrap">
