@@ -55,6 +55,7 @@
         @CloseModal="isResignationModal = false"
     />
   </div>
+  
 </template>
 
 <script>
