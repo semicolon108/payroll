@@ -109,10 +109,15 @@ export default {
   top: 0;
   bottom: 0;
   right: 0;
-  left: 220px;
   z-index: 999;
   padding: 40px;
-
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  .box{
+    overflow-x: scroll;
+  }
 }
 
 .checker-header {
@@ -154,6 +159,8 @@ export default {
   color: $font-color;
 
   .box {
+      overflow-x: scroll;
+
     h3 {
       font-size: 30px;
       font-weight: bold;
