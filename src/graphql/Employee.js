@@ -102,13 +102,13 @@ export const ADD_EMPLOYEE = gql`
         $firstName: String!
         $lastName: String!
         $dateOfBirth: Date
-        $mobile: String!
+        $mobile: String
         $idCardOrPassport: String
-        $email: String!
+        $email: String
         $ssoId: String
         $isSso: Boolean!
-        $emergencyContact: EmergencyContactInput!
-        $bankAccount: BankAccountInput!
+        $emergencyContact: EmergencyContactInput
+        $bankAccount: BankAccountInput
 
         $genderId: ID!
         $maritalStatusId: ID!
@@ -183,13 +183,13 @@ export const UPDATE_EMPLOYEE = gql`
         $firstNameLao: String
         $lastNameLao: String
         $dateOfBirth: Date
-        $mobile: String!
+        $mobile: String
         $idCardOrPassport: String
-        $email: String!
+        $email: String
         $ssoId: String
         $isSso: Boolean!
-        $emergencyContact: EmergencyContactInput!
-        $bankAccount: BankAccountInput!
+        $emergencyContact: EmergencyContactInput
+        $bankAccount: BankAccountInput
 
         $genderId: ID!
         $maritalStatusId: ID!

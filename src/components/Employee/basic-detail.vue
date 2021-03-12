@@ -84,7 +84,7 @@
               <label for="" class="label">First Name (Lao)</label>
               <div class="control">
                 <ValidationProvider name="firstNameLao" v-slot="{ errors }">
-                  <input v-model="form.firstNameLao" type="text" class="input" required>
+                  <input v-model="form.firstNameLao" type="text" class="input" >
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
               </div>
@@ -95,7 +95,7 @@
               <label for="" class="label">Last Name (Lao)</label>
               <div class="control">
                 <ValidationProvider name="lastNameLao" v-slot="{ errors }">
-                  <input v-model="form.lastNameLao" type="text" class="input" required>
+                  <input v-model="form.lastNameLao" type="text" class="input" >
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
               </div>
@@ -161,8 +161,8 @@
               <label for="" class="label">Contact Number</label>
 
               <div class="control">
-                <ValidationProvider name="Contact Number" rules="required" v-slot="{ errors }">
-                  <input v-model="form.mobile" type="text" class="input" required>
+                <ValidationProvider name="Contact Number" v-slot="{ errors }">
+                  <input v-model="form.mobile" type="text" class="input" >
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
               </div>
@@ -183,8 +183,8 @@
             <div class="field">
               <label for="" class="label">Email</label>
               <div class="control">
-                <ValidationProvider name="Email" rules="required" v-slot="{ errors }">
-                  <input v-model="form.email" type="text" class="input" required>
+                <ValidationProvider name="Email"  v-slot="{ errors }">
+                  <input v-model="form.email" type="text" class="input">
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
               </div>
@@ -244,7 +244,7 @@
             <div class="field">
               <label for="" class="label">Contact Number</label>
               <div class="control">
-                <ValidationProvider name="EmergencyContact Contact Number 2"  v-slot="{ errors }">
+                <ValidationProvider name="EmergencyContact Contact Number" rules="nullable"  v-slot="{ errors }">
                   <input v-model="form.emergencyContact.contactNumber" type="text" class="input" >
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
@@ -259,9 +259,9 @@
             <div class="field">
               <label for="" class="label">Bank Name</label>
               <div class="select">
-                <ValidationProvider name="Bank Name" rules="required" v-slot="{ errors }">
+                <ValidationProvider name="Bank Name"  v-slot="{ errors }">
                   <select v-model="form.bankAccount.bankId" class="control select" style="width: 100%;">
-                    <option v-for="i in banks" :value="i._id" :key="i._id" type="text" class="input" required>
+                    <option v-for="i in banks" :value="i._id" :key="i._id" type="text" class="input" >
                       {{ i.name }}
                     </option>
                   </select>
@@ -274,8 +274,8 @@
             <div class="field">
               <label for="" class="label">Account Name</label>
               <div class="control">
-                <ValidationProvider name="Account Name" rules="required" v-slot="{ errors }">
-                  <input v-model="form.bankAccount.accountName" type="text" class="input" required>
+                <ValidationProvider name="Account Name" v-slot="{ errors }">
+                  <input v-model="form.bankAccount.accountName" type="text" class="input" >
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
               </div>
@@ -285,8 +285,8 @@
             <div class="field">
               <label for="" class="label">Account Number</label>
               <div class="control">
-                <ValidationProvider name="Account Number" rules="required" v-slot="{ errors }">
-                  <input v-model="form.bankAccount.accountNumber" type="text" class="input" required>
+                <ValidationProvider name="Account Number"  v-slot="{ errors }">
+                  <input v-model="form.bankAccount.accountNumber" type="text" class="input" >
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
               </div>

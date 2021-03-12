@@ -3,13 +3,10 @@
         <div class="form-header">
             <div class="has-botton flex items-center">
                 <h3>Custom Field</h3>
-       
             </div>
             <p>Need help or have questions about custom field? Call us at (856) 21 254709.</p>
         </div>
-   
         <div class="flex flex-wrap">
-    
             <div class="w-1/2 p-2" v-for="(i, idx) in fields" :key="idx">
                 <label for="">{{ i.key }}</label>
                 <input v-model="i.value" type="text input " style="width: 100%; height: 40px" class="p-2">
@@ -24,10 +21,11 @@
     </div>
 </template>
 
+
 <script>
 import { getCustomFieldsApi } from '@/apis/custom-field-api'
 import {getEmployeeApi, updateCustomFieldsByEmpApi} from '@/apis/employee-api'
-//import {employeeApi} from '@/apis/emplo'
+
 export default {
     data: () => ({
         fields: [] 
@@ -35,7 +33,6 @@ export default {
     methods: {
         async getCustomFields() {
             const data = await getCustomFieldsApi()
-           
             this.fields = data.fields.map(i => ({
                 key: i,
                 value: ''
@@ -54,7 +51,6 @@ export default {
                     }
                 })
             }
-            
         },
         async updateCustomFieldsByEmp() {
             const form = {
@@ -63,7 +59,6 @@ export default {
             }
             await updateCustomFieldsByEmpApi(form)
         }
-    
     },
    async created() {
         await this.getCustomFields()
@@ -75,3 +70,4 @@ export default {
 <style lang="scss" scoped>
 
 </style>
+

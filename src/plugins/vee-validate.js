@@ -9,8 +9,6 @@ Vue.component('ValidationObserver', ValidationObserver)
 Vue.component('ValidationProvider', ValidationProvider)
 
 
-
-
 extend('required', {
     ...required,
     message: 'This field is required'
