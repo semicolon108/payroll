@@ -244,7 +244,7 @@
             <div class="field">
               <label for="" class="label">Contact Number</label>
               <div class="control">
-                <ValidationProvider name="EmergencyContact Contact Number" rules="nullable"  v-slot="{ errors }">
+                <ValidationProvider name="EmergencyContact Contact Number"   v-slot="{ errors }">
                   <input v-model="form.emergencyContact.contactNumber" type="text" class="input" >
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
