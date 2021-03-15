@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="box">
-      <table class="table is-fullwidth" id="my-table">
+      <table v-if="!isLoading" class="table is-fullwidth" id="my-table">
         <thead>
         <tr>
           <th class="is-xs">
@@ -63,6 +63,9 @@
         </tr>
         </tbody>
       </table>
+         <div v-else>
+            <Loading v-for="n in 7" :key="n" style=" height: 60px" class="mb-3"  />
+           </div>
     </div>
     <component :is="ModalClick" @CloseModal="ModalClick=''"
                @DataBack="getMonthlyPaymentEmployees"
@@ -74,11 +77,16 @@
 import Add from '@coms/PayrollCalculation/Deductible/Modal/add.vue'
 import Upload from '@coms/PayrollCalculation/Deductible/Modal/upload.vue'
 import {approveDeductible, getMonthlyPaymentEmployees} from "@/apis/monthly-payment-employee";
+ import Loading from '@/components/Loading/SkeletonLoading'
 
+
+//  import Loading from '@/components/Loading/SkeletonLoading'
 export default {
   components: {
     Add,
-    Upload
+    Upload,
+   // isLoading
+   Loading
   },
   data: () => ({
     selectMonth: false,
@@ -95,6 +103,7 @@ export default {
       itemName: '',
       itemType: ''
     },
+    isLoading: true
   }),
   computed: {
     isCustomAllo() {
@@ -122,6 +131,9 @@ export default {
         this.items = employees
         this.date = date
         this.isApproved = isApproved
+               setTimeout(() => {
+                this.isLoading = false
+             }, 400)
       } catch (err) {
         throw new Error(err)
       }

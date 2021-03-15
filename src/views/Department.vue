@@ -5,7 +5,7 @@
       <button class="button primary" @click="isOpen = true; isEditMode = false"><i class="fas fa-plus"></i> Add</button>
     </div>
     <div class="box">
-      <table class="table is-fullwidth" id="my-table">
+      <table v-if="!isLoading" class="table is-fullwidth" id="my-table">
         <thead>
         <tr>
           <th>Department</th>
@@ -26,6 +26,10 @@
         </tr>
         </tbody>
       </table>
+
+        <div v-else>
+            <Loading v-for="n in 7" :key="n" style=" height: 60px" class="mb-3"  />
+           </div>
     </div>
 <!--    <component :is="ModalClick" @CloseModal="ModalClick=''" @PushItem="pushItem"-->
 <!--               @UpdateItem="updateItem"-->
@@ -45,16 +49,18 @@
 <script>
 import AddDepartment from '@coms/Department/Modal/add-department.vue';
 import {DELETE_DEPARTMENT, GET_DEPARTMENTS} from "@/graphql/Department";
-
+ import Loading from '@/components/Loading/SkeletonLoading'
 export default {
   components: {
-    AddDepartment
+    AddDepartment,
+    Loading
   },
   data: () => ({
     ModalClick: '',
     departments: [],
     isOpen: false,
-    isEditMode: false
+    isEditMode: false,
+    isLoading: true
   }),
   methods: {
     async getDepartments() {
@@ -63,6 +69,9 @@ export default {
           query: GET_DEPARTMENTS
         })
         this.departments = res.data.getDepartments
+          setTimeout(() => {
+                this.isLoading = false
+             }, 400)
       } catch (err) {
         throw new Error(err)
       }

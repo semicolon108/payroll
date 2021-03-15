@@ -195,7 +195,7 @@
       </div> <!-- Box Header -->
 
       <div class="table-container">
-        <table class="table is-fullwidth" id="my-table">
+        <table v-if="!isLoading" class="table is-fullwidth" id="my-table">
           <thead >
           <tr>
             <th v-for="(i, idx) in headers" :key="idx">{{ convertName(i) }}</th>
@@ -212,6 +212,9 @@
           </tr>
           </tbody>
         </table>
+            <div v-else>
+            <Loading v-for="n in 7" :key="n" style=" height: 60px" class="mb-3"  />
+           </div>
       </div>
       
     </div>
@@ -237,12 +240,14 @@ import { layoutData } from "@coms/PayrollCalculation/Payroll/Modal/layout-data";
 import moment from 'moment'
 //import Document from '../../Employee/document.vue'
 import {getCustomFormulasApi} from '@/apis/custom-formula-api'
+ import Loading from '@/components/Loading/SkeletonLoading'
 
 export default {
   components: {
     document,
     CalcAnim,
-    customise
+    customise,
+    Loading
     // Document
   },
   directives: {
@@ -279,7 +284,8 @@ export default {
     layouts: [],
 
     isCustomise: false,
-    isDoc: false
+    isDoc: false,
+      isLoading: true
   }),
   computed: {
     ...mapGetters(['getCompany', 'getToken']),
@@ -413,6 +419,10 @@ export default {
           startWorkingDate: moment(i.startWorkingDate).locale('lo').format('DD-MM-YYYY')
         }
       })
+
+      setTimeout(() => {
+          this.isLoading = false
+        }, 400)
     },
 
     async getCustomFormulas() {

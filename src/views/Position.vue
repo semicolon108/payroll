@@ -5,7 +5,7 @@
       <button class="button primary" @click="isOpen = true; isEditMode = false"><i class="fas fa-plus"></i>Add</button>
     </div>
     <div class="box">
-      <table class="table is-fullwidth" id="my-table">
+      <table v-if="!isLoading" class="table is-fullwidth" id="my-table">
         <thead>
         <tr>
           <th>Position</th>
@@ -28,6 +28,9 @@
         </tr>
         </tbody>
       </table>
+       <div v-else>
+            <Loading v-for="n in 7" :key="n" style=" height: 60px" class="mb-3"  />
+           </div>
     </div>
     <PositionModal
          v-if="isOpen"
@@ -44,16 +47,19 @@
 import PositionModal from '@coms/Position/Modal/add-position.vue';
 import {GET_POSITIONS} from "@/graphql/Position";
 import {deletePosition} from "@/apis/position-api";
+ import Loading from '@/components/Loading/SkeletonLoading'
 
 export default {
   components: {
-    PositionModal
+    PositionModal,
+    Loading
   },
   data: () => ({
     ModalClick: '',
     positions: [],
     isOpen: false,
-    isEditMode: false
+    isEditMode: false,
+     isLoading: true
   }),
   methods: {
     async getPositions() {
@@ -62,6 +68,9 @@ export default {
           query: GET_POSITIONS
         })
         this.positions = res.data.getPositions
+           setTimeout(() => {
+                this.isLoading = false
+             }, 400)
       } catch (err) {
         throw new Error(err)
       }

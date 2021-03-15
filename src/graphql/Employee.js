@@ -2,8 +2,10 @@ import gql from 'graphql-tag'
 
 export const GET_EMPLOYEES = gql`
 
-    {
-        getEmployees {
+    query (
+        $textSearch: String
+    ) {
+        getEmployees(textSearch: $textSearch) {
             _id
             image {
                 src

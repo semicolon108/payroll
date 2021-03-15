@@ -28,7 +28,7 @@
       </div> <!-- Box Header -->
 
 
-      <table class="table is-fullwidth" id="my-table">
+      <table v-if="!isLoading" class="table is-fullwidth" id="my-table">
         <thead>
         <tr>
           <th class="is-xxs">
@@ -69,6 +69,9 @@
         </tr>
         </tbody>
       </table>
+               <div v-else>
+            <Loading v-for="n in 7" :key="n" style=" height: 60px" class="mb-3"  />
+           </div>
     </div>
   <Upload v-if="isUploadModal" @CloseModal="isUploadModal = false"
 
@@ -80,10 +83,12 @@
 <script>
 import Upload from './Modal/upload'
 import {getOTByMonth, clearOT} from "@/apis/ot-api";
+ import Loading from '@/components/Loading/SkeletonLoading'
 
 export default {
   components: {
-    Upload
+    Upload,
+    Loading
   },
   data: () => ({
     showAmount: false,
@@ -95,7 +100,8 @@ export default {
         2.5,
         3.0,
         3.5
-    ]
+    ],
+    isLoading: true
   }),
   computed: {
     getByRate() {
@@ -108,6 +114,9 @@ export default {
   methods: {
     async getOTByMonth() {
       this.emps = await getOTByMonth(this.$route.params.id)
+        setTimeout(() => {
+              this.isLoading = false
+            }, 400)
     },
     async clearOT() {
       const isConfirmed = await this.$dialog.confirm('Sure ?')

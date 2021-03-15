@@ -3,7 +3,7 @@
     <div class="page-header">
       <h3 class="page-title">Payroll</h3>
     </div>
-    <div class="box current">
+    <div v-if="!isLoading" class="box current">
         <h3 class="box-title">Current Payroll</h3>
         <div class="summary-container">
             <div v-if="currentItem" class="summary-items">
@@ -46,7 +46,11 @@
         </div>
     </div>
 
-    <div class="box">
+       <div v-else>
+            <Loading  style=" height: 100px" class="mb-7"  />
+        </div>
+
+    <div v-if="!isLoading" class="box">
       <h3 class="box-title">Previous Payroll</h3>
       <table class="table is-fullwidth" id="my-table">
         <thead>
@@ -88,13 +92,24 @@
         </tbody>
       </table>
     </div>
+
+       <div v-else>
+            <Loading  style=" height: 100px" class="mb-2"  />
+            <Loading  style=" height: 100px" class="mb-2"  />
+            <Loading  style=" height: 100px" class="mb-2"  />
+            <Loading  style=" height: 100px" class="mb-2"  />
+        </div>
   </section>
 </template>
 
 <script>
 import {getPayrollByMonths} from "@/apis/payroll-api";
+ import Loading from '@/components/Loading/SkeletonLoading'
 
 export default {
+  components: {
+    Loading
+  },
   computed: {
     currentItem() {
       return this.items[0]
@@ -105,11 +120,15 @@ export default {
   },
   data: () => ({
     items: [],
-    alert: ''
+    alert: '',
+    isLoading: true
   }),
   methods: {
     async getPayrowByMonths() {
       this.items = await getPayrollByMonths()
+           setTimeout(() => {
+                this.isLoading = false
+             }, 400)
     }
   },
   created() {

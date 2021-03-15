@@ -9,7 +9,11 @@
             <div class="step-item disabled">
                 <div class="step-info">
                     <h3>Payroll of</h3> 
-                    {{ payroll.paymentDate | moment('MMMM, YYYY')}}
+                     <p v-if="!isLoading"> {{ payroll.paymentDate | moment('MMMM, YYYY')}}</p>
+                    <div v-else>
+                        <Loading :key="n" style=" height: 20px"  />
+                    </div>
+                  
                 </div>
             </div>
             <router-link
@@ -19,7 +23,10 @@
                 class="step-item">
                 <div class="step-info">
                     <h3>Earning / Deuction</h3>
-                    <p>{{ payroll.totalDeductible | currency }} LAK</p>
+                    <p v-if="!isLoading">{{ payroll.totalDeductible | currency }} LAK</p>
+                     <div v-else>
+                        <Loading :key="n" style=" height: 20px"  />
+                    </div>
                 </div>
             </router-link>
 
@@ -30,8 +37,13 @@
                 class="step-item">
                 <div class="step-info">
                     <h3>Over Time</h3>
-                    <p v-if="payroll.totalOT">{{ payroll.totalOT | currency }} LAK</p>
+                    <div v-if="!isLoading">
+                            <p v-if="payroll.totalOT">{{ payroll.totalOT | currency }} LAK</p>
                     <p v-else>N/A</p>
+                    </div>
+                    <div v-else>
+                        <Loading :key="n" style=" height: 20px"  />
+                    </div>
                 </div>
             </router-link>
 
@@ -42,7 +54,10 @@
                 class="step-item">
                 <div class="step-info">
                     <h3>Payroll</h3>
-                    <p>{{ payroll.totalPayroll | currency }} LAK</p>
+                    <p v-if="!isLoading">{{ payroll.totalPayroll | currency }} LAK</p>
+                        <div v-else>
+                        <Loading :key="n" style=" height: 20px"  />
+                    </div>
                 </div>
             </router-link>
             <div
@@ -65,14 +80,19 @@
 
 <script>
 import {getTotalPayroll} from '@/apis/payroll-api'
+ import Loading from '@/components/Loading/SkeletonLoading'
     export default {
-
+        components: {Loading},
         data: () => ({
-            payroll: {}
+            payroll: {},
+            isLoading: true
         }),
         methods: {
             async getTotalPayroll() {
                 this.payroll = await getTotalPayroll(this.$route.params.id)
+                setTimeout(() => {
+                this.isLoading = false
+             }, 400)
             }
         },
         watch: {
