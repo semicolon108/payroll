@@ -6,7 +6,7 @@
 
  
             </h3>
-                         <button 
+                         <button v-if="getCompany.isCalcByWorkGroup"
                          @click="isDelete = !isDelete"
                          class="button py-1">Toggle Delete Option</button>
           </div>
