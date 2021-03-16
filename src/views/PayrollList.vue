@@ -43,7 +43,7 @@
                 <tbody>
                     <tr v-for="i in t" :key="i._id">
                         <td>{{ i.workGroupId.name  }}</td>
-                        <td class="is-right">{{ i.workGroupId.employeesCount }}</td>
+                        <td class="is-right">{{ i.employeeCount }}</td>
                         <td class="is-right">{{ i.totalSso | currency }} LAK</td>
                         <td class="is-right">{{ i.totalTax | currency }} LAK</td>
                         <td class="is-right">{{ i.totalSalary | currency }} LAK</td>
