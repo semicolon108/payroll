@@ -16,9 +16,9 @@
         </thead>
         <tbody>
         <tr v-for="(i, idx) in positions" :key="idx">
-          <td>{{ i.name }}</td>
-          <td>{{ i.departmentId.name }}</td>
-          <td>{{ i.employeesCount }}</td>
+          <td class="truncate" style="max-width: 180px">{{ i.name }}</td>
+          <td class="truncate" style="max-width: 180px">{{ i.departmentId.name }}</td>
+          <td class="truncate" style="max-width: 180px">{{ i.employeesCount }}</td>
           <td>
             <div class="icons">
               <span class="icon" @click="editModal(i._id, i.name, i.departmentId._id)"><i class="fas fa-pen"></i></span>

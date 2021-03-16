@@ -15,7 +15,7 @@
         </thead>
         <tbody>
         <tr v-for="(i, idx) in departments" :key="idx">
-          <td>{{ i.name }}</td>
+          <td class="truncate" style="max-width: 180px">{{ i.name }}</td>
           <td>{{ i.employeesCount }}</td>
           <td>
             <div class="icons">

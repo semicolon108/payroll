@@ -144,7 +144,7 @@
       </div>
     </div>
     <hr>
-    <button @click="saveOnly" type="button" class="button primary">Update</button>
+    <button @click="saveOnly" type="button" class="button primary mt-2">Update</button>
     </ValidationObserver>
 </template>
 

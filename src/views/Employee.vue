@@ -64,10 +64,10 @@
                           <div v-else :style="{ backgroundImage: 'url('+  require('../../public/assets/img/female-avatar.png') +')' }" class="photo"></div>
                           
                         </td>
-                         <td>{{i.employeeCode}}</td>
-                        <td>{{i.firstName}} {{i.lastName}}</td>
-                        <td class="is-hidden-mobile">{{  i.position  }}</td>
-                        <td class="is-hidden-mobile">{{  i.department  }}</td>
+                         <td class="truncate" style="max-width: 150px">{{i.employeeCode}}</td>
+                        <td class="truncate" style="max-width: 180px">{{i.firstName}} {{i.lastName}}</td>
+                        <td class="is-hidden-mobile truncate" style="max-width: 180px">{{  i.position  }}</td>
+                        <td class="is-hidden-mobile truncate" style="max-width: 180px">{{  i.department  }}</td>
                         <td > {{ i.isCompleted ? 'Completed' : 'Incomplete' }}</td>
                         <td>
                             <div class="icons">
