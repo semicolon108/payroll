@@ -14,6 +14,11 @@ export const GET_PAYROLL_BY_MONTHS = gql`
             totalTax
             totalSso
             employeeCount
+            workGroupId {
+                _id
+                name
+                employeesCount
+            }
         }
     }
 
@@ -147,5 +152,31 @@ export const SEND_PAYSLIP = gql`
             monthlyPaymentId: $monthlyPaymentId
         )
     }
+
+`
+
+
+export const ADD_PAYROLL = gql`
+
+mutation (
+  $workGroupId: ID!
+) {
+  addPayroll(
+    workGroupId: $workGroupId
+  )
+}
+
+`
+
+
+export const DELETE_PAYROLL = gql`
+
+mutation (
+  $monthlyPaymentId: ID!
+) {
+  deletePayroll(
+    monthlyPaymentId: $monthlyPaymentId
+  )
+}
 
 `

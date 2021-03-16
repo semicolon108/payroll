@@ -6,6 +6,8 @@ import {
     GET_PAYROLL_BY_MONTHS,
     SEND_PAYSLIP,
     SEND_REQUEST_CALC,
+    ADD_PAYROLL,
+    DELETE_PAYROLL
 
 } from "@/graphql/Payroll";
 
@@ -109,3 +111,38 @@ export const sendPayslip = (monthlyPaymentId) => {
 
 }
 
+
+export const addPayroll = (workGroupId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const res = await apolloClient.mutate({
+                mutation: ADD_PAYROLL,
+                variables: {
+                    workGroupId
+                }
+            })
+            resolve(res.data.addPayroll)
+        }catch (err ) {
+            reject(err)
+        }
+    })
+
+}
+
+
+export const deletePayroll = (monthlyPaymentId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const res = await apolloClient.mutate({
+                mutation: DELETE_PAYROLL,
+                variables: {
+                    monthlyPaymentId
+                }
+            })
+            resolve(res.data.deletePayroll)
+        }catch (err ) {
+            reject(err)
+        }
+    })
+
+}

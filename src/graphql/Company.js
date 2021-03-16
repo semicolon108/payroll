@@ -41,6 +41,7 @@ export const GET_COMPANY = gql`
                 noticePeriodDay
             }
             isHiringExpat
+            isCalcByWorkGroup
 #            private {
 #                sso
 #            }
