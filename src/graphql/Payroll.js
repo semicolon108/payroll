@@ -92,7 +92,7 @@ query ($monthlyPaymentId: ID!) {
                 customFormulas {
                     key
                     value
-                    isFinalNetPay
+                   # isFinalNetPay
                 }
                 customFields {
                     key
@@ -101,13 +101,15 @@ query ($monthlyPaymentId: ID!) {
                 }
               finalNetPay
 
-              
+              isRequestSent
+              isPayslipSent
             }
             date
             isApproved
             isRequestSent
             isRequestApproved
             isPayslipSent
+          
             isCalculated
             
 
@@ -140,6 +142,21 @@ export const SEND_REQUEST_CALC = gql`
             monthlyPaymentId: $monthlyPaymentId
         )
     }
+
+`
+
+
+export const SEND_PAYSLIP_BY_EMPS = gql`
+
+  mutation (
+    $monthlyPaymentId: ID!
+    $employeeIds: [ID!]!
+  ) {
+    sendPayslipByEmps(
+      monthlyPaymentId: $monthlyPaymentId
+      employeeIds: $employeeIds
+    )
+  }
 
 `
 

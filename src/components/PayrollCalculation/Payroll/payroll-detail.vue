@@ -32,7 +32,7 @@
             </button>
           </ValidationObserver>
         </div>
-
+<!-- 
         <div
             v-if="getCompany.isApprovedBeforeCalc"
             class="button-group">
@@ -43,9 +43,9 @@
               @click="downloadBankTemplate"
               class="button"><i class="fal fa-file-excel"></i>
             Export Payroll's Template
-          </button>
+          </button> -->
 
-          <button v-if="payrollEmps.isPayslipSent"
+          <!-- <button v-if="payrollEmps.isPayslipSent"
                   disabled
                   class="button">Payslip already sent
           </button>
@@ -55,9 +55,9 @@
               class="button"
               :disabled="!payrollEmps.isCalculated"
           >Send Payslip
-          </button>
+          </button> -->
 
-          <button
+          <!-- <button
               v-if="!payrollEmps.isRequestSent"
               @click="sendRequestCalc"
               class="button primary">Send Request
@@ -78,19 +78,19 @@
               disabled
           >
             Calculated
-          </button>
-        </div>
+          </button> -->
+        <!-- </div> -->
 
-        <div v-else class="button-group">
+        <div class="button-group">
           <button class="button" @click="isDoc = true"><i class="fal fa-hdd"></i>Store Document</button>
-          <button
+          <!-- <button
               :disabled="!payrollEmps.isCalculated"
               @click="downloadBankTemplate"
               class="button"><i class="fal fa-file-excel"></i>
             Export Payroll's Template
-          </button>
+          </button> -->
 
-          <button v-if="payrollEmps.isPayslipSent"
+          <!-- <button v-if="payrollEmps.isPayslipSent"
                   disabled
                   class="button">Payslip already sent
           </button>
@@ -100,7 +100,18 @@
               class="button"
               :disabled="!payrollEmps.isCalculated"
           >Send Payslip
-          </button>
+          </button> -->
+
+            <button 
+            v-if="payrollEmps.isCalculated "
+            @click="sendPayslipByEmps"
+                  :disabled="!empsChosen.length"
+                  class="button">Send Payslip
+
+                 <span
+                 class="border rounded-full w-8 bg-blue-600 p-1 text-white"
+                 >{{empsChosen.length}}</span>
+          </button> 
 
 
           <button
@@ -142,9 +153,10 @@
               :class="{'active': chooseTab === 'Expat'}"
           >Expat Employee
           </button>
-          <input v-model="searchText" type="text" class="input" placeholder="Search employee">
+        <input v-model="searchText" type="text" class="input" placeholder="Search employee">
         </div>
         <div v-else class="button-group">
+          <button @click="checkAll" class="button">Check All</button>
           <input v-model="searchText" type="text" class="input" placeholder="Search employee">
         </div>
         <div class="option-group">
@@ -194,20 +206,39 @@
         </div>
       </div> <!-- Box Header -->
 
+
+
       <div class="table-container">
         <table v-if="!isLoading" class="table is-fullwidth" id="my-table">
           <thead >
           <tr>
+            <th v-if="payrollEmps.isCalculated">Check</th>
+            <th v-if="payrollEmps.isCalculated">Sending Status</th>
             <th v-for="(i, idx) in headers" :key="idx">{{ convertName(i) }}</th>
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(i, idx) in items" :key="idx">
+          <tr v-for="(i, idx) in filterItems" :key="idx">
+            
+     
+            <td v-if="payrollEmps.isCalculated ">
+              <div
+              v-if=" !i.isRequestSent"
+              @click="i.isActive = !i.isActive"
+               class="checkbox-container">
+                <div class="checkbox" :class="{'active': i.isActive}"></div>
+              </div>
+            </td>
+            <td v-if="payrollEmps.isCalculated">
+              <p v-if="i.isPayslipSent" class="text-green-400">Sent</p>
+              <p v-else-if="i.isRequestSent" class="text-yellow-400">Sending</p>
+              <p v-else>Unsend</p>
+            </td>
             <td v-for="(h, idx) in headers" :key="idx">{{ formatValue(i[h]) }}</td>
             <td>
               <button 
               @click="downloadPayslip(i.employeeId)"
-              class="button text-sm">Download Payslip</button>
+              class="button text-sm">DOWNLOAD PAYSLIP</button>
             </td>
           </tr>
           </tbody>
@@ -228,7 +259,7 @@
 <script>
 import document from './Modal/document'
 import customise from './Modal/customise'
-import { calcPayroll, getPayrollByEmps, sendPayslip, sendRequestCalc } from "@/apis/payroll-api";
+import { calcPayroll, getPayrollByEmps, sendPayslip, sendPayslipByEmps, sendRequestCalc } from "@/apis/payroll-api";
 import { addOrUpdateActualWorkingDay } from "@/apis/actual-working-day-api";
 import { addOrUpdateCompanyCurrency, getCompanyCurrencies } from "@/apis/company-currency-api"
 import { mapGetters } from 'vuex'
@@ -289,6 +320,11 @@ export default {
   }),
   computed: {
     ...mapGetters(['getCompany', 'getToken']),
+    empsChosen() {
+      const emps = this.items.filter(i => i.isActive)
+      const empsMapped = emps.map(i => i.employeeId)
+      return empsMapped ? empsMapped : []
+    },
     convertName() {
       return (key) => {
         const ret =  this.layoutData.find(i => i.key === key)
@@ -307,7 +343,7 @@ export default {
       return this.items.filter(i => {
         switch (this.chooseTab) {
           case 'All':
-            return i && i.fullName.toLowerCase().includes(this.searchText.toLowerCase())
+            return i && i.fullName.toLowerCase().includes(this.searchText.toLowerCase()) || i.employeeCode.toLowerCase().includes(this.searchText.toLowerCase())
           case 'Local':
             return !i.isExpat && i.fullName.toLowerCase().includes(this.searchText.toLowerCase())
           case 'Expat':
@@ -323,6 +359,21 @@ export default {
       this.getPayrollByEmps()
       this.getDefaultLayout()
       this.getPayrollLayouts()
+    },
+    checkAll() {
+      const filtered = this.items.filter(i => !i.isRequestSent)
+      if(filtered.length) {
+          const foundActive = filtered.find(i => i.isActive)
+
+        if(foundActive) {
+          this.items = filtered.map(i => ({ ...i, isActive: false}))
+        }else {
+          this.items = filtered.map(i => ({ ...i, isActive: true}))
+        }
+      }
+     
+      
+     
     },
     async getDefaultLayout() {
       const data = await getDefaultLayout()
@@ -415,6 +466,7 @@ export default {
         return {
           ...i,
           ...customFormula,
+          isActive: false,
           isEditMode: false,
           startWorkingDate: moment(i.startWorkingDate).locale('lo').format('DD-MM-YYYY')
         }
@@ -454,6 +506,27 @@ export default {
           await this.$store.dispatch('error')
           throw new Error(e)
         }
+      }
+    },
+    async sendPayslipByEmps() {
+           const isConfirmed = await this.$dialog.confirm()
+      if (isConfirmed) {
+        this.isCalculating = true
+        await this.$store.dispatch('loading')
+
+        const form = {
+          monthlyPaymentId: this.$route.params.id,
+          employeeIds: this.empsChosen
+        }
+
+        await sendPayslipByEmps(form)
+
+        this.getPayrollByEmps()
+
+        await setTimeout(async () => {
+          await this.$store.dispatch('stopLoading')
+          this.isCalculating = false
+        }, 1800)
       }
     },
     async sendPayslip() {
@@ -534,7 +607,7 @@ export default {
   async created() {
    await this.getCompanyCurrencies()
    await this.getPayrollByEmps()
-    await this.getPayrollLayouts()
+   await this.getPayrollLayouts()
    await this.getDefaultLayout()
    await this.getCustomFormulas()
     },
@@ -542,7 +615,37 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.checkbox{
+  position: relative;
+  cursor: pointer;
+  transition: all ease-in-out .3s;
+  &:after{
+    content: "";
+    width: 18px;
+    height: 18px;
+    display: block;
+    border: 1px solid #ddd;
+  }
+  &:before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 1px;
+    left: 7px;
+    width: 5px;
+    height: 11px;
+    border: solid #ebebeb;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  &.active{
+    &:after{
+      background-color: #3663e0;
+      border-color: #3663e0;
+    }
+  }
+}
 
 .box.control {
   background-color: rgba($primary-color, 0.1);

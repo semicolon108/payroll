@@ -5,6 +5,7 @@ import {
     GET_PAYROLL_BY_EMPS,
     GET_PAYROLL_BY_MONTHS,
     SEND_PAYSLIP,
+    SEND_PAYSLIP_BY_EMPS,
     SEND_REQUEST_CALC,
     ADD_PAYROLL,
     DELETE_PAYROLL
@@ -110,6 +111,22 @@ export const sendPayslip = (monthlyPaymentId) => {
     })
 
 }
+
+export const sendPayslipByEmps = (form) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const res = await apolloClient.mutate({
+                mutation: SEND_PAYSLIP_BY_EMPS,
+                variables: form
+            })
+            resolve(res.data.sendPayslipByEmps)
+        }catch (err ) {
+            reject(err)
+        }
+    })
+
+}
+
 
 
 export const addPayroll = (workGroupId) => {
