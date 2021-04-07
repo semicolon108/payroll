@@ -10,7 +10,7 @@ import {
     ADD_PAYROLL,
     DELETE_PAYROLL
 
-} from "@/graphql/Payroll";
+} from "@/graphql/Payroll"
 
 export const getPayrollByMonths = () => {
     return new Promise(async (resolve, reject) => {
