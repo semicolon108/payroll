@@ -273,6 +273,7 @@ import moment from 'moment'
 import {getCustomFormulasApi} from '@/apis/custom-formula-api'
  import Loading from '@/components/Loading/SkeletonLoading'
 
+
 export default {
   components: {
     document,
@@ -361,19 +362,30 @@ export default {
       this.getPayrollLayouts()
     },
     checkAll() {
-      const filtered = this.items.filter(i => !i.isRequestSent)
-      if(filtered.length) {
-          const foundActive = filtered.find(i => i.isActive)
 
-        if(foundActive) {
-          this.items = filtered.map(i => ({ ...i, isActive: false}))
+      const filtered = this.items.reduce((filtered, item) => {
+        if(!item.isActive) {
+          let isActive = false
+          if(!item.isRequestSent && !item.isPayslipSent) isActive = true
+          const newItem = { ...item, isActive }
+          filtered.push(newItem)
         }else {
-          this.items = filtered.map(i => ({ ...i, isActive: true}))
+          const newItem = { ...item, isActive: false }
+          filtered.push(newItem)
         }
-      }
-     
-      
-     
+        return filtered
+      }, [])
+
+      this.items = filtered
+      // const filtered = this.items.filter(i => !i.isRequestSent)
+      // if(filtered.length) {
+      //     const foundActive = filtered.find(i => i.isActive)
+      //   if(foundActive) {
+      //     this.items = filtered.map(i => ({ ...i, isActive: false}))
+      //   }else {
+      //     this.items = filtered.map(i => ({ ...i, isActive: true}))
+      //   }
+      // } 
     },
     async getDefaultLayout() {
       const data = await getDefaultLayout()
