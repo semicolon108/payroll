@@ -223,7 +223,7 @@
      
             <td v-if="payrollEmps.isCalculated ">
               <div
-              v-if="!i.isRequestSent || !i.isPayslipSent"
+              v-if="!i.isRequestSent && !i.isPayslipSent"
               @click="i.isActive = !i.isActive"
                class="checkbox-container">
                 <div class="checkbox" :class="{'active': i.isActive}"></div>
