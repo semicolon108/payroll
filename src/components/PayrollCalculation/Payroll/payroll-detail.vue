@@ -156,7 +156,7 @@
         <input v-model="searchText" type="text" class="input" placeholder="Search employee">
         </div>
         <div v-else class="button-group">
-          <button @click="checkAll" class="button">Check All</button>
+          <button v-if="payrollEmps.isCalculated" @click="checkAll" class="button">Check All</button>
           <input v-model="searchText" type="text" class="input" placeholder="Search employee">
         </div>
         <div class="option-group">
@@ -223,7 +223,7 @@
      
             <td v-if="payrollEmps.isCalculated ">
               <div
-              v-if=" !i.isRequestSent"
+              v-if=" !i.isRequestSent || !i.isPayslipSent"
               @click="i.isActive = !i.isActive"
                class="checkbox-container">
                 <div class="checkbox" :class="{'active': i.isActive}"></div>
