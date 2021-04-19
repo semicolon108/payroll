@@ -2,7 +2,10 @@
   <div class="sidebar">
     <div class="sidebar-container">
       <div class="sidebar-items brand">
-        <h1>PAYTODAY</h1>
+       <div class="flex items-center mt-4">
+          <img src="/assets/img/hr-sabai-sq.svg" style="height: 40px" alt="">
+          <h1 class="ml-2">HR-Sabai</h1>
+       </div>
       </div>
       <div class="sidebar-items">
         <div class="sidebar-title">Organization</div>

@@ -375,17 +375,7 @@ export default {
         }
         return filtered
       }, [])
-
       this.items = filtered
-      // const filtered = this.items.filter(i => !i.isRequestSent)
-      // if(filtered.length) {
-      //     const foundActive = filtered.find(i => i.isActive)
-      //   if(foundActive) {
-      //     this.items = filtered.map(i => ({ ...i, isActive: false}))
-      //   }else {
-      //     this.items = filtered.map(i => ({ ...i, isActive: true}))
-      //   }
-      // } 
     },
     async getDefaultLayout() {
       const data = await getDefaultLayout()
