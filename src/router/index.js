@@ -45,7 +45,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "add_employee" */ '../views/AddEmployee.vue'),
     children:[
       {
-        path: 'edit_basic_detail/:id',
+        path: 'edit_basic_detail/:id/:name',
         name: 'edit_basic_detail',
         component: () => import(/* webpackChunkName: "basic_detail" */ '@coms/Employee/basic-detail.vue')
       },
@@ -55,22 +55,22 @@ const routes = [
         component: () => import(/* webpackChunkName: "basic_detail" */ '@coms/Employee/basic-detail.vue')
       },
       {
-        path: 'hiring_detail/:id',
+        path: 'hiring_detail/:id/:name',
         name: 'hiring_detail',
         component: () => import(/* webpackChunkName: "hiring_detail" */ '@coms/Employee/hiring-detail.vue')
       },
       {
-        path: 'earning/:id',
+        path: 'earning/:id/:name',
         name: 'earning',
         component: () => import(/* webpackChunkName: "earning" */ '@coms/Employee/earning.vue')
       },
       {
-        path: 'document/:id',
+        path: 'document/:id/:name',
         name: 'document',
         component: () => import(/* webpackChunkName: "document" */ '@coms/Employee/document.vue')
       },
       {
-        path: 'custom_field/:id',
+        path: 'custom_field/:id/:name',
         name: 'custom_field',
         component: () => import(/* webpackChunkName: "document" */ '@coms/Employee/custom-field.vue')
       }

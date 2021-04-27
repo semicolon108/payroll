@@ -71,7 +71,7 @@
                         <td > {{ i.isCompleted ? 'Completed' : 'Incomplete' }}</td>
                         <td>
                             <div class="icons">
-                                <span v-if="i.isCompleted" @click="$router.push({ name: 'edit_basic_detail', params: { id: i._id } } )" class="icon"><i class="fas fa-pen"></i></span>
+                                <span v-if="i.isCompleted" @click="$router.push({ name: 'edit_basic_detail', params: { id: i._id, name: `${i.firstName} ${i.lastName}` } } )" class="icon"><i class="fas fa-pen"></i></span>
                               <span v-else @click="$router.push({ name: 'hiring_detail', params: { id: i._id } } )" class="icon"><i class="fas fa-pen"></i></span>
 <!--                                <span class="icon"><i class="fas fa-trash"></i></span>-->
                             </div>
