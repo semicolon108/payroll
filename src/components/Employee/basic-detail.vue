@@ -158,11 +158,19 @@
           </div>
           <div class="column is-4">
             <div class="field">
-              <label for="" class="label">Contact Number</label>
-
+              <label for="" class="label">Contact Number
+                 <span class="text-green-400">(For Mobile App)</span></label>
               <div class="control">
-                <ValidationProvider name="Contact Number" v-slot="{ errors }">
+                
+                <ValidationProvider 
+                rules="length:8"
+                mode="lazy"
+  
+                name="Contact Number" v-slot="{ errors }">
+             <div class="flex items-center">
+                  <div class="w-28 bg-blue-700 text-center flex items-center text-white px-2" style="height: 36px; margin-right: -2px">+856 20</div>
                   <input v-model="form.mobile" type="text" class="input" >
+             </div>
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
               </div>

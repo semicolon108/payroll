@@ -2,11 +2,15 @@ import Vue from 'vue'
 import moment from 'moment'
 
 import {ValidationObserver, ValidationProvider, extend} from 'vee-validate'
-import {required, numeric} from "vee-validate/dist/rules";
+import {required, numeric, length} from "vee-validate/dist/rules";
 
 
 Vue.component('ValidationObserver', ValidationObserver)
 Vue.component('ValidationProvider', ValidationProvider)
+
+
+extend('length', length)
+
 
 
 extend('required', {
