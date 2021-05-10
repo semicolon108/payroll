@@ -2,27 +2,30 @@ import gql from 'graphql-tag'
 
 export const GET_EMPLOYEES = gql`
 
-    query (
-        $textSearch: String
-    ) {
-        getEmployees(textSearch: $textSearch) {
-            _id
+query (
+  $page: Int!
+  $perPage: Int!
+  $textSearch: String
+) {
+  getEmployees (
+    page: $page
+    perPage: $perPage
+    textSearch: $textSearch
+  ) {
+            employees {
+              _id
             image {
                 src
             }
             employeeCode
             firstName
             lastName
-            firstNameLao
-            lastNameLao
             dateOfBirth
-            mobile
+            contactName
             idCardOrPassport
             email
             ssoId
             isSso
-            mobile
-            gender
 
             emergencyContact {
                 fullName
@@ -39,8 +42,10 @@ export const GET_EMPLOYEES = gql`
 
             isExpat
             isCompleted
+            }
+          employeesCount
         }
-    }
+}
 
 `
 
