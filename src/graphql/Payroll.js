@@ -1,6 +1,46 @@
 import gql from 'graphql-tag'
 
 
+export const GET_INCOMPLETE_EMPS = gql`
+
+{
+  getIncompleteEmps {
+    employeesCount
+    employees {
+      _id
+            image {
+                src
+            }
+            employeeCode
+            firstName
+            lastName
+            dateOfBirth
+            contactName
+            idCardOrPassport
+            email
+            ssoId
+            isSso
+
+            emergencyContact {
+                fullName
+                contactNumber
+                relationshipId
+            }
+            bankAccount {
+                bankId
+                accountName
+                accountNumber
+            }
+            position
+            department
+
+            isExpat
+            isCompleted
+    }
+  }
+}
+
+`
 
 
 export const GET_PAYROLL_BY_MONTHS = gql`

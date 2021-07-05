@@ -4,12 +4,15 @@
           <div class="flex items-center">
  <h3 class="page-title">Payroll
 
- 
+
             </h3>
                          <button v-if="getCompany.isCalcByWorkGroup"
                          @click="isDelete = !isDelete"
                          class="button py-1">Toggle Delete Option</button>
           </div>
+
+
+
            
             <div v-if="getCompany.isCalcByWorkGroup">
               <select name="" id=""
@@ -24,6 +27,54 @@
               class="button " >Add Payroll</button>
             </div>
         </div>
+
+
+          <div v-if="incomplete.employeesCount" class="my-5">
+              <h2 class="font-bold text-2xl">Incomplete Employees 
+                  <span class="text-red-600">({{incomplete.employeesCount}})</span>
+              </h2>
+              <div class="box" style="border: 1px solid red">
+              <table class="table is-fullwidth" id="my-table">
+                <thead>                  
+                    <tr>
+                        <!-- <th class="is-xs">Photo</th> -->
+                        <th>Employee ID</th>
+                        <th>Full Name</th>
+                        <!-- <th class="is-hidden-mobile">Position</th>
+                        <th class="is-hidden-mobile">Deparment</th> -->
+                        <th>Status</th>
+                        <!-- <th class="is-xs is-right">Option</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(i, index) in incomplete.employees" :key="index">
+                        <!-- <td class="is-xs" v-if="i.image">
+                          <div :style="{ backgroundImage: 'url('+ i.image.src +')' }" class="photo"></div>
+                        </td>
+                        <td class="is-xs" v-else>
+                          <div v-if="i.gender === 'Male'" :style="{ backgroundImage: 'url('+ require('../../public/assets/img/male-avatar.png') +')' }" class="photo"></div>
+
+                          <div v-else :style="{ backgroundImage: 'url('+  require('../../public/assets/img/female-avatar.png') +')' }" class="photo"></div>
+                          
+                        </td> -->
+                         <td class="truncate text-red-600" style="max-width: 150px" >{{i.employeeCode}}</td>
+                        <td class="truncate text-red-600" style="max-width: 180px">{{i.firstName}} {{i.lastName}}</td>
+                        <td class="is-hidden-mobile truncate" style="max-width: 180px">{{  i.position  }}</td>
+                        <td class="is-hidden-mobile truncate " style="max-width: 180px">{{  i.department  }}</td>
+                        <td class="text-red-600"> {{ i.isCompleted ? 'Completed' : 'Incomplete' }}</td>
+                        <td>
+                            <div class="icons">
+                                <span v-if="i.isCompleted" @click="$router.push({ name: 'edit_basic_detail', params: { id: i._id, name: `${i.firstName} ${i.lastName}` } } )" class="icon"><i class="fas fa-pen"></i></span>
+                                <span v-else @click="$router.push({ name: 'hiring_detail', params: { id: i._id, name: `${i.firstName} ${i.lastName}`  } } )" class="icon"><i class="fas fa-pen"></i></span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <div>         
+                </div>
+            </table>
+        </div>
+          </div>
     
         <div v-if="getCompany.isCalcByWorkGroup">
           <div v-if="!isLoading" >
@@ -189,7 +240,7 @@
 </template>
 
 <script>
-import { getPayrollByMonths } from '@/apis/payroll-api'
+import { getPayrollByMonths, getIncompleteEmps } from '@/apis/payroll-api'
 import Loading from '@/components/Loading/SkeletonLoading'
 import { mapGetters } from 'vuex'
 import _ from 'lodash'
@@ -221,9 +272,17 @@ export default {
         isLoading: true,
         workGroups: [],
         workGroupId: '',
-        isDelete: false
+        isDelete: false,
+        incomplete: {
+            employees: [],
+            employeesCount: 0
+        }
     }),
     methods: {
+        async getIncompleteEmps() {
+            const data = await getIncompleteEmps()
+            this.incomplete = data
+        },
         async getPayrowByMonths() {
             this.items = await getPayrollByMonths()
             setTimeout(() => {
@@ -248,6 +307,7 @@ export default {
         }
     },
     created() {
+        this.getIncompleteEmps()
         this.getPayrowByMonths()
         this.getWorkingDayGroups()
     }

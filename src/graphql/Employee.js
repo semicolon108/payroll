@@ -6,11 +6,13 @@ query (
   $page: Int!
   $perPage: Int!
   $textSearch: String
+  $isResigned: Boolean
 ) {
   getEmployees (
     page: $page
     perPage: $perPage
     textSearch: $textSearch
+    isResigned: $isResigned
   ) {
             employees {
               _id

@@ -74,7 +74,9 @@ export default {
         this.$axios.defaults.headers["Authorization"] = this.getToken;
         const res = await this.$axios.post(
           this.$api + "download-deductable-template",
-          null, 
+          {
+            monthlyPaymentId: this.$route.params.id
+          }, 
           {
             responseType: 'blob'
           }
@@ -121,10 +123,9 @@ export default {
      
             parseJson.map((i) => {
 
-    
               const keys = Object.keys(i)
 
-              const keysFiltered = keys.filter(o => o !== 'Employee Code')
+              const keysFiltered = keys.filter(o => o !== 'Employee Code' && o !== 'Full Name')
               
                keysFiltered.map(o => {
                 const item = {

@@ -8,9 +8,23 @@ import {
     SEND_PAYSLIP_BY_EMPS,
     SEND_REQUEST_CALC,
     ADD_PAYROLL,
-    DELETE_PAYROLL
+    DELETE_PAYROLL,
+    GET_INCOMPLETE_EMPS
 
 } from "@/graphql/Payroll"
+
+export const getIncompleteEmps = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const res = await apolloClient.query({
+                query: GET_INCOMPLETE_EMPS,
+            })
+            resolve(res.data.getIncompleteEmps)
+        } catch (err) {
+            reject(err)
+        }
+    })
+}
 
 export const getPayrollByMonths = () => {
     return new Promise(async (resolve, reject) => {
@@ -24,8 +38,6 @@ export const getPayrollByMonths = () => {
         }
     })
 }
-
-
 
 export const getTotalPayroll = (monthlyPaymentId) => {
     return new Promise(async (resolve, reject) => {
