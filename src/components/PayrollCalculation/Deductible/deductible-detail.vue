@@ -7,7 +7,8 @@
         </div>
         <div class="button-group">
 <!--            <button class="button primary" @click="ModalClick = 'Add'">Add</button>-->
-            <button 
+            <button
+            v-if="!isApproved" 
                 class="button primary" @click="ModalClick = 'Upload'">Upload</button>
           </div>
       </div>
@@ -95,7 +96,7 @@ export default {
     Approved: true,
     items: [],
     date: null,
-    isApproved: false,
+    isApproved: true,
 
     searchItem: {
       emId: '',
@@ -131,6 +132,8 @@ export default {
         this.items = employees
         this.date = date
         this.isApproved = isApproved
+
+  
                setTimeout(() => {
                 this.isLoading = false
              }, 400)
