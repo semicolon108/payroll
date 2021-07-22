@@ -34,6 +34,8 @@ body, html{
     box-shadow: none;
     box-shadow: unset;
 }
+
+
 .page-header{
     margin-bottom: 20px;
     display: flex;
@@ -41,10 +43,10 @@ body, html{
     .header-start{
         display: flex;
         align-items: center;
-        // .header-title{
-        //     // display: flex;
-        //     // align-items: center;
-        // }
+        .header-title{
+            display: flex;
+            align-items: center;
+        }
     }
     .header-end{
         margin-left: auto;

@@ -1,5 +1,5 @@
 
-  const isProd = process.env.NODE_ENV === 'production' && true
+  // const isProd = process.env.NODE_ENV === 'production' && true
 //const isProd = true
 
 export const loadingTimeout = 100

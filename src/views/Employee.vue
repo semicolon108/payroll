@@ -1,72 +1,38 @@
 <template>
     <div>
     
-        <div class="page-header flex justify-between">
-            <div class="flex items-center">
+        <div class="page-header">
+            <div class="header-start">
                 <h3 class="page-title">Employee</h3>
                 <button class="button primary" @click="$router.push({name:'basic_detail'})"><i class="fas fa-plus"></i> Add</button>
             </div>
-            <div class="flex items-center">
-                <Pagination v-model="currentPage" :count="employeesCount" :perPage="perPage" />
-    
-                <div>
-                    <select v-model="perPage" class="ml-5" name="" id="">
-                        <option :value="10">10</option>
-                        <option :value="20">20</option>
-                          <option :value="30">30</option>
-                              <option :value="40">50</option>
-                                  <option :value="50">100</option>
-                      </select>
-                </div>
-                <div>
-                    <select v-model="isResigned" class="ml-5" name="" id="">
-                        <option :value="false">Working</option>
-                        <option :value="true">Resigned / Incomplete</option>
-                      </select>
-                </div>
-            </div>
-            
-            <!-- <Pagination
-                      v-model="currentPage"
-                      :total="employeesCount"
-                      :perPage="perPage"
-                       style="max-width: 400px"/> -->
-            <div class="flex">
-    
-    
-                <div class="field" style="margin-right: -1px">
-                    <p class="control has-icons-left">
-                        <input v-model="textSearch" class="input" type="text" placeholder="Search..." style="border-radius: 0px;">
-                        <span class="icon is-small is-left">
-          <i class="fas fa-search  text-blue-700"></i>
-        </span>
-                    </p>
-                </div>
-                <!-- <div class="control" style="margin-right: -1px">
-            <div class="select">
-              <select>
-                <option>Work Location</option>
-                <option>With options</option>
-              </select>
+            <div class="header-end">
+                <button class="button" :class="{'primary' : !isResigned}" @click="isResigned = false">Working</button>
+                <button class="button" :class="{'primary': isResigned}" @click="isResigned = true">Resigned / Incomplete</button>
             </div>
         </div>
-           <div class="control">
-            <div class="select">
-              <select>
-                <option>Work Group</option>
-                <option>With options</option>
-              </select>
-            </div>
-        </div> -->
-                <!-- <select name="" id="" class="select">
-                    <option value="">Work Location</option>
-                  </select>
-                     <select name="" id="" class="select">
-                    <option value="">Work Group</option>
-                  </select> -->
-            </div>
-        </div>
+
         <div class="box">
+            <div class="box-header">
+                <Pagination v-model="currentPage" :count="employeesCount" :perPage="perPage" />
+                <div class="box-header-end">
+                    <div class="field">
+                        <p class="control has-icons-left">
+                            <input v-model="textSearch" class="input" type="text" placeholder="Search..." style="border-radius: 0px;">
+                            <span class="icon is-small is-left"><i class="fas fa-search"></i></span>
+                        </p>
+                    </div>
+                    <div class="select">
+                        <select v-model="perPage" class="ml-5" name="" id="">
+                            <option :value="10">10</option>
+                            <option :value="20">20</option>
+                            <option :value="30">30</option>
+                            <option :value="40">50</option>
+                            <option :value="50">100</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
             <table v-if="!isLoading" class="table is-fullwidth" id="my-table">
                 <thead>
                     <tr>
@@ -202,5 +168,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.box-header{
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    .box-header-end{
+        margin-left: auto;
+        .field{
+            margin: 0;
+            display: inline-block;
+            input{
+                height: 2.5em;
+            }
+        }
+        .select{
+            margin-top: 0;
+            width: auto;
+            height: 2.5em;
+            border-color: $border-color;
+            select{
+                border-color: $border-color;
+                width: auto;
+                height: 2.5em;
+            }
+        }
+    }
+}
 </style>
