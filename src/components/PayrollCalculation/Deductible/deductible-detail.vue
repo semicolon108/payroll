@@ -65,6 +65,8 @@
       </div>
     </div>
 
+    <h3 class="sub-title">Employee Detail</h3>
+
     <div class="box">
       <table v-if="!isLoading" class="table is-fullwidth" id="my-table">
         <thead>
@@ -219,6 +221,10 @@ export default {
 .is-earning {
   color: $primary-color;
 }
+.sub-title{
+  font-size: 16px;
+  margin: 0 0 10px 0;
+}
 th {
   span {
     margin-bottom: 5px;
@@ -249,7 +255,7 @@ th {
 
 
 .summary-container{
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   ul._detail{
     margin: 0;
     padding: 20px;
