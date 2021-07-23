@@ -20,7 +20,7 @@
           <ul class="_detail">
             <li class="total">
               <h3>Grand Total</h3>
-              <h1>150,000,000 ₭</h1>
+              <h1>{{totalDeductible | currency}} ₭</h1>
             </li>
           </ul>
         </div>
@@ -29,21 +29,21 @@
             <li class="label primary">
               <h3>Earning (+)</h3>
             </li>
-            <li>
-              <span>Meal</span>
-              <span>200,000 ₭</span>
+            <li v-for="i in earnings" :key="i.name">
+              <span>{{i.name}}</span>
+              <span>{{i.total | currency }} ₭</span>
             </li>
-            <li>
+            <!-- <li>
               <span>OT</span>
               <span>200,000 ₭</span>
             </li>
             <li>
               <span>Back Pay</span>
               <span>200,000 ₭</span>
-            </li>
+            </li> -->
             <li class="sum">
               <span>Grand Total</span>
-              <span>600,000 ₭</span>
+              <span>{{ totalEarnings | currency }} ₭</span>
             </li>
           </ul>
         </div>
@@ -52,13 +52,13 @@
             <li class="label alert">
               <h3>Deduction (-)</h3>
             </li>
-            <li>
-              <span>Loan</span>
-              <span>200,000 ₭</span>
+              <li v-for="i in deductions" :key="i.name">
+              <span>{{i.name}}</span>
+              <span>{{i.total | currency }} ₭</span>
             </li>
             <li class="sum">
               <span>Grand Total</span>
-              <span>600,000 ₭</span>
+              <span>{{totalDeductions}} ₭</span>
             </li>
           </ul>
         </div>
@@ -152,6 +152,10 @@ export default {
     date: null,
     isApproved: true,
 
+    earnings: [],
+    totalEarnings: null,
+    totalDeductible: null,
+
     searchItem: {
       emId: '',
       emName: '',
@@ -182,11 +186,15 @@ export default {
   methods: {
     async getMonthlyPaymentEmployees() {
       try {
-        const { employees, date, isApproved } = await getMonthlyPaymentEmployees(this.$route.params.id)
+        const { employees, date, isApproved, earnings, totalEarnings, deductions, totalDeductions, totalDeductible } = await getMonthlyPaymentEmployees(this.$route.params.id)
         this.items = employees
         this.date = date
         this.isApproved = isApproved
-
+        this.earnings = earnings
+        this.totalEarnings = totalEarnings
+        this.deductions = deductions
+        this.totalDeductions = totalDeductions
+        this.totalDeductible = totalDeductible
   
                setTimeout(() => {
                 this.isLoading = false

@@ -2,7 +2,7 @@ import gql from 'graphql-tag'
 
 export const GET_MONTHLY_PAYMENT_EMPLOYEES = gql`
 
-    query (
+query (
         $monthlyPaymentId: ID!
     ) {
         getMonthlyPaymentEmployees (monthlyPaymentId: $monthlyPaymentId) {
@@ -24,11 +24,21 @@ export const GET_MONTHLY_PAYMENT_EMPLOYEES = gql`
                     isAmount
                     chooseAmount
                 }
-                isApproved
             }
-            totalDeductible
+          earnings {
+            name
+            total
+          }
+        deductions {
+          name
+          total
+        }
+        totalEarnings
+        totalDeductions
+        totalDeductible
         }
     }
+
 
 `
 
