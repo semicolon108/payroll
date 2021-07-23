@@ -2,9 +2,6 @@
 <transition name="slidedown" appear>
 <section class="fullpage">
     <header>
-        <div class="close-button"
-            @click="$router.push({name: 'payroll_list'})">
-        </div>
         <div class="step-list">
             <div class="step-item disabled">
                 <div class="step-info">
@@ -30,7 +27,7 @@
                 </div>
             </router-link>
 
-            <router-link 
+            <!-- <router-link 
                 :to="{name:'calculate_overtime',
                 params: { id: $route.params.id} }"
                 tag="div"
@@ -45,7 +42,7 @@
                         <Loading :key="n" style=" height: 20px"  />
                     </div>
                 </div>
-            </router-link>
+            </router-link> -->
 
             <router-link 
                 :to="{name:'calculate_payroll',
@@ -53,17 +50,15 @@
                 tag="div"
                 class="step-item">
                 <div class="step-info">
-                    <h3>Payroll</h3>
+                    <h3>Payroll Summary</h3>
                     <p v-if="!isLoading">{{ payroll.totalPayroll | currency }} LAK</p>
                         <div v-else>
                         <Loading :key="n" style=" height: 20px"  />
                     </div>
                 </div>
             </router-link>
-            <div
-                @click="$router.push({name: 'payroll_list'})"
-                class="step-item">
-                Finish
+            <div class="close-button"
+                @click="$router.push({name: 'payroll_list'})">
             </div>
         </div>
     </header>

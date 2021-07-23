@@ -23,7 +23,7 @@
                         </p>
                     </div>
                     <div class="select">
-                        <select v-model="perPage" class="ml-5" name="" id="">
+                        <select v-model="perPage" name="" id="">
                             <option :value="10">10</option>
                             <option :value="20">20</option>
                             <option :value="30">30</option>

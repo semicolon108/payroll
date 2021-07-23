@@ -6,13 +6,65 @@
           <h3 class="xxl-title">Earning / Deduction</h3>
         </div>
         <div class="button-group">
-<!--            <button class="button primary" @click="ModalClick = 'Add'">Add</button>-->
+<!-- <button class="button primary" @click="ModalClick = 'Add'">Add</button>-->
             <button
             v-if="!isApproved" 
                 class="button primary" @click="ModalClick = 'Upload'">Upload</button>
           </div>
+      </div> <!-- header-start -->
+    </div>
+
+    <div class="summary-container">
+      <div class="columns is-mobile is-multiline">
+        <div class="column">
+          <ul class="_detail">
+            <li class="total">
+              <h3>Grand Total</h3>
+              <h1>150,000,000 ₭</h1>
+            </li>
+          </ul>
+        </div>
+        <div class="column is-4-desktop is-12-mobile">
+          <ul class="_detail">
+            <li class="label primary">
+              <h3>Earning (+)</h3>
+            </li>
+            <li>
+              <span>Meal</span>
+              <span>200,000 ₭</span>
+            </li>
+            <li>
+              <span>OT</span>
+              <span>200,000 ₭</span>
+            </li>
+            <li>
+              <span>Back Pay</span>
+              <span>200,000 ₭</span>
+            </li>
+            <li class="sum">
+              <span>Grand Total</span>
+              <span>600,000 ₭</span>
+            </li>
+          </ul>
+        </div>
+        <div class="column is-4-desktop is-12-mobile">
+          <ul class="_detail">
+            <li class="label alert">
+              <h3>Deduction (-)</h3>
+            </li>
+            <li>
+              <span>Loan</span>
+              <span>200,000 ₭</span>
+            </li>
+            <li class="sum">
+              <span>Grand Total</span>
+              <span>600,000 ₭</span>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
+
     <div class="box">
       <table v-if="!isLoading" class="table is-fullwidth" id="my-table">
         <thead>
@@ -192,6 +244,54 @@ th {
     font-family: FontAwesome;
     margin-right: 5px;
     font-size: 14px;
+  }
+}
+
+
+.summary-container{
+  margin-bottom: 20px;
+  ul._detail{
+    margin: 0;
+    padding: 20px;
+    border: 1px solid $border-color;
+    height: 100%;
+    li{
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      font-size: 14px;
+      line-height: 1.8;
+      display: flex;
+      justify-content: space-between;
+      &.total{
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        h3{
+          font-size: 16px;
+          margin: 0 0 5px 0;
+        }
+        h1{
+          margin: 0;
+          font-weight: 700;
+        }
+      }
+      &.label{
+        &.primary h3{
+          color: $primary-color;
+        }
+        &.alert h3{
+          color: $alert-color;
+        }
+        h3{
+          font-size: 16px;
+          margin-bottom: 5px;
+        }
+      }
+      &.sum{
+        font-weight: 700;
+      }
+    }
   }
 }
 </style>
