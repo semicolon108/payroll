@@ -58,7 +58,7 @@
             </li>
             <li class="sum">
               <span>Grand Total</span>
-              <span>{{totalDeductions}} ₭</span>
+              <span>{{totalDeductions | currency}} ₭</span>
             </li>
           </ul>
         </div>
