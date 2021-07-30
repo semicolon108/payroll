@@ -12,8 +12,8 @@ export const getAllowance = (employeeId) => {
                 }
             })
             resolve(res.data.getAllowance)
-        } catch (err) {
-            reject(err)
+        } catch (e) {
+            reject(e)
         }
     })
 }
@@ -26,8 +26,8 @@ export const addOrUpdateAllowance = (form) => {
                 variables: form
             })
             resolve(res.data.addOrUpdateAllowance)
-        } catch (err) {
-            reject(err)
+        } catch (e) {
+            reject(e)
         }
     })
 }

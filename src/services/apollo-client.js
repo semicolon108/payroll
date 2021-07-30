@@ -11,7 +11,7 @@ import store from '../store'
 Vue.use(VueApollo)
 
 const authLink = setContext(async (_, { headers }) => {
-    const token = store.getters.getToken || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjhlNTBmM2FiZjhlNjAxZTAzZTg5ZDciLCJpYXQiOjE2MDU1NzgxODAsImV4cCI6MTYwNTY2NDU4MH0.SRTcLodEkOIbj0I6COn6Yb6RnCecGyrTveyV7p9unh8'
+    const token = store.getters.getToken || ''
     // const token = store.getters.getToken
     return {
         headers: {
@@ -20,6 +20,7 @@ const authLink = setContext(async (_, { headers }) => {
         }
     }
 })
+
 
 const errorLink = onError(({ graphQLErrors }) => {
     if (graphQLErrors)
@@ -49,10 +50,7 @@ const httpLink = createHttpLink({
     uri: `${baseURL}/graphql`
 })
 
-
-
 const link = errorLink.concat(authLink.concat(httpLink))
-
 
 // Cache implementation
 const cache = new InMemoryCache()
