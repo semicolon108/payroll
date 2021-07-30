@@ -8,7 +8,7 @@
         }}</h3>
       <button
           v-if="$route.params.id"
-          @click="isResignationModal = true" class="button alert">Resignation</button>
+          @click="isResignationModal = true" class="button alert">Resign</button>
 
         <div class="header-end">
           <button @click="$router.replace({ name: 'employee' })" class="button grey">Close</button>
@@ -92,39 +92,37 @@ export default {
   margin-bottom: 20px;
   display: flex;
   box-sizing: border-box;
-
   .step {
     color: $font-color;
     cursor: pointer;
-    padding: 5px;
+    padding: 10px;
     flex-grow: 1;
-
-    &::before {
-      content: '';
-      display: block;
-      margin-bottom: 5px;
-      height: 8px;
-      border-radius: 8px;
-      width: 100%;
-      background-color: $border-color;
+    background-color: #fff;
+    border-style: solid;
+    border-color: $border-color;
+    border-width: 1px 0 1px 1px;
+    text-align: center;
+    &:last-child{
+      border-right-width: 1px;
     }
-
-    &.done {
-      &::before {
-        background-color: $sub-color;
-      }
-    }
+    // &::before {
+    //   content: '';
+    //   display: block;
+    //   margin-bottom: 5px;
+    //   height: 8px;
+    //   border-radius: 8px;
+    //   width: 100%;
+    //   background-color: $border-color;
+    // }
+    // &.done {
+    //   &::before {
+    //     background-color: $sub-color;
+    //   }
+    // }
 
     &.router-link-exact-active {
-      color: $primary-color;
-      font-weight: 700;
-
-      &::before {
-        content: '';
-        display: block;
-        width: 100%;
-        background-color: $primary-color;
-      }
+      color: #fff;
+      background-color: $primary-color;
     }
 
     &:first-child {

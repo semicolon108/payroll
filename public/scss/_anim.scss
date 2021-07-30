@@ -1,0 +1,27 @@
+.bubble{
+    transition: all 0.1s ease-out 0.1s;
+    animation: bubble .1s;
+}
+
+@keyframes bubble {
+    0%{
+        transform: scale(1.1);
+    }
+    20%{
+        transform: scale(.8);
+        opacity: 0;
+    }
+    40%{
+        transform: scale(1.1);
+    }
+    60%{
+        transform: scale(.8);
+    }
+    80%{
+        transform: scale(1.1);
+    }
+    100%{
+        transform: scale(1);
+        opacity: 1;
+    }
+}

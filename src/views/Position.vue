@@ -1,46 +1,44 @@
 <template>
-  <div>
-    <div class="page-header">
-      <h3 class="page-title">Position</h3>
-      <button class="button primary" @click="isOpen = true; isEditMode = false"><i class="fas fa-plus"></i>Add</button>
-    </div>
-    <div class="box">
-      <table v-if="!isLoading" class="table is-fullwidth" id="my-table">
-        <thead>
-        <tr>
-          <th>Position</th>
-          <th>Department</th>
-          <th>Total Employee</th>
-          <th class="is-xs is-right">Option</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="(i, idx) in positions" :key="idx">
-          <td class="truncate" style="max-width: 180px">{{ i.name }}</td>
-          <td class="truncate" style="max-width: 180px">{{ i.departmentId.name }}</td>
-          <td class="truncate" style="max-width: 180px">{{ i.employeesCount }}</td>
-          <td>
-            <div class="icons">
-              <span class="icon" @click="editModal(i._id, i.name, i.departmentId._id)"><i class="fas fa-pen"></i></span>
-              <span @click="deletePosition(i._id)" class="icon alert"><i class="fas fa-trash"></i></span>
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-       <div v-else>
-            <Loading v-for="n in 7" :key="n" style=" height: 60px" class="mb-3"  />
-           </div>
-    </div>
-    <PositionModal
-         v-if="isOpen"
-         :isEditMode="isEditMode"
-          @PushItem="getPositions"
-          @UpdateItem="getPositions"
-         @CloseModal="isOpen = false"
-          ref="Modal"
-    />
+<div>
+  <div class="page-header border-bottom">
+    <h3 class="page-title">Position</h3>
+    <button class="button primary" @click="isOpen = true; isEditMode = false"><i class="fas fa-plus"></i>Add</button>
   </div>
+
+    <table v-if="!isLoading" class="table is-fullwidth" id="my-table">
+      <thead>
+      <tr>
+        <th>Position</th>
+        <th>Department</th>
+        <th>Total Employee</th>
+        <th class="is-xs is-right">Option</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="(i, idx) in positions" :key="idx">
+        <td class="truncate" style="max-width: 180px">{{ i.name }}</td>
+        <td class="truncate" style="max-width: 180px">{{ i.departmentId.name }}</td>
+        <td class="truncate" style="max-width: 180px">{{ i.employeesCount }}</td>
+        <td>
+          <div class="icons">
+            <span class="icon" @click="editModal(i._id, i.name, i.departmentId._id)"><i class="fas fa-pen"></i></span>
+            <span @click="deletePosition(i._id)" class="icon alert"><i class="fas fa-trash"></i></span>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+      <div v-else>
+        <Loading v-for="n in 7" :key="n" style=" height: 60px" class="mb-3"  />
+      </div>
+  <PositionModal
+        v-if="isOpen"
+        :isEditMode="isEditMode"
+        @PushItem="getPositions"
+        @UpdateItem="getPositions"
+        @CloseModal="isOpen = false"
+        ref="Modal"/>
+</div>
 </template>
 
 <script>

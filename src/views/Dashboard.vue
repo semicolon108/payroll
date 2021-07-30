@@ -153,14 +153,11 @@
 
 ._card{
     padding: 20px;
-    // border: 1px solid $border-color;
+    border: 1px solid $border-color;
     background-color: #fff;
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 
-    0 0 10px 10px rgba($light-grey-color, .6),
-    0 0 0 1px rgba($light-grey-color, 1);
     ._card-icon{
         display: inline-block;
         min-width: 50px;

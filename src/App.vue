@@ -3,9 +3,9 @@
     <ReloadLoading v-show="isLoading"/>
     <div v-show="!isLoading">
     <div v-if="$store.getters.getToken" class="content-container">
-      <sidebar />
+      <navigation />
       <div class="main-content">
-        <navigation />
+        <sidebar />
         <div class="content-area">
             <router-view/>
         </div>
@@ -15,6 +15,7 @@
     <DefaultLoading/>
   </div>
 </template>
+
 <script>
 
 
@@ -62,22 +63,30 @@ export default {
   }
 }
 </script>
+
 <style lang="scss">
+html, body{
+  overflow: hidden;
+}
 #app{
   color: $font-color;
 }
 .content-container{
   display: flex;
   height: 100vh;
+  flex-direction: column;
+  overflow: hidden;
   .main-content{
-    margin-left: 220px;
+    overflow: hidden;
     flex-grow: 1;
+    display: flex;
+    height: 100%;
     .content-area{
+      width: 100%;
+      overflow-y: scroll;
+      background-color: #fff;
       padding: 30px 40px;
-      margin-bottom: 50px;
     }
   }
 }
-
-
 </style>

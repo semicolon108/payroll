@@ -1,12 +1,6 @@
 <template>
   <div class="sidebar">
     <div class="sidebar-container">
-      <div class="sidebar-items brand">
-       <div class="flex items-center mt-4">
-          <img src="/assets/img/hr-sabai-sq.svg" style="height: 40px" alt="">
-          <h1 class="ml-2">HR-Sabai</h1>
-       </div>
-      </div>
       <div class="sidebar-items">
         <div class="sidebar-title">Organization</div>
         <router-link to="/department" class="sidebar-item">Department</router-link>
@@ -19,11 +13,10 @@
       </div>
       <div class="sidebar-items" style="cursor: not-allowed">
         <div style=" cursor: not-allowed" class="sidebar-title">Setting</div>
-       
-         <!-- <router-link :to="{ name: 'formula' }" class="sidebar-item">Formula</router-link> -->
+           <!-- <router-link :to="{ name: 'formula' }" class="sidebar-item">Formula</router-link> -->
           <!-- <router-link :to="{ name: 'customfield' }" class="sidebar-item">Custom Field</router-link> -->
-          <router-link to="/custom-field" class="sidebar-item"
-          >Custom Field</router-link>
+          <router-link to="/users" class="sidebar-item">Users</router-link>
+          <router-link to="/custom-field" class="sidebar-item">Custom Field</router-link>
         <!-- <div style=" cursor: not-allowed" class="sidebar-item">SSO List</div>
         <div style=" cursor: not-allowed" class="sidebar-item">User</div> -->
       </div>
@@ -41,46 +34,38 @@ export default {
 
 <style lang="scss" scoped>
 .sidebar {
-  position: fixed;
+  // position: fixed;
   top: 0;
   bottom: 0;
   font-family: $font;
   background-color: $dark-primary-color;
   width: 220px;
-
   .sidebar-container {
     width: 100%;
     height: 100%;
-    // overflow-y: scroll;
-    // padding-right: 17px; /* Increase/decrease this value for cross-browser compatibility */
-    // box-sizing: content-box;
+    padding: 30px;
     .sidebar-items {
-      padding: 10px 20px;
-
-      &.brand {
-        margin-bottom: 20px;
-
-        h1 {
-          font-size: 30px;
-          color: #fff;
-          font-weight: 700;
+      margin-bottom: 30px;
+      .sidebar-title {
+        color: $warning-color;
+        font-size: 16px;
+        display: flex;
+        span:first-child{
+          width: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        i{
+          margin-right: 10px;
         }
       }
-
-      .sidebar-title {
-        color: #fff;
-        font-size: 18px;
-        font-weight: 700;
-        margin-bottom: 10px;
-      }
-
       .sidebar-item {
         display: block;
         cursor: pointer;
         font-size: 16px;
-        padding: 5px 0 5px 10px;
+        padding: 10px 0 0;
         color: rgba(#fff, 0.4);
-
         &.router-link-exact-active {
           color: #fff;
         }

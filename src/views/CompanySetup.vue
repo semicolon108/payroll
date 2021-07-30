@@ -32,14 +32,13 @@ export default {}
 .navigation-tab {
   display: block;
   margin-bottom: 20px;
-
   .navigation-item {
     display: block;
     color: $font-color;
     padding: 10px 20px;
     border: 1px solid $border-color;
     cursor: pointer;
-
+    background-color: #fff;
     &:not(:last-child) {
       margin-bottom: 5px;
     }

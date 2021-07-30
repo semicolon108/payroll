@@ -6,11 +6,10 @@
             <div class="step-item disabled">
                 <div class="step-info">
                     <h3>Payroll of</h3> 
-                     <p v-if="!isLoading"> {{ payroll.paymentDate | moment('MMMM, YYYY')}}</p>
+                    <p v-if="!isLoading"> {{ payroll.paymentDate | moment('MMMM, YYYY')}}</p>
                     <div v-else>
                         <Loading :key="n" style=" height: 20px"  />
                     </div>
-                  
                 </div>
             </div>
             <router-link
@@ -19,7 +18,7 @@
                 tag="div"
                 class="step-item">
                 <div class="step-info">
-                    <h3>Earning / Deuction</h3>
+                    <h3>Earning / Deduction</h3>
                     <p v-if="!isLoading">{{ payroll.totalDeductible | currency }} LAK</p>
                      <div v-else>
                         <Loading :key="n" style=" height: 20px"  />
@@ -57,18 +56,30 @@
                     </div>
                 </div>
             </router-link>
+
+            <router-link 
+                :to="{name:'payslip',
+                params: {id: $route.params.id} }"
+                tag="div"
+                class="step-item">
+                <div class="step-info">
+                    <h3>Payslip</h3>
+                </div>
+            </router-link>
+
+            
             <div class="close-button"
                 @click="$router.push({name: 'payroll_list'})">
             </div>
         </div>
     </header>
-    <section class="section content">
-        <div class="container">
-            <transition name="fade"> 
-                <router-view></router-view>
-            </transition>
-        </div>
-    </section>
+    
+    <transition name="fade">
+        <section class="section content">
+            <router-view></router-view>
+        </section>
+    </transition>
+    
 </section>
 </transition>
 </template>

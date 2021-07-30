@@ -1,136 +1,129 @@
 <template>
-  <div>
+<div class="container">
     <div class="page-header">
       <div class="header-start">
         <div class="header-title">
-          <h3 class="xxl-title">Payroll</h3>
+          <h3 class="xxl-title">Payroll Summary</h3>
         </div>
       </div>
-    </div>
-    <!-- Box control -->
-    <div class="box control">
-      <div class="box-control-header">
-        <div class="exchange_rate">
-          <ValidationObserver
-              v-if="isMulti"
-              v-slot="{ handleSubmit }" tag="div" style="display: flex">
-                  <span class="select">
-                    <select v-model="currencyIdx">
-                      <option v-for="(i, idx) in compCurrencies" :value="idx" :key="i._id">
-                        {{ i.currencyId.name }}
-                      </option>
-                    </select>
-                  </span>
-            <ValidationProvider name="Contract Number" rules="required|numeric" v-slot="{ errors }">
-              <input v-model="compCurrencies[currencyIdx].amount" type="text" class="input" required>
-              <p class="has-text-danger">{{ errors[0] }}</p>
-            </ValidationProvider>
-            <button
-                @click="handleSubmit(updateCompanyCurrency)"
-                :disabled="payrollEmps.isCalculated"
-                class="button">Update
-            </button>
-          </ValidationObserver>
-        </div>
-<!-- 
-        <div
-            v-if="getCompany.isApprovedBeforeCalc"
-            class="button-group">
+      <div class="header-end">
+         <div class="button-group">
           <button class="button" @click="isDoc = true"><i class="fal fa-hdd"></i>Store Document</button>
-
-          <button
-              :disabled="!payrollEmps.isCalculated"
-              @click="downloadBankTemplate"
-              class="button"><i class="fal fa-file-excel"></i>
-            Export Payroll's Template
-          </button> -->
-
-          <!-- <button v-if="payrollEmps.isPayslipSent"
-                  disabled
-                  class="button">Payslip already sent
-          </button>
-          <button
-              v-else
-              @click="sendPayslip"
-              class="button"
-              :disabled="!payrollEmps.isCalculated"
-          >Send Payslip
-          </button> -->
-
-          <!-- <button
-              v-if="!payrollEmps.isRequestSent"
-              @click="sendRequestCalc"
-              class="button primary">Send Request
-          </button>
-
-          <button
-              v-else-if="payrollEmps.isRequestSent && !payrollEmps.isRequestApproved"
-              class="button primary">Wait for approval
-          </button>
-          <button
-              v-else-if="payrollEmps.isRequestApproved && !payrollEmps.isCalculated"
-              @click="calcPayroll"
-              class="button primary">Calculate
-          </button>
-          <button
-              v-else
-              class="button primary"
-              disabled
-          >
-            Calculated
-          </button> -->
-        <!-- </div> -->
-
-        <div class="button-group">
-          <button class="button" @click="isDoc = true"><i class="fal fa-hdd"></i>Store Document</button>
-          <!-- <button
-              :disabled="!payrollEmps.isCalculated"
-              @click="downloadBankTemplate"
-              class="button"><i class="fal fa-file-excel"></i>
-            Export Payroll's Template
-          </button> -->
-
-          <!-- <button v-if="payrollEmps.isPayslipSent"
-                  disabled
-                  class="button">Payslip already sent
-          </button>
-          <button
-              v-else
-              @click="sendPayslip"
-              class="button"
-              :disabled="!payrollEmps.isCalculated"
-          >Send Payslip
-          </button> -->
-
-            <button 
+            <!-- <button 
             v-if="payrollEmps.isCalculated "
             @click="sendPayslipByEmps"
                   :disabled="!empsChosen.length"
                   class="button">Send Payslip
-
                  <span
                  class="border rounded-full w-8 bg-blue-600 p-1 text-white"
                  >{{empsChosen.length}}</span>
-          </button> 
-
-
+          </button>  -->
           <button
               v-if="!payrollEmps.isCalculated"
               @click="calcPayroll"
               class="button primary">
-            Calculate
+            Approve
           </button>
           <button
               v-else
               class="button primary"
               disabled
           >
-            Calculated
+            Approved
           </button>
         </div>
       </div>
-    </div> <!-- box control -->
-    <!-- Box control -->
+    </div> <!-- Page Header -->
+
+
+    <!-- summary start -->
+    <div class="summary-container">
+      <div class="columns is-mobile is-multiline">
+        <div class="column is-4-desktop is-12-mobile">
+          <ul class="_detail">
+            <li class="label primary">
+              <h3>Employee Wage</h3>
+            </li>
+            <li>
+              <span>TAX</span>
+              <span>200,000 ₭</span>
+            </li>
+            <li>
+              <span>SSO Employee 5.5%</span>
+              <span>200,000 ₭</span>
+            </li>
+            <li>
+              <span>Earning (+)</span>
+              <span>200,000 ₭</span>
+            </li>
+            <li>
+              <span>Deduction (-)</span>
+              <span>200,000 ₭</span>
+            </li>
+            <li class="sum">
+              <span>Employee Wage (Net pay)</span>
+              <span>600,000 ₭</span>
+            </li>
+          </ul>
+        </div>
+        <div class="column is-4-desktop is-12-mobile">
+          <ul class="_detail">
+            <li class="label primary">
+              <h3>Total Payroll Cost</h3>
+            </li>
+            <li>
+              <span>Employee Wage (Net pay)</span>
+              <span>600,000 ₭</span>
+            </li>
+            <li>
+              <span>SSO Employer 6%</span>
+              <span>200,000 ₭</span>
+            </li>
+            <li class="sum">
+              <span>Total Payroll Cost</span>
+              <span>800,000 ₭</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="column is-4-desktop is-12-mobile">
+          <ul class="_detail">
+            <li class="label primary">
+              <h3>Payment Summary</h3>
+            </li>
+            <li>
+              <span>Employee Wage (Net pay)</span>
+              <span>600,000 ₭</span>
+            </li>
+            <li>
+              <span>Income TAX</span>
+              <span>200,000 ₭</span>
+            </li>
+            <li>
+              <span>Social Security 11.5%</span>
+              <span>200,000 ₭</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- Summary end -->
+
+
+    <div class="_tabs">
+      <ul>
+        <li 
+          :class="{'is-active': i.name === layoutSelected}"
+          v-for="i in layouts" :key="i._id">
+          <a @click="setDefaultLayout(i._id)">
+            {{i.name}}
+          </a>
+        </li>
+        <li>
+          <i class="fal fa-plus"></i>
+        </li>
+      </ul>
+    </div>
 
     <div class="box">
       <div class="box-header">
@@ -156,7 +149,7 @@
         <input v-model="searchText" type="text" class="input" placeholder="Search employee">
         </div>
         <div v-else class="button-group">
-          <button v-if="payrollEmps.isCalculated" @click="checkAll" class="button">Check All</button>
+          <!-- <button v-if="payrollEmps.isCalculated" @click="checkAll" class="button">Check All</button> -->
           <input v-model="searchText" type="text" class="input" placeholder="Search employee">
         </div>
         <div class="option-group">
@@ -165,27 +158,6 @@
           <button class="button" @click="isCustomise = true">
             <i class="fal fa-cog"></i>
             Edit Layout
-          </button>
-          <button class="button"
-                  v-click-outside="()=>{dropdownView = false}"
-                  :class="{'primary' : dropdownView}"
-                  @click="dropdownView = !dropdownView">
-            <i class="fal fa-table"></i>
-            {{layoutSelected ? layoutSelected : 'Table Layout'}}
-            
-            <div v-if="dropdownView" class="dropdown slide-up">
-              <div class="dropdown-list">
-                <div
-                    v-for="i in layouts" :key="i._id"
-                    @click="setDefaultLayout(i._id)"
-                    class="dropdown-list-item"
-                    :class="{'is-active': i.name === layoutSelected}"
-                    ><i class="far fa-file-excel"></i>{{  i.name }}
-                </div>
-                <!--                  <div class="dropdown-list-item"><i class="far fa-file-excel"></i>SSO Report</div>-->
-                <!--                  <div class="dropdown-list-item"><i class="far fa-file-excel"></i>TAX Report</div>-->
-              </div>
-            </div>
           </button>
           <button class="button"
               v-click-outside="()=>{dropdownExport = false}"
@@ -209,52 +181,58 @@
 
 
       <div class="table-container">
-        <table v-if="!isLoading" class="table is-fullwidth" id="my-table">
-          <thead >
-          <tr>
-            <th v-if="payrollEmps.isCalculated">Check</th>
-            <th v-if="payrollEmps.isCalculated">Sending Status</th>
-            <th v-for="(i, idx) in headers" :key="idx">{{ convertName(i) }}</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="(i, idx) in filterItems" :key="idx">
-            
-     
-            <td v-if="payrollEmps.isCalculated ">
-              <div
-              v-if="!i.isRequestSent && !i.isPayslipSent"
-              @click="i.isActive = !i.isActive"
-               class="checkbox-container">
-                <div class="checkbox" :class="{'active': i.isActive}"></div>
-              </div>
-            </td>
-            <td v-if="payrollEmps.isCalculated">
-              <p v-if="i.isPayslipSent" class="text-green-400">Sent</p>
-              <p v-else-if="i.isRequestSent" class="text-yellow-400">Sending</p>
-              <p v-else>Unsend</p>
-            </td>
-            <td v-for="(h, idx) in headers" :key="idx">{{ formatValue(i[h]) }}</td>
-            <td>
-              <button 
-              @click="downloadPayslip(i.employeeId)"
-              class="button text-sm">DOWNLOAD PAYSLIP</button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-            <div v-else>
-            <Loading v-for="n in 7" :key="n" style=" height: 60px" class="mb-3"  />
-           </div>
+          <table v-if="!isLoading" class="table is-fullwidth" id="my-table">
+            <thead >
+            <tr>
+              <!-- <th v-if="payrollEmps.isCalculated">Check</th>
+              <th v-if="payrollEmps.isCalculated">Sending Status</th> -->
+              <th v-for="(i, idx) in headers" :key="idx">{{ convertName(i) }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(i, idx) in filterItems" :key="idx">
+              
+      
+              <!-- <td v-if="payrollEmps.isCalculated ">
+                <div
+                v-if="!i.isRequestSent && !i.isPayslipSent"
+                @click="i.isActive = !i.isActive"
+                class="checkbox-container">
+                  <div class="checkbox" :class="{'active': i.isActive}"></div>
+                </div>
+              </td> -->
+              <!-- <td v-if="payrollEmps.isCalculated">
+                <p v-if="i.isPayslipSent" class="text-green-400">Sent</p>
+                <p v-else-if="i.isRequestSent" class="text-yellow-400">Sending</p>
+                <p v-else>Unsend</p>
+              </td> -->
+              <td v-for="(h, idx) in headers" :key="idx">{{ formatValue(i[h]) }}</td>
+              <!-- <td>
+                <button 
+                @click="downloadPayslip(i.employeeId)"
+                class="button text-sm">DOWNLOAD PAYSLIP</button>
+              </td> -->
+            </tr>
+            </tbody>
+          </table>
+          <div v-else>
+          <Loading v-for="n in 7" :key="n" style=" height: 60px" class="mb-3"  />
+          </div>
       </div>
       
     </div>
+
+
+    <document v-if="isDoc" @CloseModal="closeModal" />
+
     <transition name="slideup">
-      <document v-if="isDoc" @CloseModal="closeModal" />
+
       <customise v-if="isCustomise" @CloseModal="closeModal" />
+
     </transition>
+
     <CalcAnim :isCalculating="isCalculating"/>
-  </div>
+</div>
 </template>
 <script>
 import document from './Modal/document'
@@ -617,73 +595,172 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.checkbox{
+._tabs{
+  margin: 0;
+  padding: 0;
   position: relative;
-  cursor: pointer;
-  transition: all ease-in-out .3s;
-  &:after{
-    content: "";
-    width: 18px;
-    height: 18px;
-    display: block;
-    border: 1px solid #ddd;
+  // bottom: -1px;
+  ul{
+    padding: 0;
+    margin: 0;
+    display: flex;
+    li{
+      list-style-type: none;
+      margin: 0 10px 0 0;
+      padding: 10px 20px;
+      border-left: 1px solid $border-color;
+      border-top: 1px solid $border-color;
+      border-right: 1px solid $border-color;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $border-color;
+      a{
+        color: #000;
+      }
+      &.is-active{
+        box-shadow: 0 1px 0 0 #fff;
+        background-color: #fff;
+        border-left: 1px solid $border-color;
+        border-top: 1px solid $border-color;
+        border-right: 1px solid $border-color;
+        a, i{
+          color: $primary-color;
+        }
+      }
+      &:last-child{
+        background-color: $border-color;
+        cursor: pointer;
+        transition: all ease .3s;
+        border-left: 1px solid $border-color;
+        border-top: 1px solid $border-color;
+        border-right: 1px solid $border-color;
+        z-index: 0;
+        i{
+          font-size: 20px;
+        }
+        &:hover{
+          color: #fff;
+          background-color: $primary-color;
+        }
+      }
+    } //li
   }
-  &:before{
-    content: "";
-    display: block;
-    position: absolute;
-    top: 1px;
-    left: 7px;
-    width: 5px;
-    height: 11px;
-    border: solid #ebebeb;
-    border-width: 0 2px 2px 0;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-  &.active{
-    &:after{
-      background-color: #3663e0;
-      border-color: #3663e0;
+}
+// .checkbox{
+//   position: relative;
+//   cursor: pointer;
+//   transition: all ease-in-out .3s;
+//   &:after{
+//     content: "";
+//     width: 18px;
+//     height: 18px;
+//     display: block;
+//     border: 1px solid #ddd;
+//   }
+//   &:before{
+//     content: "";
+//     display: block;
+//     position: absolute;
+//     top: 1px;
+//     left: 7px;
+//     width: 5px;
+//     height: 11px;
+//     border: solid #ebebeb;
+//     border-width: 0 2px 2px 0;
+//     -webkit-transform: rotate(45deg);
+//     transform: rotate(45deg);
+//   }
+//   &.active{
+//     &:after{
+//       background-color: #3663e0;
+//       border-color: #3663e0;
+//     }
+//   }
+// }
+
+.summary-container{
+  margin-bottom: 30px;
+  ul._detail{
+    margin: 0;
+    padding: 20px;
+    border: 1px solid $border-color;
+    height: 100%;
+    li{
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      font-size: 14px;
+      line-height: 1.8;
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      &:first-child{
+        margin-bottom: 5px;
+      }
+      &.label{
+        &.primary h3{
+          color: $primary-color;
+        }
+        h3{
+          font-size: 16px;
+          margin-bottom: 5px;
+        }
+      }
+      &.sum{
+        font-weight: 700;
+      }
     }
   }
 }
 
-.box.control {
-  background-color: rgba($primary-color, 0.1);
+// Header of table style
+.box-header {
+  margin-bottom: 30px;
+  display: flex;
 
-  .box-control-header {
+  .button-group {
     display: flex;
-    align-items: center;
-    margin: 0;
 
-    .exchange_rate {
-      margin-right: auto;
-      position: relative;
-      display: flex;
-      align-items: center;
+    button {
+      border-radius: $radius;
+      margin-right: 10px;
 
-      span {
-        white-space: nowrap;
+      &:focus {
+        box-shadow: none;
       }
 
-      input {
-        margin-left: -2px;
-        @include input;
-        border: 1px solid $sub-color;
+      i {
+        margin-right: 5px;
       }
 
-      button {
-        border-radius: 0;
-        border: none;
-        background-color: $sub-color;
+      &.active {
+        background-color: $primary-color;
         color: #fff;
+        border: 1px solid $primary-color;
       }
     }
 
-    .button-group {
-      button {
-        margin-right: 10px;
+    input {
+      display: inline-block;
+      border-radius: 0;
+      @include input;
+    }
+  }
+
+  .option-group {
+    margin-left: auto;
+
+    .button {
+      border-radius: $radius;
+      margin-left: 10px;
+
+      &:focus {
+        box-shadow: none;
+      }
+
+      i {
+        margin-right: 5px;
       }
     }
   }
@@ -744,54 +821,54 @@ export default {
 
 
 // Table style
-.workday {
-  .edit {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+// .workday {
+//   .edit {
+//     display: flex;
+//     align-items: center;
+//     justify-content: flex-end;
 
-    i {
-      cursor: pointer;
-      font-size: 12px;
-      margin-right: 5px;
-      color: $dark-grey-color;
-    }
-  }
+//     i {
+//       cursor: pointer;
+//       font-size: 12px;
+//       margin-right: 5px;
+//       color: $dark-grey-color;
+//     }
+//   }
 
-  .workdday-input {
-    display: flex;
-    align-items: center;
-    position: relative;
+//   .workdday-input {
+//     display: flex;
+//     align-items: center;
+//     position: relative;
 
-    input {
-      font-size: 14px;
-      padding: 0 0 5px 5px;
-      border: none;
-      line-height: 0;
-      outline: none;
-      box-shadow: none;
-      border-bottom: 1px solid $sub-color;
-      border-radius: $radius;
-      text-align: right;
-      height: auto;
-    }
+//     input {
+//       font-size: 14px;
+//       padding: 0 0 5px 5px;
+//       border: none;
+//       line-height: 0;
+//       outline: none;
+//       box-shadow: none;
+//       border-bottom: 1px solid $sub-color;
+//       border-radius: $radius;
+//       text-align: right;
+//       height: auto;
+//     }
 
-    .save {
-      font-size: 12px;
-      padding: 3px 5px;
-      background-color: $sub-color;
-      color: #fff;
-      cursor: pointer;
-      margin-right: 5px;
-    }
+//     .save {
+//       font-size: 12px;
+//       padding: 3px 5px;
+//       background-color: $sub-color;
+//       color: #fff;
+//       cursor: pointer;
+//       margin-right: 5px;
+//     }
 
-    span:last-child {
-      cursor: pointer;
-      margin-left: 5px;
-    }
-  }
+//     span:last-child {
+//       cursor: pointer;
+//       margin-left: 5px;
+//     }
+//   }
 
-}
+// }
 
 .table-container{
   overflow: auto;

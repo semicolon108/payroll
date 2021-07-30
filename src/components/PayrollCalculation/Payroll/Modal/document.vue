@@ -18,7 +18,7 @@
             type="file" class="input is-hidden" ref="fileInput">
       </div>
 
-      <div class="files">
+      <!-- <div class="files">
         <h3>Uploaded File</h3>
         <div class="file" v-for="(i , index) in items" :key="index">
           <a download :href="i.fileId.src">{{ i.name }}</a>
@@ -32,7 +32,7 @@
               </span>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
     </div>
@@ -120,7 +120,7 @@ export default {
   position: relative;
   padding: 40px;
   color: $font-color;
-
+  overflow: hidden;
   .header {
     i {
       font-size: 30px;

@@ -1,19 +1,12 @@
 <template>
     <section>
-        <div class="page-header flex justify-between">
-          <div class="flex items-center">
- <h3 class="page-title">Payroll
-
-
-            </h3>
-                         <button v-if="getCompany.isCalcByWorkGroup"
-                         @click="isDelete = !isDelete"
-                         class="button py-1">Toggle Delete Option</button>
-          </div>
-
-
-
-           
+        <div class="page-header border-bottom">
+            <div class="flex items-center">
+                <h3 class="page-title">Payroll</h3>
+                <button v-if="getCompany.isCalcByWorkGroup"
+                @click="isDelete = !isDelete"
+                class="button py-1">Toggle Delete Option</button>
+            </div>
             <div v-if="getCompany.isCalcByWorkGroup">
               <select name="" id=""
               v-model="workGroupId"
@@ -29,52 +22,13 @@
         </div>
 
 
-          <div v-if="incomplete.employeesCount" class="my-5">
-              <h2 class="font-bold text-2xl">Incomplete Employees 
-                  <span class="text-red-600">({{incomplete.employeesCount}})</span>
-              </h2>
-              <div class="box" style="border: 1px solid red">
-              <table class="table is-fullwidth" id="my-table">
-                <thead>                  
-                    <tr>
-                        <!-- <th class="is-xs">Photo</th> -->
-                        <th>Employee ID</th>
-                        <th>Full Name</th>
-                        <!-- <th class="is-hidden-mobile">Position</th>
-                        <th class="is-hidden-mobile">Deparment</th> -->
-                        <th>Status</th>
-                        <!-- <th class="is-xs is-right">Option</th> -->
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(i, index) in incomplete.employees" :key="index">
-                        <!-- <td class="is-xs" v-if="i.image">
-                          <div :style="{ backgroundImage: 'url('+ i.image.src +')' }" class="photo"></div>
-                        </td>
-                        <td class="is-xs" v-else>
-                          <div v-if="i.gender === 'Male'" :style="{ backgroundImage: 'url('+ require('../../public/assets/img/male-avatar.png') +')' }" class="photo"></div>
-
-                          <div v-else :style="{ backgroundImage: 'url('+  require('../../public/assets/img/female-avatar.png') +')' }" class="photo"></div>
-                          
-                        </td> -->
-                         <td class="truncate text-red-600" style="max-width: 150px" >{{i.employeeCode}}</td>
-                        <td class="truncate text-red-600" style="max-width: 180px">{{i.firstName}} {{i.lastName}}</td>
-                        <td class="is-hidden-mobile truncate" style="max-width: 180px">{{  i.position  }}</td>
-                        <td class="is-hidden-mobile truncate " style="max-width: 180px">{{  i.department  }}</td>
-                        <td class="text-red-600"> {{ i.isCompleted ? 'Completed' : 'Incomplete' }}</td>
-                        <td>
-                            <div class="icons">
-                                <span v-if="i.isCompleted" @click="$router.push({ name: 'edit_basic_detail', params: { id: i._id, name: `${i.firstName} ${i.lastName}` } } )" class="icon"><i class="fas fa-pen"></i></span>
-                                <span v-else @click="$router.push({ name: 'hiring_detail', params: { id: i._id, name: `${i.firstName} ${i.lastName}`  } } )" class="icon"><i class="fas fa-pen"></i></span>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-                <div>         
-                </div>
-            </table>
+        <div v-if="incomplete.employeesCount" class="_incomplete">
+            <p>You have 
+                ({{incomplete.employeesCount}})
+                employees to complete thier information before runing payroll
+            </p>
+            <router-link to="/employee">View</router-link>
         </div>
-          </div>
     
         <div v-if="getCompany.isCalcByWorkGroup">
           <div v-if="!isLoading" >
@@ -161,23 +115,9 @@
                         <h3>{{ currentItem.totalSalary | currency }} LAK</h3>
                     </div>
                 </div>
-    
-    
-                <!-- <div
-                  @click="$router.push({ name: 'payrollCalculation', params: { id: currentItem.monthlyPaymentId } })"
-                  class="summary-option">
-                <span>Calculate</span>
-              </div> -->
                 <div @click="$router.push({ name: 'calculate_earning_deduction', params: { id: currentItem.monthlyPaymentId } })" class="summary-option">
                     <span>Calculate</span>
                 </div>
-    
-    
-                <!--            <div v-else class="summary-option"-->
-                <!--                 @click="alert = 'checkDeductible'; monthlyPaymentId = currentItem.monthlyPaymentId "-->
-                <!--            >-->
-                <!--                <span>Calculate</span>-->
-                <!--            </div>-->
             </div>
         </div>
     
@@ -185,7 +125,7 @@
             <Loading style=" height: 100px" class="mb-7" />
         </div>
     
-        <div v-if="!isLoading" class="box">
+        <div v-if="!isLoading">
             <h3 class="box-title">Previous Payroll</h3>
             <table class="table is-fullwidth" id="my-table">
                 <thead>
@@ -215,9 +155,9 @@
     
                             <div v-else class="option is-primary">
                                 <a @click="$router.push({ name: 'calculate_earning_deduction', params: { id: i.monthlyPaymentId } })">
-                    <i class="fas fa-calculator"></i>
-                    <span>Calculate</span>
-                  </a>
+                                    <i class="fas fa-calculator"></i>
+                                    <span>Calculate</span>
+                                </a>
                             </div>
     
                         </td>
@@ -232,9 +172,6 @@
             <Loading style=" height: 100px" class="mb-2" />
             <Loading style=" height: 100px" class="mb-2" />
         </div>
-
-
-
         </div>
     </section>
 </template>
@@ -315,10 +252,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+._incomplete{
+    background-color: $warning-color;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    color: $font-color;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    a{
+        margin-left: auto;
+        color: $font-color;
+    }
+}
 .box.current {
     padding: 0;
     box-shadow: none;
     border: none;
+    background-color: transparent;
     .box-title {
         font-weight: normal;
         font-size: 14px;
@@ -340,6 +291,7 @@ export default {
             cursor: pointer;
         }
         .summary-items {
+            background-color: #fff;
             border: 1px solid $primary-color;
             padding: 10px;
             flex-grow: 1;

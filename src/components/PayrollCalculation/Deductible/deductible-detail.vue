@@ -1,5 +1,5 @@
 <template>
-  <div>
+<div class="container">
     <div class="page-header">
       <div class="header-start">
         <div class="header-title">
@@ -16,7 +16,7 @@
 
     <div class="summary-container">
       <div class="columns is-mobile is-multiline">
-        <div class="column">
+        <div class="column is-3-desktop is-12-mobile">
           <ul class="_detail">
             <li class="total">
               <h3>Grand Total</h3>
@@ -24,7 +24,7 @@
             </li>
           </ul>
         </div>
-        <div class="column is-4-desktop is-12-mobile">
+        <div class="column is-12-mobile">
           <ul class="_detail">
             <li class="label primary">
               <h3>Earning (+)</h3>
@@ -47,7 +47,7 @@
             </li>
           </ul>
         </div>
-        <div class="column is-4-desktop is-12-mobile">
+        <div class="column is-12-mobile">
           <ul class="_detail">
             <li class="label alert">
               <h3>Deduction (-)</h3>
@@ -125,7 +125,7 @@
     <component :is="ModalClick" @CloseModal="ModalClick=''"
                @DataBack="getMonthlyPaymentEmployees"
     ></component>
-  </div>
+</div>
 </template>
 
 <script>

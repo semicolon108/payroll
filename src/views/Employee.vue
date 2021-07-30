@@ -1,7 +1,6 @@
 <template>
     <div>
-    
-        <div class="page-header">
+        <div class="page-header border-bottom">
             <div class="header-start">
                 <h3 class="page-title">Employee</h3>
                 <button class="button primary" @click="$router.push({name:'basic_detail'})"><i class="fas fa-plus"></i> Add</button>
@@ -12,69 +11,71 @@
             </div>
         </div>
 
-        <div class="box">
-            <div class="box-header">
-                <Pagination v-model="currentPage" :count="employeesCount" :perPage="perPage" />
-                <div class="box-header-end">
-                    <div class="field">
-                        <p class="control has-icons-left">
-                            <input v-model="textSearch" class="input" type="text" placeholder="Search..." style="border-radius: 0px;">
-                            <span class="icon is-small is-left"><i class="fas fa-search"></i></span>
-                        </p>
-                    </div>
-                    <div class="select">
-                        <select v-model="perPage" name="" id="">
-                            <option :value="10">10</option>
-                            <option :value="20">20</option>
-                            <option :value="30">30</option>
-                            <option :value="40">50</option>
-                            <option :value="50">100</option>
-                        </select>
-                    </div>
+        <div class="box-header">
+            <Pagination v-model="currentPage" :count="employeesCount" :perPage="perPage" />
+            <div class="box-header-end">
+                <div class="field">
+                    <p class="control has-icons-left">
+                        <input v-model="textSearch" class="input" type="text" placeholder="Search..." style="border-radius: 0px;">
+                        <span class="icon is-small is-left"><i class="fas fa-search"></i></span>
+                    </p>
+                </div>
+                <div class="select">
+                    <select v-model="perPage" name="" id="">
+                        <option :value="10">10</option>
+                        <option :value="20">20</option>
+                        <option :value="30">30</option>
+                        <option :value="40">50</option>
+                        <option :value="50">100</option>
+                    </select>
                 </div>
             </div>
-            <table v-if="!isLoading" class="table is-fullwidth" id="my-table">
-                <thead>
-                    <tr>
-                        <th class="is-xs">Photo</th>
-                        <th>Employee ID</th>
-                        <th>Full Name</th>
-                        <th class="is-hidden-mobile">Position</th>
-                        <th class="is-hidden-mobile">Deparment</th>
-                        <th>Status</th>
-                        <th class="is-xs is-right">Option</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(i, index) in employees" :key="index">
-                        <td class="is-xs" v-if="i.image">
-                            <div :style="{ backgroundImage: 'url('+ i.image.src +')' }" class="photo"></div>
-                        </td>
-                        <td class="is-xs" v-else>
-                            <div v-if="i.gender === 'Male'" :style="{ backgroundImage: 'url('+ require('../../public/assets/img/male-avatar.png') +')' }" class="photo"></div>
-                            <div v-else :style="{ backgroundImage: 'url('+  require('../../public/assets/img/female-avatar.png') +')' }" class="photo"></div>
-                        </td>
-                        <td class="truncate" style="max-width: 150px">{{i.employeeCode}}</td>
-                        <td class="truncate" style="max-width: 180px">{{i.firstName}} {{i.lastName}}</td>
-                        <td class="is-hidden-mobile truncate" style="max-width: 180px">{{ i.position }}</td>
-                        <td class="is-hidden-mobile truncate" style="max-width: 180px">{{ i.department }}</td>
-                        <td> {{ i.isCompleted ? 'Completed' : 'Incomplete' }}</td>
-                        <td>
-                            <div class="icons">
-                                <span v-if="i.isCompleted" @click="$router.push({ name: 'edit_basic_detail', params: { id: i._id, name: `${i.firstName} ${i.lastName}` } } )" class="icon"><i class="fas fa-pen"></i></span>
-                                <span v-else @click="$router.push({ name: 'hiring_detail', params: { id: i._id, name: `${i.firstName} ${i.lastName}`  } } )" class="icon"><i class="fas fa-pen"></i></span>
-                                <!--                                <span class="icon"><i class="fas fa-trash"></i></span>-->
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-                <div>
-    
-                </div>
-            </table>
-            <div v-else>
-                <Loading v-for="n in 7" :key="n" style=" height: 60px" class="mb-3" />
+        </div>
+        <table v-if="!isLoading" class="table is-fullwidth" id="my-table">
+            <thead>
+                <tr>
+                    <th class="is-xs">Photo</th>
+                    <th>Employee ID</th>
+                    <th>Full Name</th>
+                    <th class="is-hidden-mobile">Position</th>
+                    <th class="is-hidden-mobile">Deparment</th>
+                    <th>Status</th>
+                    <th class="is-xs is-right">Option</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(i, index) in employees" :key="index">
+                    <td class="is-xs" v-if="i.image">
+                        <div :style="{ backgroundImage: 'url('+ i.image.src +')' }" class="photo"></div>
+                    </td>
+                    <td class="is-xs" v-else>
+                        <div v-if="i.gender === 'Male'" :style="{ backgroundImage: 'url('+ require('../../public/assets/img/male-avatar.png') +')' }" class="photo"></div>
+                        <div v-else :style="{ backgroundImage: 'url('+  require('../../public/assets/img/female-avatar.png') +')' }" class="photo"></div>
+                    </td>
+                    <td class="truncate" style="max-width: 150px">{{i.employeeCode}}</td>
+                    <td class="truncate" style="max-width: 180px">{{i.firstName}} {{i.lastName}}</td>
+                    <td class="is-hidden-mobile truncate" style="max-width: 180px">{{ i.position }}</td>
+                    <td class="is-hidden-mobile truncate" style="max-width: 180px">{{ i.department }}</td>
+                    <td> {{ i.isCompleted ? 'Completed' : 'Incomplete' }}</td>
+                    <td>
+                        <div class="icons">
+                            <router-link v-if="i.isCompleted" :to="{ name: 'edit_basic_detail', params: { id: i._id, name: `${i.firstName} ${i.lastName}` } }" class="icon">
+                                <i class="fas fa-pen"></i>
+                            </router-link>
+                            
+                            <router-link v-else :to="{ name: 'hiring_detail', params: { id: i._id, name: `${i.firstName} ${i.lastName}`  } }" class="icon">
+                                <i class="fas fa-pen"></i>
+                            </router-link>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            <div>
+
             </div>
+        </table>
+        <div v-else>
+            <Loading v-for="n in 7" :key="n" style=" height: 60px" class="mb-3" />
         </div>
     </div>
 </template>

@@ -4,8 +4,8 @@
         <h3 class="page-title">Payslip Template</h3>
         <!-- <button class="button primary">Add Template</button> -->
     </div>
-    <div class="columns">
-        <div class="column is-4-desktop">
+    <div class="columns is-mobile is-multiline">
+        <div class="column is-6-desktop">
             <div class="box" :class="{'primary': !payslipTemplate.isDefault}">
 
                 <h3  class="title" :class="{'primary': !payslipTemplate.isDefault}">Default Template</h3>
@@ -25,7 +25,7 @@
         </div>
 
 
-        <div class="column is-4-desktop">
+        <div class="column is-6-desktop">
             <div class="box" :class="{'primary': payslipTemplate.isDefault}">     
                 <h3 class="title"
                     :class="{'primary': payslipTemplate.isDefault}"
@@ -45,7 +45,7 @@
 
                     <div class="upload">
                         <button @click="$refs.fileInput.click()" class="button">Upload template</button>
-                        <p v-if="payslipTemplate._id" class="text-xs mt-1 text-green-400">Template Size: ({{payslipTemplate.payslip.size | fileSize}})</p>
+                        <p v-if="payslipTemplate._id" class="text-xs mt-1 text-green-400">File size: ({{payslipTemplate.payslip.size | fileSize}})</p>
                     </div>
                 </div>
 
@@ -121,15 +121,19 @@ import {getPayslipTemplateApi, addOrUpdatePayslipTemplateApi} from '@/apis/paysl
 
 <style lang="scss" scoped>
 .box{
+    padding: 30px;
     position: relative;
     transition: ease .2s;
     &.primary{
         box-shadow: 0 0 0 1px $primary-color;
     }
+    @include tablet{
+        padding: 40px 20px 20px;
+    }
 }
 .title{
     font-size: $desktop-subtitle;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     &.primary{
         color: $primary-color;
     }
@@ -151,6 +155,14 @@ import {getPayslipTemplateApi, addOrUpdatePayslipTemplateApi} from '@/apis/paysl
     .upload{
         display: flex;
         align-items: center;
+        @include tablet{
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+        @include desktop{
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
         p{
             margin: 0;
             font-size: 14px;

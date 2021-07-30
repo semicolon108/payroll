@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="box-header">
-      <h3 class="box-title">TAX</h3>
+      <h3 class="box-title">Personal Income TAX</h3>
     </div>
     <div class="field">
       <label for="" class="label">How TAX is paid?</label>

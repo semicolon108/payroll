@@ -1,6 +1,9 @@
 <template>
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
+      <router-link to="/" class="logo">
+        <img src="/assets/img/hr-sabai.svg">
+      </router-link>
       <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
          data-target="navbarBasicExample">
         <span aria-hidden="true"></span>
@@ -9,11 +12,7 @@
       </a>
     </div>
     <div id="navbarBasicExample" class="navbar-menu">
-      <div class="navbar-start">
-        <div class="navbar-item">
-          <button class="button get-start" @click="$router.push({name:'getstart'})">Get Start</button>
-        </div>
-      </div>
+
       <div class="navbar-end">
         <div class="navbar-item"><i class="fas fa-bell"></i></div>
         <div class="navbar-item" 
@@ -60,17 +59,33 @@ export default {
 <style lang="scss" scoped>
 .navbar {
   color: $font-color;
-  padding: 0 40px;
+  padding: 0 40px 0 30px;
   display: flex;
   align-items: center;
   border-bottom: 1px solid $border-color;
-
-  .navbar-start {
+  background-color: #fff;
+  box-shadow: 0 2px 5px 3px rgba(#000, .02);
+  .navbar-brand{
+    .logo{
+      display: flex;
+      align-items: center;
+      padding: 0;
+      img{
+        text-align: left;
+        display: inline-block;
+        padding: 0;
+        max-height: 2.25rem;
+        height: 70%;
+        width: 100%;
+      }
+    }
+  }
+  
+  .navbar-end {
     .navbar-item {
       padding-left: 0;
       font-size: 24px;
       color: $font-color;
-
       .get-start {
         font-weight: 700;
         border-radius: $radius;
@@ -78,7 +93,6 @@ export default {
         color: $primary-color;
         font-size: 14px;
         text-transform: uppercase;
-
         &:hover {
           box-shadow: none;
         }
@@ -95,7 +109,6 @@ export default {
     cursor: pointer;
     display: flex;
     align-items: center;
-
     i {
       transition: all ease-in-out .3s;
 

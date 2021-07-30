@@ -5,10 +5,11 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/getstart',
-    name: 'getstart',
-    component: () => import(/* webpackChunkName: "getstart" */ '../views/GetStart.vue')
+    path: '/',
+    name: 'dashboard',
+    component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue')
   },
+
   {
     path: '/formula',
     name: 'formula',
@@ -33,6 +34,11 @@ const routes = [
     path: '/employee',
     name: 'employee',
     component: () => import(/* webpackChunkName: "Employee" */ '../views/Employee.vue')
+  },
+  {
+    path: '/users',
+    name: 'users',
+    component: () => import(/* webpackChunkName: "Employee" */ '../views/Users.vue')
   },
   {
     path: '/document-template',
@@ -93,14 +99,19 @@ const routes = [
         component: () => import(/* webpackChunkName: "calculate_earning_deduction" */ '../components/PayrollCalculation/Deductible/deductible-detail.vue')
       },
       {
+        path: 'calculate-overtime/:id',
+        name: 'calculate_overtime',
+        component: () => import(/* webpackChunkName: "calculate_overtime" */ '../components/PayrollCalculation/Overtime/overtime-detail.vue')
+      },
+      {
         path: 'calculate-payroll/:id',
         name: 'calculate_payroll',
         component: () => import(/* webpackChunkName: "calculate_earning_deduction" */ '../components/PayrollCalculation/Payroll/payroll-detail.vue')
       },
       {
-        path: 'calculate-overtime/:id',
-        name: 'calculate_overtime',
-        component: () => import(/* webpackChunkName: "calculate_overtime" */ '../components/PayrollCalculation/Overtime/overtime-detail.vue')
+        path: 'payslip/:id',
+        name: 'payslip',
+        component: () => import(/* webpackChunkName: "payslip" */ '../components/PayrollCalculation/Payslip/payslip-list.vue')
       },
     ]
   },
@@ -164,7 +175,7 @@ const routes = [
         path: 'company-expat',
         name: 'company_expat',
         component: () => import(/* webpackChunkName: "company_expat" */ '@coms/CompanySetup/company-expat.vue')
-      },
+      }
     ]
   }
 ]
