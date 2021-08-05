@@ -46,23 +46,23 @@
             </li>
             <li>
               <span>TAX</span>
-              <span>200,000 ₭</span>
+              <span>{{ payrollEmps.employeeWage.tax }} ₭</span>
             </li>
             <li>
               <span>SSO Employee 5.5%</span>
-              <span>200,000 ₭</span>
+              <span>{{ payrollEmps.employeeWage.ssoPaidByEmp }} ₭</span>
             </li>
             <li>
               <span>Earning (+)</span>
-              <span>200,000 ₭</span>
+              <span>{{ payrollEmps.employeeWage.totalEarning }} ₭</span>
             </li>
             <li>
               <span>Deduction (-)</span>
-              <span>200,000 ₭</span>
+              <span>{{ payrollEmps.employeeWage.totalDeduction }} ₭</span>
             </li>
             <li class="sum">
               <span>Employee Wage (Net pay)</span>
-              <span>600,000 ₭</span>
+              <span>{{ payrollEmps.employeeWage.netPay }} ₭</span>
             </li>
           </ul>
         </div>
@@ -73,15 +73,15 @@
             </li>
             <li>
               <span>Employee Wage (Net pay)</span>
-              <span>600,000 ₭</span>
+              <span>{{ payrollEmps.totalPayrollCost.netPay }} ₭</span>
             </li>
             <li>
               <span>SSO Employer 6%</span>
-              <span>200,000 ₭</span>
+              <span>{{ payrollEmps.totalPayrollCost.ssoPaidByEmp }} ₭</span>
             </li>
             <li class="sum">
               <span>Total Payroll Cost</span>
-              <span>800,000 ₭</span>
+              <span>{{ payrollEmps.totalPayrollCost.totalPayrollCost }} ₭</span>
             </li>
           </ul>
         </div>
@@ -93,15 +93,15 @@
             </li>
             <li>
               <span>Employee Wage (Net pay)</span>
-              <span>600,000 ₭</span>
+              <span>{{ payrollEmps.paymentSummary.netPay }} ₭</span>
             </li>
             <li>
               <span>Income TAX</span>
-              <span>200,000 ₭</span>
+              <span>{{ payrollEmps.paymentSummary.tax }} ₭</span>
             </li>
             <li>
               <span>Social Security 11.5%</span>
-              <span>200,000 ₭</span>
+              <span>{{ payrollEmps.paymentSummary.totalSso }} ₭</span>
             </li>
           </ul>
         </div>

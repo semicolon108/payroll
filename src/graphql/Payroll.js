@@ -89,6 +89,24 @@ export const GET_PAYROLL_BY_EMPS = gql`
 query ($monthlyPaymentId: ID!) {
         getPayrollByEmps(monthlyPaymentId: $monthlyPaymentId) {
             hasExpat
+            employeeWage {
+              tax
+              ssoPaidByEmp
+              totalEarning
+              totalDeduction
+              netPay
+            }
+            totalPayrollCost {
+              netPay
+              ssoPaidByEmp
+              ssoPaidByCom
+              totalPayrollCost
+            }
+            paymentSummary {
+              netPay
+              tax
+              totalSso
+            }
             employees {
                 employeeId
                 employeeCode
