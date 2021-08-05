@@ -77,7 +77,7 @@
             </li>
             <li>
               <span>SSO Employer 6%</span>
-              <span>{{ payrollEmps.totalPayrollCost.ssoPaidByEmp }} ₭</span>
+              <span>{{ payrollEmps.totalPayrollCost.ssoPaidByCom }} ₭</span>
             </li>
             <li class="sum">
               <span>Total Payroll Cost</span>
