@@ -4,19 +4,21 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import Vue from 'vue'
 import VueApollo from 'vue-apollo'
 import { setContext } from 'apollo-link-context'
-import {baseURL, logoutURL} from "@/config/variables";
+import {baseURL, 
+   logoutURL
+} from "@/config/variables";
 import { onError } from "apollo-link-error"
 import store from '../store'
 
-Vue.use(VueApollo)
+ Vue.use(VueApollo)
 
 const authLink = setContext(async (_, { headers }) => {
-    const token = store.getters.getToken || ''
+    const token = store.getters.getToken || null
     // const token = store.getters.getToken
     return {
         headers: {
             ...headers,
-            Authorization: token || null
+            Authorization: token  || null
         }
     }
 })
@@ -26,7 +28,7 @@ const errorLink = onError(({ graphQLErrors }) => {
     if (graphQLErrors)
         graphQLErrors.forEach((err) => {
             if(err.extensions.code === 'UNAUTHENTICATED') {
-              window.location.href = logoutURL
+                window.location.href = logoutURL
             }
         })
    // if (networkError) console.log(`[Network error]: ${networkError}`)
@@ -68,4 +70,4 @@ const apolloProvider = new VueApollo({
 
 export default apolloProvider
 
-export const apolloClient = apolloProvider.defaultClient
+export const apolloClient = apolloClientz

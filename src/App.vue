@@ -44,23 +44,42 @@ export default {
     ...mapMutations(['SET_TOKEN']),
     ...mapActions(['getMyCompany'])
   },
-  created() {
+  watch: {
+    '$route.query.accessToken': {
+      handler(val) {
+            if(val) {
+              this.SET_TOKEN(this.$route.query.accessToken)
+                this.$router.push({ name: 'dashboard' })
+                  setTimeout(() => {
+                // this.getMyCompany()
+                this.isLoading = false
+              }, 1700)
+            }
+      },
+      immediate: true
+    },
+  
+  },
+//    created() {
 
-    // axios.get('http://192.169.9192')
-    //     .then(() => alert('axios'))
-    //     .catch((err) => alert(err))
+// // alert(this.$route.query.accessToken)
 
-    if(this.$route.query.accessToken) {
-      this.SET_TOKEN(this.$route.query.accessToken)
-      this.$router.push({ name: 'getstart' })
-    } else if(!this.isAuth) {
-    // window.location.href = 'http://localhost:3000'
-    }
-    this.getMyCompany()
-    setTimeout(() => {
-      this.isLoading = false
-    }, 1700)
-  }
+//     // if(this.$route.query.accessToken) {
+//     //   alert('hello')
+//     //   // this.SET_TOKEN(this.$route.query.accessToken)
+//     //   // this.$router.push({ name: 'getstart' })
+//     //   // this.$nextTick(() => {
+//     //   //   window.location.reload()
+//     //   // })
+//     //   //this.$router.push({ name: 'getstart' })
+//     // }
+
+    
+//     setTimeout(() => {
+//       // this.getMyCompany()
+//       this.isLoading = false
+//     }, 1700)
+//   }
 }
 </script>
 
