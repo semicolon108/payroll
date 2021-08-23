@@ -12,22 +12,22 @@
                 </div>
             </div>
             <div class="header-end">
-                <div class="completed-count">
+                <!-- <div class="completed-count">
                     <h3>Sent completed</h3>
                     <ul>
                         <li>20</li>
                         <li>of</li>
                         <li>30</li>
                     </ul>
-                </div>
-                <button class="button primary" 
+                </div> -->
+                <!-- <button class="button primary" 
                 :class="{'bulk-sending' : bulkSending}"
                 @click="bulkSend()">
                     <span><i class="fal fa-paper-plane"></i></span>
                     <span><i class="fas fa-plane"></i></span>
                     <span>Send Bulk Payslip</span>
                     <span>Sending</span>
-                </button>
+                </button> -->
             </div>
         </div>
 
@@ -41,67 +41,36 @@
                             <th class="is-xxs">Employee ID</th>
                             <th>Employee name</th>
                             <th class="is-sm">Net pay</th>
-                            <th class="is-md">Email</th>
-                            <th class="is-xs">Contact number</th>
+                            <!-- <th class="is-md">Email</th> -->
+                            <!-- <th class="is-xs">Contact number</th> -->
                             <th class="is-xxs is-right">Status</th>
                             <th class="is-sm is-right">Option</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>001</td>
-                            <td>Anousone Luangkhot</td>
-                            <td>30,000,000</td>
-                            <td>anousone.Luangkhot@gmail.com</td>
-                            <td>52414965</td>
-                            <td class="is-right">Pending</td>
+                        <tr v-for="i in items" :key="i._id">
+                            <td>{{i.employeeCode}}</td>
+                            <td>{{i.fullName}}</td>
+                            <td>{{i.finalNetPay | currency}}</td>
+                            <!-- <td>{{i.email}}</td> -->
+                            <!-- <td>{{i.mobile}}</td> -->
+                            <td class="is-right">
+                                {{
+                                    i.isPayslipSent ? 'Sent' : (  i.isRequestSent ? 'Pending' : 'Unsend' )
+                                }}
+                            </td>
                             <td class="is-right">
                                 <ul class="option">
-                                    <li>Preview</li>
-                                    <li>|</li>
+                                    <li @click="downloadPayslip(i.employeeId)">Preview</li>
+                                    <!-- <li>|</li>
                                     <li :class="{'sending' : sending}">
                                         <span @click="sending = true">Send</span>
                                         <span></span>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </td>
                         </tr>
-                        <tr>
-                            <td>001</td>
-                            <td>Anousone Luangkhot</td>
-                            <td>30,000,000</td>
-                            <td>anousone.Luangkhot@gmail.com</td>
-                            <td>52414965</td>
-                            <td class="is-right">Sent</td>
-                            <td class="is-right">
-                                <ul class="option">
-                                    <li>Preview</li>
-                                    <li>|</li>
-                                    <li class="sending">
-                                        <span>Send</span>
-                                        <span></span>
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>001</td>
-                            <td>Anousone Luangkhot</td>
-                            <td>30,000,000</td>
-                            <td>anousone.Luangkhot@gmail.com</td>
-                            <td>52414965</td>
-                            <td class="is-right">Sent</td>
-                            <td class="is-right">
-                                <ul class="option">
-                                    <li>Preview</li>
-                                    <li>|</li>
-                                    <li :class="{'sending' : sending}">
-                                        <span>Resend</span>
-                                        <span></span>
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
+                        
                     </tbody>
                 </table>
             </div>
@@ -114,7 +83,10 @@
 </template>
 
 <script>
+
+import {  getPayrollByEmps } from "@/apis/payroll-api";
     import confirm from './Modal/confirm.vue'
+    //import moment from 'moment'
     export default {
         components:{
             confirm
@@ -122,9 +94,59 @@
         data: ()=> ({
             sending: false,
             bulkSending: false,
-            modal: ''
+            modal: '',
+            payrollEmps: {},
+            items: [],
+            isLoading: true
         }),
+        created() {
+            this.getPayrollByEmps()
+        },
         methods: {
+            async getPayrollByEmps() {
+                this.payrollEmps = await getPayrollByEmps(this.$route.params.id)
+                this.items = this.payrollEmps.employees
+                //.map(i => {
+                // const filtered = i.customFormulas.filter(o => !o.isFinalNetPay)
+                
+                // const customFormula = {}
+                // for(let n=0; n < filtered.length; n++) {
+                //     customFormula[filtered[n].key] = parseInt(filtered[n].value, 10)
+                // }
+                //     return {
+                //     ...i,
+                //     ...customFormula,
+                //     isActive: false,
+                //     isEditMode: false,
+                //     startWorkingDate: moment(i.startWorkingDate).locale('lo').format('DD-MM-YYYY')
+                //     }
+                // })
+
+                setTimeout(() => {
+                    this.isLoading = false
+                }, 400)
+            },
+                async downloadPayslip(id) {
+                try {
+                    await this.$store.dispatch('loading')
+                    this.$axios.defaults.headers['Authorization'] = this.getToken
+                    const res = await this.$axios.post(`${this.$api}download-payslip/${this.$route.params.id}/${id}`, null, {
+                    responseType: 'blob'
+                    })
+                    const url = URL.createObjectURL(new Blob([res.data], {
+                    type: 'application/pdf'
+                    }))
+                    const link = window.document.createElement('a') // window was root
+                    link.href = url
+                    link.setAttribute('download', `Payslip-Preview.pdf`)
+                    window.document.body.appendChild(link)
+                    link.click()
+                    await this.$store.dispatch('completed')
+                } catch(e) {
+                    
+                    throw new Error(e)
+                }
+                },  
             bulkSend(){
                 this.modal = 'confirm'
             },
