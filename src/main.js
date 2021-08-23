@@ -33,7 +33,8 @@ new Vue({
   store,
   apolloProvider,
   render: h => h(App)
-}).$mount('#app')
+})
+.$mount('#app')
 
 
 

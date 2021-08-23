@@ -48,13 +48,13 @@
           </td>
           <td>{{ i.fullName }}</td>
           <td>
-                            <span
-                                :class="{'error-item': data.isTypeError }"
-                            >
-                                {{ i.earnDeductName }}
-                              <br>
-                              <!--                            <span v-if="i.groups" style="font-size: .6rem">("{{i.type}}" is not in "{{i.groups}}")</span>-->
-                            </span>
+          <span
+              :class="{'error-item': data.isTypeError }"
+          >
+              {{ i.earnDeductName }}
+            <br>
+            <!--                            <span v-if="i.groups" style="font-size: .6rem">("{{i.type}}" is not in "{{i.groups}}")</span>-->
+          </span>
           </td>
           <td class="is-right">{{ i.amount }}</td>
         </tr>

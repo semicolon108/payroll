@@ -4,7 +4,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import Vue from 'vue'
 import VueApollo from 'vue-apollo'
 import { setContext } from 'apollo-link-context'
-import {baseURL} from "@/config/variables";
+import {baseURL, logoutURL} from "@/config/variables";
 import { onError } from "apollo-link-error"
 import store from '../store'
 
@@ -26,7 +26,7 @@ const errorLink = onError(({ graphQLErrors }) => {
     if (graphQLErrors)
         graphQLErrors.forEach((err) => {
             if(err.extensions.code === 'UNAUTHENTICATED') {
-             // window.location.href = logoutURL
+              window.location.href = logoutURL
             }
         })
    // if (networkError) console.log(`[Network error]: ${networkError}`)

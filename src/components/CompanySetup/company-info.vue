@@ -6,7 +6,7 @@
     <div class="field">
       <label for="" class="label">Company name</label>
       <div class="control">
-        <ValidationProvider rules="required" v-slot="{ errors }">
+        <ValidationProvider  v-slot="{ errors }">
           <input v-model="form.basicInfo.name" type="text" class="input">
           <p class="has-text-danger">{{ errors[0] }}</p>
         </ValidationProvider>
@@ -15,7 +15,7 @@
     <div class="field">
       <label for="" class="label">Company industry</label>
       <div class="control">
-        <ValidationProvider rules="required" v-slot="{ errors }">
+        <ValidationProvider  v-slot="{ errors }">
           <input v-model="form.basicInfo.industry" class="input" type="text">
           <p class="has-text-danger">{{ errors[0] }}</p>
         </ValidationProvider>
@@ -24,7 +24,7 @@
     <div class="field">
       <label for="" class="label">Company Address</label>
       <div class="control">
-        <ValidationProvider rules="required" v-slot="{ errors }">
+        <ValidationProvider  v-slot="{ errors }">
           <textarea v-model="form.basicInfo.address" class="textarea"></textarea>
           <p class="has-text-danger">{{ errors[0] }}</p>
         </ValidationProvider>
@@ -36,7 +36,7 @@
         <div class="field">
           <label for="" class="label">Contact name</label>
           <div class="control">
-            <ValidationProvider rules="required" v-slot="{ errors }">
+            <ValidationProvider v-slot="{ errors }">
               <input v-model="form.contactPerson.name" type="text" class="input">
               <p class="has-text-danger">{{ errors[0] }}</p>
             </ValidationProvider>
@@ -47,7 +47,7 @@
         <div class="field">
           <label for="" class="label">Contact Email</label>
           <div class="control">
-            <ValidationProvider rules="required" v-slot="{ errors }">
+            <ValidationProvider  v-slot="{ errors }">
               <input v-model="form.contactPerson.email" type="text" class="input">
               <p class="has-text-danger">{{ errors[0] }}</p>
             </ValidationProvider>
@@ -58,7 +58,7 @@
         <div class="field">
           <label for="" class="label">Contact Number</label>
           <div class="control">
-            <ValidationProvider rules="required" v-slot="{ errors }">
+            <ValidationProvider v-slot="{ errors }">
               <input v-model="form.contactPerson.mobile" type="text" class="input">
               <p class="has-text-danger">{{ errors[0] }}</p>
             </ValidationProvider>
@@ -73,7 +73,7 @@
         <div class="field">
           <label for="" class="label">From Name</label>
           <div class="control">
-            <ValidationProvider rules="required" v-slot="{ errors }">
+            <ValidationProvider  v-slot="{ errors }">
               <input v-model="form.mailer.name" type="text" class="input">
               <p class="has-text-danger">{{ errors[0] }}</p>
             </ValidationProvider>
@@ -84,7 +84,7 @@
         <div class="field">
           <label for="" class="label">Company Email</label>
           <div class="control">
-            <ValidationProvider rules="required" v-slot="{ errors }">
+            <ValidationProvider  v-slot="{ errors }">
               <input v-model="form.mailer.email" type="text" class="input">
               <p class="has-text-danger">{{ errors[0] }}</p>
             </ValidationProvider>
@@ -113,7 +113,7 @@
         <div class="field">
           <label for="" class="label">Bank account number</label>
           <div class="control">
-            <ValidationProvider rules="required" v-slot="{ errors }">
+            <ValidationProvider  v-slot="{ errors }">
               <input v-model="form.financialInfo.accountNumber" type="text" class="input">
               <p class="has-text-danger">{{ errors[0] }}</p>
             </ValidationProvider>

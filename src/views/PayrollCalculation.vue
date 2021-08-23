@@ -56,7 +56,6 @@
                     </div>
                 </div>
             </router-link>
-
             <router-link 
                 :to="{name:'payslip',
                 params: {id: $route.params.id} }"

@@ -3,7 +3,7 @@
     <div class="page-header">
         <h3 class="page-title">Dashboard</h3>
         <div class="header-end">
-            <button class="button" 
+            <!-- <button class="button" 
                 v-click-outside="()=>{ selectMonth = false }"
                 @click="selectMonth = !selectMonth">
                 <i class="fal fa-calendar-alt"></i>
@@ -54,13 +54,13 @@
                         </div>
                     </div>
                 </div>
-            </button>
+            </button> -->
             <button class="button primary"
                 v-click-outside="()=>{ selectOption = false }"
                 @click="selectOption = !selectOption">
                 <i class="fal fa-calendar-alt"></i>
                 This Month
-                <div class="dropdown" v-if="selectOption">
+                <!-- <div class="dropdown" v-if="selectOption">
                     <div class="dropdown-list">
                         <div class="dropdown-list-item">
                             <i class="fal fa-calendar-alt"></i>
@@ -79,7 +79,7 @@
                             This Year
                         </div>
                     </div>
-                </div>
+                </div> -->
             </button>
         </div>
     </div>

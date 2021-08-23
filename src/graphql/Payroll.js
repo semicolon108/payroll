@@ -98,7 +98,6 @@ query ($monthlyPaymentId: ID!) {
             }
             totalPayrollCost {
               netPay
-              ssoPaidByEmp
               ssoPaidByCom
               totalPayrollCost
             }

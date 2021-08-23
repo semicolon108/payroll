@@ -17,7 +17,7 @@
                                     <select v-model="form.type" class="select">
                         <option value="Increase">Increase</option>
                         <option value="Decrease">Decrease</option>
-                        <option value="ChangeCurrency">Change Currency</option>
+                        <option value="ChangeCurrency">Set new amount</option>
                       </select>
                                     <p class="has-text-danger">{{ errors[0] }}</p>
                                 </ValidationProvider>
@@ -27,20 +27,7 @@
                     <div 
                     v-if="form.type === 'ChangeCurrency'"
                     class="field has-addons">
-                        <div class="control">
-                            <div class="select">
-                                <ValidationProvider name="File" rules="required" v-slot="{ errors }">
-                                    <select v-model="form.currencyId">
-                                  <option
-                                      v-for="i in comCurrencies"
-                                      :value="i._id"
-                                      :key="i._id">{{ i.name }}
-                                  </option>
-                                </select>
-                                    <p class="has-text-danger">{{ errors[0] }}</p>
-                                </ValidationProvider>
-                            </div>
-                        </div>
+
                           <div class="control is-expanded">
                               <ValidationProvider name="Salary" rules="required" v-slot="{ errors }">
                                   <currency-input v-model="form.adjustmentAmount" class="input" :allow-negative="false" :value-range="{ min: 0 }" :distraction-free="false" :currency="{ prefix: '', suffix: '' }" :value-as-integer="true" :precision="0" :disabled="hasHiringDetail" />
@@ -93,7 +80,7 @@
                     <div class="field">
                         <label class="label">Memo</label>
                         <div class="control">
-                            <ValidationProvider name="Memo" rules="required" v-slot="{ errors }">
+                            <ValidationProvider name="Memo" v-slot="{ errors }">
                                 <input v-model="form.memo" type="text" class="input">
                                 <p class="has-text-danger">{{ errors[0] }}</p>
                             </ValidationProvider>

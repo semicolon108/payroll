@@ -117,9 +117,7 @@ export default {
           if (!parseJson.length) return alert("Empty");
           if (parseJson.length) {
 
- 
-      
-          const items = []
+            const items = []
      
             parseJson.map((i) => {
 
@@ -142,8 +140,6 @@ export default {
               ...o,
               employeeCode: o.employeeCode.split("'").pop()
             }))
-
-
 
             try {
               await this.$store.dispatch("loading");

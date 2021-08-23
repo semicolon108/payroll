@@ -14,7 +14,7 @@
     <div id="navbarBasicExample" class="navbar-menu">
 
       <div class="navbar-end">
-        <div class="navbar-item"><i class="fas fa-bell"></i></div>
+        <!-- <div class="navbar-item"><i class="fas fa-bell"></i></div> -->
         <div class="navbar-item" 
           v-click-outside="()=>{ ddActive = false }"
           @click="ddActive = !ddActive">

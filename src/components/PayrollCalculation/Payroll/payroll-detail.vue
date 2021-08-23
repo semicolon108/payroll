@@ -1,5 +1,6 @@
 <template>
 <div class="container">
+
     <div class="page-header">
       <div class="header-start">
         <div class="header-title">
@@ -7,6 +8,7 @@
         </div>
       </div>
       <div class="header-end">
+        
          <div class="button-group">
           <button class="button" @click="isDoc = true"><i class="fal fa-hdd"></i>Store Document</button>
             <!-- <button 
@@ -33,9 +35,11 @@
           </button>
         </div>
       </div>
+
+     
+
     </div> <!-- Page Header -->
-
-
+     <!-- <Pagination v-model="page" :total="filterItems.length" /> -->
     <!-- summary start -->
     <div class="summary-container">
       <div class="columns is-mobile is-multiline">
@@ -119,9 +123,9 @@
             {{i.name}}
           </a>
         </li>
-        <li>
+        <!-- <li>
           <i class="fal fa-plus"></i>
-        </li>
+        </li> -->
       </ul>
     </div>
 
@@ -250,6 +254,7 @@ import moment from 'moment'
 //import Document from '../../Employee/document.vue'
 import {getCustomFormulasApi} from '@/apis/custom-formula-api'
  import Loading from '@/components/Loading/SkeletonLoading'
+//  import Pagination from '@/components/Pagination'
 
 
 export default {
@@ -257,7 +262,8 @@ export default {
     document,
     CalcAnim,
     customise,
-    Loading
+    Loading,
+   // Pagination
     // Document
   },
   directives: {
@@ -266,7 +272,7 @@ export default {
   data: () => ({
     layoutData: [...layoutData],
     headers: [],
-
+    page: 1,
     dropdownExport: false,
     dropdownView: false,
     items: [],
@@ -329,6 +335,14 @@ export default {
             return i.isExpat && i.fullName.toLowerCase().includes(this.searchText.toLowerCase())
         }
       })
+    }
+  },
+  watch: {
+    page: {
+      handler(page) {
+        this.$router.push({...this.$route, query: {  page }})
+      },
+      // immediate: true
     }
   },
   methods: {
@@ -585,6 +599,15 @@ export default {
 
   },
   async created() {
+
+    // if(this.$route.query.page) {
+    //   this.page = parseInt(this.$route.query.page, 10)
+    // } else {
+    //   this.$router.push({ ...this.$route, query: { page: 1 } })
+    //   this.page = 1
+    // }
+
+
    await this.getCompanyCurrencies()
    await this.getPayrollByEmps()
    await this.getPayrollLayouts()
