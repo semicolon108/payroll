@@ -20,14 +20,14 @@
                         <li>30</li>
                     </ul>
                 </div> -->
-                <!-- <button class="button primary" 
+                <button class="button primary" 
                 :class="{'bulk-sending' : bulkSending}"
-                @click="bulkSend()">
+                @click="sendPayslipByEmps">
                     <span><i class="fal fa-paper-plane"></i></span>
                     <span><i class="fas fa-plane"></i></span>
                     <span>Send Bulk Payslip</span>
                     <span>Sending</span>
-                </button> -->
+                </button>
             </div>
         </div>
 
@@ -86,6 +86,9 @@
 
 import {  getPayrollByEmps } from "@/apis/payroll-api";
     import confirm from './Modal/confirm.vue'
+    import {mapGetters} from 'vuex'
+    import { sendPayslipByEmps } from "@/apis/payroll-api";
+    
     //import moment from 'moment'
     export default {
         components:{
@@ -97,12 +100,43 @@ import {  getPayrollByEmps } from "@/apis/payroll-api";
             modal: '',
             payrollEmps: {},
             items: [],
-            isLoading: true
+            isLoading: true,
+            
         }),
         created() {
             this.getPayrollByEmps()
         },
+        computed: {
+            ...mapGetters([ 'getToken']),
+        },
         methods: {
+            async sendPayslipByEmps() {
+                const isConfirmed = await this.$dialog.confirm()
+                if (isConfirmed) {
+
+                    this.bulkSending = true
+                    
+                    const mappedEmps = this.items.map((i) => i.employeeId)
+            
+                    await this.$store.dispatch('loading')
+
+                    const form = {
+                        monthlyPaymentId: this.$route.params.id,
+                        employeeIds: mappedEmps
+                    }
+
+                    await sendPayslipByEmps(form)
+
+                    this.getPayrollByEmps()
+
+                    await setTimeout(async () => {
+                    await this.$store.dispatch('stopLoading')
+
+                    this.bulkSending = false
+
+                    }, 1800)
+                }
+                },
             async getPayrollByEmps() {
                 this.payrollEmps = await getPayrollByEmps(this.$route.params.id)
                 this.items = this.payrollEmps.employees
@@ -143,7 +177,7 @@ import {  getPayrollByEmps } from "@/apis/payroll-api";
                     link.click()
                     await this.$store.dispatch('completed')
                 } catch(e) {
-                    
+    
                     throw new Error(e)
                 }
                 },  

@@ -39,7 +39,7 @@
      
 
     </div> <!-- Page Header -->
-     <!-- <Pagination v-model="page" :total="filterItems.length" /> -->
+     <!-- <Pagination v-model="page" :total="500" /> -->
     <!-- summary start -->
     <div class="summary-container">
       <div class="columns is-mobile is-multiline">
@@ -254,7 +254,7 @@ import moment from 'moment'
 //import Document from '../../Employee/document.vue'
 import {getCustomFormulasApi} from '@/apis/custom-formula-api'
  import Loading from '@/components/Loading/SkeletonLoading'
-//  import Pagination from '@/components/Pagination'
+ //import Pagination from '@/components/Pagination'
 
 
 export default {
@@ -263,7 +263,7 @@ export default {
     CalcAnim,
     customise,
     Loading,
-   // Pagination
+   //Pagination
     // Document
   },
   directives: {

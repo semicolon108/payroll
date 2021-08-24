@@ -209,7 +209,7 @@
                     </button>
             </div>
         </ValidationObserver>
-        <SalaryAdjustmentModal v-if="isSalaryAdjustmentModal" @CloseModal="isSalaryAdjustmentModal = false" @AdjustSalary="isSalaryAdjustmentModal = false; getData() ;$refs.refForm.reset()" />
+        <SalaryAdjustmentModal v-if="isSalaryAdjustmentModal" @CloseModal="isSalaryAdjustmentModal = false" @AdjustSalary="onAdjustSalary" />
         <AdjustmentHistoriesModal v-if="isAdjustmentHistoriesModal" @CloseModal="isAdjustmentHistoriesModal = false" />
     </div>
 </template>
@@ -295,6 +295,13 @@ export default {
         }
     },
     methods: {
+        async onAdjustSalary() {
+            this.isSalaryAdjustmentModal = false;
+            this.$refs.refForm.reset()
+            await this.getData();
+            this.$refs.refForm.reset()
+           
+        },  
         select() {
             this.SelectActive = !this.SelectActive
         },
@@ -312,6 +319,9 @@ export default {
                         endDate: data.workPermit.endDate,
                         daysOfNotify: data.workPermit.daysOfNotify
                     },
+                    dateOfJoining: data.dateOfJoining ? new Date(data.dateOfJoining) : undefined,
+                    probationEndDate: data.probationEndDate ? new Date(data.probationEndDate) : undefined,
+                    contractEndDate: data.contractEndDate ? new Date(data.contractEndDate) : undefined,
                 }
                 this.defaultValue = {
                     dateOfJoining: data.dateOfJoining,
@@ -319,6 +329,8 @@ export default {
                     contractEndDate: data.contractEndDate,
                     workPermit: data.workPermit,
                 }
+
+                console.log(this.defaultValue)
             } else {
                 this.form = {
                     ...this.form,
