@@ -330,7 +330,7 @@ export default {
                     workPermit: data.workPermit,
                 }
 
-                console.log(this.defaultValue)
+
             } else {
                 this.form = {
                     ...this.form,
