@@ -12,6 +12,21 @@
                     </div>
                 </div>
             </div>
+
+            <router-link 
+                :to="{name:'calculate_wage',
+                params: {id: $route.params.id} }"
+                tag="div"
+                class="step-item">
+                <div class="step-info">
+                    <h3>Daliy Wage Calculation</h3>
+                    <p v-if="!isLoading">{{ payroll.totalPayroll | currency }} LAK</p>
+                        <div v-else>
+                        <Loading :key="n" style=" height: 20px"  />
+                    </div>
+                </div>
+            </router-link>
+
             <router-link
                 :to="{name:'calculate_earning_deduction',
                 params: { id: $route.params.id} }"
@@ -26,23 +41,6 @@
                 </div>
             </router-link>
 
-            <!-- <router-link 
-                :to="{name:'calculate_overtime',
-                params: { id: $route.params.id} }"
-                tag="div"
-                class="step-item">
-                <div class="step-info">
-                    <h3>Over Time</h3>
-                    <div v-if="!isLoading">
-                            <p v-if="payroll.totalOT">{{ payroll.totalOT | currency }} LAK</p>
-                    <p v-else>N/A</p>
-                    </div>
-                    <div v-else>
-                        <Loading :key="n" style=" height: 20px"  />
-                    </div>
-                </div>
-            </router-link> -->
-
             <router-link 
                 :to="{name:'calculate_payroll',
                 params: {id: $route.params.id} }"
@@ -56,6 +54,7 @@
                     </div>
                 </div>
             </router-link>
+
             <router-link 
                 :to="{name:'payslip',
                 params: {id: $route.params.id} }"

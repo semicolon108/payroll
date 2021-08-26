@@ -6,11 +6,12 @@
           <h3 class="xxl-title">Earning / Deduction</h3>
         </div>
         <div class="button-group">
-<!-- <button class="button primary" @click="ModalClick = 'Add'">Add</button>-->
-            <button
-            v-if="!isApproved" 
-                class="button primary" @click="ModalClick = 'Upload'">Upload</button>
-          </div>
+          <button
+              v-if="!isApproved" 
+              class="button primary" @click="ModalClick = 'Upload'">
+              <i class="fal fa-cloud-upload"></i>Upload
+          </button>
+        </div>
       </div> <!-- header-start -->
     </div>
 
@@ -33,14 +34,6 @@
               <span>{{i.name}}</span>
               <span>{{i.total | currency }} ₭</span>
             </li>
-            <!-- <li>
-              <span>OT</span>
-              <span>200,000 ₭</span>
-            </li>
-            <li>
-              <span>Back Pay</span>
-              <span>200,000 ₭</span>
-            </li> -->
             <li class="sum">
               <span>Grand Total</span>
               <span>{{ totalEarnings | currency }} ₭</span>

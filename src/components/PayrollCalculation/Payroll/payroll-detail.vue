@@ -628,6 +628,7 @@ export default {
     margin: 0;
     display: flex;
     li{
+      cursor: pointer;
       list-style-type: none;
       margin: 0 10px 0 0;
       padding: 10px 20px;
@@ -638,6 +639,12 @@ export default {
       align-items: center;
       justify-content: center;
       background-color: $border-color;
+      &:hover{
+        background-color: $primary-color;
+        a{
+          color: #fff;
+        }
+      }
       a{
         color: #000;
       }
@@ -651,22 +658,18 @@ export default {
           color: $primary-color;
         }
       }
-      &:last-child{
-        background-color: $border-color;
-        cursor: pointer;
-        transition: all ease .3s;
-        border-left: 1px solid $border-color;
-        border-top: 1px solid $border-color;
-        border-right: 1px solid $border-color;
-        z-index: 0;
-        i{
-          font-size: 20px;
-        }
-        &:hover{
-          color: #fff;
-          background-color: $primary-color;
-        }
-      }
+      // &:last-child{
+      //   background-color: $border-color;
+      //   cursor: pointer;
+      //   transition: all ease .3s;
+      //   border-left: 1px solid $border-color;
+      //   border-top: 1px solid $border-color;
+      //   border-right: 1px solid $border-color;
+      //   z-index: 0;
+      //   i{
+      //     font-size: 20px;
+      //   }
+      // }
     } //li
   }
 }

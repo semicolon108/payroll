@@ -29,12 +29,13 @@
   }
   thead{
     th{
-      padding: 5px 10px;
+      padding: 15px;
       border-width: 0 0 1px 0;
       color: $dark-grey-color;
       font-weight: normal;
       font-size: 14px;
       white-space: nowrap;
+      vertical-align: middle;
       &:first-child{
         padding-left: 0;
       }
@@ -43,6 +44,9 @@
       }
       &.is-right{
         text-align: right;
+      }
+      &.is-center{
+        text-align: center !important;
       }
       &.is-xxs{
         width: 3%;
@@ -72,6 +76,9 @@
         }
         &.deduct{
           color: $alert-color;
+        }
+        &.is-center{
+          text-align: center !important;
         }
         &.is-right{
           text-align: right;

@@ -104,6 +104,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "calculate_overtime" */ '../components/PayrollCalculation/Overtime/overtime-detail.vue')
       },
       {
+        path: 'calculate-wage/:id',
+        name: 'calculate_wage',
+        component: () => import(/* webpackChunkName: "calculate_attendance" */ '../components/PayrollCalculation/Wage-Calculation/wage-list.vue')
+      },
+      {
         path: 'calculate-payroll/:id',
         name: 'calculate_payroll',
         component: () => import(/* webpackChunkName: "calculate_earning_deduction" */ '../components/PayrollCalculation/Payroll/payroll-detail.vue')
