@@ -65,7 +65,7 @@ export default {
   },
 //    created() {
 
-// // alert(this.$route.query.accessToken)
+/// // alert(this.$route.query.accessToken)
 
 //     // if(this.$route.query.accessToken) {
 //     //   alert('hello')
