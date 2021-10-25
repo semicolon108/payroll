@@ -109,6 +109,16 @@ query ($monthlyPaymentId: ID!) {
             employees {
                 employeeId
                 employeeCode
+
+                mobile
+                email
+
+                bankAccount {
+                  bankName
+                  accountName
+                  accountNumber
+                }
+    
               
                 fullName
                 fullNameLao

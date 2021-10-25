@@ -9,7 +9,7 @@ export const logoutURL =
 isProd ? 'http://auth.hr-sabai.com' : 'http://localhost:3000'
 
 export const baseURL = 
-'https://hr-sabai.com'
+//'https://hr-sabai.com'
 
-// isProd ? 'https://hr-sabai.com' : 'http://localhost:4000'
+isProd ? 'https://hr-sabai.com' : 'http://localhost:4000'
 

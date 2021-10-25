@@ -60,6 +60,36 @@ export const layoutData = [
         isSelected: false
     },
     {
+        "name": "Email",
+        key: 'email',
+        "type": "Employee Info",
+        isSelected: false
+    },
+
+    {
+        "name": "Bank Name",
+        key: 'bankAccount.bankName',
+        "type": "Employee Info",
+        isSelected: false
+    },
+
+    {
+        "name": "Bank Account Name",
+        key: 'bankAccount.accountName',
+        "type": "Employee Info",
+        isSelected: false
+    },
+    
+
+    {
+        "name": "Bank Account Number",
+        key: 'bankAccount.accountNumber',
+        "type": "Employee Info",
+        isSelected: false
+    },
+    
+
+    {
         "name": "This Month Salary",
         key: 'thisMonthSalary',
         "type": "Salary",

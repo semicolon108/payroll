@@ -313,6 +313,7 @@ export default {
     convertName() {
       return (key) => {
         const ret =  this.layoutData.find(i => i.key === key)
+
         return ret ? ret.name : null
       }
     },
@@ -462,7 +463,11 @@ export default {
           ...customFormula,
           isActive: false,
           isEditMode: false,
-          startWorkingDate: moment(i.startWorkingDate).locale('lo').format('DD-MM-YYYY')
+          startWorkingDate: moment(i.startWorkingDate).locale('lo').format('DD-MM-YYYY'),
+          ['bankAccount.bankName']: i.bankAccount ? i.bankAccount.bankName : '',
+          ['bankAccount.accountName']: i.bankAccount ? i.bankAccount.accountName : '',
+          ['bankAccount.accountNumber']: i.bankAccount ? i.bankAccount.accountNumber : ''
+
         }
       })
 
