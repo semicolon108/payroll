@@ -3,22 +3,56 @@
         <div class="page-header border-bottom">
             <div class="flex items-center">
                 <h3 class="page-title">Payroll</h3>
-                <button v-if="getCompany.isCalcByWorkGroup"
-                @click="isDelete = !isDelete"
-                class="button py-1">Toggle Delete Option</button>
+
             </div>
-            <div v-if="getCompany.isCalcByWorkGroup">
-              <select name="" id=""
+
+            
+            <div v-if="getCompany.isCalcByWorkGroup"
+            
+           style="display: flex"
+            >
+
+            <div >
+                <button v-if="getCompany.isCalcByWorkGroup"
+            @click="isDelete = !isDelete"
+            class="button py-1 is-danger">Toggle Delete Option</button>
+            </div>
+
+            <div >
+                    <div class="box-header">
+                    <div class="box-header-end">
+                        <div class="select">
+                            <select v-model="workGroupId" name="" id="">
+                   <option 
+                    disabled
+                    selected
+                        value="">select work group</option>
+                            <option 
+                        v-for="i in workGroups " :key="i._id"
+                        :value="i._id">{{i.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+              <!-- <select name="" id=""
               v-model="workGroupId"
               >
                 <option 
                 v-for="i in workGroups " :key="i._id"
                 :value="i._id">{{i.name}}</option>
               </select>
-              <button 
+ -->
+
+
+         <div>
+                  <button 
               @click="addPayroll"
-              class="button " >Add Payroll</button>
+              style="margin: 0"
+              class="button primary" >Add Payroll</button>
             </div>
+         </div>
         </div>
 
 
@@ -29,6 +63,7 @@
             </p>
             <router-link to="/employee">View</router-link>
         </div>
+
     
         <div v-if="getCompany.isCalcByWorkGroup">
           <div v-if="!isLoading" >
@@ -69,8 +104,8 @@
           
                             <a 
                   v-if="isDelete"
-                            @click="deletePayroll(i.monthlyPaymentId)" class="ml-2 text-red-600">
-                              <i class="fas fa-trash"></i>
+                            @click="deletePayroll(i.monthlyPaymentId)" class="ml-2 has-text-danger">
+                              <i class="fas fa-trash "></i>
                             </a>
                         </td>
                     </tr>

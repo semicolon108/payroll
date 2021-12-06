@@ -6,12 +6,12 @@
                     <h3 class="xxl-title">Daily Wage Calculation</h3>
                 </div>
             </div>
-            <div class="header-end">
+            <!-- <div class="header-end">
                 <button class="button primary" @click="ModalClick = 'Upload'">
                     <span><i class="fal fa-cloud-upload"></i></span>
                     <span>Upload Work Day</span>
                 </button>
-            </div>
+            </div> -->
         </div>
 
         <div class="_tabs">
@@ -26,7 +26,7 @@
         </div>
 
         <div class="box">
-            <nav class="pagination" role="navigation" aria-label="pagination">
+            <!-- <nav class="pagination" role="navigation" aria-label="pagination">
                 <ul class="pagination-list">
                     <li>
                         <a class="pagination-previous">Previous</a></li>
@@ -55,14 +55,15 @@
                         <a class="pagination-next">Next page</a>
                     </li>
                 </ul>
-            </nav>
+            </nav> -->
             <div class="table-container">
                 <table class="table is-fullwidth" id="my-table">
                     <thead>
                         <tr>
                             <th class="is-xxs">ID</th>
                             <th>
-                                <input type="text" class="label_input" placeholder="Employee name">
+                                Employee name
+                                <!-- <input type="text" class="label_input" placeholder="Employee name"> -->
                             </th>
                             <th class="is-xs is-center">Contact Number</th>
                             <th class="is-xs is-center">Payment Type</th>
@@ -72,18 +73,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(i, index) in 10" :key="index">
-                            <td>001</td>
-                            <td>Anousone LUANGKHOT</td>
-                            <td>020 52414965</td>
-                            <td class="is-center">Wage</td>
-                            <td class="is-right">55,000</td>
+                        <tr v-for="(i, index) in employees" :key="index">
+                            <td>{{i.employeeCode}}</td>
+                            <td>{{i.fullName}}</td>
+                            <td>{{ i.mobile }}</td>
+                            <td class="is-center">{{ i.wageType }}</td>
+                            <td class="is-right">{{ i.basicSalary | currency }}</td>
                             <td class="is-right">
-                                <div class="workday">
-                                    <input type="text" class="input" value="2">
-                                </div>
+                                {{i.actualWorkingDay}}
                             </td>
-                            <td class="is-right">3,630,000</td>
+                            <!-- <td class="is-right">
+                                <div class="workday">
+                                    <input type="text" class="input" :value="i.actualWorkingDay">
+                                </div>
+                            </td> -->
+                            <td class="is-right">{{ i.thisMonthSalary | currency }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -98,22 +102,48 @@
 
 <script>
     import Upload from '@coms/PayrollCalculation/Wage-Calculation/Modal/Upload.vue'
+    import {getEmpsByWageType} from '@/apis/salary-wage-type-api'
+    
     export default {
         components: {
             Upload,
         },
         data: () => ({
             ModalClick: '',
-            layoutSelected: 'Monthly Salary',
+            layoutSelected: 'Monthly',
             wage: [
                 {
-                    name: 'Monthly Salary'
+                    name: 'Monthly'
                 },
                 {
-                    name: 'Daily Wage'
+                    name: 'Daily'
                 }
-            ]
-        })
+            ],
+
+            employees: []
+        }),
+        watch: {
+            layoutSelected() {
+                this.getEmps()
+            }
+        },
+            methods: {
+
+        async getEmps() {
+              const args = {
+                wageType: this.layoutSelected,
+                monthlyPaymentId: this.$route.params.id
+            }
+            const data = await getEmpsByWageType(args)
+
+            this.employees = data
+        },
+        },
+         created() {
+            
+          this.getEmps()
+
+        }
     }
 
 </script>

@@ -20,7 +20,15 @@
                  class="border rounded-full w-8 bg-blue-600 p-1 text-white"
                  >{{empsChosen.length}}</span>
           </button>  -->
-          <button
+
+
+        <button
+              @click="calcPayroll"
+              class="button primary">
+            Re-Calculate
+          </button>
+
+          <!-- <button
               v-if="!payrollEmps.isCalculated"
               @click="calcPayroll"
               class="button primary">
@@ -32,7 +40,7 @@
               disabled
           >
             Approved
-          </button>
+          </button> -->
         </div>
       </div>
 
@@ -549,6 +557,7 @@ export default {
           this.$store.dispatch('loading')
           await calcPayroll(this.$route.params.id)
           await this.getPayrollByEmps()
+           this.$router.push({...this.$route, query: { resetTotal: true }})
           this.$store.dispatch('completed')
           await setTimeout(async () => {
             this.isCalculating = false
