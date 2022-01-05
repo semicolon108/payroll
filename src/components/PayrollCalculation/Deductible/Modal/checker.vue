@@ -66,10 +66,24 @@
 
 <script>
 import { addDeductible } from "@/apis/monthly-payment-employee";
-
+import { calcPayroll } from "@/apis/payroll-api";
 export default {
   props: ['data'],
   methods: {
+    async calcPayroll() {
+  
+          // this.isCalculating = true
+          // this.$store.dispatch('loading')
+          await calcPayroll(this.$route.params.id)
+           this.$router.push({...this.$route, query: { resetTotal: true }})
+          // this.$store.dispatch('completed')
+
+          // await setTimeout(async () => {
+          //   this.isCalculating = false
+          // }, 1800)
+    
+      
+    },
     async addDeductible() {
       const mapItems = this.data.items.map(i => {
        const amount = i.amount
@@ -87,6 +101,7 @@ export default {
       try {
         this.$store.dispatch('loading')
         await addDeductible(form)
+        await this.calcPayroll()
         this.$store.dispatch('completed')
         this.$router.push({...this.$route, query: { resetTotal: true }})
         } catch(e) {
