@@ -76,13 +76,14 @@ export const getPayrollByEmps = (monthlyPaymentId) => {
 
 
 
-export const calcPayroll = (monthlyPaymentId) => {
+export const calcPayroll = (monthlyPaymentId, status) => {
     return new Promise(async (resolve, reject) => {
         try {
             const res = await apolloClient.mutate({
                 mutation: CALC_PAYROLL,
                 variables: {
-                    monthlyPaymentId
+                    monthlyPaymentId,
+                    status
                 }
             })
             resolve(res.data.calcPayroll)

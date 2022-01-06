@@ -192,9 +192,11 @@ export const CALC_PAYROLL = gql`
 
 mutation (
         $monthlyPaymentId: ID!
+        $status: String
     ) {
         calcPayroll (
             monthlyPaymentId: $monthlyPaymentId
+            status: $status
         )
     }
 

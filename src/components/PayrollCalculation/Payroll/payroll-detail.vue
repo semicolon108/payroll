@@ -25,7 +25,7 @@
         <button
               @click="calcPayroll"
               class="button primary">
-            Re-Calculate
+            Reset 
           </button>
 
           <!-- <button
@@ -555,7 +555,7 @@ export default {
         try {
           this.isCalculating = true
           this.$store.dispatch('loading')
-          await calcPayroll(this.$route.params.id)
+          await calcPayroll(this.$route.params.id, 'RemoveDeductibles')
           await this.getPayrollByEmps()
            this.$router.push({...this.$route, query: { resetTotal: true }})
           this.$store.dispatch('completed')
