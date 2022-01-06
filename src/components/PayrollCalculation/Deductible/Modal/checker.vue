@@ -71,18 +71,8 @@ export default {
   props: ['data'],
   methods: {
     async calcPayroll() {
-  
-          // this.isCalculating = true
-          // this.$store.dispatch('loading')
-          await calcPayroll(this.$route.params.id)
-           this.$router.push({...this.$route, query: { resetTotal: true }})
-          // this.$store.dispatch('completed')
-
-          // await setTimeout(async () => {
-          //   this.isCalculating = false
-          // }, 1800)
-    
-      
+        await calcPayroll(this.$route.params.id)
+        this.$router.push({...this.$route, query: { resetTotal: true }})
     },
     async addDeductible() {
       const mapItems = this.data.items.map(i => {
@@ -97,7 +87,6 @@ export default {
         monthlyPaymentId: this.$route.params.id,
         items: mapItems
       }
-
       try {
         this.$store.dispatch('loading')
         await addDeductible(form)
