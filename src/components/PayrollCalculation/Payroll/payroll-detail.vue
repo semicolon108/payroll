@@ -4,7 +4,7 @@
     <div class="page-header">
       <div class="header-start">
         <div class="header-title">
-          <h3 class="xxl-title">Payroll Summary</h3>
+          <h3>Payroll Summary</h3>
         </div>
       </div>
       <div class="header-end">

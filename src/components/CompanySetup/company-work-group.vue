@@ -1,5 +1,5 @@
 <template>
-    <div class="box slide-up">
+    <div class="box">
         <div class="box-header">
             <h3 class="box-title">Company Work Group</h3>
             <div class="button-group">

@@ -1,0 +1,74 @@
+$xsm-font: (
+  null  : 12px,
+  480px : 12px,
+  640px : 12px,
+  1024px: 12px,
+  1216px : 12px,
+  1408px: 14px,
+);
+$sm-font: (
+  null  : 14px,
+  480px : 14px,
+  640px : 14px,
+  1024px: 14px,
+  1216px : 14px,
+  1408px: 16px,
+);
+
+$md-font: (
+  null  : 15px,
+  480px : 15px,
+  640px : 15px,
+  1024px: 15px,
+  1216px : 15px,
+  1408px: 16px,
+);
+
+$lg-font: (
+  null  : 17px,
+  480px : 17px,
+  640px : 17px,
+  1024px: 17px,
+  1216px : 17px,
+  1408px: 20px,
+);
+
+$xlg-font: (
+  null  : 21px,
+  480px : 21px,
+  640px : 21px,
+  1024px: 21px,
+  1216px: 21px,
+  1408px: 24px,
+);
+
+$xxlg-font: (
+  null  : 26px,
+  480px : 26px,
+  640px : 26px,
+  1024px: 32px,
+  1216px : 36px,
+  1408px: 40px,
+);
+
+$xxxlg-font: (
+  null  : 32px,
+  480px : 34px,
+  640px : 40px,
+  1024px: 58px,
+  1216px : 60px,
+  1408px: 64px,
+);
+
+@mixin font-size($fs-map) {
+    @each $fs-breakpoint, $fs-font-size in $fs-map {
+      @if $fs-breakpoint == null {
+        font-size: $fs-font-size;
+      }
+      @else {
+        @media screen and (min-width: $fs-breakpoint) {
+          font-size: $fs-font-size;
+        }
+      }
+    }
+}

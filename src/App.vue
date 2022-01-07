@@ -3,7 +3,9 @@
     <ReloadLoading v-show="isLoading"/>
     <div v-show="!isLoading">
     <div v-if="$store.getters.getToken" class="content-container">
-      <navigation />
+
+      <!-- <navigation /> -->
+
       <div class="main-content">
         <sidebar />
         <div class="content-area">
@@ -20,7 +22,7 @@
 
 
 import sidebar from "@coms/sidebar";
-import navigation from "@coms/navbar";
+// import navigation from "@coms/navbar";
 import {mapMutations, mapGetters, mapActions} from 'vuex'
 import DefaultLoading from '@/components/DefaultLoader/loading'
 import ReloadLoading from '@/components/DefaultLoader/reload-loading'
@@ -33,7 +35,7 @@ export default {
   }),
   components:{
     sidebar,
-    navigation,
+    // navigation,
     DefaultLoading,
     ReloadLoading
   },
@@ -103,10 +105,61 @@ html, body{
     height: 100%;
     .content-area{
       width: 100%;
-      overflow-y: scroll;
       background-color: #fff;
-      padding: 30px 40px;
+      overflow: hidden;
+      .page-container{
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        .page-content{
+          padding: $page-padding;
+          overflow-y: scroll;
+          height: 100%;
+        }
+      }
     }
   }
+}
+
+.page-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid $border-color;
+    padding-left: $page-padding;
+    padding-right: $page-padding;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    box-shadow: 0px 0 3px 3px rgba(#000, .05);
+    .header-start{
+        display: flex;
+        align-items: center;
+        .header-title{
+            display: flex;
+            align-items: center;
+        }
+    }
+    .header-end{
+        // margin-left: auto;
+        text-align: right;
+    }
+    &.bottom{
+        align-items: flex-end;
+        color: $font-color;
+    }
+    .page-title{
+        color: $font-color;
+        text-transform: uppercase;
+        font-weight: 700;
+        padding-bottom: calc(.375em - 1px);
+        padding-top: calc(.375em - 1px);
+        @include font-size($xlg-font);
+    }
+    span{
+        cursor: pointer;
+    }
+    .button{
+        margin-left: 10px;
+    }
 }
 </style>

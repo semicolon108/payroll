@@ -4,6 +4,17 @@
   border-spacing: 0 10px;
   color: $font-color;
   margin-bottom: 0;
+  width: 100%;
+  transition: all ease-in-out .3s;
+  th, td{
+    transition: all ease-in-out .3s;
+    &.is-right{
+      text-align: right;
+    }
+    &.is-center{
+      text-align: center !important;
+    }
+  }
   &.has-border{
     th{
       border-width: 1px;
@@ -28,6 +39,12 @@
     }
   }
   thead{
+    tr.sticky{
+      position: sticky;
+      top: -20px;
+      background-color: #fff;
+      transition: all ease-in-out .3s;
+    }
     th{
       padding: 15px;
       border-width: 0 0 1px 0;
@@ -41,12 +58,6 @@
       }
       &:last-child{
         padding-right: 0;
-      }
-      &.is-right{
-        text-align: right;
-      }
-      &.is-center{
-        text-align: center !important;
       }
       &.is-xxs{
         width: 3%;
@@ -67,21 +78,17 @@
       border-radius: $radius;
       border-color: $border-color;
       td{
-        white-space: nowrap;
         padding: 15px 10px;
         vertical-align: middle;
-        &.wrap{
-          white-space: wrap;
-          white-space: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 30%;
+        i.is-info{
+          color: $info-color;
         }
         &.deduct{
           color: $alert-color;
-        }
-        &.is-center{
-          text-align: center !important;
-        }
-        &.is-right{
-          text-align: right;
         }
         &:first-child{
           padding-left: 0;

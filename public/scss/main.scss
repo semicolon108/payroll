@@ -1,5 +1,6 @@
 $font: 'Roboto', 'Noto Sans Lao', sans-serif;
 $radius: 0;
+$page-padding: 20px;
 
 //font-size
 $page-title: 28px;
@@ -20,6 +21,7 @@ $desktop-subtitle: 20px;
 @import "./transition";
 @import "./modal";
 @import "./anim";
+@import "./font-size";
 
 body, html{
     height: 100%;
@@ -39,62 +41,4 @@ body, html{
     box-shadow: none;
     box-shadow: unset;
     padding: 40px 30px;
-}
-
-
-.page-header{
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    &.border-bottom{
-        border-bottom: 2px solid $primary-color;
-        padding-bottom: 10px;
-    }
-    .header-start{
-        display: flex;
-        align-items: center;
-        .header-title{
-            display: flex;
-            align-items: center;
-        }
-    }
-    .header-end{
-        margin-left: auto;
-        text-align: right;
-    }
-    &.bottom{
-        align-items: flex-end;
-        color: $font-color;
-    }
-    .page-title{
-        color: $font-color;
-        text-transform: uppercase;
-        font-size: 24px;
-        font-weight: 700;
-        padding-bottom: calc(.375em - 1px);
-        padding-top: calc(.375em - 1px);
-    }
-    .sm-title{
-        color: $dark-grey-color;
-
-    }
-    .xl-title{
-        font-size: 22px;
-        margin: 0;
-        padding: 0;
-        font-weight: normal;
-    }
-    .xxl-title{
-        font-size: 28px;
-        margin: 0;
-        padding: 0;
-        font-weight: 700;
-    }
-    
-    span{
-        cursor: pointer;
-    }
-    .button{
-        margin-left: 10px;
-    }
 }

@@ -1,13 +1,15 @@
 <template>
-<div>
+<div class="page-container">
   <div class="page-header border-bottom">
     <h3 class="page-title">Position</h3>
     <button class="button primary" @click="isOpen = true; isEditMode = false"><i class="fas fa-plus"></i>Add</button>
   </div>
 
+
+  <div class="page-content">
     <table v-if="!isLoading" class="table is-fullwidth" id="my-table">
       <thead>
-      <tr>
+      <tr class="sticky">
         <th>Position</th>
         <th>Department</th>
         <th>Total Employee</th>
@@ -31,6 +33,7 @@
       <div v-else>
         <Loading v-for="n in 7" :key="n" style=" height: 60px" class="mb-3"  />
       </div>
+  </div>
   <PositionModal
         v-if="isOpen"
         :isEditMode="isEditMode"

@@ -1,32 +1,34 @@
 <template>
-  <div>
+  <div class="page-container">
     <div class="page-header border-bottom">
       <h3 class="page-title">Department</h3>
       <button class="button primary" @click="isOpen = true; isEditMode = false"><i class="fas fa-plus"></i> Add</button>
     </div>
-    <table v-if="!isLoading" class="table is-fullwidth" id="my-table">
-      <thead>
-      <tr>
-        <th>Department</th>
-        <th>Total Employee</th>
-        <th class="is-xs is-right">Option</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="(i, idx) in departments" :key="idx">
-        <td class="truncate" style="max-width: 180px">{{ i.name }}</td>
-        <td>{{ i.employeesCount }}</td>
-        <td>
-          <div class="icons">
-            <span class="icon" @click="editModal(i._id, i.name)"><i class="fas fa-pen"></i></span>
-            <span @click="deleteDepartment(i._id)" class="icon alert"><i class="fas fa-trash"></i></span>
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-    <div v-else>
-      <Loading v-for="n in 7" :key="n" style=" height: 60px" class="mb-3"  />
+    <div class="page-content">
+      <table v-if="!isLoading" class="table is-fullwidth" id="my-table">
+        <thead>
+        <tr class="sticky">
+          <th>Department</th>
+          <th>Total Employee</th>
+          <th class="is-xs is-right">Option</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(i, idx) in departments" :key="idx">
+          <td class="truncate" style="max-width: 180px">{{ i.name }}</td>
+          <td>{{ i.employeesCount }}</td>
+          <td>
+            <div class="icons">
+              <span class="icon" @click="editModal(i._id, i.name)"><i class="fas fa-pen"></i></span>
+              <span @click="deleteDepartment(i._id)" class="icon alert"><i class="fas fa-trash"></i></span>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div v-else>
+        <Loading v-for="n in 7" :key="n" style=" height: 60px" class="mb-3"  />
+      </div>
     </div>
 <!--    <component :is="ModalClick" @CloseModal="ModalClick=''" @PushItem="pushItem"-->
 <!--               @UpdateItem="updateItem"-->

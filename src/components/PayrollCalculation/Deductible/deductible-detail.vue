@@ -3,7 +3,7 @@
     <div class="page-header">
       <div class="header-start">
         <div class="header-title">
-          <h3 class="xxl-title">Earning / Deduction</h3>
+          <h3>Earning / Deduction</h3>
         </div>
         <div class="button-group">
                <!-- <button

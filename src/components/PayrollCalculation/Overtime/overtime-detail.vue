@@ -3,7 +3,7 @@
     <div class="page-header">
       <div class="header-start">
         <div class="header-title">
-          <h3 class="xxl-title">Overtime</h3>
+          <h3>Overtime</h3>
         </div>
         <div class="button-group">
           <button @click="isUploadModal = true" class="button primary">Upload</button>

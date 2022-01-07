@@ -1,9 +1,11 @@
 <template>
-<div>
+<div class="page-container">
     <div class="page-header">
         <h3 class="page-title">Payslip Template</h3>
         <!-- <button class="button primary">Add Template</button> -->
     </div>
+    
+    <div class="page-content">
     <div class="columns is-mobile is-multiline">
         <div class="column is-6-desktop">
             <div class="box" :class="{'primary': !payslipTemplate.isDefault}">
@@ -61,6 +63,7 @@
     ref="fileInput"
     @change="onFileChange"
     type="file" class="is-hidden">
+    </div>
 </div>
 </template>
 

@@ -8,7 +8,7 @@
         <div class="page-header">
             <div class="header-start">
                 <div class="header-title">
-                    <h3 class="xxl-title">Payslip</h3>
+                    <h3>Payslip</h3>
                 </div>
             </div>
             <div class="header-end">
