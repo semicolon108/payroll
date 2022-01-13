@@ -112,6 +112,8 @@
               <span>{{ payrollEmps.paymentSummary.tax }} ₭</span>
             </li>
             <li>
+
+              
               <span>Social Security 11.5%</span>
               <span>{{ payrollEmps.paymentSummary.totalSso }} ₭</span>
             </li>
