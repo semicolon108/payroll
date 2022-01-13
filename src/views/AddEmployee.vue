@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-container">
     <div class="page-header">
       <h3 class="page-title">{{
           $route.params.id ?
@@ -33,8 +33,8 @@
 
     <div class="steps" v-if="$route.params.id">
       <router-link
-  :class="{ 'router-link-exact-active': $route.name === 'edit_basic_detail' }"
-          :to="{name:'edit_basic_detail', params: { id: $route.params.id, name:  $route.params.name  } }" class="step "
+        :class="{ 'router-link-exact-active': $route.name === 'edit_basic_detail' }"
+        :to="{name:'edit_basic_detail', params: { id: $route.params.id, name:  $route.params.name  } }" class="step "
       >1. Basic Detail
       </router-link>
       <!-- <router-link
@@ -44,22 +44,27 @@
       </router-link> -->
 
       <router-link 
-      :class="{ 'router-link-exact-active': $route.name === 'hiring_detail' }"
-      :to="{name:'hiring_detail', params: { id: $route.params.id,  name: $route.params.name }}" class="step ">2. Hiring Detail
+        :class="{ 'router-link-exact-active': $route.name === 'hiring_detail' }"
+        :to="{name:'hiring_detail', params: { id: $route.params.id,  name: $route.params.name }}" class="step ">2. Hiring Detail
       </router-link>
       <router-link 
-      :class="{ 'router-link-exact-active': $route.name === 'earning' }"
-      :to="{name:'earning', params: { id: $route.params.id,  name:  $route.params.name }}" class="step">3. Earning / Deduction</router-link>
+        :class="{ 'router-link-exact-active': $route.name === 'earning' }"
+        :to="{name:'earning', params: { id: $route.params.id,  name:  $route.params.name }}" class="step">3. Earning / Deduction
+      </router-link>
       <router-link
-       :class="{ 'router-link-exact-active': $route.name === 'custom_field' }"
-       :to="{name:'custom_field', params: { id: $route.params.id,  name:  $route.params.name }}" class="step">4. Custom Field</router-link>
+        :class="{ 'router-link-exact-active': $route.name === 'custom_field' }"
+        :to="{name:'custom_field', params: { id: $route.params.id,  name:  $route.params.name }}" class="step">4. Custom Field
+      </router-link>
       <router-link
-      :class="{ 'router-link-exact-active': $route.name === 'document' }"
-       :to="{name:'document', params: { id: $route.params.id,  name:  $route.params.name }}" class="step">5. Document</router-link>
+        :class="{ 'router-link-exact-active': $route.name === 'document' }"
+        :to="{name:'document', params: { id: $route.params.id,  name:  $route.params.name }}" class="step">5. Document
+      </router-link>
     </div>
-    <div class="box">
+
+    <div class="page-content">
       <router-view ref="refRoute"></router-view>
     </div>
+
     <ResignationModal
         v-if="isResignationModal"
         @CloseModal="isResignationModal = false"
@@ -89,7 +94,8 @@ export default {
 }
 
 .steps {
-  margin-bottom: 20px;
+  padding: 20px;
+  border-bottom: 1px solid $border-color;
   display: flex;
   box-sizing: border-box;
   .step {
