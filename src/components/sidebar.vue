@@ -3,7 +3,7 @@
     <div class="sidebar-container">
       <div class="sidebar-items">
         <div class="sidebar-title">Organization</div>
-        <router-link to="/company-setup" class="sidebar-item">Company</router-link>
+        <router-link to="/company-setup/company-info" class="sidebar-item">Company</router-link>
         <router-link to="/department" class="sidebar-item">Department</router-link>
         <router-link to="/position" class="sidebar-item">Position</router-link>
         <router-link to="/employee" class="sidebar-item">Employee</router-link>

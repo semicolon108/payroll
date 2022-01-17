@@ -6,12 +6,12 @@
                 <button class="button primary" @click="$router.push({name:'basic_detail'})"><i class="fas fa-plus"></i> Add</button>
             </div>
             <div>
-                <input type="text" class="input">
+                <input type="text" v-model="textSearch" class="input" placeholder="Search..." >
             </div>
             <div class="header-end">
                 <button class="button" :class="{'primary' : !isResigned}" @click="isResigned = false">Working</button>
-                <button class="button" :class="{'primary' : !isResigned}" @click="isResigned = false">Incomplete</button>
-                <button class="button" :class="{'primary': isResigned}" @click="isResigned = true">Resigned</button>
+                <!-- <button class="button" :class="{'primary' : !isResigned}" @click="isResigned = false">Incomplete</button> -->
+                <button class="button" :class="{'primary': isResigned}" @click="isResigned = true">Resigned / Incomplete</button>
             </div>
         </div>
 
@@ -36,8 +36,10 @@
             </div>
         </div> -->
 
-        <div class="page-content">
-            <table v-if="!isLoading" class="table is-fullwidth" id="my-table">
+        <div
+      
+         class="page-content">
+            <table class="table is-fullwidth" id="my-table">
                 <thead>
                     <tr class="sticky">
                         <th class="is-xxs">Photo</th>
@@ -82,12 +84,26 @@
                             </div>
                         </td>
                     </tr>
+        
                 </tbody>
             </table>
+                <div v-if="!isLoading">
+                    <infinite-loading @infinite="infiniteHandler"
+              
+                        ref="infiniteLoading"
+                        >
+                            <div slot="spinner">Loading...</div>
+                        <div slot="no-more"></div>
+                        <div slot="no-results"></div>
+           
+                    </infinite-loading>
+                </div>
+     
             <div v-else>
                 <Loading v-for="n in 7" :key="n" style=" height: 60px" class="mb-3" />
             </div>
         </div>
+      
 
     </div>
 </template>
@@ -96,10 +112,12 @@
 import { GET_EMPLOYEES } from "@/graphql/Employee";
 import Loading from '@/components/Loading/SkeletonLoading'
 // import Pagination from '@/utils/Pagination2'
+import InfiniteLoading from 'vue-infinite-loading';
 
 export default {
     components: {
-        Loading,
+         Loading,
+        InfiniteLoading
         // Pagination
     },
     data: () => ({
@@ -119,42 +137,67 @@ export default {
                 this.timer = null;
             }
             this.timer = setTimeout(() => {
-                this.getEmployees()
-            }, 500);
+                this.getEmpsWithReset()
+            }, 400);
         },
-        currentPage() {
-            this.$router.push({ ...this.$route, query: { ...this.$route.query, page: this.currentPage } })
-            this.getEmployees()
-        },
-        perPage() {
-            this.$router.push({ ...this.$route, query: { ...this.$route.query, perPage: this.perPage } })
-            this.getEmployees()
-        },
-        '$route.query.page': {
-            handler(val) {
-                if (val) {
-                    this.currentPage = parseInt(val, 10)
-                }
-            },
-            immediate: true
-        },
-        '$route.query.perPage': {
-            handler(val) {
-                if (val) {
-                    this.perPage = parseInt(val, 10)
-                }
-            },
-            immediate: true
-        },
+        // currentPage() {
+        //     this.$router.push({ ...this.$route, query: { ...this.$route.query, page: this.currentPage } })
+        //     this.getEmployees()
+        // },
+        // perPage() {
+        //     this.$router.push({ ...this.$route, query: { ...this.$route.query, perPage: this.perPage } })
+        //     this.getEmployees()
+        // },
+        // '$route.query.page': {
+        //     handler(val) {
+        //         if (val) {
+        //             this.currentPage = parseInt(val, 10)
+        //         }
+        //     },
+        //     immediate: true
+        // },
+        // '$route.query.perPage': {
+        //     handler(val) {
+        //         if (val) {
+        //             this.perPage = parseInt(val, 10)
+        //         }
+        //     },
+        //     immediate: true
+        // },
+
         isResigned() {
-           this.getEmployees()
+            this.getEmpsWithReset()
         }
     },
     methods: {
+        infiniteHandler() {
+            this.getEmpsWithInfinite()
+        },
+
+         getEmpsWithReset() {
+            this.employees = []
+            this.currentPage = 1
+            this.$nextTick(() => {
+                this.$refs.infiniteLoading.stateChanger.reset()
+            });
+ 
+        },
+
+        async getEmpsWithInfinite() {
+               const emps = await this.getEmployees()
+                  // setTimeout(() => {
+                       if (emps.length) {
+                        this.currentPage++
+                        this.employees.push(...emps)
+                        this.$refs.infiniteLoading.stateChanger.loaded()
+                        } else {
+                            this.$refs.infiniteLoading.stateChanger.complete()
+                   
+                        }
+                // }, 100)
+        },
         async getEmployees() {
             try {
-
-
                 const res = await this.$apollo.query({
                     query: GET_EMPLOYEES,
                     variables: {
@@ -164,19 +207,21 @@ export default {
                         isResigned: this.isResigned
                     }
                 })
-                this.employees = res.data.getEmployees.employees
-                this.employeesCount = res.data.getEmployees.employeesCount
-                setTimeout(() => {
-                    this.isLoading = false
-                }, 400)
+                const emps = res.data.getEmployees.employees
+                return emps
+            
             } catch (err) {
                 throw new Error(err)
             }
         }
     },
     created() {
-        this.getEmployees()
+        setTimeout(() => {
+            this.isLoading = false
+        }, 1700)
     }
+
+
 }
 </script>
 
