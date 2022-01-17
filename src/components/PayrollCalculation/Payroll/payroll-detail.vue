@@ -480,7 +480,6 @@ export default {
 
         }
       })
-
       setTimeout(() => {
           this.isLoading = false
         }, 400)

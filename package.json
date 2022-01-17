@@ -30,6 +30,7 @@
     "vue-currency-input": "^1.22.3",
     "vue-draggable": "^2.0.6",
     "vue-html2pdf": "^1.6.6",
+    "vue-infinite-loading": "^2.4.5",
     "vue-lottie": "^0.2.1",
     "vue-pagination-2": "^3.0.8",
     "vue-router": "^3.1.3",
