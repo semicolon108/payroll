@@ -4,8 +4,6 @@
             <div class="flex items-center">
                 <h3 class="page-title">Payroll</h3>
             </div>
-
-            
             <div v-if="getCompany.isCalcByWorkGroup" style="display: flex">
                 <div >
                     <button

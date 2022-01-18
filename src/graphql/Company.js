@@ -92,7 +92,12 @@ export const UPDATE_COMPANY = gql`
                 name
                 email
             }
+            expatManager {
+                notificationEmail
+                noticePeriodDay
+            }
             isHiringExpat
+            isCalcByWorkGroup
 #            private {
 #                sso
 #            }
