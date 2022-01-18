@@ -91,10 +91,10 @@ export default {
             this.salaryHistories = this.salaryHistories.map(i => ({
                 ...i,
                 adjustmentAmount: new Intl.NumberFormat().format(i.adjustmentAmount),
-                refDate: moment(i.refDate).locale('lo').format('DD-MM-YYYY'),
+                refDate: i.refDate ? moment(i.refDate).locale('lo').format('DD-MM-YYYY')  : '---',
                 beforeAdjustment: new Intl.NumberFormat().format(i.beforeAdjustment),
                 afterAdjustment: new Intl.NumberFormat().format(i.afterAdjustment),
-                type: i.type === 'ChangeCurrency' ? `${this.currencyName(i.beforeCurrency) } => ${this.currencyName(i.afterCurrency)}` : i.type
+                type: i.type === 'ChangeCurrency' ? `Set new amount` : i.type
             }))
         },
          async getCurrencies() {

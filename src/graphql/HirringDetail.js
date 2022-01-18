@@ -17,6 +17,7 @@ query (
       workingDayGroupId
       workingLocationId
       currencyId
+      wageType
       salary
       salaryGrade
 
@@ -38,6 +39,8 @@ query (
         beforeAdjustment
         afterAdjustment
         memo
+
+        
     }
   }
 }

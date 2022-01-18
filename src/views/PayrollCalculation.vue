@@ -19,7 +19,7 @@
                 tag="div"
                 class="step-item">
                 <div class="step-info">
-                    <h3>Daliy Wage Calculation</h3>
+                    <h3>Basic Salary Calculation</h3>
                     <p v-if="!isLoading">{{ payroll.totalPayroll | currency }} LAK</p>
                         <div v-else>
                         <Loading :key="n" style=" height: 20px"  />

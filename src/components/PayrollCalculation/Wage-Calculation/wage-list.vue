@@ -3,7 +3,7 @@
         <div class="page-header">
             <div class="header-start">
                 <div class="header-title">
-                    <h3>Daily Wage Calculation</h3>
+                    <h3>Basic Salary Calculation</h3>
                 </div>
             </div>
             <!-- <div class="header-end">
@@ -19,43 +19,13 @@
                 <li 
                     @click="layoutSelected = i.name"
                     :class="{'is-active': i.name === layoutSelected}"
-                    v-for="i in wage" :key="i._id">
+                    v-for="i in filteredWages" :key="i._id">
                     <a>{{i.name}}</a>
                 </li>
             </ul>
         </div>
 
         <div class="box">
-            <!-- <nav class="pagination" role="navigation" aria-label="pagination">
-                <ul class="pagination-list">
-                    <li>
-                        <a class="pagination-previous">Previous</a></li>
-                    <li>
-                        <a class="pagination-link" aria-label="Goto page 1">1</a>
-                    </li>
-                    <li>
-                        <span class="pagination-ellipsis">&hellip;</span>
-                    </li>
-                    <li>
-                        <a class="pagination-link" aria-label="Goto page 45">45</a>
-                    </li>
-                    <li>
-                        <a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a>
-                    </li>
-                    <li>
-                        <a class="pagination-link" aria-label="Goto page 47">47</a>
-                    </li>
-                    <li>
-                        <span class="pagination-ellipsis">&hellip;</span>
-                    </li>
-                    <li>
-                        <a class="pagination-link" aria-label="Goto page 86">86</a>
-                    </li>
-                    <li>
-                        <a class="pagination-next">Next page</a>
-                    </li>
-                </ul>
-            </nav> -->
             <div class="table-container">
                 <table class="table is-fullwidth" id="my-table">
                     <thead>
@@ -119,29 +89,61 @@
                     name: 'Daily'
                 }
             ],
-
-            employees: []
+            employees: [],
+            monthlyEmpsCount: 0,
+            dailyEmpsCount: 0 
         }),
         watch: {
             layoutSelected() {
                 this.getEmps()
             }
         },
-            methods: {
-
-        async getEmps() {
-              const args = {
-                wageType: this.layoutSelected,
-                monthlyPaymentId: this.$route.params.id
+        computed: {
+            filteredWages() {
+                return this.wage.filter(i => {
+                    if(i.name === 'Monthly' && this.monthlyEmpsCount) return i
+                    else if(i.name === 'Daily' && this.dailyEmpsCount) return i 
+                })
             }
-            const data = await getEmpsByWageType(args)
-
-            this.employees = data
         },
+        
+        methods: {
+            async getEmps() {
+                const args = {
+                    wageType: this.layoutSelected,
+                    monthlyPaymentId: this.$route.params.id
+                }
+                const data = await getEmpsByWageType(args)
+                this.employees = data 
+            },
+
+            async checkWage() {
+                 const monthlyArgs = {
+                    wageType: 'Monthly',
+                    monthlyPaymentId: this.$route.params.id
+                }
+                const dailyArgs = {
+                    wageType: 'Daily',
+                    monthlyPaymentId: this.$route.params.id
+                }
+                const monthlyEmps = await getEmpsByWageType(monthlyArgs)
+                const dailyEmps = await getEmpsByWageType(dailyArgs)
+                
+                this.monthlyEmpsCount = monthlyEmps.length 
+                this.dailyEmpsCount = dailyEmps.length
+
+                if(this.monthlyEmpsCount) {
+                    this.layoutSelected = 'Monthly'
+                }else {
+                    this.layoutSelected = 'Daily'
+                }
+                
+            }
         },
          created() {
-            
+
           this.getEmps()
+          this.checkWage()
 
         }
     }

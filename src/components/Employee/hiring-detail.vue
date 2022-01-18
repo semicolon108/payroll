@@ -299,8 +299,7 @@ export default {
             this.isSalaryAdjustmentModal = false;
             this.$refs.refForm.reset()
             await this.getData();
-            this.$refs.refForm.reset()
-           
+            this.$refs.refForm.reset() 
         },  
         select() {
             this.SelectActive = !this.SelectActive

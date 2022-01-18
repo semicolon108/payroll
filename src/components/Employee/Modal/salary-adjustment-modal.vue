@@ -1,7 +1,7 @@
 <template>
-    <div class="modal is-active">
+    <div class="modal is-active" >
         <div class="modal-background" @click="closeModal"></div>
-        <div class="modal-card slide-down">
+        <div class="modal-card slide-down" style="overflow: auto">
     
             <ValidationObserver v-slot="{ handleSubmit }">
                 <header class="modal-card-head">
@@ -15,10 +15,24 @@
                             <div class="select">
                                 <ValidationProvider name="Type" rules="required" v-slot="{ errors }">
                                     <select v-model="form.type" class="select">
-                        <option value="Increase">Increase</option>
-                        <option value="Decrease">Decrease</option>
-                        <option value="ChangeCurrency">Set new amount</option>
-                      </select>
+                                        <option value="Increase">Increase</option>
+                                        <option value="Decrease">Decrease</option>
+                                        <option value="ChangeCurrency">Set new amount</option>
+                                    </select>
+                                    <p class="has-text-danger">{{ errors[0] }}</p>
+                                </ValidationProvider>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="field">
+                        <label for="" class="label">Wage Type</label>
+                        <div class="control">
+                            <div class="select">
+                                <ValidationProvider name="WageType" rules="required" v-slot="{ errors }">
+                                    <select v-model="form.wageType" class="select">
+                                        <option value="Monthly">Monthly</option>
+                                        <option value="Daily">Daily</option>
+                                    </select>
                                     <p class="has-text-danger">{{ errors[0] }}</p>
                                 </ValidationProvider>
                             </div>
@@ -108,12 +122,14 @@ export default {
     data: () => ({
         hiringDetail: {},
         form: {
-            type: 'Increase'
+            type: 'Increase',
+            wageType: 'Monthly'
         },
         beforeAdjustment: null,
         currencies: [],
         companyCurrency: null,
-        oldCurrency: ''
+        oldCurrency: '',
+        
     }),
     computed: {
         afterAdjustment() {
@@ -163,11 +179,13 @@ export default {
                     daysOfNotify: data.workPermit.daysOfNotify
                 },
             }
+            this.form.wageType = data.wageType
             this.beforeAdjustment = this.hiringDetail.salary
             this.oldCurrency = this.hiringDetail.currencyId
 
         },
         async adjustSalary() {
+        
             this.form.employeeId = this.$route.params.id
             this.form.adjustmentAmount = parseInt(this.form.adjustmentAmount, 10)
             await adjustSalary(this.form)
