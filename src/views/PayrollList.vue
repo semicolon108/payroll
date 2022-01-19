@@ -9,7 +9,7 @@
                     <button
                         v-if="getCompany.isCalcByWorkGroup"
                         @click="isDelete = !isDelete"
-                        class="button py-1 is-danger">Toggle Delete Option
+                        class="button alert no-margin"><i class="fad fa-trash"></i>
                     </button>
                 </div>
 
