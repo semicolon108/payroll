@@ -1,34 +1,36 @@
 <template>
   <div class="page-container">
     <div class="page-header">
-      <h3 class="page-title">{{
+      <div class="header-start">
+        <h3 class="page-title">{{
           $route.params.id ?
               $route.params.name :
               'Add Employee'
         }}</h3>
-      <button
+        <button
           v-if="$route.params.id"
-          @click="isResignationModal = true" class="button alert">Resign</button>
+          @click="isResignationModal = true" class="button alert">Resign
+        </button>
+      </div>
+      <div class="header-end">
+        <button @click="$router.replace({ name: 'employee' })" class="button grey">Close</button>
 
-        <div class="header-end">
-          <button @click="$router.replace({ name: 'employee' })" class="button grey">Close</button>
+        <!-- isOnFinish -->
+        <button
+            v-if="$route.name === 'document'"
+            @click="$router.replace({ name: 'employee' })" class="button primary size-lg">Finish</button>
 
-          <!-- isOnFinish -->
-          <button
-              v-if="$route.name === 'document'"
-              @click="$router.replace({ name: 'employee' })" class="button primary size-lg">Finish</button>
+        <!-- isAddMode -->
+        <button
+            v-if="$route.name !== 'document' && $route.name === 'basic_detail'"
+            @click="$refs.refRoute.saveAndContinue()"
+            class="button primary">Save and continue</button>
 
-          <!-- isAddMode -->
-          <button
-              v-if="$route.name !== 'document' && $route.name === 'basic_detail'"
-              @click="$refs.refRoute.saveAndContinue()"
-              class="button primary">Save and continue</button>
-
-          <!-- isEditMode -->
-          <button
-              v-if="$route.name !== 'document' && $route.name !== 'basic_detail'"
-              @click="$refs.refRoute.saveOnly()" class="button primary">Save</button>
-        </div>
+        <!-- isEditMode -->
+        <button
+            v-if="$route.name !== 'document' && $route.name !== 'basic_detail'"
+            @click="$refs.refRoute.saveOnly()" class="button primary">Save</button>
+      </div>
     </div>
 
     <div class="steps" v-if="$route.params.id">

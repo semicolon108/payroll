@@ -1,8 +1,7 @@
 <template>
   <div class="modal" :class="{'is-active' : modalClick === true}">
     <div class="modal-background" @click="CloseModal"></div>
-    <div class="modal-card">
-      <ValidationObserver v-slot="{ handleSubmit }">
+      <ValidationObserver v-slot="{ handleSubmit }" class="modal-card" tag="div">
         <div class="modal-card-head">
             <h3>Upload your document</h3>
             <p>Please select file to upload</p>
@@ -38,7 +37,6 @@
           <button @click="handleSubmit(addDocument)" class="button primary">Save</button>
         </div>
       </ValidationObserver>
-    </div>
   </div>
 </template>
 

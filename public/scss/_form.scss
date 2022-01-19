@@ -23,6 +23,9 @@
         &:not(:last-child){
             margin-bottom: 5px;
         }
+        span{
+            color: $alert-color;
+        }
     }
 }
 

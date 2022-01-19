@@ -47,7 +47,7 @@
           </div>
           <div class="column is-4">
             <div class="field">
-              <label for="" class="label">Employee ID</label>
+              <label for="" class="label">Employee ID <span>*</span></label>
               <div class="control">
                 <ValidationProvider name="Employee ID" rules="required" v-slot="{ errors }">
                   <input v-model="form.employeeCode" type="text" class="input" required>
@@ -58,7 +58,7 @@
           </div>
           <div class="column is-4">
             <div class="field">
-              <label for="" class="label">First Name</label>
+              <label for="" class="label">First Name <span> (ENG) *</span></label>
               <div class="control">
                 <ValidationProvider name="firstName" rules="required" v-slot="{ errors }">
                   <input v-model="form.firstName" type="text" class="input" required>
@@ -69,7 +69,7 @@
           </div>
           <div class="column is-4">
             <div class="field">
-              <label for="" class="label">Last Name</label>
+              <label for="" class="label">Last Name <span> (ENG) *</span></label>
               <div class="control">
                 <ValidationProvider name="lastName" rules="required" v-slot="{ errors }">
                   <input v-model="form.lastName" type="text" class="input" required>
@@ -81,7 +81,7 @@
 
           <div class="column is-4">
             <div class="field">
-              <label for="" class="label">First Name (Lao)</label>
+              <label for="" class="label">First Name <span> (Lao)</span></label>
               <div class="control">
                 <ValidationProvider name="firstNameLao" v-slot="{ errors }">
                   <input v-model="form.firstNameLao" type="text" class="input" >
@@ -92,7 +92,7 @@
           </div>
           <div class="column is-4">
             <div class="field">
-              <label for="" class="label">Last Name (Lao)</label>
+              <label for="" class="label">Last Name <span> (Lao)</span></label>
               <div class="control">
                 <ValidationProvider name="lastNameLao" v-slot="{ errors }">
                   <input v-model="form.lastNameLao" type="text" class="input" >
@@ -158,22 +158,16 @@
           </div>
           <div class="column is-4">
             <div class="field">
-              <label for="" class="label">Contact Number
-                 <span class="text-green-400">(For Mobile App)</span></label>
-              <div class="control">
-                
-                <ValidationProvider 
-                rules="length:8"
-                mode="lazy"
-  
-                name="Contact Number" v-slot="{ errors }">
-             <div class="flex items-center">
-                  <div class="w-28 bg-blue-700 text-center flex items-center text-white px-2" style="height: 36px; margin-right: -2px">+856 20</div>
-                  <input v-model="form.mobile" type="text" class="input" >
-             </div>
+              <label for="" class="label">Contact Number<span> (For Mobile App)</span></label>
+                <ValidationProvider
+                  class="control has-icons-left mobile" tag="div"
+                  rules="length:8"
+                  mode="lazy"
+                  name="Contact Number" v-slot="{ errors }">
+                    <span class="icon is-small is-left">+856 20</span>
+                    <input v-model="form.mobile" type="text" class="input" >
                   <p class="has-text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
-              </div>
             </div>
           </div>
           <div class="column is-4">
@@ -699,6 +693,23 @@ export default {
     &:checked ~ label::before {
       background-color: $primary-color;
     }
+  }
+}
+
+.mobile {
+  .icon{
+    background-color: $primary-color !important;
+    width: 80px;
+    border: 1px solid $primary-color;
+    border-right: none;
+    color: #fff !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+  }
+  input.input{
+    padding-left: 90px;
   }
 }
 </style>

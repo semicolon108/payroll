@@ -21,6 +21,7 @@
   }
   .modal-card-body{
     padding: 10px 40px 20px;
+    overflow-y: auto;
     &.has-dropdown{
       overflow: visible;
     }

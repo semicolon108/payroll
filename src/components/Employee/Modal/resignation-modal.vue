@@ -1,9 +1,8 @@
 <template>
   <div class="modal is-active">
     <div class="modal-background" @click="closeModal"></div>
-    <div class="modal-card slide-down">
 
-      <ValidationObserver v-slot="{ handleSubmit }">
+      <ValidationObserver v-slot="{ handleSubmit }" class="modal-card slide-down" tag="div">
         <header class="modal-card-head">
           <h3>Set Resignation Date</h3>
           <button class="modal-close is-large" @click="closeModal" aria-label="close"></button>
@@ -24,7 +23,6 @@
           <button @click="handleSubmit(addOrUpdateHirringDetail)" class="button primary">Save</button>
         </footer>
       </ValidationObserver>
-    </div>
 
   </div>
 </template>
