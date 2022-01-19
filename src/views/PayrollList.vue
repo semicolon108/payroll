@@ -48,7 +48,7 @@
             <div v-if="getCompany.isCalcByWorkGroup">
                 <div v-if="!isLoading" >
                     <div v-for="(t, idx) in groupByWorkGroup" :key="idx" class="payroll-container">
-                        <h3 class="payroll-title">{{t[0].paymentDate | moment}}</h3>
+                        <h3 class="payroll-title">{{t[0].paymentDate | moment('MMMM, YYYY')}}</h3>
                         <div class="payroll-list">
                             <table class="table is-fullwidth" id="my-table">
                                 <thead>
