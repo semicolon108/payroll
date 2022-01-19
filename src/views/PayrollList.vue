@@ -35,6 +35,8 @@
         </div>
 
 
+
+
         <div v-if="incomplete.employeesCount" class="_incomplete">
             <p>You have 
                 ({{incomplete.employeesCount}})
@@ -188,8 +190,7 @@
             </div>
             </div>
         </div>
-
-
+    
     </div>
 </template>
 
