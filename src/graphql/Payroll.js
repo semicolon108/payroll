@@ -77,6 +77,8 @@ query (
     totalDeductible
     totalPayroll
     totalOT
+    totalBasicSalary
+
     paymentDate
   }
 }
