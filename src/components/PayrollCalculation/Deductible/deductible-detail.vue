@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-    <div class="page-header">
+    <div class="page-header no-border">
       <div class="header-start">
         <div class="header-title">
           <h3>Earning / Deduction</h3>

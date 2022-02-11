@@ -12,6 +12,7 @@
             <router-view/>
         </div>
       </div>
+      
     </div>
     </div>
     <DefaultLoading/>
@@ -130,7 +131,10 @@ html, body{
     padding-right: $page-padding;
     padding-top: 8px;
     padding-bottom: 8px;
-    box-shadow: 0px 0 3px 3px rgba(#000, .05);
+    // box-shadow: 0px 0 3px 3px rgba(#000, .05);
+    &.no-border{
+      border: none;
+    } 
     .header-start{
         display: flex;
         align-items: center;
@@ -142,6 +146,10 @@ html, body{
     .header-end{
         // margin-left: auto;
         text-align: right;
+        display: flex;
+        .button-group{
+          display: flex;
+        }
     }
     &.bottom{
         align-items: flex-end;
