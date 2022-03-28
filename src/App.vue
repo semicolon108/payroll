@@ -22,8 +22,7 @@
 <script>
 
 
-import sidebar from "@coms/sidebar";
-// import navigation from "@coms/navbar";
+import sidebar from '@coms/sidebar'
 import {mapMutations, mapGetters, mapActions} from 'vuex'
 import DefaultLoading from '@/components/DefaultLoader/loading'
 import ReloadLoading from '@/components/DefaultLoader/reload-loading'
