@@ -26,6 +26,13 @@ $widescreen: 1216px;
   }
 }
 
+@mixin widescreen {
+  @media (min-width: #{$widescreen}) {
+    @content;
+  }
+}
+
+
 .container{
   @include desktop{
     width: 1200px;

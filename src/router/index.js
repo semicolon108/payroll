@@ -36,6 +36,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "Employee" */ '../views/Employee.vue')
   },
   {
+    path: '/pension-fund',
+    name: 'pension_fund',
+    component: () => import(/* webpackChunkName: "Employee" */ '../views/Pension-Fund.vue')
+  },
+  {
     path: '/users',
     name: 'users',
     component: () => import(/* webpackChunkName: "Employee" */ '../views/Users.vue')
@@ -49,7 +54,7 @@ const routes = [
     path: '/employee',
     name: 'add_employee',
     component: () => import(/* webpackChunkName: "add_employee" */ '../views/AddEmployee.vue'),
-    children:[
+    children: [
       {
         path: 'edit_basic_detail/:id/:name',
         name: 'edit_basic_detail',
@@ -92,7 +97,7 @@ const routes = [
     path: '/payroll-calculation',
     name: 'payroll_calculation',
     component: () => import(/* webpackChunkName: "calculate_earning_deduction" */ '../views/PayrollCalculation.vue'),
-    children:[
+    children: [
       {
         path: 'calculate-earning-deduction/:id',
         name: 'calculate_earning_deduction',
@@ -130,7 +135,7 @@ const routes = [
     path: '/company-setup',
     name: 'company_setup',
     component: () => import('../views/CompanySetup.vue'),
-    children:[
+    children: [
       {
         path: 'company-info',
         name: 'company_info',

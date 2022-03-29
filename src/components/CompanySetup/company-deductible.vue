@@ -4,13 +4,20 @@
       <div class="column">
         <div class="box-header">
           <h3 class="box-title">Earning / Deduction</h3>
-          <button @click="ModalClick = 'AddItem'" class="button primary">Add Item</button>
+          <button @click="ModalClick = 'AddItem'" class="button primary">
+            Add Item
+          </button>
           <div class="button-group">
-            <button class="button" @click="showGroup = !showGroup">Manage Group</button>
-            <button class="button"
-                    @click="openCreateGroupModal"
-                    :class="{'create' : itemSelected.length}"
-                    :disabled="itemSelected.length ? false : true">Create Group
+            <button class="button" @click="showGroup = !showGroup">
+              Manage Group
+            </button>
+            <button
+              class="button"
+              @click="openCreateGroupModal"
+              :class="{ create: itemSelected.length }"
+              :disabled="itemSelected.length ? false : true"
+            >
+              Create Group
             </button>
           </div>
         </div>
@@ -19,16 +26,14 @@
             <span>{{ i.name }}</span>
             <span class="count">{{ i.earnDeductsCount }}</span>
             <span @click="editGroup(i)">
-                <i class="fas fa-cog"></i>
+              <i class="fas fa-cog"></i>
             </span>
           </div>
           <!-- <button class="button grey" style="margin-left: 5px"><i class="fas fa-plus"></i></button> -->
-
         </div>
-        <table class="table has-border is-fullwidth" id="my-table">
+        <table class="table border-bottom is-fullwidth" id="my-table">
           <thead>
             <tr>
-              <th></th>
               <th>Item Name</th>
               <th class="is-xs">Item Type</th>
               <th class="">Group</th>
@@ -38,18 +43,25 @@
           </thead>
           <tbody>
             <tr v-for="i in earnDeducts" :key="i._id">
-              <td class="check">
-                <input ref="Checkbox" type="checkbox" name="" :id="i._id">
-                <label :for="i._id" @click="itemSelect(i._id)"></label>
+              <td class="wrap">
+                <div class="check">
+                  <input ref="Checkbox" type="checkbox" name="" :id="i._id" />
+                  <label :for="i._id" @click="itemSelect(i._id)">{{
+                    i.name
+                  }}</label>
+                </div>
               </td>
-              <td class="wrap">{{ i.name }}</td>
               <td>{{ i.type }}</td>
               <td>{{ i.groups | perttyArray }}</td>
-              <td>{{ i.isBeforeTax ? 'BeforeTAX' : 'AfterTAX' }}</td>
+              <td>{{ i.isBeforeTax ? "BeforeTAX" : "AfterTAX" }}</td>
               <td>
                 <div class="icons">
-                  <span class="icon" @click="editItem(i)"><i class="fas fa-pen"></i></span>
-                  <span class="icon alert" @click="deleteItem(i)"><i class="fas fa-trash"></i></span>
+                  <span class="icon" @click="editItem(i)"
+                    ><i class="fas fa-pen"></i
+                  ></span>
+                  <span class="icon alert" @click="deleteItem(i)"
+                    ><i class="fas fa-trash"></i
+                  ></span>
                 </div>
               </td>
             </tr>
@@ -58,133 +70,134 @@
       </div>
 
       <component
-          ref="Modal"
-          @PushItem="pushItem"
-          @PushGroupItem="pushGroupItem"
-          @UpdateItem="updateItem"
-          @SpliceItem="spliceItem"
-          @UpdateGroupItem="updateGroupItem"
-          @SpliceGroupItem="spliceGroupItem"
-          :is="ModalClick" @CloseModal="ModalClick = ''"/>
+        ref="Modal"
+        @PushItem="pushItem"
+        @PushGroupItem="pushGroupItem"
+        @UpdateItem="updateItem"
+        @SpliceItem="spliceItem"
+        @UpdateGroupItem="updateGroupItem"
+        @SpliceGroupItem="spliceGroupItem"
+        :is="ModalClick"
+        @CloseModal="ModalClick = ''"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import AddItem from '@coms/CompanySetup/Modal/AddItem';
-import CreateGroup from '@coms/CompanySetup/Modal/CreateGroup';
-import ManageGroup from '@coms/CompanySetup/Modal/ManageGroup';
-import DeleteItem from '@coms/CompanySetup/Modal/DeleteItem';
-import {getEarnDeducts} from "@/apis/earn-deduct-api";
-import {getEarnDeductGroups} from "@/apis/earn-deduct-group-api";
-
+import AddItem from "@coms/CompanySetup/Modal/AddItem";
+import CreateGroup from "@coms/CompanySetup/Modal/CreateGroup";
+import ManageGroup from "@coms/CompanySetup/Modal/ManageGroup";
+import DeleteItem from "@coms/CompanySetup/Modal/DeleteItem";
+import { getEarnDeducts } from "@/apis/earn-deduct-api";
+import { getEarnDeductGroups } from "@/apis/earn-deduct-group-api";
 
 export default {
   components: {
     AddItem,
     CreateGroup,
     ManageGroup,
-    DeleteItem
+    DeleteItem,
   },
   data: () => ({
     showGroup: false,
     itemSelected: [],
-    ModalClick: '',
+    ModalClick: "",
     earnDeducts: [],
     earnDeductGroups: [],
   }),
   filters: {
     perttyArray(arr) {
-      if (arr.length) return arr.map(i => i.name).join(', ')
-      return 'Ungroup'
-    }
+      if (arr.length) return arr.map((i) => i.name).join(", ");
+      return "Ungroup";
+    },
   },
   created() {
-    this.getData()
+    this.getData();
   },
   methods: {
     itemSelect(id) {
-      const itemID = this.itemSelected.includes(id)
+      const itemID = this.itemSelected.includes(id);
       if (!itemID) {
-        this.itemSelected.push(id)
+        this.itemSelected.push(id);
       } else {
-        this.itemSelected = this.itemSelected.filter(i => i !== id)
+        this.itemSelected = this.itemSelected.filter((i) => i !== id);
       }
     },
     async getData() {
-      this.earnDeducts = await getEarnDeducts()
-      this.earnDeductGroups = await getEarnDeductGroups()
+      this.earnDeducts = await getEarnDeducts();
+      this.earnDeductGroups = await getEarnDeductGroups();
     },
     openCreateGroupModal() {
-      this.ModalClick = 'CreateGroup'
+      this.ModalClick = "CreateGroup";
       this.$nextTick(() => {
-        this.$refs.Modal.form.earnDeductIds = this.itemSelected
-      })
+        this.$refs.Modal.form.earnDeductIds = this.itemSelected;
+      });
     },
     async pushItem(item) {
-      this.earnDeducts.push(item)
-      this.earnDeductGroups = await getEarnDeductGroups()
+      this.earnDeducts.push(item);
+      this.earnDeductGroups = await getEarnDeductGroups();
     },
     async updateItem(item) {
-      const curIdx = this.earnDeducts.findIndex(i => i._id === item._id)
-      this.earnDeducts.splice(curIdx, 1, item)
-      this.earnDeductGroups = await getEarnDeductGroups()
+      const curIdx = this.earnDeducts.findIndex((i) => i._id === item._id);
+      this.earnDeducts.splice(curIdx, 1, item);
+      this.earnDeductGroups = await getEarnDeductGroups();
     },
     pushGroupItem() {
-      this.itemSelected = []
-      this.$refs.Checkbox.map(i => {
-        i.checked = false
-      })
-      this.getData()
+      this.itemSelected = [];
+      this.$refs.Checkbox.map((i) => {
+        i.checked = false;
+      });
+      this.getData();
     },
     async updateGroupItem(item) {
-      const curIdx = this.earnDeductGroups.findIndex(i => i._id === item._id)
-      this.earnDeductGroups.splice(curIdx, 1, item)
-      this.earnDeducts = await getEarnDeducts()
+      const curIdx = this.earnDeductGroups.findIndex((i) => i._id === item._id);
+      this.earnDeductGroups.splice(curIdx, 1, item);
+      this.earnDeducts = await getEarnDeducts();
     },
     async spliceGroupItem(item) {
-      const curIdx = this.earnDeductGroups.findIndex(i => i._id === item._id)
-      this.earnDeductGroups.splice(curIdx, 1)
-      this.earnDeducts = await getEarnDeducts()
+      const curIdx = this.earnDeductGroups.findIndex((i) => i._id === item._id);
+      this.earnDeductGroups.splice(curIdx, 1);
+      this.earnDeducts = await getEarnDeducts();
     },
     spliceItem(earnDeductId) {
-      const curIdx = this.earnDeducts.findIndex(i => i._id === earnDeductId)
-      this.earnDeducts.splice(curIdx, 1)
+      const curIdx = this.earnDeducts.findIndex((i) => i._id === earnDeductId);
+      this.earnDeducts.splice(curIdx, 1);
     },
 
     editItem(item) {
-      this.ModalClick = 'AddItem'
+      this.ModalClick = "AddItem";
       this.$nextTick(() => {
-        this.$refs.Modal.isEditMode = true
+        this.$refs.Modal.isEditMode = true;
         this.$refs.Modal.form = {
           earnDeductId: item._id,
           name: item.name,
           type: item.type,
           isBeforeTax: item.isBeforeTax,
-          earnDeductGroupIds: item.groups.map(i => i._id)
-        }
-      })
+          earnDeductGroupIds: item.groups.map((i) => i._id),
+        };
+      });
     },
     deleteItem(item) {
-      this.ModalClick = 'DeleteItem'
+      this.ModalClick = "DeleteItem";
       this.$nextTick(() => {
-        this.$refs.Modal.earnDeductId = item._id
-        this.$refs.Modal.name = item.name
-      })
+        this.$refs.Modal.earnDeductId = item._id;
+        this.$refs.Modal.name = item.name;
+      });
     },
     editGroup(item) {
-      this.ModalClick = 'ManageGroup'
+      this.ModalClick = "ManageGroup";
       this.$nextTick(() => {
         this.$refs.Modal.form = {
           name: item.name,
           earnDeductGroupId: item._id,
-          earnDeductIds: item.earnDeductIds.map(i => i._id)
-        }
-        this.$refs.Modal.earnDeducts = item.earnDeductIds
-      })
-    }
-  }
-}
+          earnDeductIds: item.earnDeductIds.map((i) => i._id),
+        };
+        this.$refs.Modal.earnDeducts = item.earnDeductIds;
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -210,7 +223,7 @@ export default {
   border-radius: $radius;
   border: 1px solid $border-color;
   margin-left: 10px;
-  transition: all ease-in-out .2s;
+  transition: all ease-in-out 0.2s;
   color: $font-color;
   box-shadow: none;
   &:hover {
@@ -256,8 +269,8 @@ export default {
   }
 }
 
-
 .check {
+  position: relative;
   input {
     display: none;
     &:checked ~ label::before {
@@ -265,10 +278,10 @@ export default {
       border-color: $primary-color;
     }
     &:checked ~ label::after {
-      content: '';
+      content: "";
       display: block;
       position: absolute;
-      top: 3px;
+      top: 7px;
       left: 7px;
       width: 5px;
       height: 11px;
@@ -280,20 +293,23 @@ export default {
   label {
     position: relative;
     cursor: pointer;
-    margin: 0;
+    display: flex;
+    align-items: center;
+    margin: 0 10px 0 0;
     &::before {
-      content: '';
+      content: "";
       width: 18px;
       height: 18px;
       display: block;
       border: 1px solid $border-color;
+      margin-right: 10px;
     }
 
     &::after {
-      content: '';
+      content: "";
       display: block;
       position: absolute;
-      top: 3px;
+      top: 7px;
       left: 7px;
       width: 5px;
       height: 11px;
@@ -303,5 +319,4 @@ export default {
     }
   }
 }
-
 </style>
