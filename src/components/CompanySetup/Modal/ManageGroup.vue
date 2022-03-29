@@ -1,7 +1,11 @@
 <template>
   <div class="modal is-active">
     <div class="modal-background" @click="CloseModal"></div>
-    <ValidationObserver v-slot="{ handleSubmit }" tag="div" class="modal-content box slide-down">
+    <ValidationObserver
+      v-slot="{ handleSubmit }"
+      tag="div"
+      class="modal-content box slide-down"
+    >
       <div class="header">
         <h3>Manage Group</h3>
       </div>
@@ -10,7 +14,7 @@
         <label for="" class="label">Group Name</label>
         <div class="control">
           <ValidationProvider rules="required" v-slot="{ errors }">
-            <input v-model="form.name" type="text" class="input">
+            <input v-model="form.name" type="text" class="input" />
             <p class="has-text-danger">{{ errors[0] }}</p>
           </ValidationProvider>
         </div>
@@ -18,81 +22,103 @@
       <div class="field">
         <label for="" class="label">Assigned Item</label>
         <div class="control selected">
-          <div class="item" v-for="(i, idx) in earnDeducts"
-               :key="idx"
-               :class="{'is-active': form.earnDeductIds.includes(i._id)}"
-               @click="pushOrSplice(i._id)"
+          <div
+            class="item"
+            v-for="(i, idx) in earnDeducts"
+            :key="idx"
+            :class="{ 'is-active': form.earnDeductIds.includes(i._id) }"
+            @click="pushOrSplice(i._id)"
           >
             <span>{{ i.name }}</span>
           </div>
         </div>
       </div>
 
-      <hr>
+      <hr />
 
-      <button @click="handleSubmit(updateEarnDeductGroup)" class="button primary">Update</button>
-      <button @click="handleSubmit(deleteEarnDeductGroup)" class="button alert">Delete Group</button>
-      <button class="modal-close is-large" @click="CloseModal" aria-label="close"></button>
+      <div class="button-group">
+        <button
+          @click="handleSubmit(updateEarnDeductGroup)"
+          class="button primary"
+        >
+          Update
+        </button>
+        <button
+          @click="handleSubmit(deleteEarnDeductGroup)"
+          class="button alert"
+        >
+          Delete Group
+        </button>
+        <button
+          class="modal-close is-large"
+          @click="CloseModal"
+          aria-label="close"
+        ></button>
+      </div>
     </ValidationObserver>
   </div>
 </template>
 
 <script>
-
-import {deleteEarnDeductGroup, updateEarnDeductGroup} from "@/apis/earn-deduct-group-api";
+import {
+  deleteEarnDeductGroup,
+  updateEarnDeductGroup,
+} from "@/apis/earn-deduct-group-api";
 
 export default {
-  props: [
-    'modalClick'
-  ],
+  props: ["modalClick"],
   data: () => ({
     form: {
-      earnDeductGroupId: '',
-      name: '',
-      earnDeductIds: []
+      earnDeductGroupId: "",
+      name: "",
+      earnDeductIds: [],
     },
-    earnDeducts: []
+    earnDeducts: [],
   }),
   methods: {
     CloseModal() {
-      this.$emit('CloseModal')
+      this.$emit("CloseModal");
     },
     pushOrSplice(id) {
-      const itemID = this.form.earnDeductIds.includes(id)
+      const itemID = this.form.earnDeductIds.includes(id);
       if (!itemID) {
-        this.form.earnDeductIds.push(id)
+        this.form.earnDeductIds.push(id);
       } else {
-        this.form.earnDeductIds = this.form.earnDeductIds.filter(i => i !== id)
+        this.form.earnDeductIds = this.form.earnDeductIds.filter(
+          (i) => i !== id
+        );
       }
     },
     async updateEarnDeductGroup() {
-      const item = await updateEarnDeductGroup(this.form)
-      this.$emit('UpdateGroupItem', item)
-      this.CloseModal()
+      const item = await updateEarnDeductGroup(this.form);
+      this.$emit("UpdateGroupItem", item);
+      this.CloseModal();
     },
     async deleteEarnDeductGroup() {
       try {
-        const item = await deleteEarnDeductGroup(this.form.earnDeductGroupId)
-        this.$emit('SpliceGroupItem', item)
-        this.CloseModal()
+        const item = await deleteEarnDeductGroup(this.form.earnDeductGroupId);
+        this.$emit("SpliceGroupItem", item);
+        this.CloseModal();
       } catch (err) {
-        if (err.graphQLErrors[0].message === 'You cannot delete default group') {
-          this.CloseModal()
+        if (
+          err.graphQLErrors[0].message === "You cannot delete default group"
+        ) {
+          this.CloseModal();
           setTimeout(() => {
-            alert(err.graphQLErrors[0].message)
-          }, 100)
+            alert(err.graphQLErrors[0].message);
+          }, 100);
         }
       }
-    }
+    },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
-hr{
+hr {
   height: 1px;
 }
-button.button{
+button.button {
   margin-right: 10px;
 }
 .checkbox-item {
@@ -137,5 +163,4 @@ button.button{
     }
   }
 }
-
 </style>

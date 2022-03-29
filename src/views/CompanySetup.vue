@@ -61,7 +61,6 @@ export default {};
     cursor: pointer;
     background-color: #fff;
     white-space: pre;
-    @include md-font;
     &:not(:last-child) {
       margin-bottom: 5px;
     }
