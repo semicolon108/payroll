@@ -96,14 +96,19 @@ export default {
       // }
       a.sidebar-item {
         white-space: pre;
-        display: block;
+        display: flex;
+        align-items: center;
         cursor: pointer;
         @include md-font;
         padding: 10px 0 0;
         color: rgba(#fff, 0.4);
         display: flex;
+        position: relative;
         &.router-link-active {
           color: #fff;
+          span {
+            background-color: #fff;
+          }
         }
         span {
           background-color: rgba(#fff, 0.4);
