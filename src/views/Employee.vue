@@ -1,9 +1,13 @@
 <template>
     <div class="page-container">
+        
         <div class="page-header border-bottom">
             <div class="header-start">
                 <h3 class="page-title">Employee</h3>
                 <button class="button primary" @click="$router.push({name:'basic_detail'})"><i class="fas fa-plus"></i> Add</button>
+                 <button class="button primary"
+   
+                  @click="isShowUploadModal = true"><i class="fas fa-plus"></i> Upload Salary</button>
             </div>
             <div>
                 <input type="text" v-model="textSearch" class="input" placeholder="Search..." >
@@ -104,6 +108,10 @@
             </div>
         </div>
       
+      <Upload v-if="isShowUploadModal"
+      
+                    @closeModal="isShowUploadModal = false"
+      />
 
     </div>
 </template>
@@ -113,11 +121,13 @@ import { GET_EMPLOYEES } from "@/graphql/Employee";
 import Loading from '@/components/Loading/SkeletonLoading'
 // import Pagination from '@/utils/Pagination2'
 import InfiniteLoading from 'vue-infinite-loading';
+import Upload from "@coms/Upload/upload.vue";
 
 export default {
     components: {
          Loading,
-        InfiniteLoading
+        InfiniteLoading,
+        Upload
         // Pagination
     },
     data: () => ({
@@ -128,7 +138,8 @@ export default {
         isLoading: true,
         currentPage: 1,
         perPage: 20,
-        isResigned: false
+        isResigned: false,
+        isShowUploadModal: false
     }),
     watch: {
         textSearch() {
@@ -170,6 +181,7 @@ export default {
         }
     },
     methods: {
+
         infiniteHandler() {
             this.getEmpsWithInfinite()
         },
