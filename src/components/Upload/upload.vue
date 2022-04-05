@@ -5,8 +5,9 @@
       <div class="modal-card-head">
         <h3>Upload Salary</h3>
         <p>Please download template</p>
-         <!-- @click="downloadTemplate"  -->
+        
         <a 
+         @click="downloadTemplate" 
        
         class="template-file"><i class="fas fa-file-excel"></i>Excel Template</a>
         <button
@@ -81,36 +82,36 @@ export default {
     closeModal() {
       this.$emit("closeModal")
     },
-    // async downloadTemplate() {
-    //   try {
-    //     await this.$store.dispatch("loading");
-    //     this.$axios.defaults.headers["Authorization"] = this.getToken;
-    //     const res = await this.$axios.post(
-    //       this.$api + "download-deductable-template",
-    //       {
-    //         monthlyPaymentId: this.$route.params.id
-    //       }, 
-    //       {
-    //         responseType: 'blob'
-    //       }
-    //     );
-    //     const url = URL.createObjectURL(
-    //       new Blob([res.data], {
-    //         type:
-    //           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    //       })
-    //     );
-    //     const link = document.createElement("a");
-    //     link.href = url;
-    //     link.setAttribute("download", "deductable-template.xlsx");
-    //     document.body.appendChild(link);
-    //     link.click();
-    //     await this.$store.dispatch("completed")
-    //   } catch (err) {
-    //     await this.$store.dispatch("error")
-    //     throw new Error(err);
-    //   }
-    // },
+    async downloadTemplate() {
+      try {
+        await this.$store.dispatch("loading");
+        this.$axios.defaults.headers["Authorization"] = this.getToken;
+        const res = await this.$axios.post(
+          this.$api + "/download-salary-template",
+          {
+            monthlyPaymentId: this.$route.params.id
+          }, 
+          {
+            responseType: 'blob'
+          }
+        );
+        const url = URL.createObjectURL(
+          new Blob([res.data], {
+            type:
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          })
+        );
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "salary-template.xlsx");
+        document.body.appendChild(link);
+        link.click();
+        await this.$store.dispatch("completed")
+      } catch (err) {
+        await this.$store.dispatch("error")
+        throw new Error(err);
+      }
+    },
     async chooseFile($file) {
       const file = $file.target.files[0];
       const reader = new FileReader();
