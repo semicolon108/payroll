@@ -263,9 +263,9 @@
             <div class="field">
               <label for="" class="label">Pension Fund (%)</label>
               <div class="control toggle">
-                <input type="text" class="input" />
+                <input v-model="form.pensionFund.percent" type="text" class="input" />
                 <div class="select-toggle">
-                  <input type="checkbox" id="pension" checked />
+                  <input v-model="form.pensionFund.isUsed" type="checkbox" id="pension" />
                   <label for="pension">Active</label>
                 </div>
               </div>
@@ -394,6 +394,10 @@ export default {
         endDate: null,
         daysOfNotify: null,
       },
+      pensionFund: {
+        percent: 4,
+        isUsed: true
+      }
     },
     isEditMode: false,
 
@@ -463,6 +467,7 @@ export default {
           contractEndDate: data.contractEndDate
             ? new Date(data.contractEndDate)
             : undefined,
+            
         };
         this.defaultValue = {
           dateOfJoining: data.dateOfJoining,
@@ -490,6 +495,7 @@ export default {
           this.form.workPermit.daysOfNotify,
           10
         );
+        this.form.pensionFund.percent = parseInt(this.form.pensionFund.percent)
         await addOrUpdateHirringDetail(this.form);
         await this.$store.dispatch("completed");
       } catch (err) {

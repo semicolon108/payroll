@@ -39,9 +39,12 @@ query (
         beforeAdjustment
         afterAdjustment
         memo
+        
 
         
     }
+
+    pensionFund 
   }
 }
 
@@ -67,6 +70,7 @@ mutation (
         $contractEndDate: Date
         $probationEndDate: Date
   $resignationDate:  Date
+  $pensionFund: Any
     ) {
         addOrUpdateHiringDetail(
             info: {
@@ -85,6 +89,7 @@ mutation (
                 contractEndDate: $contractEndDate
                 isOpenContract: $isOpenContract
               resignationDate: $resignationDate
+              pensionFund: $pensionFund
             }
         ) {
             _id
@@ -108,6 +113,7 @@ mutation (
             isOpenContract
             contractEndDate
             resignationDate
+          pensionFund
         
         }
     }
