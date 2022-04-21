@@ -42,6 +42,7 @@ export const GET_COMPANY = gql`
             }
             isHiringExpat
             isCalcByWorkGroup
+            private
 #            private {
 #                sso
 #            }
@@ -98,6 +99,7 @@ export const UPDATE_COMPANY = gql`
             }
             isHiringExpat
             isCalcByWorkGroup
+            private
 #            private {
 #                sso
 #            }

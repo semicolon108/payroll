@@ -259,7 +259,7 @@
             </div>
           </div>
 
-          <div class="column is-4">
+          <div class="column is-4" v-if="getCompany.private && getCompany.private.isPensionFund">
             <div class="field">
               <label for="" class="label">Pension Fund (%)</label>
               <div class="control toggle">
