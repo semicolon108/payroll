@@ -3,11 +3,11 @@
       <div class="form-header">
         <div class="has-button">
           <h3>Earning / Deduction</h3>
-          <button
+          <!-- <button
               v-if="!customAllowances.length"
               @click="addCustomAllo"
               class="button sub">Add custom item
-          </button>
+          </button> -->
         </div>
         <p>Please choose at least one earning group below</p>
         <ul class="allowance-list">

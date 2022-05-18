@@ -42,15 +42,18 @@ export default {
   },
   watch: {
     "$route.query.accessToken": {
-      handler(val) {
+      async handler(val)  {
         if (val) {
           this.SET_TOKEN(this.$route.query.accessToken);
           this.$router.push({ name: "dashboard" });
+          await this.getMyCompany();
           window.location.reload();
         }
 
+
+
         setTimeout(() => {
-          this.getMyCompany();
+            this.getMyCompany();
           this.isLoading = false;
         }, 1700);
       },

@@ -258,7 +258,7 @@
               </div>
             </div>
           </div>
-
+<!-- {{getCompany.private}}
           <div class="column is-4" v-if="getCompany.private && getCompany.private.isPensionFund">
             <div class="field">
               <label for="" class="label">Pension Fund (%)</label>
@@ -270,7 +270,10 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
+
+
+
         </div>
 
         <div v-if="employee.isExpat">
@@ -488,6 +491,7 @@ export default {
     },
     async addOrUpdateHirringDetail() {
       try {
+        
         await this.$store.dispatch("loading");
         this.form.employeeId = this.$route.params.id;
         this.form.workingDay = parseInt(this.form.workingDay, 10);

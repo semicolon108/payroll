@@ -94,10 +94,7 @@ export const GET_EMPLOYEE = gql`
                 size
             }
             isExpat
-            customFields {
-                key
-                value
-            }
+            customFields 
 
         }
     }
@@ -273,7 +270,7 @@ export const UPDATE_EMPLOYEE = gql`
 export const UPDATE_CUSTOM_FIELDS_BY_EMP = gql`
     mutation (
     $employeeId: ID!
-    $customFields: [EmCustomFieldInput]
+    $customFields: Any
     ) {
     updateCustomFieldsByEmp(
         employeeId: $employeeId

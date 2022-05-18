@@ -3,7 +3,7 @@
     <div class="sidebar-container">
       <div class="sidebar-items">
         <!-- <div class="sidebar-title">Organization</div> -->
-        <router-link to="/company-setup" class="sidebar-item"
+        <router-link to="/company-setup/company-info" class="sidebar-item"
           ><span><i class="fa-solid fa-building"></i></span>
           Company</router-link
         >
@@ -18,10 +18,15 @@
           ><span><i class="fa-solid fa-users"></i></span> Employee</router-link
         >
       </div>
+      
+
+<!-- <p v-show="getCompany !== null">eiei</p> -->
 
       <div class="sidebar-items">
         <!-- <div class="sidebar-title">Salary</div> -->
-        <router-link to="/pension-fund" class="sidebar-item"
+        <router-link
+        v-if="getCompany.private && getCompany.private.isPensionFund"
+         to="/pension-fund" class="sidebar-item"
           ><span><i class="fa-solid fa-piggy-bank"></i></span>Pension
           Fund</router-link
         >
@@ -46,12 +51,15 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 import { logoutURL } from "@/config/variables";
 export default {
   data: () => ({
     getStart: false,
   }),
+  computed: {
+      ...mapGetters(["getCompany", 'isAuth']),
+  },
   methods: {
     ...mapMutations(["DESTROY_TOKEN"]),
     logout() {

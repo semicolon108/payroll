@@ -109,8 +109,7 @@
         </div>
       
       <Upload v-if="isShowUploadModal"
-      
-                    @closeModal="isShowUploadModal = false"
+        @closeModal="isShowUploadModal = false"
       />
 
     </div>
