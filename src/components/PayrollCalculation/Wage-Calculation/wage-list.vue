@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="page-header no-border no-padding margin-bottom-20">
+    <div class="page-header no-border no-padding margin-bottom-20 no-shadow">
       <div class="header-start">
         <div class="header-title">
           <h3>Basic Salary Calculation</h3>

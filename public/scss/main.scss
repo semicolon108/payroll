@@ -24,19 +24,24 @@ $desktop-subtitle: 20px;
 @import "./font-size";
 @import "./helper-class";
 
-body, html{
+* {
+    outline: none;
+}
+
+body,
+html {
     height: 100%;
     font-family: $font;
     background-color: #fff;
 }
 
-.line{
+.line {
     background-color: $border-color;
     height: 1px;
     margin-top: 0;
 }
 
-.box{
+.box {
     border-radius: $radius;
     border: 1px solid $border-color;
     box-shadow: none;

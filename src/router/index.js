@@ -16,11 +16,6 @@ const routes = [
     component: () => import(/* webpackChunkName: "getstart" */ '../views/Formula.vue')
   },
   {
-    path: '/custom-field',
-    name: 'customfield',
-    component: () => import(/* webpackChunkName: "getstart" */ '../views/CustomField.vue')
-  },
-  {
     path: '/department',
     name: 'department',
     component: () => import(/* webpackChunkName: "department" */ '../views/Department.vue')
@@ -185,8 +180,18 @@ const routes = [
         path: 'company-expat',
         name: 'company_expat',
         component: () => import(/* webpackChunkName: "company_expat" */ '@coms/CompanySetup/company-expat.vue')
-      }
-    ]
+      },
+      {
+        path: 'company-earning-deduction',
+        name: 'company_earning_deduction',
+        component: () => import(/* webpackChunkName: "company_expat" */ '@coms/CompanySetup/company-earning-deduction.vue')
+      },
+      {
+        path: 'custom-field',
+        name: 'customfield',
+        component: () => import(/* webpackChunkName: "getstart" */ '@coms/CompanySetup/company-custom-field.vue')
+      },
+    ] // children
   }
 ]
 

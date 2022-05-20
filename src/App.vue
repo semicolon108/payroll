@@ -104,10 +104,12 @@ body {
         display: flex;
         flex-direction: column;
         height: 100%;
+        width: 100%;
         .page-content {
           padding: $page-padding;
           overflow-y: scroll;
           height: 100%;
+          padding: 30px;
         }
       }
     }
@@ -119,15 +121,21 @@ body {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid $border-color;
-  padding-left: $page-padding;
-  padding-right: $page-padding;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  &.no-border {
-    border: none;
+  padding: 10px 20px;
+  box-shadow: 10px 0 20px 1px rgba(#000, 0.1);
+  position: relative;
+  z-index: 2;
+  @include widescreen {
+    padding: 10px 30px;
+  }
+  &.no-shadow {
+    box-shadow: none !important;
   }
   &.no-padding {
     padding: 0 !important;
+  }
+  &.no-border {
+    border: none;
   }
   .header-start {
     display: flex;

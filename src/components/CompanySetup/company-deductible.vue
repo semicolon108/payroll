@@ -1,86 +1,87 @@
 <template>
-  <div class="box">
-    <div class="columns">
-      <div class="column">
-        <div class="box-header">
-          <h3 class="box-title">Earning / Deduction</h3>
-          <button @click="ModalClick = 'AddItem'" class="button primary">
-            Add Item
-          </button>
-          <div class="button-group">
-            <button class="button" @click="showGroup = !showGroup">
-              Manage Group
-            </button>
-            <button
-              class="button"
-              @click="openCreateGroupModal"
-              :class="{ create: itemSelected.length }"
-              :disabled="itemSelected.length ? false : true"
-            >
-              Create Group
-            </button>
-          </div>
-        </div>
-        <div class="group-list slide-down" v-if="showGroup">
-          <div v-for="i in earnDeductGroups" :key="i._id" class="group-item">
-            <span>{{ i.name }}</span>
-            <span class="count">{{ i.earnDeductsCount }}</span>
-            <span @click="editGroup(i)">
-              <i class="fas fa-cog"></i>
-            </span>
-          </div>
-          <!-- <button class="button grey" style="margin-left: 5px"><i class="fas fa-plus"></i></button> -->
-        </div>
-        <table class="table border-bottom is-fullwidth" id="my-table">
-          <thead>
-            <tr>
-              <th>Item Name</th>
-              <th class="is-xs">Item Type</th>
-              <th class="">Group</th>
-              <th class="is-xs">TAX</th>
-              <th class="is-xs">Option</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="i in earnDeducts" :key="i._id">
-              <td class="wrap">
-                <div class="check">
-                  <input ref="Checkbox" type="checkbox" name="" :id="i._id" />
-                  <label :for="i._id" @click="itemSelect(i._id)">{{
-                    i.name
-                  }}</label>
-                </div>
-              </td>
-              <td>{{ i.type }}</td>
-              <td>{{ i.groups | perttyArray }}</td>
-              <td>{{ i.isBeforeTax ? "BeforeTAX" : "AfterTAX" }}</td>
-              <td>
-                <div class="icons">
-                  <span class="icon" @click="editItem(i)"
-                    ><i class="fas fa-pen"></i
-                  ></span>
-                  <span class="icon alert" @click="deleteItem(i)"
-                    ><i class="fas fa-trash"></i
-                  ></span>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+  <div class="page-container">
+    <div class="page-header">
+      <div class="header-start">
+        <h3 class="page-title">Earning / Deduction</h3>
+        <button @click="ModalClick = 'AddItem'" class="button primary">
+          Add Item
+        </button>
       </div>
-
-      <component
-        ref="Modal"
-        @PushItem="pushItem"
-        @PushGroupItem="pushGroupItem"
-        @UpdateItem="updateItem"
-        @SpliceItem="spliceItem"
-        @UpdateGroupItem="updateGroupItem"
-        @SpliceGroupItem="spliceGroupItem"
-        :is="ModalClick"
-        @CloseModal="ModalClick = ''"
-      />
+      <div class="header-end">
+        <button class="button" @click="showGroup = !showGroup">
+          Manage Group
+        </button>
+        <button
+          class="button"
+          @click="openCreateGroupModal"
+          :class="{ create: itemSelected.length }"
+          :disabled="itemSelected.length ? false : true"
+        >
+          Create Group
+        </button>
+      </div>
     </div>
+    <div class="group-list slide-down" v-if="showGroup">
+      <div v-for="i in earnDeductGroups" :key="i._id" class="group-item">
+        <span>{{ i.name }}</span>
+        <span class="count">{{ i.earnDeductsCount }}</span>
+        <span @click="editGroup(i)">
+          <i class="fas fa-cog"></i>
+        </span>
+      </div>
+      <!-- <button class="button grey" style="margin-left: 5px"><i class="fas fa-plus"></i></button> -->
+    </div>
+
+    <div class="page-content">
+      <table class="table border-bottom is-fullwidth" id="my-table">
+        <thead>
+          <tr>
+            <th>Item Name</th>
+            <th class="is-xs">Item Type</th>
+            <th class="">Group</th>
+            <th class="is-xs">TAX</th>
+            <th class="is-xs">Option</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="i in earnDeducts" :key="i._id">
+            <td class="wrap">
+              <div class="check">
+                <input ref="Checkbox" type="checkbox" name="" :id="i._id" />
+                <label :for="i._id" @click="itemSelect(i._id)">{{
+                  i.name
+                }}</label>
+              </div>
+            </td>
+            <td>{{ i.type }}</td>
+            <td>{{ i.groups | perttyArray }}</td>
+            <td>{{ i.isBeforeTax ? "BeforeTAX" : "AfterTAX" }}</td>
+            <td>
+              <div class="icons">
+                <span class="icon" @click="editItem(i)"
+                  ><i class="fas fa-pen bubble"></i
+                ></span>
+                <span class="icon alert" @click="deleteItem(i)"
+                  ><i class="fas fa-trash bubble"></i
+                ></span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <component
+      ref="Modal"
+      @PushItem="pushItem"
+      @PushGroupItem="pushGroupItem"
+      @UpdateItem="updateItem"
+      @SpliceItem="spliceItem"
+      @UpdateGroupItem="updateGroupItem"
+      @SpliceGroupItem="spliceGroupItem"
+      :is="ModalClick"
+      @CloseModal="ModalClick = ''"
+    />
   </div>
 </template>
 
@@ -201,19 +202,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.box-header {
-  display: flex;
-  color: $font-color;
-  margin-bottom: 20px;
-  align-items: center;
-
-  .box-title {
-    font-size: 18px;
-    font-weight: 700;
-    color: $font-color;
-  }
-}
-
 .button-group {
   display: flex;
   margin-left: auto;

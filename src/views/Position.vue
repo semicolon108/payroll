@@ -1,118 +1,142 @@
 <template>
-<div class="page-container">
-  <div class="page-header border-bottom">
-    <h3 class="page-title">Position</h3>
-    <button class="button primary" @click="isOpen = true; isEditMode = false"><i class="fas fa-plus"></i>Add</button>
-  </div>
-
-
-  <div class="page-content">
-    <table v-if="!isLoading" class="table is-fullwidth" id="my-table">
-      <thead>
-      <tr class="sticky">
-        <th>Position</th>
-        <th>Department</th>
-        <th>Total Employee</th>
-        <th class="is-xs is-right">Option</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="(i, idx) in positions" :key="idx">
-        <td class="truncate" style="max-width: 180px">{{ i.name }}</td>
-        <td class="truncate" style="max-width: 180px">{{ i.departmentId.name }}</td>
-        <td class="truncate" style="max-width: 180px">{{ i.employeesCount }}</td>
-        <td>
-          <div class="icons">
-            <span class="icon" @click="editModal(i._id, i.name, i.departmentId._id)"><i class="fas fa-pen"></i></span>
-            <span @click="deletePosition(i._id)" class="icon alert"><i class="fas fa-trash"></i></span>
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-      <div v-else>
-        <Loading v-for="n in 7" :key="n" style=" height: 60px" class="mb-3"  />
+  <div class="page-container">
+    <div class="page-header border-bottom">
+      <div class="header-start">
+        <h3 class="page-title">Position</h3>
+        <button
+          class="button primary"
+          @click="
+            isOpen = true;
+            isEditMode = false;
+          "
+        >
+          <i class="fas fa-plus"></i>Add
+        </button>
       </div>
+    </div>
+
+    <div class="page-content">
+      <table v-if="!isLoading" class="table is-fullwidth" id="my-table">
+        <thead>
+          <tr class="sticky">
+            <th>Position</th>
+            <th>Department</th>
+            <th>Total Employee</th>
+            <th class="is-xs is-right">Option</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(i, idx) in positions" :key="idx">
+            <td class="truncate" style="max-width: 180px">{{ i.name }}</td>
+            <td class="truncate" style="max-width: 180px">
+              {{ i.departmentId.name }}
+            </td>
+            <td class="truncate" style="max-width: 180px">
+              {{ i.employeesCount }}
+            </td>
+            <td>
+              <div class="icons">
+                <span
+                  class="icon hover-primary"
+                  @click="editModal(i._id, i.name, i.departmentId._id)"
+                  ><i class="fas fa-pen"></i
+                ></span>
+                <span
+                  @click="deletePosition(i._id)"
+                  class="icon alert hover-alert"
+                  ><i class="fas fa-trash"></i
+                ></span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div v-else>
+        <Loading v-for="n in 7" :key="n" style="height: 60px" class="mb-3" />
+      </div>
+    </div>
+    <PositionModal
+      v-if="isOpen"
+      :isEditMode="isEditMode"
+      @PushItem="getPositions"
+      @UpdateItem="getPositions"
+      @CloseModal="isOpen = false"
+      ref="Modal"
+    />
   </div>
-  <PositionModal
-        v-if="isOpen"
-        :isEditMode="isEditMode"
-        @PushItem="getPositions"
-        @UpdateItem="getPositions"
-        @CloseModal="isOpen = false"
-        ref="Modal"/>
-</div>
 </template>
 
 <script>
-import PositionModal from '@coms/Position/Modal/add-position.vue';
-import {GET_POSITIONS} from "@/graphql/Position";
-import {deletePosition} from "@/apis/position-api";
- import Loading from '@/components/Loading/SkeletonLoading'
+import PositionModal from "@coms/Position/Modal/add-position.vue";
+import { GET_POSITIONS } from "@/graphql/Position";
+import { deletePosition } from "@/apis/position-api";
+import Loading from "@/components/Loading/SkeletonLoading";
 
 export default {
   components: {
     PositionModal,
-    Loading
+    Loading,
   },
   data: () => ({
-    ModalClick: '',
+    ModalClick: "",
     positions: [],
     isOpen: false,
     isEditMode: false,
-     isLoading: true
+    isLoading: true,
   }),
   methods: {
     async getPositions() {
       try {
         const res = await this.$apollo.query({
-          query: GET_POSITIONS
-        })
-        this.positions = res.data.getPositions
-           setTimeout(() => {
-                this.isLoading = false
-             }, 400)
+          query: GET_POSITIONS,
+        });
+        this.positions = res.data.getPositions;
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 400);
       } catch (err) {
-        throw new Error(err)
+        throw new Error(err);
       }
     },
     editModal(_id, name, departmentId) {
-      this.isOpen = true
-      this.isEditMode = true
+      this.isOpen = true;
+      this.isEditMode = true;
       this.$nextTick(() => {
-        this.$refs.Modal._id = _id
-        this.$refs.Modal.name = name
-        this.$refs.Modal.departmentId = departmentId
-      })
+        this.$refs.Modal._id = _id;
+        this.$refs.Modal.name = name;
+        this.$refs.Modal.departmentId = departmentId;
+      });
     },
     async deletePosition(id) {
-       try {
-         await this.$store.dispatch('loading')
-         await deletePosition(id)
-         await this.$store.dispatch('completed')
-         await this.getPositions()
-
-       } catch (err) {
-         await this.$store.dispatch('error')
-         if(err.graphQLErrors[0].message === 'Please unselected employees from this position first') {
-           alert(err.graphQLErrors[0].message + ': ' + err.graphQLErrors[0].extensions.isExists.map(i => i.employeeId.employeeCode))
-         }
-     }
-
-    }
+      try {
+        await this.$store.dispatch("loading");
+        await deletePosition(id);
+        await this.$store.dispatch("completed");
+        await this.getPositions();
+      } catch (err) {
+        await this.$store.dispatch("error");
+        if (
+          err.graphQLErrors[0].message ===
+          "Please unselected employees from this position first"
+        ) {
+          alert(
+            err.graphQLErrors[0].message +
+              ": " +
+              err.graphQLErrors[0].extensions.isExists.map(
+                (i) => i.employeeId.employeeCode
+              )
+          );
+        }
+      }
+    },
   },
   created() {
-    this.getPositions()
-  }
-}
+    this.getPositions();
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-
-h3 {
-  font-weight: 700;
-}
-
 .employees {
   margin-top: 10px;
   display: flex;
@@ -154,5 +178,4 @@ h3 {
     color: #fff;
   }
 }
-
 </style>

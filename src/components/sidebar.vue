@@ -1,46 +1,50 @@
 <template>
+  <!-- add class collapse  to collapse sidebar-->
   <div class="sidebar">
     <div class="sidebar-container">
       <div class="sidebar-items">
         <!-- <div class="sidebar-title">Organization</div> -->
-        <router-link to="/company-setup" class="sidebar-item"
-          ><span><i class="fa-solid fa-building"></i></span>
-          Company</router-link
-        >
-        <router-link to="/department" class="sidebar-item"
-          ><span><i class="fa-solid fa-layer-group"></i></span>
-          Department</router-link
-        >
-        <router-link to="/position" class="sidebar-item"
-          ><span><i class="fa-solid fa-user"></i></span> Position</router-link
-        >
-        <router-link to="/employee" class="sidebar-item"
-          ><span><i class="fa-solid fa-users"></i></span> Employee</router-link
-        >
+        <router-link to="/company-setup" class="sidebar-item">
+          <span><i class="fa-solid fa-building"></i></span>
+          <a>Company</a>
+        </router-link>
+        <router-link to="/department" class="sidebar-item">
+          <span><i class="fa-solid fa-layer-group"></i></span>
+          <a>Department</a>
+        </router-link>
+        <router-link to="/position" class="sidebar-item">
+          <span><i class="fa-solid fa-user"></i></span>
+          <a>Position</a>
+        </router-link>
+        <router-link to="/employee" class="sidebar-item">
+          <span><i class="fa-solid fa-users"></i></span>
+          <a>Employee</a>
+        </router-link>
       </div>
 
       <div class="sidebar-items">
         <!-- <div class="sidebar-title">Salary</div> -->
-        <router-link to="/pension-fund" class="sidebar-item"
-          ><span><i class="fa-solid fa-piggy-bank"></i></span>Pension
-          Fund</router-link
-        >
-        <router-link to="/payroll_list" class="sidebar-item"
-          ><span><i class="fa-solid fa-calculator-simple"></i></span>
-          Payroll</router-link
-        >
+        <router-link to="/pension-fund" class="sidebar-item">
+          <span><i class="fa-solid fa-piggy-bank"></i></span>
+          <a>Pension Fund</a>
+        </router-link>
+        <router-link to="/payroll_list" class="sidebar-item">
+          <span><i class="fa-solid fa-calculator-simple"></i></span>
+          <a>Payroll</a>
+        </router-link>
       </div>
 
       <div class="sidebar-items">
         <!-- <div class="sidebar-title">Template</div> -->
-        <router-link to="/document-template" class="sidebar-item"
-          ><span><i class="fa-solid fa-envelope"></i></span>
-          Payslip</router-link
-        >
+        <router-link to="/document-template" class="sidebar-item">
+          <span><i class="fa-solid fa-envelope"></i></span>
+          <a>Payslip</a>
+        </router-link>
       </div>
     </div>
     <p class="logout-btn" @click="logout">
-      <i class="fad fa-sign-out"></i>Logout
+      <span><i class="fad fa-sign-out"></i></span>
+      <a>Logout</a>
     </p>
   </div>
 </template>
@@ -70,6 +74,27 @@ export default {
   background-color: $dark-primary-color;
   display: flex;
   flex-direction: column;
+  &.collapse {
+    .sidebar-container {
+      min-width: auto !important;
+      .sidebar-items {
+        .sidebar-item {
+          span {
+            margin: 0;
+          }
+          a {
+            display: none;
+          }
+        }
+      }
+    }
+    .logout-btn {
+      justify-content: center;
+      a {
+        display: none;
+      }
+    }
+  }
   .sidebar-container {
     width: 100%;
     padding: 30px;
@@ -77,37 +102,31 @@ export default {
     min-width: 160px;
     @include widescreen {
       padding: 30px 20px;
+      min-width: 250px;
     }
     .sidebar-items {
       margin-bottom: 20px;
-      // .sidebar-title {
-      //   color: $warning-color;
-      //   @include md-font;
-      //   display: flex;
-      //   span:first-child {
-      //     width: 30px;
-      //     display: flex;
-      //     align-items: center;
-      //     justify-content: center;
-      //   }
-      //   i {
-      //     margin-right: 10px;
-      //   }
-      // }
-      a.sidebar-item {
+      .sidebar-item {
         white-space: pre;
         display: flex;
         align-items: center;
         cursor: pointer;
         @include md-font;
-        padding: 10px 0 0;
+        padding: 0 0 10px;
         color: rgba(#fff, 0.4);
         display: flex;
         position: relative;
+        outline: none;
+        @include widescreen {
+          padding-top: 15px;
+        }
         &.router-link-active {
           color: #fff;
           span {
             background-color: #fff;
+          }
+          a {
+            color: #fff !important;
           }
         }
         span {
@@ -125,12 +144,15 @@ export default {
             color: $dark-primary-color;
           }
         }
-      }
+        a {
+          color: rgba(#fff, 0.4) !important;
+        }
+      } // sidebar-item
     }
   } // Sidebar-container
   .logout-btn {
     cursor: pointer;
-    padding: 10px 20px;
+    padding: 10px 30px;
     color: $dark-grey-color;
     display: flex;
     align-items: center;
@@ -140,6 +162,9 @@ export default {
     }
     i {
       margin-right: 10px;
+    }
+    a {
+      color: rgba(#fff, 0.4);
     }
   }
 }

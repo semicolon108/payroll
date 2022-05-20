@@ -1,11 +1,10 @@
 <template>
-  <div class="page-container no-padding">
-    <!-- <div class="page-header border-bottom">
-      <h3 class="page-title">Company Setup</h3>
-    </div> -->
-
+  <div class="page-container">
     <div class="page-content-has-navigation">
       <div class="navigation-container">
+        <div class="navigation-header">
+          <h3>Company</h3>
+        </div>
         <div class="navigation-tab">
           <router-link class="navigation-item" :to="{ name: 'company_info' }"
             >Company Information</router-link
@@ -36,11 +35,18 @@
           <router-link class="navigation-item" :to="{ name: 'company_expat' }"
             >Expat Manager</router-link
           >
+
+          <router-link
+            class="navigation-item"
+            :to="{ name: 'company_earning_deduction' }"
+            >Earning / Deduction</router-link
+          >
+          <router-link class="navigation-item" :to="{ name: 'customfield' }">
+            Custom Field</router-link
+          >
         </div>
       </div>
-      <div class="page-content has-border">
-        <router-view></router-view>
-      </div>
+      <router-view></router-view>
     </div>
   </div>
 </template>
@@ -50,40 +56,55 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
-.navigation-tab {
-  display: block;
-  padding: 20px 0 0 20px;
-  .navigation-item {
-    display: block;
-    color: $font-color;
+.navigation-container {
+  border-right: 1px solid $border-color;
+  overflow-y: auto;
+  min-width: 230px;
+  @include widescreen {
+    min-width: 230px;
+  }
+  .navigation-header {
     padding: 10px 20px;
-    border: 1px solid $border-color;
-    cursor: pointer;
-    background-color: #fff;
-    white-space: pre;
-    &:not(:last-child) {
-      margin-bottom: 5px;
+    background-color: $light-grey-color;
+    pointer-events: none;
+    h3 {
+      @include md-font;
+      font-weight: 700;
+      color: $dark-grey-color;
+      pointer-events: none;
     }
-
-    &:last-child {
-      border-right: 1px solid $border-color;
-    }
-
-    &.router-link-exact-active {
-      background-color: $primary-color;
-      color: #fff;
-      border-color: $primary-color;
+  }
+  .navigation-tab {
+    display: block;
+    .navigation-item {
+      display: block;
+      color: $font-color;
+      padding: 10px 20px;
+      border-bottom: 1px solid $border-color;
+      @include md-font;
+      &:first-child {
+        border-top: 1px solid $border-color;
+      }
+      cursor: pointer;
+      background-color: #fff;
+      white-space: pre;
+      @include widescreen {
+        padding: 15px 20px;
+      }
+      &:focus {
+        outline: none;
+      }
+      &.router-link-exact-active {
+        background-color: $primary-color;
+        color: #fff;
+        border-color: $primary-color;
+      }
     }
   }
 }
-
 .page-content-has-navigation {
   display: flex;
   overflow: hidden;
   height: 100%;
-  .page-content {
-    width: 100%;
-    height: 100%;
-  }
 }
 </style>

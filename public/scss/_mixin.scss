@@ -1,16 +1,19 @@
 @mixin input {
-    border-radius: 0;
-    box-shadow: none;
+    border-radius: 0 !important;
+    box-shadow: none !important;
     border: 1px solid $border-color;
     background-color: $input-color;
-    &:valid{
+
+    &:valid {
         background-color: $light-grey-color;
         border-color: $primary-color;
     }
-    &:focus{
+
+    &:focus {
         border-color: $sub-color;
     }
-    &:disabled{
+
+    &:disabled {
         border: 1px solid $border-color;
         background-color: $border-color;
     }
@@ -21,11 +24,13 @@
     box-shadow: none;
     border: 1px solid $border-color;
     background-color: $input-color;
-    &:valid{
+
+    &:valid {
         background-color: $light-grey-color;
         border-color: $primary-color;
     }
-    &:focus{
+
+    &:focus {
         border-color: $sub-color;
     }
 }

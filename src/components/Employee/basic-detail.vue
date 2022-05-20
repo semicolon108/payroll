@@ -834,6 +834,7 @@ export default {
   margin-left: 10px;
   display: flex;
   label {
+    cursor: pointer;
     position: relative;
     display: flex;
     align-items: center;

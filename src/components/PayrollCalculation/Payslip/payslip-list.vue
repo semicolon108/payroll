@@ -4,7 +4,7 @@
             <span>Payslip is sending in background you can close this windows</span>
             <i class="fal fa-times-circle"></i>
         </div> -->
-    <div class="page-header no-border no-padding margin-bottom-20">
+    <div class="page-header no-border no-padding margin-bottom-20 no-shadow">
       <div class="header-start">
         <div class="header-title">
           <h3>Payslip</h3>

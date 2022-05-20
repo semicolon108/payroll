@@ -1,76 +1,94 @@
-.form-header{
+.form-header {
     margin-bottom: 30px;
     font-size: 16px;
-    h3{
+
+    h3 {
         font-size: 20px;
         font-weight: 700;
         margin-right: 10px;
     }
-    p{
+
+    p {
         margin-top: 10px;
         line-height: 1.5;
     }
-    .has-button{
+
+    .has-button {
         display: flex;
         align-items: center;
     }
 }
 
-.field{
-    label.label{
+.field {
+    label.label {
         color: $font-color;
         font-weight: normal;
-        &:not(:last-child){
+
+        &:not(:last-child) {
             margin-bottom: 5px;
         }
-        span{
+
+        span {
             color: $alert-color;
         }
     }
 }
 
-.select{
+.select {
     width: 100%;
-    &::after{
+    font-family: $font;
+
+    &::after {
         border-color: $sub-color;
     }
-    select{
+
+    select {
         width: 100%;
         // mixin.scss
         @include select;
+        font-family: $font;
     }
 }
-input{
+
+input {
     //mixin.scss
     @include input;
 }
 
-.form{
+.form {
     color: $font-color;
-    hr{
+
+    hr {
         background-color: $border-color;
         height: 1px;
     }
-    .form-title{
+
+    .form-title {
         font-size: 20px;
         font-weight: 700;
         margin-bottom: 10px;
     }
-    label.label{
+
+    label.label {
         color: $font-color;
         font-weight: normal;
-        &:not(:last-child){
+
+        &:not(:last-child) {
             margin-bottom: 5px;
         }
     }
-    .control{
-        &.date{
+
+    .control {
+        &.date {
             display: flex;
-            input{
-                &:not(:first-child){
+
+            input {
+                &:not(:first-child) {
                     margin-left: 5px;
                 }
             }
         }
     }
-} // form
+}
+
+// form

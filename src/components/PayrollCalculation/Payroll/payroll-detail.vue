@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="page-header no-border no-padding margin-bottom-20">
+    <div class="page-header no-border no-padding margin-bottom-20 no-shadow">
       <div class="header-start">
         <div class="header-title">
           <h3>Payroll Summary</h3>
@@ -125,9 +125,9 @@
             {{ i.name }}
           </a>
         </li>
-        <!-- <li>
+        <li>
           <i class="fal fa-plus"></i>
-        </li> -->
+        </li>
       </ul>
     </div>
 
@@ -721,6 +721,9 @@ export default {
         a {
           color: #fff;
         }
+        i {
+          color: #fff;
+        }
       }
       a {
         color: #000;
@@ -789,7 +792,7 @@ export default {
     margin: 0;
     padding: 20px;
     border: 1px solid $border-color;
-    height: 100%;
+    // height: 100%;
     li {
       list-style-type: none;
       margin: 0;
@@ -853,6 +856,7 @@ export default {
   }
 
   .option-group {
+    display: flex;
     margin-left: auto;
 
     .button {
