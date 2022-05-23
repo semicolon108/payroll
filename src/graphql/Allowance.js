@@ -46,6 +46,7 @@ export const ADD_OR_UPDATE_ALLOWANCE = gql`
                 _id
                 name
             }
+            
             allowances {
                 earnDeductId {
                     _id

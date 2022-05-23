@@ -13,6 +13,16 @@ export const GET_CUSTOM_FORMULAS = gql`
 
 `
 
+export const GET_CUSTOM_FORMULAS_BY_NAME = gql`
+
+query(
+  $name: String!
+) {
+  getCustomFormulasByName(name: $name)
+}
+
+`
+
 export const ADD_CUSTOM_FORMULA = gql`
 
 mutation (

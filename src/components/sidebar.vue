@@ -22,6 +22,8 @@
         </router-link>
       </div>
 
+      <!-- <p v-show="getCompany !== null">eiei</p> -->
+
       <div class="sidebar-items">
         <!-- <div class="sidebar-title">Salary</div> -->
         <!-- <router-link to="/pension-fund" class="sidebar-item">
@@ -50,12 +52,15 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 import { logoutURL } from "@/config/variables";
 export default {
   data: () => ({
     getStart: false,
   }),
+  computed: {
+    ...mapGetters(["getCompany", "isAuth"]),
+  },
   methods: {
     ...mapMutations(["DESTROY_TOKEN"]),
     logout() {
