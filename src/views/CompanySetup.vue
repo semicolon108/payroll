@@ -67,6 +67,9 @@ export default {};
     padding: 10px 20px;
     background-color: $light-grey-color;
     pointer-events: none;
+    @include widescreen {
+      padding: 10px 20px;
+    }
     h3 {
       @include md-font;
       font-weight: 700;
@@ -89,7 +92,7 @@ export default {};
       background-color: #fff;
       white-space: pre;
       @include widescreen {
-        padding: 15px 20px;
+        padding: 10px 20px;
       }
       &:focus {
         outline: none;

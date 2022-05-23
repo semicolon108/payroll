@@ -12,6 +12,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: transparent;
+    transition: all ease-in-out .2s;
 
     &.no-margin {
         i {
@@ -23,10 +25,15 @@
         margin-right: 5px;
     }
 
+    &:hover {
+        background-color: rgba($grey-color , .3) !important;
+    }
+
     &:focus {
         box-shadow: none;
     }
 
+    // button color
     &.sub {
         background-color: $sub-color;
         border-color: $sub-color;
@@ -37,17 +44,6 @@
         background-color: $primary-color  !important;
         border: 1px solid $primary-color;
         color: #fff;
-        border-radius: 0;
-
-        &:focus {
-            color: #fff;
-            border: 1px solid $primary-color;
-        }
-
-        &:hover {
-            color: #fff;
-            border: 1px solid $primary-color;
-        }
     }
 
     &.alert {
@@ -57,12 +53,7 @@
         color: #fff;
     }
 
-    &.grey {
-        background-color: $border-color;
-        background-color: $border-color;
-        border-color: $border-color;
-        color: $font-color;
-    }
+    // button color
 }
 
 

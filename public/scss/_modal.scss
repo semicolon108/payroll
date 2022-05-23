@@ -4,45 +4,55 @@
   position: relative;
   color: $font-color;
   padding: 40px;
+
   .modal-card-head {
     padding: 40px 40px 10px 40px;
     background-color: #fff;
     border: none;
     border-radius: 0;
     display: block;
+
     h3 {
       font-size: 24px;
       font-weight: 700;
       color: $font-color;
     }
+
     p {
       color: $font-color;
     }
   }
-  .modal-card-body{
+
+  .modal-card-body {
     padding: 10px 40px 20px;
     overflow-y: auto;
-    &.has-dropdown{
+
+    &.has-dropdown {
       overflow: visible;
     }
+
     .field {
       margin-bottom: 10px;
-      &.bottom-0{
+
+      &.bottom-0 {
         margin-bottom: 0;
       }
+
       label {
         color: $font-color;
         font-weight: normal;
       }
+
       input {
         @include input;
       }
     }
+
     .select {
       width: 100%;
 
       &:after {
-        border-color: $grey-color !important;
+        border-color: $grey-color  !important;
       }
 
       select {
@@ -52,13 +62,16 @@
       }
     }
   }
-  .modal-card-foot{
+
+  .modal-card-foot {
     padding: 20px 0 0 0;
     background-color: #fff;
     border: none;
+
     .button {
       margin: 0;
       width: 100%;
+
       &:disabled {
         background-color: $grey-color;
         color: $font-color;
@@ -76,13 +89,16 @@
   position: relative;
   padding: 40px;
   color: $font-color;
+
   .header {
     margin-bottom: 20px;
+
     h3 {
       font-size: 24px;
       font-weight: 700;
       color: $font-color;
     }
+
     p {
       color: $font-color;
     }
@@ -104,9 +120,11 @@
   width: 40px;
   border-radius: 0 0 0 5px;
   background-color: $border-color;
+
   &::after {
     background-color: $grey-color;
   }
+
   &::before {
     background-color: $grey-color;
   }

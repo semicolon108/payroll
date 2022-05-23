@@ -17,6 +17,24 @@
       </header>
       <section class="modal-card-body">
         <div class="field">
+          <label for="" class="label">Wage Type</label>
+          <div class="control">
+            <div class="select">
+              <ValidationProvider
+                name="WageType"
+                rules="required"
+                v-slot="{ errors }"
+              >
+                <select v-model="form.wageType" class="select">
+                  <option value="Monthly">Monthly</option>
+                  <option value="Daily">Daily</option>
+                </select>
+                <p class="has-text-danger">{{ errors[0] }}</p>
+              </ValidationProvider>
+            </div>
+          </div>
+        </div>
+        <div class="field">
           <label for="" class="label">Type</label>
           <div class="control">
             <div class="select">
@@ -35,24 +53,7 @@
             </div>
           </div>
         </div>
-        <div class="field">
-          <label for="" class="label">Wage Type</label>
-          <div class="control">
-            <div class="select">
-              <ValidationProvider
-                name="WageType"
-                rules="required"
-                v-slot="{ errors }"
-              >
-                <select v-model="form.wageType" class="select">
-                  <option value="Monthly">Monthly</option>
-                  <option value="Daily">Daily</option>
-                </select>
-                <p class="has-text-danger">{{ errors[0] }}</p>
-              </ValidationProvider>
-            </div>
-          </div>
-        </div>
+
         <div v-if="form.type === 'ChangeCurrency'" class="field has-addons">
           <div class="control is-expanded">
             <ValidationProvider

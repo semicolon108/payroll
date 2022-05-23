@@ -6,7 +6,9 @@
         <button class="button primary"><i class="fas fa-plus"></i> Add</button>
       </div>
       <div class="header-end">
-        <button class="button primary">Manage Group</button>
+        <button class="button primary" @click="Group = true">
+          Manage Group
+        </button>
       </div>
     </div>
     <div class="page-content">
@@ -46,6 +48,7 @@
           </tr>
         </tbody>
       </table>
+
       <Assign v-if="Assign" @CloseModal="Assign = false" />
     </div>
   </div>

@@ -24,10 +24,10 @@
 
       <div class="sidebar-items">
         <!-- <div class="sidebar-title">Salary</div> -->
-        <router-link to="/pension-fund" class="sidebar-item">
+        <!-- <router-link to="/pension-fund" class="sidebar-item">
           <span><i class="fa-solid fa-piggy-bank"></i></span>
           <a>Pension Fund</a>
-        </router-link>
+        </router-link> -->
         <router-link to="/payroll_list" class="sidebar-item">
           <span><i class="fa-solid fa-calculator-simple"></i></span>
           <a>Payroll</a>
@@ -118,7 +118,7 @@ export default {
         position: relative;
         outline: none;
         @include widescreen {
-          padding-top: 15px;
+          padding-bottom: 15px;
         }
         &.router-link-active {
           color: #fff;
