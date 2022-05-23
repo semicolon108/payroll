@@ -60,7 +60,7 @@
               name="Salary"
               rules="required"
               v-slot="{ errors }"
-            >
+              ><label for="" class="label">Salary Amount</label>
               <currency-input
                 v-model="form.adjustmentAmount"
                 class="input"
