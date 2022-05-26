@@ -39,10 +39,13 @@ export default {
       this.fields = data.fields;
     },
     async addCustomField() {
+      
       const form = {
         fields: this.fields,
       };
+       await this.$store.dispatch("loading");
       await addCustomFieldApi(form);
+       await this.$store.dispatch("completed");
       this.getCustomFields();
     },
   },

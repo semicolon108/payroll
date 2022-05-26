@@ -23,6 +23,7 @@
           </tr>
         </thead>
         <tbody>
+          eiei
           <tr v-for="(i, index) in 10" :key="index">
             <td>ນຳມັນ / Fuel</td>
             <td>

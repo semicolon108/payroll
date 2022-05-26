@@ -44,9 +44,10 @@
                 v-slot="{ errors }"
               >
                 <select v-model="form.type" class="select">
+                          <option value="ChangeCurrency">Set New Amount</option>
                   <option value="Increase">Increase</option>
                   <option value="Decrease">Decrease</option>
-                  <option value="ChangeCurrency">Set new amount</option>
+          
                 </select>
                 <p class="has-text-danger">{{ errors[0] }}</p>
               </ValidationProvider>
@@ -116,15 +117,11 @@
           <label class="label"
             >Before / After Change Currency
 
-            <span class="has-text-info"
-              >(
+            <span class="has-text-info">(
               {{
-                `${currencyName(oldCurrency)} to ${currencyName(
-                  form.currencyId
-                )}`
+                `${ currencyName(oldCurrency)} to ${currencyName(form.currencyId)}`
               }}
-              )</span
-            >
+              )</span>
           </label>
           <div class="control columns" style="margin: 5px 0 5px">
             <input
@@ -146,12 +143,12 @@
         <div v-else class="field">
           <label class="label"
             >Before / After Adjustment
-
-            <span class="has-text-info"
-              >( {{ currencyName(oldCurrency) }} )</span
+            <span class="has-text-info">( {{ currencyName(oldCurrency) }} )</span
             >
           </label>
-          <div class="control columns" style="margin: 5px 0 5px">
+          <div 
+          class="control columns" 
+          style="margin: 5px 0 5px">
             <input
               :value="beforeAdjustment | currency"
               type="text"
@@ -167,7 +164,7 @@
           </div>
         </div>
 
-        <div class="field">
+        <!-- <div class="field">
           <label class="label">Memo</label>
           <div class="control">
             <ValidationProvider name="Memo" v-slot="{ errors }">
@@ -175,7 +172,7 @@
               <p class="has-text-danger">{{ errors[0] }}</p>
             </ValidationProvider>
           </div>
-        </div>
+        </div> -->
       </section>
       <footer class="modal-card-foot">
         <button @click="handleSubmit(adjustSalary)" class="button primary">
@@ -198,7 +195,7 @@ export default {
   data: () => ({
     hiringDetail: {},
     form: {
-      type: "Increase",
+      type: "ChangeCurrency",
       wageType: "Monthly",
     },
     beforeAdjustment: null,

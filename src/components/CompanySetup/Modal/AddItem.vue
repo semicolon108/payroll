@@ -6,6 +6,7 @@
       tag="div"
       class="modal-card slide-down"
     >
+
       <div class="modal-card-head">
         <h3>Add Earning / Deduction</h3>
         <button
@@ -24,6 +25,7 @@
             </ValidationProvider>
           </div>
         </div>
+    
         <div class="field">
           <label for="" class="label">Item Type</label>
           <div class="control switch">
@@ -52,10 +54,10 @@
             </div>
           </div>
         </div>
-        <!-- <div class="field">
+        <div class="field">
           <label for="" class="label">SSO</label>
           <div class="control switch">
-            {{ form.isBeforeSso }}
+  
             <div
               class="item"
               v-for="(i, idx) in sso"
@@ -66,7 +68,7 @@
               <span>{{ i.name }}</span>
             </div>
           </div>
-        </div> -->
+        </div>
         <!-- <div class="field">
           <label for="" class="label">Item Group</label>
           <div class="control items">
@@ -116,6 +118,7 @@ export default {
       name: "",
       type: "Earning",
       isBeforeTax: true,
+      isBeforeSso: false,
       earnDeductGroupIds: [],
     },
     earnDeductGroups: [],
@@ -126,8 +129,8 @@ export default {
       { key: false, name: "After TAX" },
     ],
     sso: [
-      { key: true, name: "Before SSO" },
-      { key: false, name: "After SSO" },
+      { key: false, name: "Before SSO" },
+      { key: true, name: "After SSO" },
     ],
   }),
   computed: {

@@ -175,6 +175,7 @@ export default {
           name: item.name,
           type: item.type,
           isBeforeTax: item.isBeforeTax,
+           isBeforeSso: item.isBeforeSso,
           earnDeductGroupIds: item.groups.map((i) => i._id),
         };
       });

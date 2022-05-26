@@ -36,11 +36,11 @@
             >Expat Manager</router-link
           >
 
-          <router-link
+          <!-- <router-link
             class="navigation-item"
             :to="{ name: 'company_earning_deduction' }"
             >Earning / Deduction</router-link
-          >
+          > -->
           <router-link class="navigation-item" :to="{ name: 'customfield' }">
             Custom Field</router-link
           >

@@ -38,7 +38,7 @@
         </button> -->
 
         <div class="select">
-          <select>
+          <select v-model="status">
             <option>Working</option>
             <option>Incomplete</option>
             <option>Resigned</option>
@@ -149,11 +149,11 @@
 </template>
 
 <script>
-import { GET_EMPLOYEES } from "@/graphql/Employee";
-import Loading from "@/components/Loading/SkeletonLoading";
+import { GET_EMPLOYEES } from "@/graphql/Employee"
+import Loading from "@/components/Loading/SkeletonLoading"
 // import Pagination from '@/utils/Pagination2'
-import InfiniteLoading from "vue-infinite-loading";
-import Upload from "@coms/Upload/upload.vue";
+import InfiniteLoading from "vue-infinite-loading"
+import Upload from "@coms/Upload/upload.vue"
 
 export default {
   components: {
@@ -172,6 +172,7 @@ export default {
     perPage: 20,
     isResigned: false,
     isShowUploadModal: false,
+    status: 'Working'
   }),
   watch: {
     textSearch() {
@@ -183,40 +184,14 @@ export default {
         this.getEmpsWithReset();
       }, 400);
     },
-    // currentPage() {
-    //     this.$router.push({ ...this.$route, query: { ...this.$route.query, page: this.currentPage } })
-    //     this.getEmployees()
-    // },
-    // perPage() {
-    //     this.$router.push({ ...this.$route, query: { ...this.$route.query, perPage: this.perPage } })
-    //     this.getEmployees()
-    // },
-    // '$route.query.page': {
-    //     handler(val) {
-    //         if (val) {
-    //             this.currentPage = parseInt(val, 10)
-    //         }
-    //     },
-    //     immediate: true
-    // },
-    // '$route.query.perPage': {
-    //     handler(val) {
-    //         if (val) {
-    //             this.perPage = parseInt(val, 10)
-    //         }
-    //     },
-    //     immediate: true
-    // },
-
-    isResigned() {
-      this.getEmpsWithReset();
-    },
+  status() {
+    this.getEmpsWithReset()
+  }
   },
   methods: {
     infiniteHandler() {
       this.getEmpsWithInfinite();
     },
-
     getEmpsWithReset() {
       this.employees = [];
       this.currentPage = 1;
@@ -224,7 +199,6 @@ export default {
         this.$refs.infiniteLoading.stateChanger.reset();
       });
     },
-
     async getEmpsWithInfinite() {
       const emps = await this.getEmployees();
       // setTimeout(() => {
@@ -246,6 +220,7 @@ export default {
             page: this.currentPage,
             perPage: this.perPage,
             isResigned: this.isResigned,
+            status: this.status, // Working, Incomplete, Resigned
           },
         });
         const emps = res.data.getEmployees.employees;

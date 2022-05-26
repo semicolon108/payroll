@@ -7,6 +7,7 @@ export const GET_EARN_DEDUCTS = gql`
             _id
             name
             type
+            isBeforeSso
             isBeforeTax
             groups {
                 _id
@@ -23,18 +24,21 @@ export const ADD_EARN_DEDUCT = gql`
         $name: String!
         $type: String!
         $isBeforeTax: Boolean!
+        $isBeforeSso: Boolean
         $earnDeductGroupIds: [ID]!
     ) {
         addEarnDeduct(info: {
             name: $name
             type: $type
             isBeforeTax: $isBeforeTax
+            isBeforeSso: $isBeforeSso
             earnDeductGroupIds: $earnDeductGroupIds
         }) {
             _id
             name
             type
             isBeforeTax
+            isBeforeSso
             groups {
                 _id
                 name
@@ -51,6 +55,7 @@ export const UPDATE_EARN_DEDUCT = gql`
         $name: String!
         $type: String!
         $isBeforeTax: Boolean!
+        $isBeforeSso: Boolean
         $earnDeductGroupIds: [ID]!
     ) {
         updateEarnDeduct(
@@ -59,6 +64,7 @@ export const UPDATE_EARN_DEDUCT = gql`
                 name: $name
                 type: $type
                 isBeforeTax: $isBeforeTax
+                isBeforeSso: $isBeforeSso
                 earnDeductGroupIds: $earnDeductGroupIds
             }
         ) {
@@ -66,6 +72,7 @@ export const UPDATE_EARN_DEDUCT = gql`
             name
             type
             isBeforeTax
+            isBeforeSso
             groups {
                 _id
                 name
