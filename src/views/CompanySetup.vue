@@ -19,11 +19,11 @@
             :to="{ name: 'company_work_group' }"
             >Work Group</router-link
           >
-          <router-link
+          <!-- <router-link
             class="navigation-item"
             :to="{ name: 'company_deductible' }"
             >Earning / Deduction</router-link
-          >
+          > -->
           <router-link class="navigation-item" :to="{ name: 'company_sso' }"
             >SSO</router-link
           >
@@ -35,12 +35,11 @@
           <router-link class="navigation-item" :to="{ name: 'company_expat' }"
             >Expat Manager</router-link
           >
-
-          <!-- <router-link
+          <router-link
             class="navigation-item"
             :to="{ name: 'company_earning_deduction' }"
             >Earning / Deduction</router-link
-          > -->
+          >
           <router-link class="navigation-item" :to="{ name: 'customfield' }">
             Custom Field</router-link
           >

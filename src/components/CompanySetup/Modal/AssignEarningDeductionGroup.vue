@@ -1,12 +1,12 @@
 <template>
   <div class="modal is-active">
-    <div class="modal-background" @click="CloseModal"></div>
-    <div class="modal-card slide-down">
+    <div class="modal-background" @click="closeModal"></div>
+    <div class="modal-card slide-down" style="padding: 0">
       <div class="modal-card-head">
         <h3>Assign Allowance to group</h3>
         <button
           class="modal-close is-large"
-          @click="CloseModal()"
+          @click="closeModal"
           aria-label="close"
         ></button>
       </div>
@@ -14,17 +14,20 @@
         <div class="field">
           <ul>
             <li
-              v-for="(i, index) in allowanceGroups"
+              v-for="(i, index) in earnDeductGroups"
               :key="index"
-              :class="{ active: selected }"
+              :class="{ active: groupIds.includes(i._id) }"
+
+              @click="selectGroup(i)"
             >
-              <span>{{ i.groupname }}</span>
+   
+              <span>{{ i.name }}</span>
             </li>
           </ul>
         </div>
 
         <div class="buttons">
-          <button class="button primary">Save</button>
+          <button class="button primary" @click="updateEarnDeduct">Save</button>
         </div>
       </section>
     </div>
@@ -32,6 +35,7 @@
 </template>
 
 <script>
+import { updateEarnDeduct } from "@/apis/earn-deduct-api";
 export default {
   data: () => ({
     allowanceGroups: [
@@ -45,9 +49,39 @@ export default {
         groupname: "Local Staff",
       },
     ],
+    earnDeductGroups: [],
+   // selectedGroups: [],
+    form: {
+      earnDeductId: null,
+      name: "",
+      type: "Earning",
+      isBeforeTax: true,
+      isBeforeSso: false,
+      earnDeductGroupIds: [],
+    },
+    //earnDeduct: null
   }),
+  computed: {
+    groupIds() {
+      return this.form.earnDeductGroupIds
+    }
+  },
   methods: {
-    CloseModal() {
+    selectGroup(i) {
+      if(this.groupIds.includes(i._id)) {
+        const idx = this.form.earnDeductGroupIds.findIndex(o => o === i._id)
+        this.form.earnDeductGroupIds.splice(idx, 1)
+      }else {
+        this.form.earnDeductGroupIds.push(i._id)
+      }
+    },
+     async updateEarnDeduct() {
+      //const item =
+       await updateEarnDeduct(this.form);
+     // this.$emit("UpdateItem", item);
+      this.closeModal();
+    },
+    closeModal() {
       this.$emit("CloseModal");
     },
   },
