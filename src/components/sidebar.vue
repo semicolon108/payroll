@@ -24,17 +24,22 @@
 
       <!-- <p v-show="getCompany !== null">eiei</p> -->
 
-      <div class="sidebar-items">
+
+   <div class="sidebar-items">
         <!-- <div class="sidebar-title">Salary</div> -->
-        <!-- <router-link to="/pension-fund" class="sidebar-item">
-          <span><i class="fa-solid fa-piggy-bank"></i></span>
-          <a>Pension Fund</a>
-        </router-link> -->
-        <router-link to="/payroll_list" class="sidebar-item">
-          <span><i class="fa-solid fa-calculator-simple"></i></span>
-          <a>Payroll</a>
-        </router-link>
+        <router-link
+        v-if="getCompany.private && getCompany.private.isPensionFund"
+         to="/pension-fund" class="sidebar-item"
+          ><span><i class="fa-solid fa-piggy-bank"></i></span>Pension
+          Fund</router-link
+        >
+        <router-link to="/payroll_list" class="sidebar-item"
+          ><span><i class="fa-solid fa-calculator-simple"></i></span>
+          Payroll</router-link
+        >
       </div>
+
+
 
       <div class="sidebar-items">
         <!-- <div class="sidebar-title">Template</div> -->
