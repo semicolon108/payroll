@@ -27,6 +27,7 @@
              <th class="is-xxs is-center">Amount</th>
             <!-- <th class="is-xxs is-right">Option</th> -->
           </tr>
+
         </thead>
         <tbody>
           <tr v-for="i in newItems" :key="i._id">
@@ -37,7 +38,7 @@
               {{ i.firstName + ' ' + i.lastName }}
             </td>
             <td :class=" pensionFund(i).isUsed ? 'has-text-primary' : 'has-text-danger'">
-          {{ pensionFund(i).isUsed ? 'Active' : 'In Active' }}
+          {{ pensionFund(i).isUsed ? 'Active' : 'Inactive' }}
             </td>
             <td>
                 {{ pensionFund(i).value + '%' }}
@@ -65,6 +66,7 @@ export default {
       }
     },
     newItems() {
+      // get only custom forumalar as pension fund
       return this.items.filter((i) => {
         return (
           i.employeeCode
