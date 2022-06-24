@@ -70,6 +70,7 @@ export default {};
   padding: 30px;
   background-color: $light-bg-color;
   position: relative;
+  border: 1px solid $border-color;
   .del {
     position: absolute;
     top: 0;
