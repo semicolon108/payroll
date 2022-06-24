@@ -31,7 +31,7 @@
 
             <button class="button primary">Save</button>
           </div>
-          <ul>
+          <ul class="formula-box">
             <li>This Month Salary</li>
             <li class="operator">
               <span><i class="fa-solid fa-plus"></i></span>
@@ -110,11 +110,15 @@ export default {};
         }
       }
     }
-    ul {
+    ul.formula-box {
+      background-color: $light-grey-color;
+      padding: 20px;
       display: flex;
       align-items: center;
       flex-wrap: wrap;
       gap: 10px;
+      border: 1px solid $border-color;
+      border-radius: 5px;
       li {
         cursor: pointer;
         background-color: $primary-color;
