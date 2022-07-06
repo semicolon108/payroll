@@ -58,8 +58,11 @@ export default {
   data: () => ({
     payslipTemplate: {
       isDefault: false,
+      isLoading: true
     },
     file: null,
+    isExistTemplate: false
+  
   }),
   created() {
     this.getPayslipTemplate();
@@ -71,7 +74,11 @@ export default {
     },
     async getPayslipTemplate() {
       const payslipTemplate = await getPayslipTemplateApi();
-      if (payslipTemplate) this.payslipTemplate = payslipTemplate;
+      this.isLoading = false
+      if (payslipTemplate) {
+        this.payslipTemplate = payslipTemplate
+        this.isExistTemplate = true
+      }
     },
     async addOrUpdatePayslipTemplate() {
       const form = {

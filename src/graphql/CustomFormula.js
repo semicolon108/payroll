@@ -3,12 +3,12 @@ import gql from 'graphql-tag'
 export const GET_CUSTOM_FORMULAS = gql`
 
     {
-    getCustomFormulas {
-        name
-        formulas
-        isFinalNetPay
-        round
-    }
+        getCustomFormulas {
+            name
+            formulas
+            isFinalNetPay
+            round
+        }
     }
 
 `
