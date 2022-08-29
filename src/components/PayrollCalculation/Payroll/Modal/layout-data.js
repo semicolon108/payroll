@@ -81,22 +81,21 @@ export const layoutData = [
         isSelected: false
     },
     // Type Employer Information End
-
     // Type Earning - List Item start
     {
-        key: 'earnings',
+        key: 'earningsListBeforeSso',
         name: 'Earning Before SSO Calculation - List Item',
         type: 'Earning',
         isSelected: false
     },
     {
-        key: 'earnings',
+        key: 'earningsListAfterSso',
         name: 'Earning After SSO and Before TAX Calculation - List Item',
         type: 'Earning',
         isSelected: false
     },
     {
-        key: 'earnings',
+        key: 'earningsListAfterTax',
         name: 'Earning After TAX Calculation - List Item',
         type: 'Earning',
         isSelected: false
