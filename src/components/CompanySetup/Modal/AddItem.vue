@@ -59,14 +59,21 @@
           <div class="control switch">
   
             <div
+            v-show="form.isBeforeTax ? true : ( i.name === 'After SSO' ? true : false )"
+              :class="[
+            
+              { 'is-active': form.isBeforeSso === i.key },
+            ]"
               class="item"
               v-for="(i, idx) in sso"
               :key="idx"
-              :class="{ 'is-active': form.isBeforeSso === i.key }"
+            
               @click="form.isBeforeSso = i.key"
             >
               <span>{{ i.name }}</span>
             </div>
+
+            
           </div>
         </div>
         <!-- <div class="field">
@@ -135,6 +142,13 @@ export default {
   }),
   computed: {
     ...mapGetters(["getCompany"]),
+  },
+  watch: {
+    'form.isBeforeTax'(val) {
+      if(!val) {
+        this.form.isBeforeSso = true
+      }
+    }
   },
   async created() {
     await this.getData();

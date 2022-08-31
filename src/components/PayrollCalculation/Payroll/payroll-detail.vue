@@ -125,7 +125,7 @@
             {{ i.name }}
           </a>
         </li>
-        <li>
+        <li @click="isCustomise = true">
           <i class="fal fa-plus"></i>
         </li>
       </ul>

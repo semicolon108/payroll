@@ -101,87 +101,121 @@ export const layoutData = [
         isSelected: false
     },
 
+
+
     //Amount
     {
-        key: 'earnings',
+        key: 'earningBeforeSso',
         name: 'Sum of - Earning Before SSO Calculation',
         type: 'Earning',
         isSelected: false
     },
     {
-        key: 'earnings',
+        key: 'earningAfterSso',
         name: 'Sum of - Earning After SSO and Before TAX Calculation',
         type: 'Earning',
         isSelected: false
     },
     {
-        key: 'earnings',
-        name: 'Sum of - Earning Before TAX Calculation',
-        type: 'Earning',
-        isSelected: false
-    },
-    {
-        key: 'earnings',
+        key: 'earningAfterTax',
         name: 'Sum of - Earning After TAX Calculation',
         type: 'Earning',
         isSelected: false
     },
     // Amount
 
-
     // Type Earning - List Item start
 
+    // {
+    //     key: 'deductions',
+    //     name: 'Deduction Before TAX Calculation - List Item',
+    //     type: 'Deduction',
+    //     isSelected: false
+    // },
+    // {
+    //     key: 'deductions',
+    //     name: 'Deduction After TAX Calculation - List Item',
+    //     type: 'Deduction',
+    //     isSelected: false
+    // },
+    // {
+    //     key: 'deductions',
+    //     name: 'Deduction Before SSO - List Item',
+    //     type: 'Deduction',
+    //     isSelected: false
+    // },
+    // {
+    //     key: 'deductions',
+    //     name: 'Deduction After SSO - List Item',
+    //     type: 'Deduction',
+    //     isSelected: false
+    // },
+
+
     {
-        key: 'deductions',
-        name: 'Deduction Before TAX Calculation - List Item',
+        key: 'deductionsListBeforeSso',
+        name: 'Deduction Before SSO Calculation - List Item',
         type: 'Deduction',
         isSelected: false
     },
     {
-        key: 'deductions',
+        key: 'deductionsListAfterSso',
+        name: 'Deduction After SSO and Before TAX Calculation - List Item',
+        type: 'Deduction',
+        isSelected: false
+    },
+    {
+        key: 'deductionsListAfterTax',
         name: 'Deduction After TAX Calculation - List Item',
         type: 'Deduction',
         isSelected: false
     },
-    {
-        key: 'deductions',
-        name: 'Deduction Before SSO - List Item',
-        type: 'Deduction',
-        isSelected: false
-    },
-    {
-        key: 'deductions',
-        name: 'Deduction After SSO - List Item',
-        type: 'Deduction',
-        isSelected: false
-    },
 
-
-    // Amount
-    {
-        key: 'deductions',
-        name: 'Sum of - Deduction Before TAX Calculation',
-        type: 'Deduction',
-        isSelected: false
-    },
-    {
-        key: 'deductions',
-        name: 'Sum of - Deduction After TAX Calculation',
-        type: 'Deduction',
-        isSelected: false
-    },
-    {
-        key: 'deductions',
+     //Amount
+     {
+        key: 'deductionBeforeSso',
         name: 'Sum of - Deduction Before SSO Calculation',
         type: 'Deduction',
         isSelected: false
     },
     {
-        key: 'deductions',
-        name: 'Sum of - Deduction After SSO Calculation',
+        key: 'deductionAfterSso',
+        name: 'Sum of - Deduction After SSO and Before TAX Calculation',
         type: 'Deduction',
         isSelected: false
     },
+    {
+        key: 'deductionAfterTax',
+        name: 'Sum of - Deduction After TAX Calculation',
+        type: 'Deduction',
+        isSelected: false
+    },
+
+    // Amount
+    // {
+    //     key: 'deductions',
+    //     name: 'Sum of - Deduction Before TAX Calculation',
+    //     type: 'Deduction',
+    //     isSelected: false
+    // },
+    // {
+    //     key: 'deductions',
+    //     name: 'Sum of - Deduction After TAX Calculation',
+    //     type: 'Deduction',
+    //     isSelected: false
+    // },
+    // {
+    //     key: 'deductions',
+    //     name: 'Sum of - Deduction Before SSO Calculation',
+    //     type: 'Deduction',
+    //     isSelected: false
+    // },
+    // {
+    //     key: 'deductions',
+    //     name: 'Sum of - Deduction After SSO Calculation',
+    //     type: 'Deduction',
+    //     isSelected: false
+    // },
     //Amount
 
 

@@ -128,10 +128,19 @@ query ($monthlyPaymentId: ID!) {
                 position
                 department
               
+      
+
                 earningBeforeTax
                 earningAfterTax
+                earningBeforeSso
+                earningAfterSso
+
                 deductionBeforeTax
                 deductionAfterTax
+                deductionBeforeSso
+                deductionAfterSso
+
+
                 calcDeductible
                 deductibleBeforeTax
                 deductibleAfterTax
