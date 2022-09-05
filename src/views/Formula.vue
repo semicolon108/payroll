@@ -3,23 +3,105 @@
         <div class="page-header">
             <div class="header-start">
                 <h3 class="page-title">Custom Fomula</h3>
-                <button class="button primary"><i class="fas fa-plus"></i> Add</button>
+                <a 
+             @click="addArr"
+                class="button primary"><i class="fas fa-plus"></i> Add</a>
             </div>
             <div class="header-end"></div>
         </div>
     
         <div class="page-content no-padding" >
-           <Formula/>
+           <Formula 
+                v-for="(i, idx) in customFormulas"
+                :formula="i"
+                :formulaNames="customFormulaNames.filter((o, index) => index < idx)"
+                :lastSortByFormula="customFormulas.length - 1"
+                :idx="idx"
+                :key="idx"
+                ref="formula"
+                @submitForm="submitForm"
+                @deleteFormula="deleteFormula"
+            />
+
         </div>
+        
+
+
     </div>
 </template>
 
 <script>
 import Formula from '@/components/Formula'
-
+import {getCustomFormulasApi, addCustomFormulaApi, deleteCustomFormulaApi} from '@/apis/custom-formula-api'
 export default {
  components: {
    Formula
+ },
+ data: () => ({
+   customFormulas: [],
+   customFormulaNames: []  
+ }),
+ methods: {
+    //    goto(refName) {
+    // }
+     addArr() {
+        this.customFormulas.push(null)
+
+       this.$nextTick(() => {
+            const el = this.$refs.formula[this.customFormulas.length - 1].$el;
+
+            if (el) {
+                el.scrollIntoView({ behavior: "smooth" });
+            }
+       })
+     }, 
+    async getCustomFormulas() {
+    try {
+          this.customFormulas = await getCustomFormulasApi()
+                
+       // this.customFormulaNames  = this.customFormulas.filter(i => u)
+        this.customFormulaNames =  this.customFormulas.map(i => '#' + i.name) 
+      } catch(e) {
+        throw new Error(e)
+      }
+    },
+    async addCustomFormula(form) {
+      try {
+        await this.$store.dispatch("loading");
+        await addCustomFormulaApi(form)
+        this.getCustomFormulas()
+        await this.$store.dispatch("completed");
+       
+      }catch(e) {
+        throw new Error(e)
+      }
+    },
+
+    async deleteCustomFormula(id) {
+   try {
+        await this.$store.dispatch("loading");
+        await deleteCustomFormulaApi(id)
+        this.getCustomFormulas()
+        await this.$store.dispatch("completed");
+      }catch(e) {
+        throw new Error(e)
+      }
+    },
+    submitForm(form) {
+        if(form) {
+            this.addCustomFormula(form)
+        }
+    },
+    deleteFormula({ id, idx }) {
+        if(id) {
+            this.deleteCustomFormula(id)
+        }else  {
+            this.customFormulas.splice(idx, 1)
+        }   
+    }
+ },
+ created() {
+     this.getCustomFormulas()
  }
 
 };

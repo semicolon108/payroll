@@ -13,6 +13,10 @@ import dialog from '@/components/Confirm'
 Vue.use(dialog)
 import {readableBytes} from '@/utils/read-file'
 
+var VueScrollTo = require('vue-scrollto');
+
+Vue.use(VueScrollTo)
+ 
 // Vue.component('LoadingScreen', LoadingScreen)
 
 

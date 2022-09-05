@@ -4,10 +4,12 @@ export const GET_CUSTOM_FORMULAS = gql`
 
     {
         getCustomFormulas {
+          _id
             name
             formulas
             isFinalNetPay
             round
+            sortByFormula
         }
     }
 
@@ -26,13 +28,30 @@ query(
 export const ADD_CUSTOM_FORMULA = gql`
 
 mutation (
-  $name: String!
-  $formulas: [String!]!
+  $info: AddCustomFormulaInput!
+ 
 ) {
   addCustomFormula(
-    name: $name
-    formulas: $formulas
+    info: $info
   )
 }
+
+
+`
+
+
+
+
+export const DELETE_CUSTOM_FORMULA = gql`
+
+mutation (
+  $customFormulaId: ID!
+ 
+) {
+  deleteCustomFormula(
+    customFormulaId: $customFormulaId
+  )
+}
+
 
 `
