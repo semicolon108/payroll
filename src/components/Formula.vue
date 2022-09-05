@@ -188,6 +188,7 @@ export default {
         symbols: ["+", "-", "*", "/"],
         keys: [
             "basicSalary",
+            'thisMonthSalary',
             "tax",
             "ssoPaidByEmp",
             // "finalNetPay",
