@@ -187,8 +187,9 @@ export default {
         customFormulaNames: [],
         symbols: ["+", "-", "*", "/"],
         keys: [
+                      'thisMonthSalary',
             "basicSalary",
-            'thisMonthSalary',
+
             "tax",
             "ssoPaidByEmp",
             // "finalNetPay",

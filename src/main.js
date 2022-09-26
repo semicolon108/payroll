@@ -24,6 +24,13 @@ Vue.filter('moment', (date, format) => moment(date).tz('Asia/Bangkok').format(fo
 Vue.filter('currency', (num) => new Intl.NumberFormat().format(num))
 Vue.filter('fileSize', (num) => readableBytes(num))
 
+
+
+//import Pagination from '@/utils/ant-design-vue/es';
+
+
+// Vue.use(Pagination);
+
 Vue.prototype.$baseUrl = baseURL
 axios.defaults.baseURL = baseURL + '/client-api/'
 Vue.prototype.$axios = axios

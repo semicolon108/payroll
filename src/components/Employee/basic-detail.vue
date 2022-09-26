@@ -687,7 +687,7 @@ export default {
         });
         await this.$store.dispatch("completed");
         await this.$router.push({
-          name: "edit_basic_detail",
+          name: "hiring_detail",
           params: { id: res.data.addEmployee._id },
         });
       } catch (err) {

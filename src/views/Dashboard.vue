@@ -117,6 +117,14 @@
             </div>
         </div>
 
+          <!-- <pagination
+            :show-size-changer="true"
+            :defaultPageSize='10'
+            :pageSizeOptions="['10', '20', '30', '40']"
+            :default-current="3"
+            :total="500"
+    /> -->
+
         <video autoplay loop class="w-full" src="https://s1.sentry-cdn.com/_static/e0f43681a09b5d889040b0289ac4d921/sentry/dist/congrats-robots.c1aa5c.mp4"></video>
         </div>
 </div>
@@ -126,7 +134,14 @@
     import vClickOutside from 'v-click-outside'
     import {getPayrollByMonths} from '@/apis/payroll-api'
     import {getTotalPayroll} from '@/apis/payroll-api'
+
+    
+ //import Pagination from '@/utils/anna-pagination/es/pagination';
+  import '@/utils/anna-pagination/anna.css';
     export default {
+        components: {
+        //    Pagination
+        },
         directives: {
             clickOutside: vClickOutside.directive
         },
@@ -195,3 +210,4 @@
     }
 }
 </style>
+
