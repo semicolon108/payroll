@@ -688,7 +688,7 @@ export default {
         await this.$store.dispatch("completed");
         await this.$router.push({
           name: "hiring_detail",
-          params: { id: res.data.addEmployee._id },
+          params: { id: res.data.addEmployee._id, name: res.data.firstName + ' ' + res.data.lastName },
         });
       } catch (err) {
         await this.$store.dispatch("error");
