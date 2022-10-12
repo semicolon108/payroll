@@ -247,7 +247,7 @@
             </div>
           </div>
 
-          <div class="column">
+          <!-- <div class="column">
             <div class="field">
               <label class="label">Salary Grade</label>
               <div class="control">
@@ -257,7 +257,10 @@
                 </ValidationProvider>
               </div>
             </div>
-          </div>
+          </div> -->
+
+
+
 <!-- {{getCompany.private}}
           <div class="column is-4" v-if="getCompany.private && getCompany.private.isPensionFund">
             <div class="field">
