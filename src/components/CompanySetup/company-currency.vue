@@ -1,5 +1,5 @@
 <template>
-  <ValidationObserver v-slot="{ handleSubmit }" tag="div" class="box">
+  <ValidationObserver tag="div" class="box">
     <div class="box-header">
       <h3 class="box-title">Currency</h3>
     </div>
@@ -40,7 +40,7 @@
             v-for="(i, idx) in compCurrencies"
             :key="i._id"
           >
-            <p class="control">
+            <p class="control" style="width: 270px;">
               <span class="select">
                 <select v-model="i.currencyId._id">
                   <option
@@ -53,7 +53,7 @@
                 </select>
               </span>
             </p>
-            <div class="control">
+            <div class="control" style="width: 370px;">
               <ValidationProvider rules="required|numeric" v-slot="{ errors }">
                 <input
                   v-model="i.amount"

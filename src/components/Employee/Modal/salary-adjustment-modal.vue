@@ -44,7 +44,7 @@
                 v-slot="{ errors }"
               >
                 <select v-model="form.type" class="select">
-                          <option value="ChangeCurrency">Set New Amount</option>
+                  <option value="ChangeCurrency">Set New Amount</option>
                   <option value="Increase">Increase</option>
                   <option value="Decrease">Decrease</option>
           
@@ -56,12 +56,33 @@
         </div>
 
         <div v-if="form.type === 'ChangeCurrency'" class="field has-addons">
+            
+
+          <div class="control">
+                        <div class="select">
+                     <label for="" class="label">Currency</label>
+                        <select v-model="form.currencyId">
+                        <option
+                            v-for="i in comCurrencies"
+                            :value="i._id"
+                            :key="i._id">{{ i.name }}
+                        </option>
+                      </select>
+    
+                </div>
+          </div>
+
           <div class="control is-expanded">
+
+       
+            
             <ValidationProvider
               name="Salary"
               rules="required"
               v-slot="{ errors }"
               ><label for="" class="label">Salary Amount</label>
+
+          
               <currency-input
                 v-model="form.adjustmentAmount"
                 class="input"
@@ -218,13 +239,18 @@ export default {
     },
     comCurrencies() {
       if (!this.companyCurrency) return;
-      const comCur = this.companyCurrency.currencies.map((i) => ({
-        _id: i.currencyId._id,
-        name: i.currencyId.name,
-      }));
-      const filter = comCur.filter((i) => i._id !== this.oldCurrency);
-      filter.unshift(this.currencies[0]);
-      return filter;
+      if(this.companyCurrency.isMulti) {
+          const comCur = this.companyCurrency.currencies.map((i) => ({
+            _id: i.currencyId._id,
+            name: i.currencyId.name,
+          }));
+          const filter = comCur
+          //.filter((i) => i._id !== this.oldCurrency);
+          filter.unshift(this.currencies[0]);
+          return comCur;
+      }
+      return []
+
     },
     currencyName() {
       return (currencyId) => {
@@ -234,15 +260,15 @@ export default {
       };
     },
   },
-  watch: {
-    comCurrencies: {
-      handler(currencies) {
-        this.form.currencyId = currencies[0]._id;
-      },
-      immediate: true,
-      deep: true,
-    },
-  },
+  // watch: {
+  //   comCurrencies: {
+  //     handler(currencies) {
+  //       this.form.currencyId = currencies[0]._id;
+  //     },
+  //     immediate: true,
+  //     deep: true,
+  //   },
+  // },
   methods: {
     closeModal() {
       this.$emit("CloseModal");
@@ -260,6 +286,8 @@ export default {
       this.form.wageType = data.wageType;
       this.beforeAdjustment = this.hiringDetail.salary;
       this.oldCurrency = this.hiringDetail.currencyId;
+       this.form.currencyId = this.hiringDetail.currencyId;
+       this.form.adjustmentAmount  = this.hiringDetail.salary
     },
     async adjustSalary() {
       this.form.employeeId = this.$route.params.id;
