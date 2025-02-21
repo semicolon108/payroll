@@ -1,0 +1,49 @@
+$font: 'Roboto', 'Noto Sans Lao', sans-serif;
+$radius: 0;
+$page-padding: 20px;
+
+//font-size
+$page-title: 28px;
+$desktop-title: 24px;
+$desktop-subtitle: 20px;
+
+//Global
+@import "./color";
+
+// Mixin
+@import "./mixin";
+
+@import "./screen";
+@import "./button";
+@import "./font";
+@import "./table";
+@import "./form";
+@import "./transition";
+@import "./modal";
+@import "./anim";
+@import "./font-size";
+@import "./helper-class";
+
+* {
+    outline: none;
+}
+
+body,
+html {
+    height: 100%;
+    font-family: $font;
+}
+
+.line {
+    background-color: $border-color;
+    height: 1px;
+    margin-top: 0;
+}
+
+.box {
+    border-radius: $radius;
+    border: 1px solid $border-color;
+    box-shadow: none;
+    box-shadow: unset;
+    padding: 40px 30px;
+}

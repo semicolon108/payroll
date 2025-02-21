@@ -1,0 +1,32 @@
+@mixin xsm-font {
+  font-size: .7rem;
+}
+@mixin sm-font {
+  font-size: .8rem;
+}
+
+@mixin md-font {
+  font-size: 1rem;
+}
+@mixin lg-font {
+  font-size: 1.25rem;
+}
+@mixin xlg-font {
+  font-size: 1.8rem;
+}
+
+@media screen and (min-width : 760px) {
+  html{
+      font-size: 100%;
+  }
+}
+@media screen and (min-width : 1024px) {
+  html{
+      font-size: 110%;
+  }
+}
+@media screen and (min-width : 1408px) {
+  html{
+      font-size: 115%;
+  }
+}
