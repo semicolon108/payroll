@@ -53,5 +53,8 @@
     "sass": "^1.23.7",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.10"
+  },
+  "volta": {
+    "node": "22.14.0"
   }
 }
