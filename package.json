@@ -10,9 +10,6 @@
       "start": "serve -s dist -l 3000"
 
   },
-  "engines": {
-    "node": "16.x"
-  },
   "dependencies": {
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.10",
