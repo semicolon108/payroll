@@ -16,6 +16,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@achrinza/node-ipc@npm:9.2.5":
+  version: 9.2.5
+  resolution: "@achrinza/node-ipc@npm:9.2.5"
+  dependencies:
+    "@node-ipc/js-queue": "npm:2.0.3"
+    event-pubsub: "npm:4.3.0"
+    js-message: "npm:1.0.7"
+  checksum: 10c0/ec03c373904f008c889182e8ee5eb4cfba833a9cb3e49a0dd638b5029a14dfcfa249fb2a24c2353dc5247ef5fdb26acbe8e8bb7637925086af22fa070b480e88
+  languageName: node
+  linkType: hard
+
 "@babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.10.4":
   version: 7.10.4
   resolution: "@babel/code-frame@npm:7.10.4"
@@ -10066,6 +10077,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "paytoday@workspace:."
   dependencies:
+    "@achrinza/node-ipc": "npm:9.2.5"
     "@vue/cli-plugin-babel": "npm:^4.1.0"
     "@vue/cli-plugin-eslint": "npm:^4.1.0"
     "@vue/cli-service": "npm:^4.1.0"
